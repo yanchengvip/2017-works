@@ -1,0 +1,47 @@
+<p class="sub-header">统计>数据统计>下载次数</p>
+<div class="row placeholders well">
+  <%= form_for download_source_day_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>时间:</span>
+      <input type="text" name="start_time" id="start_time" class="form-control mr_20 es_time_begin" placeholder="起始时间" value="<%= @time[:start_time]%>">
+      <!-- <input type="text" name="end_time" id="end_time" class="form-control mr_20 es_time_end" placeholder="结束时间" value="<%= @time[:end_time]%>"> -->
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>渠道ID</th>
+        <th>下载量</th>
+        <th>Android下载量</th>
+        <th>phone下载量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sources && @sources.each do |source| %>
+        <tr>
+          <td><%= source[:key]%></td>
+          <td><%= source[:doc_count]%></td>
+          <td><%= source[:Androiddoc_count]%></td>
+          <td><%= source[:phonedoc_count]%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/download_source_day.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/download_source_day'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/download_source_day'
+      $("#search_form").submit()
+    })
+  })
+</script>

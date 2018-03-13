@@ -1,0 +1,27 @@
+<tr class="fields content_tr">
+  <td>
+    <p class="gift_type_select">
+      <select name="card_user_own_items[][card_id]" class="card_user_own_select2" style="width: 200px !important" required>
+        <% Card.active.each do |card| %>
+          <option value="<%= card.id %>"><%= card.name %></option>
+        <% end %>
+      </select>
+    </p>
+  </td>
+
+  <td>
+    <div class="input-group">
+      <input type="number" name="card_user_own_items[][card_count]" min="0" max="99999" class="form-control" required placeholder="整数">
+      <span class="input-group-addon">份</span>
+    </div>
+  </td>
+
+  <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+</tr>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function () {
+    $(".card_user_own_select2").select2()
+  })
+</script>

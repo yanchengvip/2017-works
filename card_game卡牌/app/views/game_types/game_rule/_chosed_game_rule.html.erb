@@ -1,0 +1,96 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>竞赛轮数</th>
+      <!-- <th>每轮时间</th> -->
+      <th>开赛人数</th>
+      <th>上限人数</th>
+      <th>解散时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="fields content_tr bg_tr">
+      <td>基础规则</td>
+      <td><%= @game_rule.round_num %></td>
+      <!-- <td><%#= @game_rule.round_time %></td> -->
+      <td><%= @game_rule.open_user_num %></td>
+      <td><%= @game_rule.max_user_num %></td>
+      <td><%= @game_rule.over_time %></td>
+    </tr>
+  </tbody>
+</table>
+<!-- 每轮时间 -->
+<table class="table table-striped table-hover">
+  <thead>
+    <tr class="bg_tr">
+      <th>轮次</th>
+      <th>时间</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @game_round_times && @game_round_times.each do |game_round_time| %>
+    <tr class="fields content_tr">
+      <td><%= game_round_time.round_num %></td>
+      <td><%= game_round_time.round_time %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <!-- <th>发牌时间</th> -->
+      <th>出牌时间</th>
+      <!-- <th>入场发牌数量</th> -->
+      <th>拥有计谋上限</th>
+      <!-- <th>计谋失效</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="fields content_tr bg_tr">
+      <td>计谋规则</td>
+      <!-- <td><%#= @game_rule.deal_init_cd %>秒【（<%#= @game_rule.deal_min_cd %>秒）、（<%#= @game_rule.deal_max_cd %>秒）】</td> -->
+      <td><%= @game_rule.play_init_cd %>秒【（<%= @game_rule.play_min_cd %>秒）、（<%= @game_rule.play_max_cd %>秒）】</td>
+      <!-- <td><%#= @game_rule.init_card_num %></td> -->
+      <td><%= @game_rule.card_max_num %></td>
+      <!-- <td><%#= @game_rule.over_time %></td> -->
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>出牌CD时间增益</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="fields content_tr bg_tr">
+      <td>时间奖惩</td>
+      <td>【用户拥有密钥百分比（%）— <span class="key_percent"><%= (100.0/@game_rule.open_user_num).round(2) %></span> 】×
+      <%= @game_rule.play_cd_inc %>秒</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>每轮结束奖励</th>
+      <th>竞赛结束奖励</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="fields content_tr bg_tr">
+      <td>宝符奖励规则</td>
+      <td><%= @game_rule.round_baofu_num %>个</td>
+      <td><%= @game_rule.loser_baofu_min_num %>～<%= @game_rule.loser_baofu_max_num %>个</td>
+    </tr>
+  </tbody>
+</table>
+<input type="hidden" id="round_num" value="<%= @round_num %>">

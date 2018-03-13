@@ -1,0 +1,21 @@
+<div class="row"><p class="sub-header">系统管理>道具设置>妖丹设置</p></div>
+
+<p class="mb_20" style="text-align: center;">
+  <%= link_to '编辑', edit_game_prop_path(@game_prop), class: 'btn btn-primary btn-lg' %>
+</p>
+
+<div class="panel panel-info"><!-- panel-primary -->
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>详情</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <span class="mr_50">妖丹提升经验值：</span><%= @game_prop.worth %>
+    </li>
+    <li class="list-group-item">
+      <span class="mr_50">兑换妖丹所需能量：</span><%= @game_prop.energy_num %>
+    </li>
+    <li class="list-group-item">
+      <span class="mr_50">妖丹说明：</span><%= @game_prop.remark %>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,2 @@
+module AccountTicketDetailsHelper
+end

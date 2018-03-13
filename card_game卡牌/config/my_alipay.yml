@@ -1,0 +1,27 @@
+
+
+alipay_dev: &development_alipay_dev
+
+  alipay:
+    app_id: 1
+    private_key:
+    #优众ihavetest 支付宝公钥，用于验签
+    alipay_public_key:
+    host: "http://127.0.0.1/" #开发
+    gateway_url: 'https://openapi.alipay.com/gateway.do'
+
+
+development:
+  <<: *development_alipay_dev
+
+
+
+production:
+  # <<: *development_alipay_sanbox
+  <<: *development_alipay_dev
+
+
+
+
+
+

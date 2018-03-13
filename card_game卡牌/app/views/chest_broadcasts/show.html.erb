@@ -1,0 +1,15 @@
+<p class="sub-header">宝箱管理>顶部广播>查看</p>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+
+  <div class="panel-heading"><strong>广播信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">ID：<span><%= @chest_broadcast.id %></span></li>
+    <li class="list-group-item ">状态：<%= @chest_broadcast.published ? '已发布' : '未发布' %></li>
+    <li class="list-group-item">内容：<br><br> <%= @chest_broadcast.content %></li>
+    <li class="list-group-item">创建人：<%= @chest_broadcast.admin&.nickname %></li>
+  </ul>
+
+</div>

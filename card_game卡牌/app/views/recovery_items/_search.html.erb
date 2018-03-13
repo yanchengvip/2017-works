@@ -1,0 +1,23 @@
+<div class="row placeholders well">
+  <%= form_for recovery_items_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>用户手机:</span>
+      <%= text_field_tag "q[user_mobile_cont]", params[:q][:user_mobile_cont], class: 'form-control mr_20', placeholder: '用户手机' %>
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/recovery_items.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/recovery_items'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/recovery_items'
+      $("#search_form").submit()
+    })
+  })
+</script>

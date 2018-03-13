@@ -1,0 +1,36 @@
+<tr class="fields content_tr">
+  <td class="hide">
+    <%= select_tag "cash_fix_prizes[][level]", options_for_select([["无", 0]] + ChestBoxPrize::LEVEL.to_a.map(&:reverse), {}), required: 'required', class: 'level random_level' %>
+  </td>
+  <td>
+    <%= select_tag "cash_fix_prizes[][chest_prize_id]", options_for_select([["无", nil]] + ChestPrize.active.where(prize_type: 10).select('id, name').map{|cp| [cp.name, cp.id]}, {}), class: 'game_select2 chest_prize', style: "width: 200px !important;" %>
+  </td>
+  <td>
+    <input type="hidden" class="price">
+    <input type="number" name="cash_fix_prizes[][base_num]" min="0" placeholder="奖品数量" class="prize_num" required value="0" min="0">
+    <input type="hidden" name="cash_fix_prizes[][prize_type]" value="9">
+  </td>
+  <td class="hide"></td>
+  <td class="worth_td hide">
+    <input type="number" name="cash_fix_prizes[][worth]" min="0" placeholder="奖品总价值" class="worth" required value="0" min="0" readonly="readonly">
+  </td>
+  <!-- <td class="user_td">
+    <input type="text" name="cash_fix_prizes[][user_id]" placeholder="用户id" class="user_id" readonly="readonly">
+  </td> -->
+  <td class="hide">
+    <!-- <input type="radio" name="cash_fix_prizes[][is_prior]" value="1" class="is_prior">优先展示 -->
+    <%= select_tag "cash_fix_prizes[][is_prior]", options_for_select(ChestPrize::IS_PRIOR.to_a.map(&:reverse), 0), required: 'required', class: 'is_prior' %>
+  </td>
+  <td class="hide">
+    <input type="number" name="cash_fix_prizes[][sort_num]" min="0" value="0" placeholder="越大越前" required>
+  </td>
+  <td>
+    <%#= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %>
+  </td>
+</tr>
+
+<script type="text/javascript">
+  $(function(){
+    $(".game_select2").select2()
+  })
+</script>

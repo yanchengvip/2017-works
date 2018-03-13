@@ -1,0 +1,55 @@
+<!-- 上下架modal -->
+<div class="modal fade" id="mallProductTagAbleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">分类<span id="able_title"></span></h4>
+      </div>
+      <!-- <form action="/packages/able" method="post"> -->
+        <div class="modal-body">
+          <h3>是否<span id="able_status"></span>分类：<span id="able_mall_product_tag_name"></span> 吗？</h3>
+
+          <input type="hidden" id="able_mall_product_tag_id">
+          <input type="hidden" id="able_mall_product_tag_status">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+          <button type="submit" class="btn btn-primary" id="do_able">是</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<%= render partial: '/packages/error_modal' %>
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_able').on('click', function(){
+      var able_id = $('#able_mall_product_tag_id').val()
+      console.log(able_id)
+      $.ajax({
+        type: "post",
+        url: '/mall_product_tags/'+able_id+'/able',
+        data: { able_status: $('#able_mall_product_tag_status').val()},
+        success: function(result){
+          if(result.status == 200){
+            $('#mallProductTagAbleModal').modal('hide')
+            window.location.reload();
+          }else{
+            $('#mallProductTagAbleModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#mallProductTagAbleModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

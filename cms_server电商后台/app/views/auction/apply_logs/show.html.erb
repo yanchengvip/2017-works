@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Apply:</strong>
+  <%= @auction_apply_log.apply_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @auction_apply_log.user_id %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @auction_apply_log.active %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @auction_apply_log.content %>
+</p>
+
+<p>
+  <strong>Check result:</strong>
+  <%= @auction_apply_log.check_result %>
+</p>
+
+<p>
+  <strong>Check time:</strong>
+  <%= @auction_apply_log.check_time %>
+</p>
+
+<%= link_to 'Edit', edit_auction_apply_log_path(@auction_apply_log) %> |
+<%= link_to 'Back', auction_apply_logs_path %>

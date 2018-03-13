@@ -1,0 +1,16 @@
+<div class="row placeholders well">
+  <%= form_for auction_pic_ads_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>ID：</span>
+      <%= text_field_tag "q[id_eq]", params[:q][:id_eq], class: 'form-control mr_20', placeholder: '品牌类ID' %>
+      <span>标题：</span>
+      <%= text_field_tag 'q[title_cont]', params[:q][:title_cont], class: 'form-control mr_20', placeholder: '标题' %>
+      <!-- <span>类型：</span> -->
+      <%#= text_field_tag 'q[genre_cont]', params[:q][:genre_cont], class: 'form-control mr_20', placeholder: '类型' %>
+      <!-- <span>发布状态：</span> -->
+      <%#= select_tag "q[published_eq]", options_for_select([["所有状态", nil]] + Auction::Category::PUBLISH_STATUS.to_a.map(&:reverse), params[:q][:published_eq]), class: 'form-control mr_100' %>
+
+      <%= f.submit '搜索', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

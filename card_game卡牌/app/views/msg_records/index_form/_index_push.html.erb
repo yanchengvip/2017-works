@@ -1,0 +1,30 @@
+<%= render partial: 'msg_records/search_form/search_push' %>
+
+<div class="lead text-center row">
+  <p><%= link_to '新增消息', new_msg_record_path(msg_type: 1), class: 'btn btn-primary btn-lg', role: 'button' %></p>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>创建时间</th>
+        <th>通知内容</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @msg_records && @msg_records.each_with_index do |msg_record, index| %>
+      <tr>
+        <td width="20%"><%= msg_record.created_at.strftime("%Y.%m.%d %H:%M") %></td>
+        <td><%= msg_record.content %></td>
+        <td>
+          <%#= link_to '查看', extreme_chest_path(extreme_chest), role: 'button', class: 'btn btn-info'  %>
+          <%#= link_to '修改', edit_extreme_chest_path(extreme_chest), role: 'button', class: 'btn btn-primary' %>
+          <%#= link_to '删除', card_path(card), method: :delete, data: {confirm: '确定要删除吗'}, role: 'button', class: 'btn btn-danger' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">系统管理>饕餮设置>修改等级</p></div>
+
+<%= form_for @glutton_level, url: glutton_level_path, html: {method: :post, class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%#= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

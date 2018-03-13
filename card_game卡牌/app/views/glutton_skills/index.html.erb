@@ -1,0 +1,47 @@
+<div class="row"><p class="sub-header">系统管理>饕餮设置>技能设定</p></div>
+
+<%#= render partial: 'search' %>
+
+<div class="row mt_20 mb_20" style="text-align: center;">
+  <%= link_to '新增技能', new_glutton_skill_path, class: 'btn btn-primary btn-lg', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>等级</th>
+        <th>名称</th>
+        <th>选择计谋增加上限</th>
+        <th>每场可使用总次数</th>
+        <th>每轮最多使用次数</th>
+        <th>是否可在最后一轮使用</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @glutton_skills && @glutton_skills.each_with_index do |glutton_skill, index| %>
+      <tr id="tr_<%= glutton_skill.id %>">
+        <td><%= glutton_skill.skill_level %></td>
+        <td><%= glutton_skill.name %></td>
+        <td><%= glutton_skill.skill_up_limit %></td>
+        <td><%= glutton_skill.each_game_sum %></td>
+        <td><%= glutton_skill.each_round_sum %></td>
+        <td><%= glutton_skill.use_last_round ? '是' : '否' %></td>
+        <td>
+          <%#= link_to '查看', glutton_skill_path(glutton_skill), class: 'btn btn-sm btn-info' %>
+          <%= link_to '编辑', edit_glutton_skill_path(glutton_skill), class: 'btn' %>
+          <%# if glutton_skill_type.status %>
+            <%#= link_to '停用', "javascript:void(0)", onclick: "glutton_skill_type_able(#{glutton_skill_type.id}, '#{glutton_skill_type.name}', 0)", role: 'button', class: 'btn btn-sm btn-danger' %>
+          <%# else %>
+            <%#= link_to '启用', "javascript:void(0)", onclick: "glutton_skill_type_able(#{glutton_skill_type.id}, '#{glutton_skill_type.name}', 1)", role: 'button', class: 'btn btn-sm btn-success' %>
+          <%# end %>
+          <%= link_to '删除', glutton_skill_path(glutton_skill), method: :delete, data: {confirm: '确定删除吗？'}, class: 'btn' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @glutton_skills %>

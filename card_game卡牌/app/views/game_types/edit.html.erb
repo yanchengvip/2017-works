@@ -1,0 +1,18 @@
+<div class="row"><p class="sub-header">赛场管理>赛场类型管理>修改赛场类型</p></div>
+
+
+<%= form_for @game_type, html: { class: '', method: :post} do |f| %>
+  <%= f.hidden_field :id %>
+  <%= render partial: 'info', locals: {f: f} %>
+
+  <div class="clearfix"></div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-1 col-sm-4">
+      <%= link_to '取消', game_types_path, class: 'btn btn-default mr_20', role: 'button' %>
+      <%= f.submit '保存', class: 'btn btn-primary', id: 'game_type_submit' %>
+    </div>
+  </div>
+
+<% end %>
+

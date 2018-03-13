@@ -1,0 +1,45 @@
+<p class="sub-header">统计>数据统计>活跃数据</p>
+<div class="row placeholders well">
+  <%= form_for activy_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>起始时间：</span>
+      <%= text_field_tag 'q[created_at_gteq]', params[:q][:created_at_gteq], class: 'form-control mr_20', placeholder: '起始时间' %>
+      <span>结束时间：</span>
+      <%= text_field_tag 'q[created_at_gteq]', params[:q][:created_at_gteq], class: 'form-control mr_20', placeholder: '结束时间' %>
+      <%= f.submit '查询', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>用户ID</th>
+        <th>登录次数</th>
+        <th>赛场次数</th>
+        <th>兑换次数</th>
+        <th>邀请好友数量</th>
+        <th>免费宝箱开启次数</th>
+        <th>至尊宝箱开启次数</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @energy_products && @energy_products.each_with_index do |energy_product, index| %>
+        <tr id="tr_<%= energy_product.id %>">
+          <td><%= energy_product.name %></td>
+          <td><%= energy_product.energy_count %></td>
+          <td><%= energy_product.price %></td>
+          <td><%= energy_product.order_num %></td>
+          <td><%= shelf_status(energy_product) %></td>
+          <td></td>
+          <td></td>
+          <td>
+            <%= link_to '下载', "javascript:void(0)", onclick: "energy_product_delete(#{energy_product.id}, '#{energy_product.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

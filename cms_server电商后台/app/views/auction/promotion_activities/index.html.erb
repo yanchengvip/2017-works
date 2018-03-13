@@ -1,0 +1,77 @@
+<%= javascript_include_tag 'auction/bootstrap-table.min' %>
+<%= stylesheet_link_tag 'auction/bootstrap-table.min' %>
+<%= javascript_include_tag 'auction/trade_bootstrap_table_tooltip' %>
+<ul class="nav nav-tabs" id="otherInfoTab" style="margin-left: 5px">
+  <li class="<%=params[:q][:status_eq].blank? ? 'active' : '' %>"><a href="/auction/promotion_activities">全部活动</a></li>
+  <li class="<%=params[:q][:status_eq] == '0' ? 'active' : '' %>"><a href="/auction/promotion_activities?q[status_eq]=0">未提交</a></li>
+  <li class="<%=params[:q][:status_in] == '1' ? 'active' : '' %>"><a href="/auction/promotion_activities?q[status_in][]=1&q[status_in][]=5&q[status_in][]=6">待审核</a></li>
+  <li class="<%=params[:q][:status_eq] == '3' ? 'active' : '' %>"><a href="/auction/promotion_activities?q[status_eq]=3">通过</a></li>
+  <li class="<%=params[:q][:status_eq] == '2' ? 'active' : '' %>"><a href="/auction/promotion_activities?q[status_eq]=2">驳回</a></li>
+  <li class="<%=params[:q][:status_eq] == '4' ? 'active' : '' %>"><a href="/auction/promotion_activities?q[status_eq]=4">已结束</a></li>
+</ul>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>优惠方式</th>
+      <th>活动名称</th>
+      <th>活动时间</th>
+      <th>招商时间</th>
+      <th>活动中商品</th>
+      <th>活动状态</th>
+      <th>招商状态</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_promotion_activities.each_with_index do |auction_promotion_activity, index| %>
+      <tr>
+        <td><%= auction_promotion_activity.id %></td>
+        <td><%= Auction::PromotionActivity::DISCOUNTTYPE[auction_promotion_activity.discount_type] %></td>
+        <td><%= auction_promotion_activity.name %></td>
+        <td><%= auction_promotion_activity.promotion_begin&.strftime('%Y-%m-%d %H:%M:%S') %><br><%= auction_promotion_activity.promotion_end&.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= auction_promotion_activity.declar_begin&.strftime('%Y-%m-%d %H:%M:%S') %><br><%= auction_promotion_activity.declar_end&.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><a href="/auction/promotion_activity_apply_products/<%= auction_promotion_activity.id %>"><%= auction_promotion_activity.apply&.sum(:product_count) %></a></td>
+        <td>
+          <% if auction_promotion_activity.status == 2%>
+            <a href="#" data-toggle="popover" data-trigger="hover" data-placement="<%= promotion_popover_placement index%>"  data-html="true" title="驳回原因"
+               data-content="<div><%= auction_promotion_activity.check_log.map{|item| item.content}.to_s%></div>"  >
+              <%= Auction::PromotionActivity::STATUS[auction_promotion_activity.status] %>
+            </a>
+          <% else %>
+            <%= Auction::PromotionActivity::STATUS[auction_promotion_activity.status] %>
+          <% end %>
+        </td>
+        <td>
+          <%= merchants_status(auction_promotion_activity) %>
+        </td>
+        <td>
+          <%= link_to '显示', auction_promotion_activity, class: 'btn btn-sm btn-success' %>
+          <% if auction_promotion_activity.status == 1%>
+            <%= link_to '待运营审核', check_auction_promotion_activity_path(auction_promotion_activity), class: 'btn btn-success btn-sm' %>
+          <%elsif auction_promotion_activity.status == 5%>
+            <%= link_to '待总监审核', check_auction_promotion_activity_path(auction_promotion_activity), class: 'btn btn-success btn-sm' %>
+          <%elsif auction_promotion_activity.status == 6%>
+            <%= link_to '待财务审核', check_auction_promotion_activity_path(auction_promotion_activity), class: 'btn btn-success btn-sm' %>
+          <% end %>
+          <% if auction_promotion_activity.status != 4%>
+            <%= link_to '编辑', edit_auction_promotion_activity_path(auction_promotion_activity), class: 'btn btn-info btn-sm' %>
+            <%= link_to '结束活动', close_activity_auction_promotion_activity_path(auction_promotion_activity), data: { confirm: '确定结束活动？' } , class: 'btn btn-sm btn-warning'%>
+            <%= link_to '删除', auction_promotion_activity, method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-sm btn-danger'%>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script type="text/javascript">
+  $(function () {
+    text = window.location.search
+    if(text == "?q[status_in][]=1&q[status_in][]=5&q[status_in][]=6"){
+      $('#otherInfoTab li:eq(2)').addClass('active');
+      $('#otherInfoTab li:first').removeClass('active');
+    }
+  })
+</script>
+<%= paginate @auction_promotion_activities %>

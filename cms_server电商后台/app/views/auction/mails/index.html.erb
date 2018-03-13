@@ -1,0 +1,35 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th width="20%">标题</th>
+      <!-- <th width="50%">内容</th> -->
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @auction_mails && @auction_mails.each_with_index do |auction_mail, index| %>
+      <tr id="tr_<%= auction_mail.id %>">
+        <td><%= auction_mail.id %></td>
+        <td><%= auction_mail.title %></td>
+        <!-- <td><%#= truncate(auction_mail.content, length: 200) %></td> -->
+        <td><%= auction_mail.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <td>
+          <%#= link_to '查看', auction_mail_path(auction_mail), class: 'btn btn-sm btn-info' %>
+          <% if can?("auction/mails#edit")%>
+            <%= link_to '编辑', edit_auction_mail_path(auction_mail), class: 'btn btn-sm btn-primary' %>
+          <% end %>
+          <% if can?("auction/mails#destroy")%>
+            <%= link_to '删除', auction_mail_path(auction_mail), method: :delete, data: {confirm: '确定删除吗？'}, role: 'button', class: 'btn btn-sm btn-danger' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @auction_mails %>
+
+
+

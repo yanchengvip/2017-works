@@ -1,0 +1,72 @@
+<%= form_with(model: wechat_account, local: true) do |form| %>
+  <% if wechat_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(wechat_account.errors.count, "error") %> prohibited this wechat_account from being saved:</h2>
+
+      <ul>
+      <% wechat_account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :wechat_account_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :openid %>
+    <%= form.text_field :openid, id: :wechat_account_openid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nickname %>
+    <%= form.text_field :nickname, id: :wechat_account_nickname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sex %>
+    <%= form.text_field :sex, id: :wechat_account_sex %>
+  </div>
+
+  <div class="field">
+    <%= form.label :province %>
+    <%= form.text_field :province, id: :wechat_account_province %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :wechat_account_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.text_field :country, id: :wechat_account_country %>
+  </div>
+
+  <div class="field">
+    <%= form.label :headimgurl %>
+    <%= form.text_area :headimgurl, id: :wechat_account_headimgurl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :request_ip %>
+    <%= form.text_field :request_ip, id: :wechat_account_request_ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.text_field :active, id: :wechat_account_active %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unionid %>
+    <%= form.text_field :unionid, id: :wechat_account_unionid %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

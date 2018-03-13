@@ -1,0 +1,16 @@
+<p class="sub-header">赛场>联赛>联赛规则</p>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>联赛规则</strong></div>
+  <form action="/game_leagues/save_league_rule" method="post" class="form-horizontal mt_10" id="profileForm">
+    <textarea name="league_rule" id="league_rule" rows="10" placeholder="联赛规则" class="tinymce"><%= @league_rule_setting.value %></textarea>
+    <%#= f.text_area :relive_rule, id: "relive_rule", rows: "10", placeholder: "复活规则", class: "tinymce"%>
+    <%#= text_area_tag :relive_rule, '', id: "relive_rule", rows: "10", placeholder: "复活规则", class: "tinymce"%>
+    <%= render partial: 'rule_tinymce', locals: {text_id: 'league_rule'} %>
+
+    <div class="col-sm-offset-5 col-sm-4 mt_20">
+      <input type="submit" name="commit" value="保存" class="btn btn-primary btn-lg" data-disable-with="保存中...">
+    </div>
+  </form>
+</div>

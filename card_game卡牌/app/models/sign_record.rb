@@ -1,0 +1,2 @@
+class SignRecord < ApplicationRecord
+end

@@ -1,0 +1,23 @@
+zh-CN:
+  activerecord:
+    models:
+      supplier/trade: 供应商订单
+    attributes:
+      supplier/trade:
+        id: 编号
+        auction_trade_id: 主订单ID
+        provider_id: 供应商ID
+        status: 状态
+        price: 划线价
+        payment_price: 支付价
+        tax_price: 税费
+        active: 软删除标志
+        delivery_service: 物流服务商
+        delivery_identifier: 物流单号
+        ship_at: 发货时间
+        remark: 备注
+        delivery_phone: 收货电话
+        balance_price: 优众余额支付
+        finish_at: 完成时间
+        created_at: 创建时间
+

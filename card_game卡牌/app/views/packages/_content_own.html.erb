@@ -1,0 +1,84 @@
+<% @package.package_items.each do |package_item| %>
+  <% if package_item.prize_type.to_i == 1 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= package_item.id %>">
+      <td>功勋</td>
+      <td>功勋</td>
+      <td>
+        <input type="number" name="package_items[][win_count]" min="1" max="99999999" value="<%= package_item.win_count %>" placeholder=">0的整数" required>
+        <input type="hidden" name="package_items[][prize_type]" value="1">
+        <input type="hidden" name="package_items[][package_item_id]" value="<%= package_item.id %>">
+      </td>
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_item_origin", id: "item_#{package_item.id}" %></td>
+    </tr>
+  <% elsif package_item.prize_type.to_i == 2 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= package_item.id %>">
+      <td>史诗卡牌</td>
+      <td>
+        <select name="package_items[][prize_range]" class="package_item_select2 package_items_card_chose" style="width: 200px !important" required>
+          <% Card.select('id, name').active.epics.each do |card| %>
+            <% if package_item.prize_range.to_i == card.id %>
+                <option value="<%= card.id %>" selected="selected"><%= card.name %></option>
+            <% else %>
+              <option value="<%= card.id %>"><%= card.name %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </td>
+      <td>
+        <input type="number" name="package_items[][win_count]" min="1" max="99999999" value="<%= package_item.win_count %>" placeholder=">0的整数" required>
+        <input type="hidden" name="package_items[][prize_type]" value="2">
+        <input type="hidden" name="package_items[][package_item_id]" value="<%= package_item.id %>">
+      </td>
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_item_origin", id: "item_#{package_item.id}" %></td>
+    </tr>
+  <% elsif package_item.prize_type.to_i == 3 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= package_item.id %>">
+      <td>能量</td>
+      <td>能量</td>
+      <td>
+        <input type="number" name="package_items[][win_count]" min="1" max="99999999" value="<%= package_item.win_count %>" placeholder=">0的整数" required>
+        <input type="hidden" name="package_items[][prize_type]" value="3">
+        <input type="hidden" name="package_items[][package_item_id]" value="<%= package_item.id %>">
+      </td>
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_item_origin", id: "item_#{package_item.id}" %></td>
+    </tr>
+  <% elsif package_item.prize_type.to_i == 4 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= package_item.id %>">
+      <td>普通卡牌</td>
+      <td>
+        <select name="package_items[][prize_range]" class="package_item_select2 package_items_card_chose" style="width: 200px !important" required>
+          <% Card.select('id, name').active.not_epics.each do |card| %>
+            <% if package_item.prize_range.to_i == card.id %>
+                <option value="<%= card.id %>" selected="selected"><%= card.name %></option>
+            <% else %>
+              <option value="<%= card.id %>"><%= card.name %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </td>
+      <td>
+        <input type="hidden" name="package_items[][win_count]" value="0">
+        <input type="hidden" name="package_items[][prize_type]" value="4">
+        <input type="hidden" name="package_items[][package_item_id]" value="<%= package_item.id %>">
+      </td>
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_item_origin", id: "item_#{package_item.id}" %></td>
+    </tr>
+  <% end %>
+<% end %>
+
+<%= render 'item_del_modal'%>
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    $('.del_item_origin').on('click', function(){
+      $('#delItemModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delItemModal').on('shown.bs.modal',function(){
+        $('#del_item_id').val(this_id.split('_')[1])
+      })
+    })
+  })
+
+  $(".package_item_select2").select2()
+</script>
+

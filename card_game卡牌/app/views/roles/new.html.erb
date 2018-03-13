@@ -1,0 +1,55 @@
+<p class="sub-header">系统管理>角色管理>新增角色</p>
+<form action="/roles" method="post">
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">角色名称</label>
+    <div class="col-sm-6">
+      <input type="input" name="name" class="form-control" id="role_name_input" required="required"
+             onkeyup="validate_words_length(30,'role_name_input','apn_last_num')"
+             placeholder="角色名称，最多30字">
+      <p class="bg-danger p_last_num" id="apn_last_num"></p>
+    </div>
+
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">资源名称</label>
+    <div class="col-sm-8">
+      <% @resources.each do |r| %>
+          <label>
+            <input type="checkbox"  name="authority_resource_ids[]" value=<%= r.id %>> <%= r.name %>
+          </label>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">角色描述</label>
+    <div class="col-sm-6">
+      <textarea class="form-control" name="remark" rows="3" id="role_desc_input"
+                onkeyup="validate_words_length(60,'role_desc_input','role_last_num')" placeholder="角色描述，最多60字"></textarea>
+      <p class="bg-danger p_last_num" id="role_last_num"></p>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <div class="offset-sm-2 col-sm-10">
+      <button type="submit" id="add_product_submit" class="btn btn-primary">保存</button>
+    </div>
+  </div>
+
+</form>
+
+<script>
+    $('.select2_resource_model_n').select2({
+        tags: true
+    })
+
+    //  $(document).on('turbolinks:load', function () {
+    //      $(".select2-picker").select2();
+    //  })
+</script>

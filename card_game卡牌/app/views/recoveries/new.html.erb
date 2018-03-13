@@ -1,0 +1,4 @@
+<p class="sub-header">回收管理>添加回收</p>
+<%= form_for @recovery, url: recoveries_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

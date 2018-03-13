@@ -1,0 +1,103 @@
+<p class="sub-header"></p>
+<div class="row placeholders well">
+  <%= form_for chest_records_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>用户ID：</span>
+      <%= text_field_tag 'q[user_id_eq]', params[:q][:user_id_eq], class: 'form-control mr_20', placeholder: '用户ID：' %>
+
+      <span>用户手机号：</span>
+      <%= text_field_tag 'mobile', params[:mobile], class: 'form-control mr_20', placeholder: '用户手机号：' %>
+
+      <span>用户渠道编号：</span>
+      <%= text_field_tag 'opsrc', params[:opsrc], class: 'form-control mr_20', placeholder: '用户渠道编号：' %>
+
+      <span>起始时间：</span>
+      <%= text_field_tag 'q[created_at_gteq]', params[:q][:create_time_gteq], class: 'form-control mr_20 search_time_begin', placeholder: '起始时间' %>
+      <span>结束时间：</span>
+      <%= text_field_tag 'q[created_at_lteq]', params[:q][:create_time_lteq], class: 'form-control mr_20 search_time_end', placeholder: '结束时间' %>
+      <span>宝箱类型:</span>
+      <%= select_tag 'q[chest_type_eq]', options_for_select([['请选择', nil]] + ChestBox::CHEST_TYPE.map{|k, v| [v, k]}, params[:q][:chest_type_eq] ), class: 'form-control game_select2 select-width-15' %>
+      <span>奖品类型:</span>
+      <%= select_tag 'q[prize_type_eq]', options_for_select([['全部', nil]] + [['包含实物',1],['不包含实物',2],['电话卡','phonecard']], params[:q][:prize_type_eq] ), class: 'form-control game_select2 select-width-15' %>
+      <span>发货状态:</span>
+      <%= select_tag 'q[ship_status_eq]', options_for_select([['全部', nil]] + ChestRecord::SHIPSTATUS.map{|k, v| [v, k]}, params[:q][:ship_status_eq]  ), class: 'form-control game_select2 select-width-15' %>
+      <span>状态:</span>
+      <%= select_tag 'q[status_eq]', options_for_select([['全部', nil]] + ChestRecord::STATUS.map{|k, v| [v, k]}, params[:q][:status_eq] ), class: 'form-control game_select2 select-width-15' %>
+      <!-- <%= f.submit '查询', class: 'btn btn-primary' %> -->
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>用户来源渠道编号</th>
+        <th>用户ID</th>
+        <th>手机号</th>
+        <th>开启时间</th>
+        <th>宝箱类型</th>
+        <th>发货状态</th>
+        <th>开启明细</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @chest_records.each_with_index do |chest_record, index| %>
+        <tr id="tr_<%= chest_record.id %>">
+          <td><%= chest_record.id %></td>
+          <td><%= chest_record.user&.opsrc %></td>
+          <td><%= chest_record.user_id %></td>
+          <td><%= chest_record.user&.mobile %></td>
+          <td><%= chest_record.created_at %></td>
+          <td><%= ChestBox::CHEST_TYPE[chest_record.chest_box&.chest_type] %></td>
+          <td><%= ChestRecord::SHIPSTATUS[chest_record.ship_status] %></td>
+          <td><%= ChestPrize.where(id: chest_record.chest_prize_ids.split(",")).map{|x| x.name} %></td>
+          <td>
+            <% if chest_record.prize_type == 1 && chest_record.ship_status == 0 && [0,1].include?(chest_record.status)  %>
+              <span class="btn btn-primary btn-sm">待领取</span>
+            <%end%>
+            <!-- <%= chest_record.id %>&<%= chest_record.prize_type %> -->
+            <% if chest_record.prize_type == 1 && chest_record.ship_status == 0 && chest_record.status == 2 %>
+              <span class="btn btn-primary btn-sm">待支付</span>
+            <%end%>
+            <% if chest_record.prize_type == 1 && chest_record.ship_status == 3 %>
+              <button class="btn btn-primary btn-sm" onclick="chest_ship(<%= chest_record.id %>)" id="ship_<%= chest_record.id %>">实物-已支付运费-待发货</button>
+            <%end%>
+            <% if chest_record.prize_type == 1 && chest_record.ship_status == 4 %>
+              <button class="btn btn-primary btn-sm" onclick="chest_ship(<%= chest_record.id %>)" id="ship_<%= chest_record.id %>">实物-到付-待发货</button>
+            <%end%>
+            <% if chest_record.prize_type == 1 && chest_record.ship_status == 1 %>
+              <span class="btn btn-primary btn-sm">已发货</span>
+            <%end%>
+            <% if chest_record.prize_type == 1 && chest_record.status == 4 %>
+              <span class="btn btn-primary btn-sm">已献祭</span>
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @chest_records %>
+<%= render partial: 'ship_modal' %>
+<%= render partial: 'grant_modal' %>
+
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/chest_records.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/chest_records'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/chest_records'
+      $("#search_form").submit()
+    })
+  })
+</script>
+

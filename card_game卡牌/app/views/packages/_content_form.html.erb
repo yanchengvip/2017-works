@@ -1,0 +1,75 @@
+<% if params[:item_type_val] == '2' %>
+  <tr class="fields content_tr">
+    <td>史诗卡牌<input type="hidden" name="package_items[][prize_type]" value="2"></td>
+    <td>
+      <p class="prize_type_select">
+        <select name="package_items[][prize_range]" class="package_item_select2 package_items_card_chose" style="width: 200px !important" required>
+          <% Card.select('id, name').active.epics.each do |card| %>
+            <option value="<%= card.id %>"><%= card.name %></option>
+          <% end %>
+        </select>
+      </p>
+    </td>
+    <td>
+      <div class="input-group">
+        <input type="number" name="package_items[][win_count]" min="0" max="99999" class="form-control" required placeholder="整数">
+        <span class="input-group-addon">次</span>
+      </div>
+    </td>
+
+    <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+  </tr>
+<% elsif params[:item_type_val] == '1' %>
+  <tr class="fields content_tr" >
+    <td>功勋<input type="hidden" name="package_items[][prize_type]" value="1"></td>
+    <td width="30">
+      功勋<input type="hidden" name="package_items[][prize_range]" value="0">
+    </td>
+    <td>
+      <div class="input-group">
+        <input type="number" name="package_items[][win_count]" min="0" max="99999" class="form-control" required placeholder="整数">
+        <span class="input-group-addon">点</span>
+      </div>
+    </td>
+
+    <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+  </tr>
+<% elsif params[:item_type_val] == '3' %>
+  <tr class="fields content_tr" >
+    <td>能量<input type="hidden" name="package_items[][prize_type]" value="3"></td>
+    <td width="30">
+      能量<input type="hidden" name="package_items[][prize_range]" value="0">
+    </td>
+    <td>
+      <div class="input-group">
+        <input type="number" name="package_items[][win_count]" min="0" max="99999" class="form-control" required placeholder="整数">
+        <span class="input-group-addon">点</span>
+      </div>
+    </td>
+
+    <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+  </tr>
+<% elsif params[:item_type_val] == '4' %>
+  <tr class="fields content_tr">
+    <td>普通卡牌<input type="hidden" name="package_items[][prize_type]" value="4"></td>
+    <td>
+      <p class="prize_type_select">
+        <select name="package_items[][prize_range]" class="package_item_select2 package_items_card_chose" style="width: 200px !important" required>
+          <% Card.select('id, name').active.not_epics.each do |card| %>
+            <option value="<%= card.id %>"><%= card.name %></option>
+          <% end %>
+        </select>
+      </p>
+    </td>
+    <td><input type="hidden" name="package_items[][win_count]" value="0"></td>
+
+    <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+  </tr>
+<% end %>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function () {
+    $(".package_item_select2").select2()
+  })
+</script>

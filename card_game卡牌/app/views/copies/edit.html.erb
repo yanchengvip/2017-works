@@ -1,0 +1,13 @@
+<p class="sub-header">系统管理>文案管理>编辑文案</p>
+
+<form action="/copies/update" method="post" class="form-horizontal mt_50">
+  <input type="hidden" name="id" value="<%= @copy.id %>">
+  <%= render partial: 'form' %>
+
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-6 mt_50">
+      <%= link_to '取消', '/copies', class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+      <button type="submit" class="btn btn-primary btn-lg" id='copy_submit'>保存</button>
+    </div>
+  </div>
+</form>

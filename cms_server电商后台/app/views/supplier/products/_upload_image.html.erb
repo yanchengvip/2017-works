@@ -1,0 +1,79 @@
+<input type="hidden" id="<%= prev_id %>">
+<input  type="hidden"  name="<%= item_name %>" id="<%= item_id %>" value="<%= image_path %>" class="form-control" placeholder="大图">
+
+
+<!-- <div class="panel panel-info">
+  <div class="panel-heading">大图(仅一张;图片大小：3000k以内)</div>
+  <div class="panel-body"> -->
+    <div class="row">
+      <div class="col-xs-2 col-md-2">
+        <img id="<%= preview_id %>" src="<%= image_path %>" width="100px" height="100px">
+        <input type="file" id="<%= upload_btn_id %>" name="file" accept=".png, .jpg, .jpeg" class='upload_btn'>
+      </div>
+    </div>
+  <!-- </div> -->
+  <!-- <div class="panel-footer"> --><!-- <input type="file" id="<%#= upload_btn_id %>" name="file" accept=".png, .jpg, .jpeg" class='upload_btn'> --><!-- </div> -->
+<!-- </div> -->
+
+
+
+<script type="text/javascript">
+  $(function(){
+    $("body").on('click', ".upload_btn", function(){
+      // $('#' + "<%= upload_btn_id %>").fileupload({
+      $(this).fileupload({
+        dataType: 'json',
+        <% if current_user.class.to_s == 'Manage::Editor' %>
+          url: '/images/upload',
+        <% elsif current_user.class.to_s == 'Supplier::Provider' %>
+          url: '/supplier/images/upload',
+        <% end %>
+        sequentialUploads: true,
+        //maxFileSize: 5000000, //5mb
+        add: function (e, data) {
+            var acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+            if(data.originalFiles[0]['type'].length <= 0){
+                elert('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+            if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+                elert('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+            // else if (data.originalFiles[0]['size'] > 1000000) {
+            //     elert('只能上传不超过1000K的图片')
+            //     return false
+            // }
+            data.submit();
+
+        },
+        complete: function (result, textStatus, jqXHR) {
+            var data = JSON.parse(result.responseText)
+            console.log(data.img_path)
+            $("#" + "<%= prev_id %>").next().val(data.img_path)
+            $("#" + "<%= preview_id %>").attr('src', data.img_url)
+        }
+
+      });
+
+      $(this).bind('fileuploadsubmit', function (e, data) {
+        data.formData = { model_name: "<%= model_name.presence || 'no_model'  %>" };
+      });
+    })
+
+  })
+
+  //form验证图片是否存在
+  function validateImageForm() {
+  //图片验证
+    if ($('#' + "<%= prev_id %>").next().length > 0) {
+      thumbnail = $('#' + "<%= prev_id %>").next().val()
+      if (thumbnail == "" || thumbnail == 'undefined') {
+          elert('图片不能为空')
+          return false
+      }
+    }
+  }
+
+
+</script>

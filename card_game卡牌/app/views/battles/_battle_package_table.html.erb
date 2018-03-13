@@ -1,0 +1,28 @@
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <input type="button" class="btn-info" value="添加战役兑换礼包" onclick="battle_package_win_modal()">
+    胜利者会获得下面所有礼包
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>礼包名称</th>
+        <th>礼包单价(微集分)</th>
+        <th>数量(个)</th>
+        <th>礼包总价值(微集分)</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody id="battle_package_table">
+          <%= render 'battle_package_table_tr_update', locals: {bp_type: 1} %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+

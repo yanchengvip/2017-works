@@ -1,0 +1,51 @@
+<!--图片相对路径-->
+<input type="hidden"   name="image_urls" id="image_urls", value="<%= @img_paths%>"  class="form-control" placeholder="展示图">
+
+<!--上传图片-->
+<div class="panel panel-info" >
+  <div class="panel-heading" >展示图片(只限5张;)</div>
+  <div class="panel-body">
+        <div id="preview_images" class="list-group-item preview_images">
+          <% if @img_paths.present? %>
+              <% @img_paths.split(',').each_with_index   do |path,index| %>
+                  <img src="<%= path%>" id="<%= index%>"
+                       onclick="showDeleteImgModal('<%= index%>','<%=path%>','<%= path%>')">
+              <% end %>
+          <% end %>
+        </div>
+  </div>
+  <div class="panel-footer">
+    <input type="file" id="upload_images"  name="file" accept=".png, .jpg, .jpeg" multiple>
+  </div>
+</div>
+
+
+<!-- 删除图片modal -->
+<div class="modal fade" id="deletePicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">删除图片</h4>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-8 col-md-4">
+
+          <img id="delete_img_pre">
+
+        </div>
+      </div>
+
+      <input type="hidden" id="delete_img_id">
+      <input type="hidden" id="delete_img_path">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" onclick="confirmDelProtImg()" id="delete_img_submit" class="btn btn-primary">确定</button>
+      </div>
+
+    </div>
+  </div>
+</div>

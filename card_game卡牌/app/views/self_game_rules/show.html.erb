@@ -1,0 +1,63 @@
+<p class="sub-header">赛场管理>赛场规则>查看自建赛场规则</p>
+
+<!-- <%# if !@self_game_rule.status %>
+  <div class="lead text-right">
+    <p><%#= link_to '修改自建赛场规则', edit_self_game_rule_path(@self_game_rule), class: 'btn btn-primary', role: 'button' %></p>
+  </div>
+<%# end %> -->
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <ul class="list-group">
+    <li class="list-group-item">规则名称：<strong class="ft_20"><%= @self_game_rule.name %></strong></li>
+  </ul>
+
+  <div class="panel-heading"><strong>基本规则</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">竞赛轮数：<span><%= @self_game_rule.round_num %></span></li>
+    <!-- <li class="list-group-item">每轮时间：<span><%#= @self_game_rule.round_time %></span>分钟</li> -->
+    <li class="list-group-item "><%= render partial: 'round_time_own' %></li>
+  </ul>
+
+  <div class="panel-heading "><strong>计谋规则</strong></div>
+  <ul class="list-group">
+    <!-- <li class="list-group-item">发牌时间CD：
+      初始发牌CD时间：<span class="mr_50"><%#= @self_game_rule.deal_init_cd %>秒</span>
+      发牌最小CD时间：<span class="mr_50"><%#= @self_game_rule.deal_min_cd %>秒</span>
+      发牌最大CD时间：<span class="mr_50"><%#= @self_game_rule.deal_max_cd %>秒</span>
+    </li> -->
+    <li class="list-group-item">出牌时间CD：
+      初始出牌CD时间：<span class="mr_50"><%= @self_game_rule.play_init_cd %>秒</span>
+      出牌最小CD时间：<span class="mr_50"><%= @self_game_rule.play_min_cd %></span>秒
+      出牌最大CD时间：<span class="mr_50"><%= @self_game_rule.play_max_cd %>秒</span>
+    </li>
+    <!-- <li class="list-group-item">入场发牌张数：<%#= @self_game_rule.init_card_num %>张</li>
+    <li class="list-group-item">拥有卡牌上限：<%#= @self_game_rule.card_max_num %>张</li> -->
+  </ul>
+
+  <div class="panel-heading "><strong>时间奖惩规则</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      出牌CD时间增益：【 用户拥有密钥百分比（%）—
+      <span class="key_percent">基值</span> 】 ×
+      <span><%= @self_game_rule.play_cd_inc %>秒</span>
+    </li>
+  </ul>
+
+  <div class="panel-heading "><strong>宝符奖励规则</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      每轮结束奖励：【 用户拥有密钥百分比（%）>
+      <span class="key_percent">基值 】</span>
+      <span class="ml_50"><%= @self_game_rule.round_baofu_num %>个</span>
+    </li>
+    <li class="list-group-item">
+      竞赛结束奖励：<span class="ml_50 mr_50">【 竞赛失败的用户 】</span>
+      <%= @self_game_rule.loser_baofu_min_num %> ～ <%= @self_game_rule.loser_baofu_max_num %>个
+    </li>
+    <li class="list-group-item bg_tr">计谋卡包：</li>
+    <!-- <li class="list-group-item"><%#= render partial: 'chosed_card_bag' %></li> -->
+    <%= render partial: 'game_types/round_card_own' %>
+  </ul>
+
+</div>

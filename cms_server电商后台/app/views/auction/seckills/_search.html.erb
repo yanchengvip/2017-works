@@ -1,0 +1,24 @@
+<div class="row placeholders well">
+  <%= form_for auction_seckills_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>ID</span>
+      <%= text_field_tag "q[id_eq]", params[:q][:id_eq], class: 'form-control ', placeholder: '秒杀ID' %>
+      <span>商品ID</span>
+      <%= text_field_tag "q[product_id_eq]", params[:q][:product_id_eq], class: 'form-control ', placeholder: '商品ID' %>
+      <%= hidden_field_tag "play", params[:play] %>
+      <div class="form-group">
+        <label>秒杀日期</label>
+        <div class='input-group date'>
+          <%= text_field_tag "q[date_gteq]", params[:q][:date_gteq], class: 'form-control', placeholder: '秒杀日期 >= ' %>
+        </div>
+      </div>
+
+      <span>场次</span>
+      <%= text_field_tag "q[play_eq]", params[:q][:play_eq], class: 'form-control ', placeholder: '场次' %>
+      <span>秒杀价格</span>
+      <%= text_field_tag 'q[discount_gteq]', params[:q][:discount_gteq], class: 'form-control ', placeholder: '秒杀价格大于等于XXX' %>
+
+      <%= f.submit '搜索', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

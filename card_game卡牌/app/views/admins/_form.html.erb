@@ -1,0 +1,83 @@
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '返回', admins_path, class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<%= form_for @admin, html: {class: 'form-horizontal'} do |f| %>
+  <div class="form-group">
+    <label for="nickname" class="col-sm-2 control-label">用户登录名：</label>
+    <div class="col-sm-8">
+      <% if params[:action] == 'new' %>
+        <%= f.text_field :nickname, class: 'form-control', id: 'nickname', required: 'required' %>
+      <% else %>
+        <%= f.text_field :nickname, class: 'form-control', id: 'nickname', required: 'required', readonly: true %>
+      <% end %>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="登录名不能为纯数字，不能有特殊字符" id="nickname_tip"></p>
+    </div>
+  </div>
+
+  <% unless params[:action] == 'edit' %>
+    <div class="form-group">
+      <label for="password" class="col-sm-2 control-label">登录密码：</label>
+      <div class="col-sm-8">
+        <%= password_field_tag :password, '', class: 'form-control', id: 'password', required: 'required' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label for="role_ids_check" class="col-sm-2 control-label">账户角色：</label>
+    <div class="col-sm-8" id="role_ids_check">
+      <div class="checkbox">
+
+        <% @roles.each do |role| %>
+          <label class="mr_30">
+            <%= check_box_tag 'role_ids[]', role.id, @admin_role_ids.include?(role.id)%>
+            <%= role.name %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">姓名：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: 'form-control', id: 'name' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="phone" class="col-sm-2 control-label">手机号：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :phone, class: 'form-control', id: 'phone', type: 'number' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">邮箱：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :email, class: 'form-control', id: 'email' %>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="邮箱格式不正确" id="email_tip"></p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="delete_flag" class="col-sm-2 control-label">允许登录：</label>
+    <div class="col-sm-8">
+      <div class="radio">
+        <!-- <label class="mr_30"><%#= f.radio_button :status, @admin.status == true %>是</label>
+        <label class="mr_30"><%#= f.radio_button :status, @admin.status == false %>否</label> -->
+        <label class="mr_30"><%= f.radio_button :delete_flag, @admin.delete_flag, checked: !@admin.delete_flag%>是</label>
+        <label class="mr_30"><%= f.radio_button :delete_flag, @admin.delete_flag, checked: @admin.delete_flag%>否</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= link_to '取消', admins_path, class: 'btn btn-default mr_20 btn-lg' %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'admin_submit' %>
+    </div>
+  </div>
+
+<% end %>

@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Voucher Trades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_voucher_trades.each do |auction_voucher_trade| %>
+      <tr>
+        <td><%= link_to 'Show', auction_voucher_trade %></td>
+        <td><%= link_to 'Edit', edit_auction_voucher_trade_path(auction_voucher_trade) %></td>
+        <td><%= link_to 'Destroy', auction_voucher_trade, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Voucher Trade', new_auction_voucher_trade_path %>

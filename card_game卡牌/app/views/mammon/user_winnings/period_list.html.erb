@@ -1,0 +1,42 @@
+<div class="row"><p class="sub-header">红包管理>财神>中奖明细</p></div>
+
+
+<div class="row mt_20 mb_20">
+  <%= link_to '特等奖统计下载', '/mammon/user_winnings/download_csv.csv?prize_num=0', class: 'btn btn-primary', role: 'button' %>
+  <%= link_to '一等奖统计下载', '/mammon/user_winnings/download_csv.csv?prize_num=1', class: 'btn btn-primary', role: 'button' %>
+  <%= link_to '二等奖统计下载', '/mammon/user_winnings/download_csv.csv?prize_num=2', class: 'btn btn-primary', role: 'button' %>
+  <%= link_to '三等奖统计下载', '/mammon/user_winnings/download_csv.csv?prize_num=3', class: 'btn btn-primary', role: 'button' %>
+</div>
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>期号</th>
+      <th>准开始时间</th>
+      <th>结算时间</th>
+      <th>总金额</th>
+      <th>剩余金额</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @periods && @periods.each do |period| %>
+        <tr>
+          <td><%= period.num %></td>
+          <td><%= datetime_format(period.pre_begin_time) %></td>
+          <td><%= datetime_format(period.end_time) %></td>
+          <td><%= period.total_amount.to_f %></td>
+          <td><%= period.left_amount.to_f %></td>
+          <td>
+            <%= link_to '中奖详情', '/mammon/user_winnings?period_id='+period.id.to_s, class: 'btn btn-sm btn-info' %>
+
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @periods %>
+
+

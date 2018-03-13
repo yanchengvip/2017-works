@@ -1,0 +1,45 @@
+<div class="modal-body">
+  <input type="hidden" name="id" value="<%= @battle_product.id %>" id='product_id'>
+  <span class="mr_20"><input type="checkbox" name="is_game_product" id='is_game_product' value="1" <%= "checked='checked'" if @battle_product.is_game_product %> >平台赛场商品</span>
+  <span class="mr_20"><input type="checkbox" name="is_self_game_product" id='is_self_game_product' value="1" <%= "checked='checked'" if @battle_product.is_self_game_product %> >自建赛场商品</span>
+  <span class="mr_20"><input type="checkbox" name="is_mall_product" id='is_mall_product' value="1" <%= "checked='checked'" if @battle_product.is_mall_product %> >兑奖阁商品</span>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+  <button type="submit" class="btn btn-primary" id="do_product_shelf">确定</button>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_product_shelf').on('click', function(){
+      var product_id = $('#product_id').val()
+      console.log(product_id)
+      var is_game_product = $('#is_game_product').is(':checked')
+      var is_self_game_product = $('#is_self_game_product').is(':checked')
+      var is_mall_product = $('#is_mall_product').is(':checked')
+      console.log(is_game_product + '&' + is_self_game_product + '&' +is_mall_product)
+
+      $.ajax({
+        type: "post",
+        url: '/battle_products/'+product_id+'/shelf',
+        data: { is_game_product: is_game_product, is_self_game_product: is_self_game_product, is_mall_product: is_mall_product},
+        success: function(result){
+          if(result.status == 200){
+            $('#battleProductShelfModal').modal('hide')
+            window.location.reload();
+          }else{
+            $('#battleProductShelfModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#battleProductShelfModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

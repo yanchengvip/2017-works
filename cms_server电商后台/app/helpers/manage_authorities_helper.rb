@@ -1,0 +1,2 @@
+module ManageAuthoritiesHelper
+end

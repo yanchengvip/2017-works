@@ -1,0 +1,83 @@
+<div class="form-group row">
+  <legend><h3>基础信息</h3></legend>
+</div>
+
+<div class="form-group row">
+  <label for="energy_product_name" class="col-sm-2 control-label">*能量包名称：</label>
+  <div class="col-sm-8">
+    <input type="text" name="name" class="form-control" placeholder="能量包名称，最多10汉字" id="energy_product_name" value="<%= @energy_product.name %>" required onkeyup="validate_length_of_words(this.id,10)">
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="energy_product_energy_count" class="col-sm-2 control-label">*购买能量值：</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <input type="number" name="energy_count" class="form-control" placeholder="整数" id="energy_product_energy_count" value="<%= @energy_product.energy_count %>" required>
+      <span class="input-group-addon">点</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="energy_product_price" class="col-sm-2 control-label">*能量包价格：</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <input type="number" name="price" class="form-control" placeholder="整数" id="energy_product_price" value="<%= @energy_product.price %>" required min="0" max="99999" >
+      <span class="input-group-addon">微集分</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="energy_product_order_num" class="col-sm-2 control-label">排序：</label>
+  <div class="col-sm-8">
+    <select name="order_num" id="energy_product_order_num" class="energy_product_select2 select-width-20">
+      <option value=''>请选择</option>
+      <%# @order_nums.each do |num| %>
+      <% 50.times do |num| %>
+        <% if @energy_product.order_num == (num + 1) %>
+          <option value="<%= num + 1 %>" selected="selected"><%= num + 1 %></option>
+        <% else %>
+          <option value="<%= num + 1 %>"><%= num + 1 %></option>
+        <% end %>
+      <% end %>
+    </select>
+    <%= link_to '查看所有排序', 'javascript:void(0)', id: 'see_energy_orders' %>
+  </div>
+</div>
+
+<div class="form-group row hide" id="energy_product_orders_div">
+  <div class="col-sm-offset-2 col-sm-8" id="energy_product_text">
+    <% EnergyProduct.active.each_with_index do |energy_product, index| %>
+      <% if energy_product.order_num.present? && energy_product.order_num > 0 %>
+        <span class="mr_15"><%= energy_product.name %>：<%= energy_product.order_num %></span>
+        <% if (index + 1) % 6 == 0 %>
+          <br>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="energy_product_summary" class="col-sm-2 control-label">*描述：</label>
+  <div class="col-sm-8">
+    <input type="text" name="summary" value="<%= @energy_product.summary %>" placeholder="商品描述，<20字" required onkeyup="validate_length_of_words(this.id,20)" class='form-control' id='energy_product_summary'>
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="input" class="col-sm-2 control-label">*商品缩略图：</label>
+  <div class="col-sm-8">
+    <%= render 'images/upload_single_image'%>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+    $(".energy_product_select2").select2()
+  })
+</script>

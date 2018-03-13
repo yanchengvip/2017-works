@@ -1,0 +1,7 @@
+<% @package_types.each do |package_type| %>
+  <label class="mr_30">
+    <input class="form-check-input package_type_id_radio" type="radio" value="<%= package_type.id %>" name="package_type_id">
+    <%= package_type.name %>
+  </label>
+<% end %>
+<p data-container="body" data-toggle="popover" data-trigger="focus" data-placement="left" data-content="请选择礼包分类" id="package_type_id_tip"></p>

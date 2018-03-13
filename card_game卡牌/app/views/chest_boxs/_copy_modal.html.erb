@@ -1,0 +1,51 @@
+<div class="modal fade" id="copyChestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">宝箱复制</h4>
+        <!-- <input type="hidden" id="grant_voucher_id"> -->
+        <input type="hidden" id="copy_chest_box_id">
+      </div>
+      <div class="modal-body" id="grant_div">
+        <h3>确定复制该宝箱吗？</h3>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary" id="do_copy">确认复制</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_copy').on('click', function(){
+      var box_id = $('#copy_chest_box_id').val()
+      $.ajax({
+        type: "post",
+        url: '/chest_boxs/'+box_id+'/copy',
+        data: { },
+        success: function(result){
+          if(result.status == 200){
+            $('#copyChestModal').modal('hide')
+            elert("已复制")
+            setTimeout(function(){
+              window.location.reload()
+            },1500);
+          }else{
+            $('#copyChestModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#copyChestModal').modal('hide')
+          elert('网络异常')
+        }
+      })
+    })
+  })
+
+</script>

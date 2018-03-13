@@ -1,0 +1,18 @@
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '修改属性', edit_auction_attribute_path(@auction_attribute), class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>属性信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">名称：<span class="red"><%= @auction_attribute.name %></span></li>
+    <li class="list-group-item">选项列表：<span class="red"><%= @auction_attribute.option_list %></span></li>
+
+    <li class="list-group-item">可搜索：<%= @auction_attribute.searchable ? '是' : '否' %></li>
+
+  </ul>
+
+</div>

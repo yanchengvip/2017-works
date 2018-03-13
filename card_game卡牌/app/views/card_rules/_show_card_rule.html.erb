@@ -1,0 +1,34 @@
+<div class="panel panel-info">
+  <div class="panel-heading">卡牌使用规则</div>
+  <div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <% @bout_number.times do |bn| %>
+          <% if bn==0 %>
+              <li role="presentation" class="active">
+                <a href="#r<%= bn+1 %>" aria-controls="profile" role="tab" data-toggle="tab">第<%= bn+1 %>轮</a>
+              </li>
+          <% else %>
+              <li role="presentation">
+                <a href="#r<%= bn+1 %>" aria-controls="profile" role="tab" data-toggle="tab">第<%= bn+1 %>轮</a></li>
+          <% end %>
+
+      <% end %>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <% @bout_number.times do |bn| %>
+          <% if bn==0 %>
+              <div role="tabpanel" class="tab-pane active" id="r<%= bn+1 %>">
+                <%= render 'card_rules/show_card_table', locals:{bout_number: bn+1}%>
+              </div>
+          <% else %>
+              <div role="tabpanel" class="tab-pane" id="r<%= bn+1 %>">
+                <%= render 'card_rules/show_card_table', locals:{bout_number: bn+1} %>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

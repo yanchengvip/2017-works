@@ -1,0 +1,16 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @auction_sm, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+        <%= f.input :phone,label: '电话列表(用,隔开):' %>
+        <%= f.input :content, as: :text, label: '内容:'%>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit' %>
+        <%= link_to '取消', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>

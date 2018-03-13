@@ -1,0 +1,12 @@
+<div class="row placeholders well">
+  <%= form_for auction_mails_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'auction_mails_search_form'} do |f| %>
+    <div class="form-group row">
+      <span>ID：</span>
+      <%= text_field_tag "q[id_eq]", params[:q][:id_eq], class: 'form-control mr_20', placeholder: 'ID' %>
+      <span>标题：</span>
+      <%= text_field_tag 'q[title_cont]', params[:q][:title_cont], class: 'form-control mr_20', placeholder: '标题' %>
+
+      <%= f.submit '搜索', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

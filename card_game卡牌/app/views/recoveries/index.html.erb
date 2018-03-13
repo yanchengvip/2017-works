@@ -1,0 +1,47 @@
+<p class="sub-header">回收管理>回收列表</p>
+<div class="row placeholders">
+  <a href="/recoveries/new" class="btn btn-primary btn-lg" role="button">新增回收</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>回收道具名称</th>
+        <th>回收开始时间</th>
+        <th>回收结束时间</th>
+        <th>兑现金额</th>
+        <th>当前状态</th>
+        <th>排序</th>
+        <th colspan="3">操作</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @recoveries.each do |recovery| %>
+        <tr>
+          <td><%= recovery.id %></td>
+          <td><%= recovery.name %></td>
+          <td><%= recovery.time_begin.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= recovery.time_end.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= recovery.total_cost %></td>
+          <td><%= Recovery::STATUS[recovery.status] %></td>
+          <td><%= recovery.sort_index %></td>
+          <td>
+            <a href="javascript:void(0)" class="btn btn-info btn-sm " role="button" onclick="update_rank('<%= recovery.id%>')">编辑排序</a>
+            <%= link_to '显示', recovery, class: 'btn btn-sm btn-primary' %>
+            <% if recovery.status == 1%>
+              <%= link_to '开启', open_recovery_path(recovery), class: 'btn btn-sm btn-info' %>
+            <% else %>
+              <%= link_to '关闭', shut_down_recovery_path(recovery), class: 'btn btn-sm btn-info' %>
+            <% end %>
+            <!-- <%= link_to '编辑', edit_recovery_path(recovery) %>
+            <%= link_to '删除', recovery, method: :delete, data: { confirm: 'Are you sure?' } %> -->
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @recoveries %>
+<%= render partial: 'rank_modal'%>

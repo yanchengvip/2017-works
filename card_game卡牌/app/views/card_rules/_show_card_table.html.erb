@@ -1,0 +1,47 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>卡牌类型</th>
+      <th>卡牌名称</th>
+      <th>卡牌价格</th>
+      <th>能量消耗</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @card_rules[locals[:bout_number]].each do |card| %>
+        <% @e1=card[:init_energy];@e2=card[:inject_energy_time];@e3=card[:inject_energy];@e4=card[:max_inject_energy] %>
+
+        <tr>
+          <td><%= Card::CARDTYPE[card[:card_type]] %></td>
+          <td><%= card[:name] %></td>
+          <td><%= card[:price].to_f %>微集分</td>
+          <td>
+            <%= card[:card_consume_energy] %>点
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>能量初始值</th>
+      <th>能量注入速度</th>
+      <th>能量注入值</th>
+      <th>能量增长上限值</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+      <td><%= @e1 %>点</td>
+      <td><%= @e2 %>秒</td>
+      <td><%= @e3 %>点</td>
+      <td><%= @e4 %>点</td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

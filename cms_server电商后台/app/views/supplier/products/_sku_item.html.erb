@@ -1,0 +1,78 @@
+<div class="form-group row mt_20">
+  <label for="supplier_product_percent" class="col-sm-2 control-label isrequire">SKU</label>
+  <div class="col-sm-8">
+    <span class="hide" id="random_id">100000</span>
+    <table class="table table-striped table-hover" id="energy_products_items_table">
+      <thead>
+        <tr class="info">
+          <th>SKU名称</th>
+          <th>库存</th>
+          <th>SKU编号（选填）</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="energy_products_gifts_body">
+        <% @skus && @skus.each do |sku| %>
+          <tr id="tr_<%= sku.id %>" class='sku_content'>
+            <input type="hidden" name="skus[][id]" value="<%= sku.id %>">
+            <td>
+              <input type="text" name="skus[][name]" value="<%= sku.name %>" placeholder="SKU名称" class="form-control" width="100px" required readonly="<%= current_user.class.to_s == 'Manage::Editor' %>">
+            </td>
+            <td>
+              <input type="number" name="skus[][amount]" value="<%= sku.amount %>" min="0" max="9999999" placeholder=">=0的整数" class="form-control" width="100px" required readonly="<%= current_user.class.to_s == 'Manage::Editor' %>">
+            </td>
+            <td>
+              <input type="text" name="skus[][code]" value="<%= sku.code %>" class="form-control" width="100px" placeholder="SKU编号（选填）"  id="code_<%= sku.id %>" readonly="<%= current_user.class.to_s == 'Manage::Editor' %>">
+              <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+            </td>
+            <td>
+              <% if current_user.class.to_s == 'Supplier::Provider' %>
+                <%#= link_to '删除', 'javascript:void(0)', class: "del_sku_origin", id: "sku_#{sku.id}" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if current_user.class.to_s == 'Supplier::Provider' %>
+      <%= link_to '新增SKU', 'javascript:void(0)', id: 'add_sku_item', class: 'btn btn-success mt_20 ml_15' %>
+    <% end %>
+
+  </div>
+</div>
+
+<%= render '/supplier/products/sku_del_modal'%>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_sku_item').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/supplier/products/sku_form',
+        data: { random_id: 'sps' + Number($('#random_id').text())},
+        success: function(result){
+          $('#energy_products_gifts_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('新增SKU失败')
+        }
+      })
+      $('#random_id').text(Number($('#random_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_sku_origin').on('click', function(){
+      $('#delProductSkuModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delProductSkuModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_sku_id').val(this_id.split('_')[1])
+      })
+    })
+  })
+
+</script>

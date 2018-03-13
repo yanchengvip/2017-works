@@ -1,0 +1,24 @@
+<%= simple_form_for @report_form, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :provider_id %>
+  <%= error_span(@report_form[:provider_id]) %>
+  <%= f.input :date %>
+  <%= error_span(@report_form[:date]) %>
+  <%= f.input :trade_amount %>
+  <%= error_span(@report_form[:trade_amount]) %>
+  <%= f.input :express_amount %>
+  <%= error_span(@report_form[:express_amount]) %>
+  <%= f.input :other_fee %>
+  <%= error_span(@report_form[:other_fee]) %>
+  <%= f.input :remark %>
+  <%= error_span(@report_form[:remark]) %>
+  <%= f.input :total_amount %>
+  <%= error_span(@report_form[:total_amount]) %>
+  <%= f.input :status %>
+  <%= error_span(@report_form[:status]) %>
+  <%= f.input :user_id %>
+  <%= error_span(@report_form[:user_id]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                supplier_report_forms_path, :class => 'btn btn-default' %>
+<% end %>

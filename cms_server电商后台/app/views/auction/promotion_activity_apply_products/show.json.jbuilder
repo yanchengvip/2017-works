@@ -1,0 +1,1 @@
+json.partial! "auction_promotion_activity_apply_products/auction_promotion_activity_apply_product", auction_promotion_activity_apply_product: @auction_promotion_activity_apply_product

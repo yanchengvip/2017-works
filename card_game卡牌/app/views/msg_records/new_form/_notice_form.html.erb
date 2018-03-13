@@ -1,0 +1,53 @@
+
+<input type="hidden" name="msg_type" value="<%= @msg_record.msg_type %>">
+<div class="form-group row mt_50">
+  <label for="msg_title" class="col-sm-1 col-form-label">*公告标题：</label>
+  <div class="col-sm-7">
+    <input type="text" name="title" value="<%= @msg_record.title %>" class="form-control" placeholder="最多30汉字" id='msg_title' required onkeyup="validate_length_of_words(this.id,30)">
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="msg_summary" class="col-sm-1 col-form-label">公告摘要：</label>
+  <div class="col-sm-7">
+    <input type="text" name="summary" value="<%= @msg_record.summary %>" class="form-control" placeholder="最多60汉字" id='msg_summary' onkeyup="validate_length_of_words(this.id,60)">
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="msg_content" class="col-sm-1 col-form-label">*公告详情：</label>
+  <div class=" col-sm-12">
+    <textarea class="tinymce" name="content" rows="5" id="msg_content" placeholder="公告详情" style="width: 66%"><%= @msg_record.content %></textarea>
+  </div>
+</div>
+
+<div class="form-group row mt_50">
+  <label for="msg_record_is_show" class="col-sm-1 col-form-label">是否首页显示：</label>
+  <div class="col-sm-6">
+    <% if @msg_record.is_show %>
+      <div class="radio">
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="1" name="is_show"  checked="checked">是
+        </label>
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="0" name="is_show">否
+        </label>
+        当前首页显示，其他公告均不在首页显示
+      </div>
+    <% else %>
+      <div class="radio">
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="1" name="is_show">是
+        </label>
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="0" name="is_show"  checked="checked">否
+        </label>
+        当前首页显示，其他公告均不在首页显示
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: 'shared/tinymce', locals: {text_id: 'msg_content'} %>

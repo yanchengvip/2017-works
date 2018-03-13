@@ -1,0 +1,77 @@
+<div class="form-group row">
+  <legend><h3>赠品信息（无赠品时不填）</h3></legend>
+</div>
+
+<div class="form-group row">
+  <div class="row col-sm-9 col-sm-offset-1">
+    <span class="hide" id="random_id">100000</span>
+    <table class="table table-striped table-hover" id="energy_products_items_table">
+      <thead>
+        <tr class="info">
+          <th>第N次购买时</th>
+          <th>赠送能量（点）</th>
+          <th>显示文字</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="energy_products_gifts_body">
+        <% @energy_product_gifts && @energy_product_gifts.each do |energy_product_gift| %>
+          <tr id="tr_<%= energy_product_gift.id %>">
+            <input type="hidden" name="energy_product_gifts[][id]" value="<%= energy_product_gift.id %>">
+            <td>
+              <input type="number" name="energy_product_gifts[][buy_times]" value="<%= energy_product_gift.buy_times %>" min="1" max="9999" placeholder=">0的整数" class="form-control buy_times" width="100px" required>
+            </td>
+            <td>
+              <input type="number" name="energy_product_gifts[][energy_count]" value="<%= energy_product_gift.energy_count %>" min="1" max="9999" placeholder=">0的整数" class="form-control" width="100px" required>
+            </td>
+            <td>
+              <input type="text" name="energy_product_gifts[][show_text]" value="<%= energy_product_gift.show_text %>" class="form-control" width="100px" required onkeyup="validate_length_of_words(this.id,20)" placeholder="显示文字，不超过20字"  id="show_text_<%= energy_product_gift.id %>">
+              <p class="bg-danger p_last_num left_str_num"></p>
+            </td>
+            <td>
+              <%= link_to '删除', 'javascript:void(0)', class: "del_energy_product_gift_origin", id: "energy_product_gift_#{energy_product_gift.id}" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to '添加', 'javascript:void(0)', id: 'add_energy_products_item', class: 'btn btn-success mt_20 ml_15' %>
+  </div>
+</div>
+<%#= render partial: 'item_type_modal' %>
+<%= render 'item_del_modal'%>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_energy_products_item').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/energy_products/item_form',
+        data: { random_id: 'epg' + Number($('#random_id').text())},
+        success: function(result){
+          $('#energy_products_gifts_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+      $('#random_id').text(Number($('#random_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_energy_product_gift_origin').on('click', function(){
+      $('#delEnergyProductGiftModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delEnergyProductGiftModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_item_id').val(this_id.split('_')[3])
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+
+</script>

@@ -1,0 +1,41 @@
+<div class="row"><p class="sub-header">赛场管理>重宝管理>库存管理</p></div>
+
+<div class="row placeholders">
+  <%= render partial: 'search' %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>重宝编号</th>
+      <th>重宝名称</th>
+      <th>重宝分类</th>
+      <th>剩余库存</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @battle_products.each do |product| %>
+        <tr>
+          <td><%= product.sku %></td>
+          <td><%= product.name %></td>
+          <td><%= product.product_tag.present? ? product.product_tag.name : '无' %></td>
+          <!-- <td><%#= product.market_price.to_f %></td> -->
+          <td><%= product.inventory_count %></td>
+          <td>
+            <%= link_to '增加库存', 'javascript:void(0)', class: 'btn btn-primary btn-sm stock_chnage', onclick: "stock_chnage(#{product.id}, '#{product.name}', 1)" %>
+            <%= link_to '减少库存', 'javascript:void(0)', class: 'btn btn-danger btn-sm stock_chnage', onclick: "stock_chnage(#{product.id}, '#{product.name}', -1)" %>
+          </td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @battle_products %>
+<%= render 'battle_products/product_modal' %>
+<%= render 'shared/obj_onshelf_modal', locals: {title: '商品上架', url: '/battle_products/update_status'} %>
+<%= render 'battle_products/stock_change_modal' %>
+

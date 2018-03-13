@@ -1,0 +1,35 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>名字</th>
+      <th>描述</th>
+      <th>可以货到付款</th>
+      <th>合伙类型</th>
+      <th>发票类型</th>
+      <th>直接发货</th>
+      <th>毛利率</th>
+      <th>活动毛利率</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @manage_providers.each do |manage_provider| %>
+    <tr>
+      <td><%= manage_provider.name%></td>
+      <td><%= manage_provider.description%></td>
+      <td><%= Manage::Provider::ISCOD[manage_provider.is_cod]%></td>
+      <td><%= Manage::Provider::TYPE[manage_provider.partner_type]%></td>
+      <td><%= Manage::Provider::INVOICETYPE[manage_provider.invoice_type]%></td>
+      <td><%= Manage::Provider::ISDIRECTSHIP[manage_provider.is_direct_ship]%></td>
+      <td><%= manage_provider.gross_margin%></td>
+      <td><%= manage_provider.active_gross_margin%></td>
+      <td>
+        <% if current_user.can?("manage/providers#edit")%>
+          <a href="/manage/providers/<%= manage_provider.id%>/edit" class="btn btn-warning btn-sm">编辑</a>
+        <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @manage_providers%>

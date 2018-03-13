@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  table_type: MyString
+  table_id: 1
+  red_package_rule_id: 1
+  begin_time: 2018-01-23 15:51:42
+  end_time: 2018-01-23 15:51:42
+  delete_flag: false
+
+two:
+  status: 1
+  table_type: MyString
+  table_id: 1
+  red_package_rule_id: 1
+  begin_time: 2018-01-23 15:51:42
+  end_time: 2018-01-23 15:51:42
+  delete_flag: false

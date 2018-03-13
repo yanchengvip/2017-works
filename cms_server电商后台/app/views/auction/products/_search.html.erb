@@ -1,0 +1,36 @@
+<%= form_for auction_products_path, html: {method: :get, class: "text-right row well", id: 'search_form'}  do |f| %>
+  <table class="table-hover table-condensed">
+    <tr>
+      <td>SPU-ID：</td>
+      <td>
+        <%#= text_field_tag "id_in", params[:id_in], class: "form-control", placeholder: "多个以英文逗号隔开" %>
+        <%= text_field_tag "q[id_in]", params[:q][:id_in], class: "form-control", placeholder: "多个以英文逗号隔开" %>
+      </td>
+      <td>SKU-ID：</td>
+      <td>
+        <%= text_field_tag "q[skus_id_in]", params[:q][:skus_id_in], class: "form-control", placeholder: "多个以英文逗号隔开" %>
+        <%#= text_field_tag "skus_id_in", params[:skus_id_in], class: 'form-control', placeholder: "多个以英文逗号隔开" %>
+      </td>
+      <td>品牌名称：</td>
+      <td><%= select_tag "q[brand_id_eq]", options_for_select([["", nil]] + Auction::Brand.active.map{|ab| [ab.name, ab.id]}, params[:q][:brand_id_eq]), class: 'form-control is_select2', style: "width: 120px !important" %></td>
+      <td>商品名称：</td>
+      <td><%= text_field_tag "q[name_cont]", params[:q][:name_cont], class: "form-control", placeholder: "商品名称" %></td>
+      <td rowspan="2"><%= f.submit '搜索', class: "btn btn-primary ml_20" %></td>
+    </tr>
+    <tr>
+      <td>供应商：</td>
+      <td><%= text_field_tag "q[provider_name_cont]", params[:q][:provider_name_cont], class: "form-control", placeholder: "供应商" %></td>
+      <td>上架状态：</td>
+      <td><%= select_tag "q[published_eq]", options_for_select([["所有状态", nil]] + Auction::Product::PUBLISHED.to_a.map(&:reverse), params[:q][:published_eq]), class: 'form-control' %></td>
+      <td>审核状态：</td>
+      <td><%= select_tag "q[status_eq]", options_for_select([["审核状态:", nil]] + Auction::Product::CHECKSTATUS.to_a.map(&:reverse), params[:q][:status_eq]), class: 'form-control' %></td>
+      <td>分类：</td>
+      <td colspan="3" align="left">
+        <%= select_tag "q[category1_id_eq]", options_for_select([["", nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]}, ''), class: 'form-control is_select2 category_search', id: 'category1_id' %>
+        <%#= select_tag "q[category1_id_eq]", options_for_select([["", nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]}, params[:q][:category1_id_eq]), class: 'form-control is_select2 category_search', id: 'category1_id' %>
+        <span class="hide" id="category2_span"><%= select_tag "q[category2_id_eq]", options_for_select([["", nil]], params[:q][:category2_id_eq]), class: 'form-control is_select2 category_search', id: 'category2_id' %></span>
+        <span class="hide" id="category3_span"><%= select_tag "q[category3_id_eq]", options_for_select([["", nil]], params[:q][:category3_id_eq]), class: 'form-control is_select2 category_search', id: 'category3_id' %></span>
+      </td>
+    </tr>
+  </table>
+<% end %>

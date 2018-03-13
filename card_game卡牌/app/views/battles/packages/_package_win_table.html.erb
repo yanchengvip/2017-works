@@ -1,0 +1,47 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>礼包分类</th>
+
+    <th>礼包名称</th>
+    <th>价格（微集分）</th>
+    <th>详情</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @packages.each do |p| %>
+      <tr>
+        <td> <input type="checkbox" name="package_ids[]"  value="<%= p.id%>"> </td>
+        <td><%= p.package_type.name %></td>
+        <td><%= p.name%></td>
+        <td><%= p.price.to_f%></td>
+        <td><a target="_blank" href="/packages/<%=p.id%>">详情</a></td>
+      </tr>
+  <% end %>
+  </tbody>
+
+</table>
+<%= paginate @packages, remote: true %>
+
+<script>
+    $("span.page a").on('ajax:success', function (eve, con) {
+        $('.modal_battle_rule_table').show().html(con);
+    });
+
+    $("span.next a").on('ajax:success', function (eve, con) {
+        $('.modal_battle_rule_table').show().html(con);
+    });
+    $("span.prev a").on('ajax:success', function (eve, con) {
+        $('.modal_battle_rule_table').show().html(con);
+    });
+
+    $("span.last a").on('ajax:success', function (eve, con) {
+        $('.modal_battle_rule_table').show().html(con);
+    });
+    $("span.first a").on('ajax:success', function (eve, con) {
+        $('.modal_battle_rule_table').show().html(con);
+    })
+</script>
+
+

@@ -1,0 +1,23 @@
+<tr class="fields content_tr">
+  <td>
+    <input type="number" name="energy_product_gifts[][buy_times]" min="1" max="9999" placeholder=">0的整数" class="form-control buy_times" width="100px" required>
+  </td>
+
+  <td>
+    <input type="number" name="energy_product_gifts[][energy_count]" min="1" max="9999" placeholder=">0的整数" class="form-control" width="100px" required>
+  </td>
+
+  <td>
+    <input type="text" name="energy_product_gifts[][show_text]" class="form-control" width="100px" required onkeyup="validate_length_of_words(this.id,20)" placeholder="显示文字，不超过20字" id="<%= params[:random_id] %>">
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </td>
+
+  <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+</tr>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function () {
+    $(".card_user_own_select2").select2()
+  })
+</script>

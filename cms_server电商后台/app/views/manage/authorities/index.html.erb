@@ -1,0 +1,25 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>action</th>
+      <!-- <th>操作</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @manage_authorities.each do |manage_authority| %>
+      <tr>
+        <td><%= manage_authority.name%></td>
+        <td><%= manage_authority.action%></td>
+        <!-- <td>
+          <%= link_to '编辑', edit_manage_authority_path(manage_authority),class: "btn btn-warning btn-sm" %>
+          <%= link_to '删除', manage_authority, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' },class: "btn btn-danger btn-sm" %>
+        </td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @manage_authorities %>

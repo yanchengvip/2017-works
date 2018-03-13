@@ -1,0 +1,99 @@
+<!-- 申请退货-->
+<div class="modal fade" id="ApplyRefundModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title title_name" id="exampleModalLabel">申请退货</h4>
+      </div>
+      <form action="/auction/units/apply_refund" method="post">
+        <div class="modal-body">
+          <input type="hidden" class="form-control" name='id' id="unit_id">
+          <div class="form-group">
+            <label for="exampleInputName2">退货商品:</label>
+            <span id="product_name"></span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName2">退货理由:</label>
+            <select class="select2-picker form-control" name="return_reason">
+              <option value="尺码不合适">尺码不合适</option>
+              <option value="颜色不喜欢">颜色不喜欢</option>
+              <option value="尺码不合适">实物与图片不符</option>
+              <option value="颜色不喜欢">不喜欢</option>
+              <option value="颜色不喜欢">其他</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">退款金额</span>
+            <input type="text" class="form-control" id="refund_amount" name="amount_returned">
+            <span class="input-group-addon">元</span>
+          </div>
+
+          <div class="hidden_div">
+            <div class="input-group">
+              <span class="input-group-addon">联系方式</span>
+              <input type="text" class="form-control" name="return_phone" placeholder="联系方式">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">退款账号</span>
+              <input type="text" class="form-control" name="return_account"  placeholder="退款账号">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">开户人</span>
+              <input type="text" class="form-control" name="return_name"  placeholder="开户人">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">开户省</span>
+              <input type="text" class="form-control" name="return_province" placeholder="省">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">开户市</span>
+              <input type="text" class="form-control" name="return_city" placeholder="市">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">开户支行</span>
+              <input type="text" class="form-control" name="return_branch" placeholder="开户行支行">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName2">退款说明</label>
+            <textarea type="textarea" rows="5" class="form-control" placeholder="备注" name='remark' id="obj_remark"></textarea>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">通过</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    function apply_refund_modal(unit_id, product_name, refund_amount,payment_service) {
+        $('#ApplyRefundModal').modal('show');
+        $('#ApplyRefundModal').on('shown.bs.modal', function () {
+            if(payment_service != 'express'){
+                //只有货到付款需要填写退货的银行卡信息
+                $('.hidden_div').hide()
+            }else{
+                $('.hidden_div').show()
+            }
+            $('#unit_id').val(unit_id)
+            $('#product_name').html(product_name)
+            $('#refund_amount').val(refund_amount)
+        }).on('hidden.bs.modal', function (e) {
+            $('#unit_id').val('')
+
+            $('#product_name').val('')
+            $('#refund_amount').val('')
+        })
+
+    }
+</script>

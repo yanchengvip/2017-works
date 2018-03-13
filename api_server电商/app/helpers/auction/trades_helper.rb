@@ -1,0 +1,2 @@
+module Auction::TradesHelper
+end

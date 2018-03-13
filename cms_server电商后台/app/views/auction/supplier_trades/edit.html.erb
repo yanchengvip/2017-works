@@ -1,0 +1,20 @@
+<%= render 'auction/supplier_trades/detail'%>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>物流信息</strong></div>
+  <ul class="list-group">
+    <%= form_for @supplier_trades do |f| %>
+        <li class="list-group-item">快递电话：
+          <%= f.text_field :delivery_phone%>
+        </li>
+        <li class="list-group-item">快递公司：
+          <%= f.select :delivery_service,  options_for_select(Auction::Trade::DELIVERYSERVICE.invert.to_a, @supplier_trades.delivery_service),{},{class:"select2-picker"} %>
+        </li>
+        <li class="list-group-item">订单状态：
+          <%= f.select :status,  options_for_select(Auction::Trade::STATUS.invert.to_a, @supplier_trades.status),{},{class:"select2-picker"}%>
+        </li>
+        <%= f.submit '保存' %>
+    <% end %>
+  </ul>
+
+</div>

@@ -1,0 +1,25 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @manage_provider, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+
+        <%= f.input :name, label: '名字:' ,required: 'true'%>
+        <%= f.input :description, label: '描述:' ,required: 'true'%>
+        <%= f.input :login, label: '邮箱:' ,required: 'true'%>
+        <%= f.input :password, label: '密码:' ,required: 'true'%>
+        <%= f.input :is_cod, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @manage_provider_is_cod ,  checked: @manage_provider.is_cod, label: '可货到付款:' ,required: 'true' %>
+        <%= f.input :is_direct_ship, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @manage_provider_is_direct_ship ,  checked: @manage_provider.is_direct_ship, label: '直接发货:' ,required: 'true' %>
+        <%= f.input :partner_type, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @manage_provider_type ,  checked: @manage_provider.partner_type, label: '合伙类型:' ,required: 'true' %>
+        <%= f.input :invoice_type, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @manage_provider_invoice_type ,  checked: @manage_provider.invoice_type, label: '发票类型:' ,required: 'true' %>
+        <%= f.input :gross_margin, label: '毛利率:' ,required: 'true'%>
+        <%= f.input :active_gross_margin, label: '活动毛利率:' ,required: 'true'%>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit', id: 'provider_submit' %>
+        <%= link_to '重置', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>

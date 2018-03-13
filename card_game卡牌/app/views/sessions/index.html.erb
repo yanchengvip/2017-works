@@ -1,0 +1,18 @@
+<div class="container login-container">
+
+  <%= render 'shared/alert' %>
+  <form class="form-signin" action="/sessions" method="post">
+  <%#= form_for sessions_path, class: 'form-signin', method: 'post' do |f| %>
+    <h2 class="form-signin-heading">登录</h2>
+    <label for="inputlogin" class="sr-only">登录名或手机号</label>
+    <input type="input" name="login_name" id="inputlogin" class="form-control" placeholder="登录名或手机号" required autofocus/>
+    <%#= f.text_field :phone, autofocus: true, id: "inputPhone", class: 'form-control', placeholder: "手机号", required: true %>
+
+    <label for="inputPassword" class="sr-only">密码</label>
+    <input type="password"  name="password" id='inputPassword' class="form-control" placeholder="密码" required/>
+    <%#= f.password_field :password, id: 'inputPassword', class: 'form-control', placeholder: "密码", required: true %>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+  <%# end %>
+  </form>
+</div>

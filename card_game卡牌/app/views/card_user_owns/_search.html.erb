@@ -1,0 +1,10 @@
+<div class="row placeholders well">
+  <%= form_for user_energy_card_user_owns_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>用户手机：</span>
+      <%= text_field_tag 'q[user_mobile_cont]', params[:q][:user_mobile_cont], class: 'form-control mr_30', placeholder: "用户手机" %>
+
+      <%= f.submit '查询', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

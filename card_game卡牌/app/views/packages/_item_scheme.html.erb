@@ -1,0 +1,58 @@
+<div>
+  <div class="lead well">
+    <strong>中奖价值设定：</strong><span id="fix_price"><%= @package.fix_price %></span>
+  </div>
+  <div class="mt_20">
+     <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="sheme_nav_tabs">
+      <% @package.package_items.each_with_index do |package_item, index| %>
+        <li role="presentation" class="<%= index == 0 ? 'active' : '' %>">
+          <a href="#package_item_pane_<%= package_item.id %>" aria-controls="package_item_pane_<%= package_item.id %>" role="tab" data-toggle="tab">方案<span class="scheme_count"><%= index + 1 %></span></a>
+        </li>
+      <% end %>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content" id="scheme_tab_panes">
+      <% @package.package_items.each_with_index do |package_item, index| %>
+        <div role="tabpanel" class="tab-pane <%= index == 0 ? 'active' : '' %>" id="package_item_pane_<%= package_item.id %>">
+          <table class="table table-striped table-hover table-condensed" id="table_<%= package_item&.id %>">
+            <tr>
+              <td colspan='4' align="center">已选卡牌价值共：<span class="price_total label label-danger ft_20" id="price_total_<%= package_item.id %>"><%= package_item.price %></span><span class="ml_50 hide label label-warning ft_16" id="alert_<%= package_item.id %>">请先选中卡牌</span></td>
+            </tr>
+            <tr>
+              <th></th>
+              <th>卡牌名称</th>
+              <th>卡牌价格</th>
+              <th>张数</th>
+            </tr>
+            <tbody>
+              <% @cards.each do |card| %>
+                <tr class="tr_<%= package_item.id %>">
+                  <td>
+                    <% if package_item.prize_range.split(',').include?(card.id.to_s) %>
+                      <input class="item_scheme_card_check form-control" name="package_items[prize_range][]" checked="checked" type="checkbox" value="<%= card.id %>" id="<%= card.id %>_checkbox_<%= package_item.id %>" data_chosed='0' disabled>
+                    <% else %>
+                      <input class="item_scheme_card_check form-control" name="package_items[prize_range][]" type="checkbox" value="<%= card.id %>" id="<%= card.id %>_checkbox_<%= package_item.id %>" data_chosed='0' disabled>
+                    <% end %>
+                  </td>
+                  <td><%= card.name %></td>
+                  <td id="<%= card.id %>_card_price_<%= package_item.id %>"><%= card.price %></td>
+                  <td>
+                    <div class="input-group">
+                      <% if package_item.prize_range.split(',').include?(card.id.to_s) %>
+                        <input type="number" name="package_items[range_count][]" min="1" max="9999" placeholder="张数>0的整数" value="<%= sheme_card_count(package_item, card.id) %>" class="form-control card_count" id="<%= card.id %>_count_<%= package_item.id %>" width="100px" disabled>
+                      <% else %>
+                        <input type="number" name="package_items[range_count][]" min="1" max="9999" placeholder="张数>0的整数" class="form-control card_count" id="<%= card.id %>_count_<%= package_item.id %>" width="100px" disabled>
+                      <% end %>
+                      <span class="input-group-addon">张</span>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+
+
+  RuCaptcha's cache_store requirements are stored across processes and machines,
+  such as :mem_cache_store, :redis_store, or other distributed storage.
+  But your current set is null_store, it has changed to :file_store for working.
+  NOTE: :file_store is still not a good way, it only works with single server case.
+
+  Please make config file `config/initializes/rucaptcha.rb` to setup `cache_store`.
+  More infomation please read GitHub RuCaptcha README file.
+  https://github.com/huacnlee/rucaptcha
+
+                              Prefix Verb   URI Pattern                                         Controller#Action
+                          ru_captcha        /rucaptcha                                          RuCaptcha::Engine
+                              wechat GET    /wechat(.:format)                                   wechats#show
+                                     POST   /wechat(.:format)                                   wechats#create
+                                home GET    /home(.:format)                                     auction/pic_ads#index
+                               login POST   /login(.:format)                                    core/sessions#login
+                            sessions GET    /sessions(.:format)                                 core/sessions#current_time
+                    ad_seckill_theme GET    /ad_seckill_theme(.:format)                         auction/pic_ads#ad_seckill_theme
+                 app_version_current GET    /app_version/current(.:format)                      app_version#current
+                      auction_themes GET    /auction/themes(.:format)                           auction/themes#index
+                       auction_theme GET    /auction/themes/:id(.:format)                       auction/themes#show
+                    auction_seckills GET    /auction/seckills(.:format)                         auction/seckills#index
+                cancel_auction_trade POST   /auction/trades/:id/cancel(.:format)                auction/trades#cancel
+confirm_products_list_auction_trades GET    /auction/trades/confirm_products_list(.:format)     auction/trades#confirm_products_list
+       delivery_query_auction_trades GET    /auction/trades/delivery_query(.:format)            auction/trades#delivery_query
+              amounts_auction_trades GET    /auction/trades/amounts(.:format)                   auction/trades#amounts
+             pay_list_auction_trades GET    /auction/trades/pay_list(.:format)                  auction/trades#pay_list
+              express_auction_trades POST   /auction/trades/express(.:format)                   auction/trades#express
+              receive_auction_trades POST   /auction/trades/receive(.:format)                   auction/trades#receive
+                      auction_trades GET    /auction/trades(.:format)                           auction/trades#index
+                                     POST   /auction/trades(.:format)                           auction/trades#create
+                       auction_trade GET    /auction/trades/:id(.:format)                       auction/trades#show
+                return_auction_units POST   /auction/units/return(.:format)                     auction/units#return
+         return_detail_auction_units GET    /auction/units/return_detail(.:format)              auction/units#return_detail
+                 execute_pay_paypals POST   /pay/paypals/execute(.:format)                      pay/paypals#execute
+                         pay_paypals POST   /pay/paypals(.:format)                              pay/paypals#create
+                  notify_pay_alipays POST   /pay/alipays/notify(.:format)                       pay/alipays#notify
+                         pay_alipays GET    /pay/alipays(.:format)                              pay/alipays#index
+                      new_pay_alipay GET    /pay/alipays/new(.:format)                          pay/alipays#new
+                  pc_pay_pay_wechats GET    /pay/wechats/pc_pay(.:format)                       pay/wechats#pc_pay
+           mobile_wx_pay_pay_wechats GET    /pay/wechats/mobile_wx_pay(.:format)                pay/wechats#mobile_wx_pay
+              mobile_pay_pay_wechats GET    /pay/wechats/mobile_pay(.:format)                   pay/wechats#mobile_pay
+                 app_pay_pay_wechats GET    /pay/wechats/app_pay(.:format)                      pay/wechats#app_pay
+                  notify_pay_wechats POST   /pay/wechats/notify(.:format)                       pay/wechats#notify
+                     new_pay_wechats GET    /pay/wechats/new(.:format)                          pay/wechats#new
+                    edit_pay_wechats GET    /pay/wechats/edit(.:format)                         pay/wechats#edit
+                         pay_wechats GET    /pay/wechats(.:format)                              pay/wechats#show
+                                     PATCH  /pay/wechats(.:format)                              pay/wechats#update
+                                     PUT    /pay/wechats(.:format)                              pay/wechats#update
+                                     DELETE /pay/wechats(.:format)                              pay/wechats#destroy
+                                     POST   /pay/wechats(.:format)                              pay/wechats#create
+                        retail_carts DELETE /retail/carts(.:format)                             retail/carts#destroy
+                                     GET    /retail/carts(.:format)                             retail/carts#index
+                                     POST   /retail/carts(.:format)                             retail/carts#create
+              auction_voucher_trades GET    /auction/voucher_trades(.:format)                   auction/voucher_trades#index
+                                     POST   /auction/voucher_trades(.:format)                   auction/voucher_trades#create
+           new_auction_voucher_trade GET    /auction/voucher_trades/new(.:format)               auction/voucher_trades#new
+          edit_auction_voucher_trade GET    /auction/voucher_trades/:id/edit(.:format)          auction/voucher_trades#edit
+               auction_voucher_trade GET    /auction/voucher_trades/:id(.:format)               auction/voucher_trades#show
+                                     PATCH  /auction/voucher_trades/:id(.:format)               auction/voucher_trades#update
+                                     PUT    /auction/voucher_trades/:id(.:format)               auction/voucher_trades#update
+                                     DELETE /auction/voucher_trades/:id(.:format)               auction/voucher_trades#destroy
+                    auction_vouchers GET    /auction/vouchers(.:format)                         auction/vouchers#index
+                     auction_voucher PATCH  /auction/vouchers/:id(.:format)                     auction/vouchers#update
+                                     PUT    /auction/vouchers/:id(.:format)                     auction/vouchers#update
+                    auction_products POST   /auction/products(.:format)                         auction/products#index
+                                     GET    /auction/products(.:format)                         auction/products#index
+                     auction_product GET    /auction/products/:id(.:format)                     auction/products#show
+         is_collect_auction_favorite GET    /auction/favorites/:id/is_collect(.:format)         auction/favorites#is_collect
+                   auction_favorites GET    /auction/favorites(.:format)                        auction/favorites#index
+                                     POST   /auction/favorites(.:format)                        auction/favorites#create
+                    auction_favorite DELETE /auction/favorites/:id(.:format)                    auction/favorites#destroy
+          is_collect_auction_fanship GET    /auction/fanships/:id/is_collect(.:format)          auction/fanships#is_collect
+                    auction_fanships GET    /auction/fanships(.:format)                         auction/fanships#index
+                                     POST   /auction/fanships(.:format)                         auction/fanships#create
+                     auction_fanship DELETE /auction/fanships/:id(.:format)                     auction/fanships#destroy
+ set_default_contact_auction_contact POST   /auction/contacts/:id/set_default_contact(.:format) auction/contacts#set_default_contact
+    default_contact_auction_contacts GET    /auction/contacts/default_contact(.:format)         auction/contacts#default_contact
+            options_auction_contacts GET    /auction/contacts/options(.:format)                 auction/contacts#options
+                    auction_contacts GET    /auction/contacts(.:format)                         auction/contacts#index
+                                     POST   /auction/contacts(.:format)                         auction/contacts#create
+                     auction_contact GET    /auction/contacts/:id(.:format)                     auction/contacts#show
+                                     PATCH  /auction/contacts/:id(.:format)                     auction/contacts#update
+                                     PUT    /auction/contacts/:id(.:format)                     auction/contacts#update
+                                     DELETE /auction/contacts/:id(.:format)                     auction/contacts#destroy
+             tree_auction_categories GET    /auction/categories/tree(.:format)                  auction/categories#tree
+                  auction_categories GET    /auction/categories(.:format)                       auction/categories#index
+          show_by_ids_auction_brands GET    /auction/brands/show_by_ids(.:format)               auction/brands#show_by_ids
+                      auction_brands GET    /auction/brands(.:format)                           auction/brands#index
+                       auction_brand GET    /auction/brands/:id(.:format)                       auction/brands#show
+                        auction_user GET    /auction/users/:id(.:format)                        auction/users#show
+                                     PATCH  /auction/users/:id(.:format)                        auction/users#update
+                                     PUT    /auction/users/:id(.:format)                        auction/users#update
+resend_activation_code_core_accounts POST   /core/accounts/resend_activation_code(.:format)     core/accounts#resend_activation_code
+       forget_password_core_accounts POST   /core/accounts/forget_password(.:format)            core/accounts#forget_password
+                       core_accounts POST   /core/accounts(.:format)                            core/accounts#create
+                        core_account PATCH  /core/accounts/:id(.:format)                        core/accounts#update
+                                     PUT    /core/accounts/:id(.:format)                        core/accounts#update
+                       core_sessions POST   /core/sessions(.:format)                            core/sessions#create
+                    core_connections POST   /core/connections(.:format)                         core/connections#create
+                 new_core_connection GET    /core/connections/new(.:format)                     core/connections#new
+                        core_reports POST   /core/reports(.:format)                             core/reports#create
+
+Routes for RuCaptcha::Engine:
+  root GET  /           ru_captcha/captcha#index

@@ -1,0 +1,73 @@
+<div class="widefat">
+  <div class="content mt40">
+    <div class="right w970">
+      <div class="clearfix">
+        <div>
+          <%= form_for supplier_trades_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>活动名称:</span>
+              <%= text_field_tag "q[promotion_activity_name_eq]", params[:q][:promotion_activity_name_eq], class: 'form-control mr_30', placeholder: '活动名称' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>优惠方式:</span>
+              <%= select_tag "q[promotion_activity_discount_type_eq]", options_for_select([["优惠方式", nil]] + Auction::PromotionActivity::DISCOUNTTYPE.to_a.map(&:reverse), params[:q][:promotion_activity_discount_type_eq]), class: 'form-control mr_30', style: 'width:172px' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>活动开始时间:</span>
+              <%= text_field_tag "q[promotion_activity_promotion_begin_gteq]", params[:q][:promotion_activity_promotion_begin_gteq], class: 'form-control search_date mr_30', placeholder: '活动开始时间' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>活动结束时间:</span>
+              <%= text_field_tag "q[promotion_activity_promotion_end_lteq]", params[:q][:promotion_activity_promotion_end_lteq], class: 'form-control search_end_date mr_30', placeholder: '活动结束时间' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>招商开始时间:</span>
+              <%= text_field_tag "q[promotion_activity_declar_begin_gteq]", params[:q][:promotion_activity_declar_begin_gteq], class: 'form-control zsearch_date mr_30', placeholder: '招商开始时间' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>招商结束时间:</span>
+              <%= text_field_tag "q[promotion_activity_declar_end_lteq]", params[:q][:promotion_activity_declar_end_lteq], class: 'form-control zsearch_end_date mr_30', placeholder: '招商结束时间' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <%= f.submit '搜索', class: 'btn btn-primary' %>
+              <input type="button" onclick="formReset()" class= 'btn btn-primary' value="重置">
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function formReset(){
+    document.getElementById("search_form").reset()
+  }
+  $(document).on('turbolinks:load', function () {
+      $('.search_date').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: 'zh-cn'
+      }).on('dp.change', function (ev) {
+          $('.search_date').val(moment(ev.date).format('YYYY-MM-DD'))
+      });
+      $('.search_end_date').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: 'zh-cn'
+      }).on('dp.change', function (ev) {
+          $('.search_end_date').val(moment(ev.date).format('YYYY-MM-DD'))
+      });
+
+      $('.zsearch_date').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: 'zh-cn'
+      }).on('dp.change', function (ev) {
+          $('.zsearch_date').val(moment(ev.date).format('YYYY-MM-DD'))
+      });
+      $('.zsearch_end_date').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: 'zh-cn'
+      }).on('dp.change', function (ev) {
+          $('.zsearch_end_date').val(moment(ev.date).format('YYYY-MM-DD'))
+      });
+  })
+</script>

@@ -1,0 +1,27 @@
+default: &default
+  appid: "123" #公众账号appID
+  secret: "ba4c004e66d2a1d29b86e79a200649d2"
+  token:  "1234"
+  access_token: "/var/tmp/wechat_access_token"
+  jsapi_ticket: "/var/tmp/wechat_jsapi_ticket"
+  mch_id: "123" #公司公众号商户号
+  key: "123" #公司公众号key为商户平台设置的MD5密钥key
+  wechat_app:
+    appid: "1234"
+    mch_id: '12344'
+    key: "124444"
+
+
+
+
+production:
+  <<: *default
+  trusted_domain_fullname: "http://127.0.0.1/"
+
+development:
+  <<: *default
+  trusted_domain_fullname: "http://127.0.0.1/"
+
+
+test:
+  <<: *default

@@ -1,0 +1,3 @@
+<%= form_for @auction_category, url: auction_categories_path, html: {:method=>"post", class: 'bg pd_20'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

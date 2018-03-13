@@ -1,0 +1,17 @@
+<%= form_with(model: core_connection, local: true) do |form| %>
+  <% if core_connection.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(core_connection.errors.count, "error") %> prohibited this core_connection from being saved:</h2>
+
+      <ul>
+      <% core_connection.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

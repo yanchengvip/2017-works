@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Exchange Product Price Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Exchange product</th>
+      <th>Dealer</th>
+      <th>Dealer type</th>
+      <th>Price</th>
+      <th>Time</th>
+      <th>Active</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exchange_product_price_logs.each do |exchange_product_price_log| %>
+      <tr>
+        <td><%= exchange_product_price_log.exchange_product_id %></td>
+        <td><%= exchange_product_price_log.dealer_id %></td>
+        <td><%= exchange_product_price_log.dealer_type %></td>
+        <td><%= exchange_product_price_log.price %></td>
+        <td><%= exchange_product_price_log.time %></td>
+        <td><%= exchange_product_price_log.active %></td>
+        <td><%= link_to 'Show', exchange_product_price_log %></td>
+        <td><%= link_to 'Edit', edit_exchange_product_price_log_path(exchange_product_price_log) %></td>
+        <td><%= link_to 'Destroy', exchange_product_price_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exchange Product Price Log', new_exchange_product_price_log_path %>

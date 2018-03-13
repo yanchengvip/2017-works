@@ -1,0 +1,20 @@
+<div class="row"><p class="sub-header">能量商城>能量商城>添加能量商品</p></div>
+
+<form action="/energy_products" method="post" class="form-horizontal">
+
+  <%= render partial: 'info' %>
+
+  <%= render partial: 'item' %>
+
+  <div class="clearfix"></div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= link_to '取消', '/energy_products', class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+      <button type="submit" class="btn btn-primary btn-lg" id="energy_products_submit">保存</button>
+    </div>
+  </div>
+
+</form>
+
+<%= render partial: 'packages/error_modal' %>

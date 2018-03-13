@@ -1,0 +1,19 @@
+<tr class="fields content_tr">
+  <td>
+    <span class="mr_10">道具</span>
+    <%= select_tag "week_level_gifts[][gifts_id]", options_for_select([["无", nil]] + LevelGift.prop_for_chose, {}), class: 'form-custom_input_md mr_50', required: 'required' %>
+  </td>
+  <td>
+    <span class="ml_10">数量</span>
+    <input type="number" name="week_level_gifts[][gifts_num]" placeholder='道具数量' class='custom_input_big' required min="0">
+  </td>
+
+  <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+</tr>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function () {
+    // $(".card_user_own_select2").select2()
+  })
+</script>

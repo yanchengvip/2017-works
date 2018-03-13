@@ -1,0 +1,2 @@
+class MallProductTag < ApplicationRecord
+end

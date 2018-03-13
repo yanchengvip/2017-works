@@ -1,0 +1,71 @@
+<div class="modal fade" id="choseChangeItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">选择批量修改类型</h4>
+      </div>
+        <div class="modal-body">
+          <h4>
+            <div class="radio">
+              <!-- <label class="mr_30">
+                <input class="form-check-input item_type" type="radio" value="1" name='item_type_name'>
+                <span class="radio_label">计谋</span>
+              </label> -->
+              <label class="mr_30">
+                <input class="form-check-input item_type" type="radio" value="label" name='item_type_name'>
+                <span class="radio_label">标注</span>
+              </label>
+              <label class="mr_30">
+                <input class="form-check-input item_type" type="radio" value="keywords" name='item_type_name'>
+                <span class="radio_label">关键字</span>
+              </label>
+            </div>
+          </h4>
+          <input type="hidden" id="chosed_product_ids">
+          <input type="hidden" id="item_type_val">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="chose_item_type">确定</button>
+        </div>
+    </div>
+  </div>
+</div>
+<%= render partial: 'edit_modal' %>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('.item_type').on('click', function(){
+      $('#item_type_val').val($(this).val())
+      console.log($('#item_type_val').val())
+    })
+
+    $('.radio_label').on('click', function(){
+      $('#item_type_val').val($(this).prev('input').val())
+      console.log($('#item_type_val').val())
+    })
+
+    $('#chose_item_type').on('click', function(){
+      var item_type_val = $('#item_type_val').val()
+      $.ajax({
+        type: 'get',
+        url: '/auction/products/batch_edit_form',
+        data: {item_type_val: item_type_val, pids: $('#chosed_product_ids').val()},
+        success: function(result){
+          $('#choseChangeItemModal').modal('hide')
+          $('#EditModal').modal('show');
+          $('#EditModal').on('shown.bs.modal',function(){
+            $('#edit_content_div').html(result)
+          })
+        },
+        error: function(XMLHttpResponse){
+          alert('网络异常')
+        }
+      })
+
+    })
+  })
+</script>

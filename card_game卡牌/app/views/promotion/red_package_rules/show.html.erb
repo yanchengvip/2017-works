@@ -1,0 +1,19 @@
+<p class="sub-header">红包管理>红包>查看红包规则</p>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基本信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">ID：<span><%= @red_package_rule.id %></span></li>
+    <li class="list-group-item ">名称：<span><%= @red_package_rule.name %></span></li>
+    <li class="list-group-item ">开启等待时间：<span><%= @red_package_rule.open_wait_time %>秒</span></li>
+    <li class="list-group-item ">结束等待时间：<span><%= @red_package_rule.close_wait_time %>秒</span></li>
+  </ul>
+  <div class="panel-heading"><strong>现金红包</strong></div>
+  <%= render partial: 'item_own' %>
+  <div class="panel-heading"><strong>现金券</strong></div>
+  <%= render partial: 'voucher_item_own' %>
+  <div class="panel-heading"><strong>宝箱符</strong></div>
+  <%= render partial: 'bxf_item_own' %>
+</div>

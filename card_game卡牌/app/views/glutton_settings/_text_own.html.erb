@@ -1,0 +1,39 @@
+<%# if @package.prize_type == 1 %>
+<% @glutton_setting.glutton_texts.each do |glutton_text| %>
+  <tr class="fields_origin_statc content_tr" id="text_item_tr_<%= glutton_text.id %>">
+    <td>
+      <div class="input-group">
+        <input type="number" name="glutton_texts[][blood_percent]" min="0" max="100" step='0.1' class="form-control" required placeholder="最多1位小数" value="<%= glutton_text.blood_percent * 100 %>">
+        <span class="input-group-addon">%</span>
+      </div>
+    </td>
+
+    <td>
+      <!-- <div class="input-group"> -->
+        <input type="text" name="glutton_texts[][show_text]" class="form-control" required placeholder="提示语言" value="<%= glutton_text.show_text %>">
+      <!-- </div> -->
+    </td>
+
+    <td>
+      <%= link_to '删除', 'javascript:void(0)', class: "del_glutton_text_origin", id: "glutton_text_#{glutton_text.id}" %>
+    </td>
+    <input type="hidden" name="glutton_texts[][id]" value="<%= glutton_text.id %>">
+  </tr>
+<% end %>
+
+<%= render 'text_item_del_modal'%>
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    $('.del_glutton_text_origin').on('click', function(){
+      $('#delGluttonTextModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delGluttonTextModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_text_item_id').val(this_id.split('_')[2])
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+</script>
+

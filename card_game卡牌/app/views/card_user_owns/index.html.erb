@@ -1,0 +1,37 @@
+<div class="row">
+  <p class="sub-header">营销管理>卡牌管理>用户卡牌</p>
+</div>
+
+<%= render partial: 'search' %>
+
+<div class="row mt_20 mb_20"><%= link_to '赠送卡牌', new_card_user_own_path, class: 'btn btn-primary' %></div>
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>用户ID</th>
+        <th>登录名</th>
+        <th>手机</th>
+        <th>卡牌名称</th>
+        <th>卡牌数量</th>
+        <th>操作员ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @card_user_owns && @card_user_owns.each_with_index do |card_user_own, index| %>
+      <tr id="tr_<%= card_user_own.id %>">
+        <td><%= card_user_own.user_id %></td>
+        <td><%= card_user_own.user&.login_name %></td>
+        <td><%= card_user_own.user&.mobile %></td>
+        <td><%= card_user_own.card_name %></td>
+        <td><%= card_user_own.card_num %></td>
+        <td><%= card_user_own.creator_id %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<%= paginate @card_user_owns %>
+

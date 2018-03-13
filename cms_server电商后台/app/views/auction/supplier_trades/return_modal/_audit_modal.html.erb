@@ -1,0 +1,78 @@
+<!-- 审核-->
+<div class="modal fade" id="UnitAuditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title title_name" id="audit_title"></h4>
+      </div>
+      <form action="/auction/units/audit" method="post" id="unit_audit_form">
+        <div class="modal-body">
+          <input type="hidden" class="form-control" name='id' id="audit_unit_id">
+          <input type="hidden" class="form-control" name='status' id="audit_unit_status">
+          <div class="form-group">
+            <label for="exampleInputName2">退货商品:</label>
+            <span id="audit_name"></span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName2">退货原因:</label>
+            <span id="audit_reason"></span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName2">退款方式:</label>
+            <span id="refund_type"></span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName2">账号:</label>
+            <span id="audit_account"></span>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName2">退款金额:</label>
+            <span id="audit_amount"></span>元
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputName2">审核备注</label>
+            <textarea type="textarea" rows="5" class="form-control" placeholder="备注" name='remark' id="obj_remark"></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    function unit_audit_modal(unit_id,name, reason, refund_type, account, amount,type) {
+        $('#UnitAuditModal').modal('show');
+        $('#UnitAuditModal').on('shown.bs.modal', function () {
+            if(type == 'audit'){
+                $('#audit_title').html('审核通过?')
+                $('#audit_unit_status').val('receive')
+            }else if (type == 'freezed'){
+                $('#audit_title').html('审核驳回?')
+                $('#audit_unit_status').val('freezed')
+            }
+            $('#audit_unit_id').val(unit_id)
+            $('#audit_name').html(name)
+            $('#audit_reason').html(reason)
+            $('#refund_type').html(refund_type)
+            $('#audit_account').html(account)
+            $('#audit_amount').html(amount)
+        }).on('hidden.bs.modal', function (e) {
+            $('#audit_unit_id').val('')
+            $('#audit_name').html('')
+            $('#audit_reason').html('')
+            $('#refund_type').html('')
+            $('#audit_account').html('')
+            $('#audit_amount').html('')
+        })
+
+    }
+</script>

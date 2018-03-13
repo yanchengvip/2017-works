@@ -1,0 +1,15 @@
+
+<%= form_for @game_type, html: { class: ''} do |f| %>
+
+  <%= render partial: 'info', locals: {f: f} %>
+
+  <div class="clearfix"></div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= link_to '取消', game_types_path, class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'game_type_submit' %>
+    </div>
+  </div>
+
+<% end %>

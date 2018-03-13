@@ -1,0 +1,12 @@
+<div class="row placeholders well">
+  <%= form_for auction_contacts_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>收货人姓名:</span>
+      <%= text_field_tag "q[name_eq]", params[:q][:name_eq], class: 'form-control mr_20', placeholder: '收货人姓名' %>
+      <span>收货人电话:</span>
+      <%= text_field_tag 'q[mobile_cont]', params[:q][:mobile_cont], class: 'form-control mr_20', placeholder: '收货人电话 ' %>
+
+      <%= f.submit '搜索', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

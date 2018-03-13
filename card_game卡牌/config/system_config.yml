@@ -1,0 +1,60 @@
+development:
+  redis:
+    url: "redis://:127.0.0.1:6379/15"
+  admin_config:
+    fix_price_over: 10 #等值随机礼包的方案上下不能超过的微集份值
+    reset_pwd: '1@123' #重置密码
+  es_config:
+    hosts: "10.0.1.75:9200"
+    log: true
+  es_table_prefix: "demo_card_game_"
+  battle_rule:
+    max_bout: 6 #战役号码最大位数
+  java_redis_url:
+
+  app_download_url: ''
+
+  huyi:
+    host: 'http://127.0.0.1/phone'
+    api_id: '1'
+    api_key: '1'
+  ihaveu:
+    host: "http://127.0.0.1/"
+  sms:
+    mw:
+      submit_url: "http://101.251.214.153:8901/MWGate/wmgw.asmx"
+      userid: "JI0607"
+      password: "158828"
+  ras:
+    private_key:
+    public_key:
+production:
+  redis:
+    url: "redis://:127.0.0.1:6379/15"
+  es_config:
+    hosts: "10.0.1.75:9200"
+    log: true
+  es_table_prefix: "demo_card_game_"
+  admin_config:
+    fix_price_over: 10 #等值随机礼包的方案上下不能超过的微集份值
+    reset_pwd: 'zuanlian@123' #重置密码
+  battle_rule:
+    max_bout: 6 #战役号码最大位数
+  java_redis_url: 'http://127.0.0.1' #java的redis服务器ip
+  app_download_url: 'https://127.0.0.1/card/#/down'
+  huyi:
+    host: 'http://127.0.0.1/phone'
+    api_id: '1'
+    api_key: '1'
+  sms:
+    mw:
+      submit_url: "http://127.0.0.18901/MWGate/wmgw.asmx"
+      userid: "JI0607"
+      password: "158828"
+  ihaveu:
+    host: "http://127.0.0.1/"
+    rsa_private_key:
+  rsa:
+    private_key:
+    public_key:
+

@@ -1,0 +1,67 @@
+<%#= render partial: 'form' %>
+<p class="sub-header">系统管理>其它管理>新建赠品</p>
+
+<form action="/gifts" method="post" class="mt_20">
+  <div class="form-group row">
+    <label for="gift_status" class="col-sm-2 control-label">*启用：</label>
+    <div class="col-sm-6">
+      <% if @gift.status %>
+        <div class="radio">
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="1" name="status"  checked="checked">启用
+          </label>
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="0" name="status">关闭
+          </label>
+        </div>
+      <% else %>
+        <div class="radio">
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="1" name="status">启用
+          </label>
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="0" name="status"  checked="checked">关闭
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="gift_name" class="col-sm-2 control-label">*名称：</label>
+    <div class="col-sm-6">
+      <input type="text" name="name" id="gift_name" required="required" class="form-control">
+    </div>
+  </div>
+
+  <!-- <div class="form-group row">
+    <label for="gift_type" class="col-sm-2 control-label">*赠品类型：</label>
+    <div class="col-sm-6">
+      <select name="gift_type" class='form-control'>
+        <%# Gift::GIFTTYPE.each do |key, val| %>
+          <option value="<%#= key %>"><%#= val %></option>
+        <%# end %>
+      </select>
+    </div>
+  </div> -->
+
+  <%= render partial: 'item' %>
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= link_to '取消', '/gifts', class: 'btn btn-default mr_20', role: 'button' %>
+      <%#= f.submit '保存', class: 'btn btn-primary', data: {:disable_with => "提交中..."} %>
+      <button type="submit" class="btn btn-primary" id="gift_submit">保存</button>
+    </div>
+  </div>
+
+</form>
+
+<script type="text/javascript">
+  $(function(){
+    $('body').on('click', '.del_item_new', function(){
+      $(this).parent().parent().remove()
+    })
+  })
+</script>
+

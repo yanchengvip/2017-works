@@ -1,0 +1,77 @@
+<div class="modal fade" id="shipModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">发货</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/supplier/trades/ship" method="post" id="ship_form">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">订单ID:<span id="trade_id"></span></label>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">快递服务商:</label>
+
+            <%= select_tag('supplier_trade[delivery_service]', options_for_select( Supplier::Trade::DELIVERY_SERVICES.map{|s| [s[:title], s[:name]]}) ) %>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">物流单号:</label>
+            <input  class="form-control" id="delivery_identifier" name="supplier_trade[delivery_identifier]" type='a-Z0-9'>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="submit_ship_form" data-id="">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $('#shipModel').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var id = button.data('id') // Extract info from data-* attributes
+    $("#delivery_identifier").val("")
+    var modal = $(this)
+    modal.find('#trade_id').text(id)
+    modal.find('#trade_id')
+    $("#ship_form").attr("action", "/supplier/trades/"+id+"/ship")
+    $("#submit_ship_form").attr("trade_id", id)
+  })
+  $("#submit_ship_form").click(function(argument) {
+    id = $("#submit_ship_form").attr("trade_id")
+    // $('#shipModel').modal('hide')
+    if ($('#delivery_identifier').val() == ""){
+      confirm("请填写订单编号")
+      return false
+    }else {
+      $.ajax({
+        type: 'post',
+        url: $("#ship_form").attr("action"),
+        data: $("#ship_form").serialize(),
+        success: function (response) {
+          if (response['status'] == 200) {
+            $("#trade_"+id).hide()
+            // $("#trade_"+id).find(".ship").hide()
+            // $("#trade_"+id).find(".print").hide()
+            // $("#trade_"+id).find(".ship").hide()
+            // $("#trade_"+id).find(".delivery_service").text(response["data"]["trade"]["delivery_service"])
+            // $("#trade_"+id).find(".delivery_identifier").text(response["data"]["trade"]["delivery_identifier"])
+            // $("#trade_"+id).find(".ship_at").text($.format.date(response["data"]["trade"]["ship_at"], "yyyy-MM-dd HH:mm") )
+            // $("#ship_form :input").not(":button, :submit, :reset, :hidden").val("")
+            swal('发货成功')
+            $('#shipModel').modal('hide')
+          }else{
+            swal(response["msg"])
+          }
+        },
+        error: function (response) {
+            swal('网络异常')
+        }
+
+      })
+     }
+
+  })
+</script>

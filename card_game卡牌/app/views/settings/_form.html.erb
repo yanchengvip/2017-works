@@ -1,0 +1,36 @@
+<div class="form-group row mt_20">
+  <label for="setting_var" class="col-sm-2 control-label">键</label>
+  <div class="col-sm-8">
+    <div>
+      <%= f.text_field :var, placeholder: '键', class: 'form-control', required: "required", readonly: params[:action] == 'edit' ? true : false %>
+    </div>
+    <div class="red">
+      **创建后，键不能修改！**
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="setting_value" class="col-sm-2 control-label">值</label>
+  <div class="col-sm-8">
+    <%= f.text_field :value, placeholder: '值', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="setting_memo" class="col-sm-2 control-label">说明</label>
+  <div class="col-sm-8">
+    <%= f.text_area :memo, placeholder: '说明', class: 'form-control', required: "required", rows: 6 %>
+  </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', settings_path, class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'setting_submit' %>
+  </div>
+</div>
+

@@ -1,0 +1,2 @@
+module Auction::FanshipsHelper
+end

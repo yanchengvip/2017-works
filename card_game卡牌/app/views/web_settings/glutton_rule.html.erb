@@ -1,0 +1,22 @@
+<p class="sub-header">系统管理>饕餮设置>规则文案</p>
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>规则文案</strong></div>
+  <%= form_for @web_setting, html: {class: 'form-horizontal '} do |f| %>
+
+    <div class="form-group">
+      <!-- <label for="glutton_rule" class="col-sm-1 control-label"></label> -->
+      <div class="col-sm-12">
+        <%= f.text_area :glutton_rule, placeholder: '饕餮规则文案', rows: 9, class: "tinymce", id: 'glutton_rule' %>
+        <%= hidden_field_tag :from, 'glutton_rule' %>
+      </div>
+    </div>
+    <%= render partial: 'tinymce', locals: {text_id: 'glutton_rule'} %>
+
+    <div class="form-group mt_50">
+      <div class="col-sm-offset-5 col-sm-4">
+        <%= f.submit '保存', class: 'btn btn-primary btn-lg', data: {:disable_with => "提交中..."} %>
+      </div>
+    </div>
+
+  <% end %>
+</div>

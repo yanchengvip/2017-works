@@ -1,0 +1,50 @@
+<p class="sub-header">系统管理>其它管理>战役&卡牌配置</p>
+
+<%= form_for @web_setting, html: {class: 'form-horizontal mt_50'} do |f| %>
+  <div class="form-group">
+    <label for="link_expire_hours" class="col-sm-2 control-label">*卡牌赠送好友领取链接失效时间：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <%= f.text_field :link_expire_hours, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "form-control", id: 'link_expire_hours' %>
+        <span class="input-group-addon">小时</span>
+        <%= hidden_field_tag :from, 'card_give' %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="link_expire_hours" class="col-sm-2 control-label">*战役失败后兑换商品补差价有效期：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <%= f.text_field :expire_days, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "form-control", id: 'link_expire_hours' %>
+        <span class="input-group-addon">天</span>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="link_expire_hours" class="col-sm-2 control-label">*自建赛场功勋奖励：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <%= f.text_field :self_game_glory_prize, placeholder: '>0的整数', type: 'number', min: 0, required: "required", class: "form-control", id: 'link_expire_hours' %>
+        <span class="input-group-addon">%</span>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="link_expire_hours" class="col-sm-2 control-label">*自动报名最小能量值：</label>
+    <div class="col-sm-8">
+      <!-- <div class="input-group"> -->
+        <%= f.text_field :auto_energy_min, placeholder: '>=0的整数', type: 'number', min: 0, max: 99999, required: "required", class: "form-control", id: 'link_expire_hours' %>
+        <!-- <span class="input-group-addon">天</span> -->
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%#= link_to '取消', admins_path, class: 'btn btn-default' %>
+      <%#= f.submit '保存', class: 'btn btn-primary', data: {:disable_with => "提交中..."} %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', data: {:disable_with => "提交中..."} %>
+    </div>
+  </div>
+<% end %>

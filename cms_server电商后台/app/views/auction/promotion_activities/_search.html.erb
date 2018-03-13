@@ -1,0 +1,35 @@
+<div class="collapse breadcrumb-collapse-s" id="activity_search">
+  <div class="well">
+     <%= form_for auction_promotion_activities_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">活动名称:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[name_eq]", params[:q][:name_eq], class: 'form-control mr_30', placeholder: '活动名称' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">优惠方式:</label>
+        <div class="col-sm-8">
+          <%= select_tag "q[discount_type_eq]", options_for_select([["优惠方式", nil]] + Auction::PromotionActivity::DISCOUNTTYPE.to_a.map(&:reverse), params[:q][:discount_type_eq]), class: 'form-control mr_30', style: 'width:172px' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">活动开始时间</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[promotion_begin_gteq]", params[:q][:promotion_begin_gteq], class: 'form-control search_date', id: 'input4', placeholder: '开始时间' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">活动结束时间:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[promotion_end_lteq]", params[:q][:promotion_end_lteq], class: 'form-control search_end_date', id: 'input4', placeholder: '结束时间' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

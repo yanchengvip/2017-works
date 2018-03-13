@@ -1,0 +1,22 @@
+<div class="mt_10 bg_tr" style="line-height: 35px;font-size: 18px;">平台属性：</div>
+<% @attributes && @attributes.each do |atr| %>
+  <% if atr.input_type == 1 %>
+    <div class="mt_20 mb_20">
+      <span class="mr_10 link <%= 'isrequire' if atr.is_require %>"><%= atr.name %></span>
+      <input type="text" name="input_category_attributes[<%= atr.id %>][]"  id="attribute_<%= atr.id %>" class='custom_input_long' <%= 'required' if atr.is_require %>>
+    </div>
+  <% else %>
+    <div class="box mr_30">
+      <p class="mt_20 <%= 'isrequire' if atr.is_require %>"><%= link_to atr.name, 'javascript:void(0)', class: 'link' %></p>
+      <div>
+        <select name="category_attributes[<%= atr.id %>][]" id="attribute_<%= atr.id %>"  multiple='multiple' class='select_box' <%= 'required' if atr.is_require %>>
+          <% atr.option_list.split.each do |ol| %>
+            <option value="<%= ol %>"><%= ol %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  <% end %>
+  <input type="hidden" name="attributes_names[<%= atr.id %>][atr_name]" value="<%= atr.name %>">
+<% end %>
+

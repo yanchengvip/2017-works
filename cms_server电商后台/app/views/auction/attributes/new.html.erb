@@ -1,0 +1,5 @@
+
+<%= form_for @auction_attribute, url: auction_attributes_path, html: {:method=>"post", class: 'bg pd_20'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>
+

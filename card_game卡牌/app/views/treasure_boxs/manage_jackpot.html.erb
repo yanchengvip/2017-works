@@ -1,0 +1,39 @@
+<div class="row"><p class="sub-header">系统管理>宝箱管理>奖池管理</p></div>
+<legend><p>宝箱信息</p></legend>
+<div class="form-group row mt_20">
+  <label for="treasure_box_name" class="col-sm-2 control-label">宝箱名称</label>
+  <div class="col-sm-8">
+    <span class="form_control"><%= @treasure_box.name %></span>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="treasure_box_num" class="col-sm-2 control-label">解锁消耗宝符</label>
+  <div class="col-sm-8">
+    <%= @treasure_box.num %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="treasure_box_once_num" class="col-sm-2 control-label">开启1次消耗宝符</label>
+  <div class="col-sm-8">
+    <%= @treasure_box.once_num %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="treasure_box_more_num" class="col-sm-2 control-label">开启5次消耗宝符</label>
+  <div class="col-sm-8">
+    <%= @treasure_box.more_num %>
+  </div>
+</div>
+
+<legend class="mt_30">
+  <p>
+    奖池管理<span class="ml_50"><%= link_to '新增奖池', new_jackpot_treasure_box_path(@treasure_box), id: 'new_jackpot', class: 'btn btn-success' %></span>
+    <span class="red ft_14">(增加或删除母版的奖品类型时，会同时在其他奖池增加或删除该奖品类型)</span>
+  </p>
+</legend>
+
+<%= render partial: 'jackpot_own' %>
+

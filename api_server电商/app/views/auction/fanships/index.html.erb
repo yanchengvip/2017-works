@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Fanships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_fanships.each do |auction_fanship| %>
+      <tr>
+        <td><%= link_to 'Show', auction_fanship %></td>
+        <td><%= link_to 'Edit', edit_auction_fanship_path(auction_fanship) %></td>
+        <td><%= link_to 'Destroy', auction_fanship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Fanship', new_auction_fanship_path %>

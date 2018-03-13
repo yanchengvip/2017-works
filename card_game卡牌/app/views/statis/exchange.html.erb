@@ -1,0 +1,63 @@
+<p class="sub-header">统计>数据统计>兑换数据</p>
+<div class="row placeholders well">
+  <%= form_for exchange_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>起始时间：</span>
+      <%= text_field_tag 'q[created_at_gteq]', params[:q][:created_at_gteq], class: 'form-control mr_20 search_time_begin', placeholder: '起始时间' %>
+      <span>结束时间：</span>
+      <%= text_field_tag 'q[created_at_lteq]', params[:q][:created_at_lteq], class: 'form-control mr_20 search_time_end', placeholder: '结束时间' %>
+      <span>用户手机号：</span>
+      <%= text_field_tag 'mobile', params[:mobile], class: 'form-control mr_20', placeholder: '用户手机号：' %>
+      <!-- <%= f.submit '查询', class: 'btn btn-primary' %> -->
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>商品编号</th>
+        <th>兑换时间</th>
+        <th>兑换用户ID</th>
+        <th>手机号</th>
+        <th>微集分消耗</th>
+        <th>功勋消耗</th>
+        <!-- <th>id</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @mall_orders && @mall_orders.each_with_index do |mall_order, index| %>
+        <tr id="tr_<%= mall_order.id %>">
+          <td><%= mall_order.mall_product_id %></td>
+          <td><%= mall_order.created_at&.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%= mall_order.user_id %></td>
+          <td><%= mall_order.user&.mobile %></td>
+          <td><%= mall_order.micro_score if mall_order.pay_type == 2 %></td>
+          <td><%= mall_order.micro_ticket if mall_order.pay_type == 1 %></td>
+          <!-- <td><%#= mall_order.id %></td> -->
+          <!-- <td>
+            <%#= link_to '下载', "javascript:void(0)", onclick: "mall_order_delete(#{mall_order.id}, '#{mall_order.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          </td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @mall_orders %>
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/exchange.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/exchange'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/exchange'
+      $("#search_form").submit()
+    })
+  })
+</script>

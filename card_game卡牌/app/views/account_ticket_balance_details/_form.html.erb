@@ -1,0 +1,37 @@
+<%= form_for(account_ticket_balance_detail) do |f| %>
+  <% if account_ticket_balance_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(account_ticket_balance_detail.errors.count, "error") %> prohibited this account_ticket_balance_detail from being saved:</h2>
+
+      <ul>
+      <% account_ticket_balance_detail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :account_ticket_id %>
+    <%= f.number_field :account_ticket_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :fund %>
+    <%= f.text_field :fund %>
+  </div>
+
+  <div class="field">
+    <%= f.label :trad_type %>
+    <%= f.number_field :trad_type %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

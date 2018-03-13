@@ -1,0 +1,50 @@
+<%#= render partial: 'search' %>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名称</th>
+      <th>图片</th>
+      <th>父类</th>
+      <th width="20%">属性</th>
+      <!-- <th>顺序</th> -->
+      <th>男士</th>
+      <th>女士</th>
+      <th>创建时间</th>
+      <th>编辑</th>
+      <th>操作</th>
+      <!-- <th>发布</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @manage_categories && @manage_categories.each_with_index do |manage_category, index| %>
+    <tr id="tr_<%= manage_category.id %>">
+      <td><%= manage_category.id %></td>
+      <td><%= manage_category.name %></td>
+      <td><%= image_tag (manage_category.pic) || '', width: 60, height: 60, class: 'list' if manage_category.pic %></td>
+      <td><%= manage_category.parent.blank? ? '无' : manage_category.parent&.name %></td>
+      <td><%= attributes_name(manage_category.attribute_ids) %></td>
+      <!-- <td><%#= manage_category.order %></td> -->
+      <td><%= manage_category.male ? '是' : '否' %></td>
+      <td><%= manage_category.female ? '是' : '否' %></td>
+      <td><%= manage_category.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td><%= manage_category.user&.phone ||  manage_category.user&.email%></td>
+      <td>
+        <% if can? 'auction/categories#show' %>
+          <%= link_to '查看', auction_category_path(manage_category), class: 'btn btn-sm btn-info' %>
+        <% end %>
+        <% if can? 'auction/categories#edit' %>
+          <%= link_to '编辑', edit_auction_category_path(manage_category), class: 'btn btn-sm btn-primary' %>
+        <% end %>
+        <%# if manage_category.status == 0 %>
+          <%#= link_to '删除', "javascript:void(0)", onclick: "manage_category_delete(#{manage_category.id}, '#{manage_category.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+        <%# end %>
+      </td>
+      <!-- <td><%#= manage_category.published ? '已发布' : '未发布' %></td> -->
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @manage_categories %>

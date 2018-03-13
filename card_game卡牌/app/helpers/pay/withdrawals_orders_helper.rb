@@ -1,0 +1,2 @@
+module Pay::WithdrawalsOrdersHelper
+end

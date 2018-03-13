@@ -1,0 +1,335 @@
+<div class="form-group row mt_20">
+  <label for="chest_box_period" class="col-sm-2 control-label">期号</label>
+  <div class="col-sm-8">
+    <%= f.text_field :period, placeholder: '期号', class: 'form-control', required: "required", onkeyup: "validate_length_of_words(this.id,10)"  %>
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_chest_type" class="col-sm-2 control-label">宝箱类型</label>
+  <div class="col-sm-8">
+    <%= f.select :chest_type, options_for_select(ChestBox::CHEST_TYPE.to_a.map(&:reverse), @chest_box.chest_type), {}, class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_open_type" class="col-sm-2 control-label">开启方式</label>
+  <div class="col-sm-8">
+    <%= f.select :open_type, options_for_select(ChestBox::OPEN_TYPE.to_a.map(&:reverse), @chest_box.open_type), {}, class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_treasure_amount" class="col-sm-2 control-label">开启花费</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :treasure_amount, placeholder: '选择开启宝箱方式需要花费的数量，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">次/个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_times_max" class="col-sm-2 control-label">每用户最多开启次数</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :times_max, placeholder: '每用户最多开启次数，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">次</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_hands" class="col-sm-2 control-label">宝箱手数</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :hands, placeholder: '宝箱手数，整数', class: 'form-control', required: "required", type: 'number', min: 0, max: 100000 %>
+      <span class="input-group-addon">手</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_prize_min" class="col-sm-2 control-label">最小商品个数</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :prize_min, placeholder: '最小商品个数，整数', class: 'form-control', required: "required", type: 'number', min: 0, readonly: true %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_prize_max" class="col-sm-2 control-label">最大商品个数</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :prize_max, placeholder: '最大商品个数，整数', class: 'form-control', required: "required", type: 'number', min: 2 %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_notice_num" class="col-sm-2 control-label">全局通知</label>
+  <div class="col-sm-8">
+      剩余<%= f.text_field :notice_num, placeholder: '整数', class: 'custom_input_md', required: "required", type: 'number', min: 0 %>个商品时，如大奖还未开出，发出全局通告（集分竞宝、优众APP）
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_box_begin_time" class="col-sm-2 control-label">生效时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :begin_time, placeholder: '开始时间', class: 'custom_input_md search_time_begin', required: "required" %>～
+    <%= f.text_field :end_time, placeholder: '结束时间', class: 'custom_input_md search_time_end', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="input" class="col-sm-2 control-label">开启设定</label>
+  <div class="col-sm-8">
+    <div class="row ml_1" id="stage_div">
+      <p class="red">所有阶段产出奖品百分比之和和产出价值百分比之和必须分别等于100，没有的阶段不填，至少需要一个阶段</p>
+      <% 5.times do |i| %>
+        <p>
+          第&nbsp;<strong><%= i+1 %></strong>&nbsp;阶段：
+          产出<%= text_field_tag 'stage[][out_prize]', "#{@outputs[i][0] rescue ''}", class: 'custom_input_md out_prize', placeholder: '百分比，整数', type: 'number', min: 0 %>%奖品(手数)，&nbsp;&nbsp;
+          产出<%= text_field_tag 'stage[][out_worth]', "#{@outputs[i][1] rescue ''}", class: 'custom_input_md out_worth', placeholder: '百分比，整数', type: 'number', min: 0 %>%价值
+          <!-- <span><%#= link_to '确认', 'javascript:void(0)', class: 'submit_stage btn btn-sm btn-success ml_20' %></span> -->
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="chest_box_cant_percent" class="col-sm-2 control-label">大奖开启</label>
+  <div class="col-sm-8">
+    <div class="row ml_1 mb_20">
+      <%#= f.text_field :cant_percent, placeholder: '整数', class: 'custom_input_md mr_20', required: "required", type: 'number', min: 0 %>%前不可产出大奖
+    </div>
+    <div class="row ml_1">
+      <%#= f.text_field :hours_to_next, placeholder: '小时，整数', class: 'custom_input_md mr_20', required: "required", type: 'number', min: 0 %>小时后，奖品仍未抽空，自动替换下一宝箱
+    </div>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">实物奖品数量限制</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= text_field_tag 'prize_num_limit[1]', "#{@chest_box.prize_limit[1] rescue ''}", placeholder: '实物奖品数量限制，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">入场券奖品数量限制</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= text_field_tag 'prize_num_limit[2]', "#{@chest_box.prize_limit[2] rescue ''}", placeholder: '入场券奖品数量限制，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">兑奖券奖品数量限制</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= text_field_tag 'prize_num_limit[3]', "#{@chest_box.prize_limit[3] rescue ''}", placeholder: '兑奖券奖品数量限制，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">宝箱券奖品数量限制</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= text_field_tag 'prize_num_limit[5]', "#{@chest_box.prize_limit[5] rescue ''}", placeholder: '宝箱券奖品数量限制，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">优众现金券限制</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= text_field_tag 'prize_num_limit[6]', "#{@chest_box.prize_limit[6] rescue ''}", placeholder: '优众现金券限制，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">话费卡个数限制</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= text_field_tag 'prize_num_limit[7]', "#{@chest_box.prize_limit[7] rescue ''}", placeholder: '话费限制，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">个</span>
+    </div>
+    <!-- <span class="red">青铜宝箱是话费卡个数限制，收费宝箱是话费卡总金额限制</span> -->
+  </div>
+</div>
+
+<div class="form-group row mt_50">
+  <label for="chest_box_notice_copy" class="col-sm-2 control-label">全局通知文案</label>
+  <div class="col-sm-8">
+    <%= f.text_area :notice_copy, placeholder: '全局通知文案', class: 'form-control', required: "required", rows: 6 %>
+  </div>
+</div>
+
+
+<p class="mt_50"><h4 class="red">（幸运大奖有且只有一个；指定用户只能指定幸运大奖；排序数字越大排序越靠前）</h4></p>
+<div id="normal_prize" class="<%= @chest_box.chest_type.in?([6,7,8]) ? 'hide' : '' %>">
+  <legend class="mt_30">
+    <p>
+      <span>随机奖品</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn  btn-success ml_20', id: 'add_chest_prize' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <!-- <label for="" class="col-sm-2 control-label"></label> -->
+    <span class="hide" id="random_id">100000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'prize_own' %>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <legend class="mt_30">
+    <p>
+      <span>指定奖品</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn  btn-success ml_20', id: 'add_chest_prize_appoint' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <!-- <label for="" class="col-sm-2 control-label"></label> -->
+    <span class="hide" id="random2_id">200000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'appoint_own' %>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <legend class="mt_30">
+    <p>
+      <span>特定奖品</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn  btn-success ml_20', id: 'add_chest_prize_given' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <!-- <label for="" class="col-sm-2 control-label"></label> -->
+    <span class="hide" id="random3_id">300000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'given_own' %>
+    </div>
+  </div>
+
+  <legend class="mt_30">
+    <p>
+      <span>3次必中</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_three' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <!-- <label for="" class="col-sm-2 control-label"></label> -->
+    <span class="hide" id="random4_id">400000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'three_own' %>
+    </div>
+  </div>
+</div>
+
+<div id="app_prize" class="<%= 'hide' unless @chest_box.chest_type == 5 %>">
+  <legend class="mt_30">
+    <p>
+      <span>APP注册实物</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_app_product' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <span class="hide" id="random5_id">500000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'app_product_own' %>
+    </div>
+  </div>
+
+  <legend class="mt_30">
+    <p>
+      <span>APP注册虚拟</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_app_virtual' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <span class="hide" id="random6_id">600000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'app_virtual_own' %>
+    </div>
+  </div>
+</div>
+
+<div id="h5_prize" class="<%= 'hide' unless @chest_box.chest_type == 6 %>">
+  <legend class="mt_30">
+    <p>
+      <span>h5推广随机</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_h5_random' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <span class="hide" id="random7_id">700000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'h5_random_own' %>
+    </div>
+  </div>
+
+  <legend class="mt_30">
+    <p>
+      <span>h5推广固定</span>
+      <span class="hide"><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_h5_fix' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <span class="hide" id="random8_id">800000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'h5_fix_own' %>
+    </div>
+  </div>
+</div>
+
+<div id="cash_fix_prize" class="<%= 'hide' unless @chest_box.chest_type == 7 %>">
+  <legend class="mt_30"><p><span>固定现金</span></p></legend>
+  <div class="form-group row mt_20">
+    <div class="col-sm-10">
+      <%= render partial: 'cash_fix_own' %>
+    </div>
+  </div>
+</div>
+
+<div id="cash_random_prize" class="<%= 'hide' unless @chest_box.chest_type == 8 %>">
+  <legend class="mt_30">
+    <p>
+      <span>随机现金</span>
+      <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_cash_random' %></span>
+    </p>
+  </legend>
+  <div class="form-group row mt_20">
+    <span class="hide" id="random9_id">900000</span>
+    <div class="col-sm-10">
+      <%= render partial: 'cash_random_own' %>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', chest_boxs_path, class: 'btn btn-default btn-lg mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'chest_box_submit' %>
+  </div>
+</div>
+

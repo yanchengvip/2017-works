@@ -1,0 +1,40 @@
+<%= render partial: 'search' %>
+<ul class="nav nav-tabs" id="otherInfoTab" style="margin-left: 5px">
+  <li class="<%=params[:q][:status_eq].blank? ? 'active' : '' %>"><a href="/supplier/promotion_activity_applies">全部</a></li>
+  <li class="<%=params[:q][:status_eq] == '0' ? 'active' : '' %>"><a href="/supplier/promotion_activity_applies?q[status_eq]=0">未提交</a></li>
+  <li class="<%=params[:q][:status_eq] == '2' ? 'active' : '' %>"><a href="/supplier/promotion_activity_applies?q[status_eq]=2">驳回</a></li>
+  <li class="<%=params[:q][:status_eq] == '1' ? 'active' : '' %>"><a href="/supplier/promotion_activity_applies?q[status_eq]=1">待审核</a></li>
+  <li class="<%=params[:q][:status_eq] == '3' ? 'active' : '' %>"><a href="/supplier/promotion_activity_applies?q[status_eq]=3">审核通过</a></li>
+</ul>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>申报ID</th>
+      <th>申报活动名称</th>
+      <th>提交申报时间</th>
+      <th>申报商品</th>
+      <th>审核状态</th>
+      <th colspan="3">操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @supplier_promotion_activity_applies.each do |supplier_promotion_activity_apply| %>
+      <tr>
+        <td><%= supplier_promotion_activity_apply.id %></td>
+        <td><%= supplier_promotion_activity_apply.promotion_activity.name %></td>
+        <td><%= supplier_promotion_activity_apply.apply_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= supplier_promotion_activity_apply.product_count %></td>
+        <td><%= Auction::PromotionActivityApply::STATUS[supplier_promotion_activity_apply.status] %></td>
+        <td>
+          <a href="/supplier/promotion_activity_applies/<%= supplier_promotion_activity_apply.id %>" class="btn btn-success btn-sm">查看</a>
+          <a href="/supplier/promotion_activity_applies/<%= supplier_promotion_activity_apply.id %>/edit" class="btn btn-success btn-sm">编辑</a>
+          <% if supplier_promotion_activity_apply.status == 0%>
+            <a href="/supplier/promotion_activity_applies/<%= supplier_promotion_activity_apply.id %>/refer_check" class="btn btn-success btn-sm">提交审核</a>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @supplier_promotion_activity_applies %>

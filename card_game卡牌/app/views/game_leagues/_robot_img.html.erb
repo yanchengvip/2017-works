@@ -1,0 +1,45 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th width="12%"></th>
+      <th width="44%">竞赛形象</th>
+      <th width="44%">头像</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @game_league.game_league_battles.present? %>
+      <% @game_league.game_league_battles && @game_league.game_league_battles.each_with_index do |game_league_battle, i| %>
+        <tr>
+          <td><%= "第#{i+1}场" %></td>
+          <td id="ourt_image_td_<%= i+1 %>">
+            <input  type="hidden"  name="game_img[<%= i+1 %>][ourt_image]" value="<%= game_league_battle&.ourt_image %>" class="img_val">
+            <img class="preview_img" src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + game_league_battle&.ourt_image %>" width="60" height="60">
+            <p><input type="file" class='upload_league_img' name="file" accept=".png, .jpg, .jpeg" i="ourt_image_td_<%= i+1 %>"></p>
+          </td>
+          <td id="head_image_td_<%= i+1 %>">
+            <input  type="hidden"  name="game_img[<%= i+1 %>][head_image]" value="<%= game_league_battle&.head_image %>" class="img_val">
+            <img class="preview_img" src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + game_league_battle&.head_image %>" width="60" height="60">
+            <p><input type="file" class='upload_league_img' name="file" accept=".png, .jpg, .jpeg" i="ourt_image_td_<%= i+1 %>"></p>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <% 3.times do |i| %>
+        <tr>
+          <td><%= "第#{i+1}场" %></td>
+          <td id="ourt_image_td_<%= i+1 %>">
+            <input  type="hidden"  name="game_img[<%= i+1 %>][ourt_image]" class="img_val">
+            <img class="preview_img" src="" width="60" height="60">
+            <p><input type="file" class='upload_league_img' name="file" accept=".png, .jpg, .jpeg" i="ourt_image_td_<%= i+1 %>"></p>
+          </td>
+          <td id="head_image_td_<%= i+1 %>">
+            <input  type="hidden"  name="game_img[<%= i+1 %>][head_image]" class="img_val">
+            <img class="preview_img" src="" width="60" height="60">
+            <p><input type="file" class='upload_league_img' name="file" accept=".png, .jpg, .jpeg" i="head_image_td_<%= i+1 %>"></p>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+    <input type="hidden" id="atarget" value="">
+  </tbody>
+</table>

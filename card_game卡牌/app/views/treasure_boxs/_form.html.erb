@@ -1,0 +1,44 @@
+<div class="form-group row mt_20">
+  <label for="treasure_box_name" class="col-sm-2 control-label">宝箱名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '输入宝箱名称', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="treasure_box_num" class="col-sm-2 control-label">解锁消耗宝符</label>
+  <div class="col-sm-8">
+    <%= f.text_field :num, placeholder: '解锁消耗宝符数量', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="treasure_box_once_num" class="col-sm-2 control-label">开启1次消耗宝符</label>
+  <div class="col-sm-8">
+    <%= f.text_field :once_num, placeholder: '开启1次消耗宝符数量', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="treasure_box_more_num" class="col-sm-2 control-label">开启5次消耗宝符</label>
+  <div class="col-sm-8">
+    <%= f.text_field :more_num, placeholder: '开启5次消耗宝符', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="glutton_skill_use_last_round" class="col-sm-2 control-label">技能等级</label>
+  <div class="col-sm-8">
+    <%#= f.select :glutton_skill_level, options_for_select([['无', nil]] + GluttonSkill.active.map{|gs| [gs.name, gs.skill_level]}, @glutton_level.glutton_skill_level), {}, class: 'form-control game_select2' %>
+  </div>
+</div> -->
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-2 col-sm-4">
+    <%= link_to '取消', treasure_boxs_path, class: 'btn btn-default mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary', id: 'treasure_box_submit' %>
+  </div>
+</div>
+

@@ -1,0 +1,45 @@
+<%- model_class = Supplier::ReportForm -%>
+<!-- <div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div> -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:provider_id) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%= model_class.human_attribute_name(:trade_amount) %></th>
+      <th><%= model_class.human_attribute_name(:express_amount) %></th>
+      <th><%= model_class.human_attribute_name(:other_fee) %></th>
+      <th><%= model_class.human_attribute_name(:remark) %></th>
+      <th><%= model_class.human_attribute_name(:total_amount) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @report_forms.each do |report_form| %>
+      <tr>
+        <td><%= report_form.id %></td>
+        <td><%= report_form.provider_id %></td>
+        <td><%= report_form.date %></td>
+        <td><%= report_form.trade_amount %></td>
+        <td><%= report_form.express_amount %></td>
+        <td><%= report_form.other_fee %></td>
+        <td><%= report_form.remark %></td>
+        <td><%= report_form.total_amount %></td>
+        <td><%= Supplier::ReportForm::STATUS[report_form.status] %></td>
+        <td><%= report_form.editor&.name %></td>
+        <td><%=l report_form.created_at %></td>
+ <!--        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      supplier_report_form_path(report_form), :class => 'btn btn-default btn-xs' %>
+        </td> -->
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+<%= paginate @report_forms %>

@@ -1,0 +1,251 @@
+<p class="sub-header">战场管理>商品管理>修改商品</p>
+
+
+<form action="/battle_products/update" method="post" onsubmit="return validateImageForm()">
+  <input type="hidden" name="id" value="<%= @battle_product.id%>">
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">重宝名称</label>
+    <div class="col-sm-8">
+      <input type="input" name="name" class="form-control" id="add_product_name_input" value="<%= @battle_product.name %>"
+             required onkeyup="validate_words_length(30,'add_product_name_input','apn_last_num')"
+             oninvalid="setCustomValidity('商品名称必填')" oninput="setCustomValidity('')"
+             placeholder="商品名称，最多30字">
+      <p class="bg-danger p_last_num" id="apn_last_num"></p>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">重宝编号</label>
+    <div class="col-sm-8">
+      <input type="input" name="sku" value="<%= @battle_product.sku %>" class="form-control" id="sku_id"
+             onkeyup="validate_words_length(30,'sku_id','sku_id_last_num')" placeholder="重宝编号，最多30字">
+      <p class="bg-danger p_last_num" id="sku_id_last_num"></p>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">价格</label>
+    <div class="col-sm-8">
+      <input type="number" name="market_price" min="0" value="<%= @battle_product.market_price %>"
+             oninvalid="setCustomValidity('价格必填数字')" oninput="setCustomValidity('')"
+             max="99999999" step='0.01' class="form-control" required="required" placeholder="市场价格">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">邮费</label>
+    <div class="col-sm-8">
+      <input type="number" min="0" max="99999999" step="0.01" name="postage" value="<%= @battle_product.postage %>"
+
+             oninvalid="setCustomValidity('邮费格式不正确')" oninput="setCustomValidity('')"
+             class="form-control" required="required" placeholder="邮费">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">库存</label>
+    <div class="col-sm-8">
+      <input type="number" min="0"  max="99999999" name="inventory_count" value="<%= @battle_product.inventory_count %>"
+             oninvalid="setCustomValidity('商品库存格式不正确')" oninput="setCustomValidity('')"
+             class="form-control" required="required" placeholder="商品库存">
+             <input type="hidden" name="page" value="<%= @page %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">排序</label>
+    <div class="col-sm-8">
+      <input type="number" min="1" max="99999999" name="sort" value="<%= @battle_product.sort %>"
+             oninvalid="setCustomValidity('排序必填数字')" oninput="setCustomValidity('')"
+             class="form-control" required="required" placeholder="排序">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">商品链接</label>
+    <div class="col-sm-8">
+      <input type="url" name="detail_url" class="form-control" placeholder="商品链接http://www.demo.com" value="<%= @battle_product.detail_url %>">
+    </div>
+  </div>
+
+  <%= render partial: 'product_type' %>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">赛场商品</label>
+    <div class="col-sm-8">
+      <div class="row ml_1">
+        <span class="mr_50"><input type="radio" name="is_game_product" value="1" <%= "checked='checked'" if @battle_product.is_game_product %>>是</span>
+        <span><input type="radio" name="is_game_product" value="0" <%= "checked='checked'" if !@battle_product.is_game_product %>>否</span>
+      </div>
+      <div class="row ml_1 mt_10">
+        <select class="select2-picker" name="game_product_tag_id" style="width: 100%">
+          <option>请选择</option>
+          <% @game_product_tags.each do |tag| %>
+              <option value=<%= tag.id %> <%= tag_select(@battle_product.game_product_tag_id, tag.id) %>><%= tag.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row mt_30">
+    <label for="input" class="col-sm-2 col-form-label">自建赛场商品</label>
+    <div class="col-sm-8">
+      <div class="row ml_1">
+        <span class="mr_50"><input type="radio" name="is_self_game_product" value="1" <%= "checked='checked'" if @battle_product.is_self_game_product %>>是</span>
+        <span><input type="radio" name="is_self_game_product" value="0" <%= "checked='checked'" if !@battle_product.is_self_game_product %>>否</span>
+      </div>
+      <div class="row ml_1 mt_10">
+        <select class="select2-picker" name="product_tag_id" style="width: 100%">
+          <option value=''>请选择</option>
+          <% @product_tags.each do |tag| %>
+              <option value=<%= tag.id %> <%= tag_select(@battle_product.product_tag_id, tag.id) %> ><%= tag.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row mt_30">
+    <label for="input" class="col-sm-2 col-form-label">兑奖阁商品</label>
+    <div class="col-sm-8">
+      <div class="row ml_1">
+        <span class="mr_50"><input type="radio" name="is_mall_product" value="1" <%= "checked='checked'" if @battle_product.is_mall_product %>>是</span>
+        <span><input type="radio" name="is_mall_product" value="0" <%= "checked='checked'" if !@battle_product.is_mall_product %>>否</span>
+      </div>
+      <div class="row ml_1 mt_10">
+        <select class="select2-picker" name="mall_product_tag_ids[]" style="width: 100%" multiple="multiple">
+          <% @mall_product_tags.each do |tag| %>
+              <option value=<%= tag.id %> <%= tags_select(@battle_product.mall_product_tag_ids, tag.id) %> ><%= tag.name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="row ml_1">
+        <span class="red">(多选)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row mt_30">
+    <label for="input" class="col-sm-2 col-form-label">兑奖阁兑换方式</label>
+    <div class="col-sm-8">
+      <div class="row ml_1">
+        <span class="mr_10"><input type="checkbox" name="score_exchange" value="1" <%= "checked='checked'" if @battle_product.score_exchange %> >微集分</span>
+        <input type="number" name="score" min="0" max="9999999999" placeholder='所需微集分，整数' class="custom_input_md" value="<%= @battle_product.score %>">
+      </div>
+      <div class="row ml_1 mt_10">
+        <span class="mr_25"><input type="checkbox" name="glory_exchange" value="1" <%= "checked='checked'" if @battle_product.glory_exchange %> >功勋</span>
+        <input type="number" name="glory" min="0" max="9999999999" placeholder='所需功勋，整数' class="custom_input_md" value="<%= @battle_product.glory %>">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">重宝分类</label>
+    <div class="col-sm-8">
+      <select class="select2-picker" name="product_tag_id" style="width: 100%">
+        <%# @product_tags.each do |tag| %>
+            <option value=<%#= tag.id %>><%#= tag.name %></option>
+        <%# end %>
+      </select>
+    </div>
+  </div> -->
+
+
+
+  <!-- <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">商品库存地</label>
+    <div class="col-sm-8">
+      <input type="input" name="inventory_place" class="form-control" id="inventory_place"
+             value="<%#=@battle_product.inventory_place %>"
+             onkeyup="validate_words_length(30,'inventory_place','inventory_place_last_num')" placeholder="商品库存地，最多30字">
+      <p class="bg-danger p_last_num" id="inventory_place_last_num"></p>
+    </div>
+  </div> -->
+
+
+
+  <!-- <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">成本价格</label>
+    <div class="col-sm-8">
+      <input type="number" name="cost_price" min="0" max="99999999" step='0.01'
+             value="<%#= @battle_product.cost_price %>" class="form-control"
+             oninvalid="setCustomValidity('成本价格式不正确')" oninput="setCustomValidity('')"
+             required="required" placeholder="成本价格">
+    </div>
+  </div> -->
+
+
+
+
+  <!-- <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">商品描述</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" name="desc" rows="3" id="add_product_desc_input" required="required"
+                oninvalid="setCustomValidity('商品描述必填')" oninput="setCustomValidity('')"
+                onkeyup="validate_words_length(60,'add_product_desc_input','desc_last_num')" maxlength="60" placeholder="商品描述，最多60字"><%#= @battle_product.desc %></textarea>
+      <p class="bg-danger p_last_num" id="desc_last_num"></p>
+    </div>
+
+  </div> -->
+
+  <!-- <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">优众链接</label>
+    <div class="col-sm-8">
+      <input type="url" name="detail_url" value="<%#= @battle_product.detail_url %>" class="form-control" placeholder="优众链接">
+    </div>
+  </div> -->
+
+  <!-- <div class="form-group row">
+    <label class="col-sm-2">立即上架</label>
+    <div class="col-sm-8">
+      <div class="radio">
+      <%# if @battle_product.status == 1 %>
+        <label class="mr_30"><input type="radio" value="1" name="status" checked="checked">是</label>
+        <label><input type="radio" value='0' name="status">否</label>
+      <%# else %>
+        <label class="mr_30"><input type="radio" value="1" name="status">是</label>
+        <label><input type="radio" value='0' name="status" checked="checked">否</label>
+      <%# end %>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">缩略图</label>
+    <div class="col-sm-8">
+      <%= render 'images/upload_single_image' %>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">展示图片</label>
+    <div class="col-sm-8">
+      <%= render 'images/upload_multiple_image' %>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label for="battle_product_desc" class="col-sm-2 col-form-label">商品描述</label>
+    <div class="col-sm-8">
+      <textarea class="tinymce" name="desc" id="battle_product_desc" placeholder="商品描述"><%= @battle_product.desc %></textarea>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-4 col-form-label"></label>
+    <div class=" col-sm-8">
+      <%= link_to '取消', '/battle_products', class: 'btn btn-default btn-lg' %>
+      <button type="submit" class="btn btn-lg btn-primary">保存</button>
+    </div>
+  </div>
+
+</form>
+
+<%= render partial: 'shared/tinymce', locals: {text_id: 'battle_product_desc'} %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from_user_id: MyString
+  to_user_id: MyString
+  period_id: 1
+  codes: MyText
+  card_id: 1
+  delete_flag: false
+
+two:
+  from_user_id: MyString
+  to_user_id: MyString
+  period_id: 1
+  codes: MyText
+  card_id: 1
+  delete_flag: false

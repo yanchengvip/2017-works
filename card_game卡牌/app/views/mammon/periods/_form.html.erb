@@ -1,0 +1,148 @@
+<div class="form-group row mt_20">
+  <label for="mammon_period_num" class="col-sm-2 control-label">期次</label>
+  <div class="col-sm-8">
+    <%= f.text_field :num, placeholder: '期次', class: 'form-control', required: "required" %>
+     <!-- es_time_begin -->
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="mammon_period_code" class="col-sm-2 control-label">幸运号码</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :code, placeholder: '幸运号码', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_code_count" class="col-sm-2 control-label">号码总数</label>
+  <div class="col-sm-8">
+    <%= f.text_field :code_count, placeholder: '号码总数', class: 'form-control', required: "required", type: 'number', min: 0, readonly: true %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_pre_begin_time" class="col-sm-2 control-label">准备开始时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :pre_begin_time, placeholder: '准备开始时间', class: 'form-control game_begin', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_end_time" class="col-sm-2 control-label">结算时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :end_time, placeholder: '结算时间', class: 'form-control game_end', required: "required" %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="mammon_period_total_amount" class="col-sm-2 control-label">奖品总金额</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%#= f.text_field :total_amount, placeholder: '奖品总金额', class: 'form-control', required: "required", type: 'number', min: 0.0 %>
+      <span class="input-group-addon">元</span>
+    </div>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_red_package_rule_id" class="col-sm-2 control-label">红包规则</label>
+  <div class="col-sm-8">
+    <%= f.select :red_package_rule_id, options_for_select([["请选择", nil]] + Promotion::RedPackageRule.active.map{|rpr| [rpr.name, rpr.id]}, @period.red_package_rule_id), {}, class: 'form-control game_select2', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_invite_share_max_amount" class="col-sm-2 control-label">邀请分享金额上限</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :invite_share_max_amount, placeholder: '邀请分享金额上限', class: 'form-control', required: "required", type: 'number', min: 0.0, readonly: params[:action] == 'edit' %>
+      <span class="input-group-addon">元</span>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="mammon_period_invite_max_amount" class="col-sm-2 control-label">邀请好友分享金额上限</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%#= f.text_field :invite_max_amount, placeholder: '每日邀请好友分享金额上限', class: 'form-control', required: "required", type: 'number', min: 0.0 %>
+      <span class="input-group-addon">元</span>
+    </div>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_invite_reward" class="col-sm-2 control-label">邀请者邀请好友奖励金额</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :invite_reward, placeholder: '邀请者邀请好友奖励金额', class: 'form-control', required: "required", type: 'number', min: 0.0, readonly: params[:action] == 'edit' %>
+      <span class="input-group-addon">元</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_been_invite_reg_reward" class="col-sm-2 control-label">被邀请好友注册获得奖励金额</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :been_invite_reg_reward, placeholder: '被邀请好友注册获得奖励金额', class: 'form-control', required: "required", type: 'number', min: 0.0, readonly: params[:action] == 'edit' %>
+      <span class="input-group-addon">元</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_been_invite_receive_time" class="col-sm-2 control-label">被邀请者号码及技能牌领取有效期</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :been_invite_receive_time, placeholder: '被邀请者号码及技能牌领取有效期', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="mammon_period_first_login_reward" class="col-sm-2 control-label">首次登陆送卡牌</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%#= f.text_field :first_login_reward, placeholder: '首次登陆送卡牌', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">张</span>
+    </div>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_rest_time" class="col-sm-2 control-label">休整时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :rest_time, placeholder: '休整时间', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_red_package_time" class="col-sm-2 control-label">竞赛结束后触发红包雨时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :red_package_time, placeholder: '竞赛结束后触发红包雨时间', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_30">
+  <label for="" class="col-sm-2 control-label">奖金</label>
+  <div class="col-sm-8">
+    <%= render partial: 'prize' %>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', mammon_periods_path, class: 'btn btn-default btn-lg mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'mammon_period_submit' %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="form-group row mt_20">
+  <label for="auction_seckill_title" class="col-sm-2 control-label">商品ID</label>
+  <div class="col-sm-8">
+    <%= f.text_field :product_id, placeholder: '商品ID', class: 'form-control', required: "required", type: 'number', min: 1 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_seckill_discount" class="col-sm-2 control-label">秒杀价格</label>
+  <div class="col-sm-8">
+    <%= f.text_field :discount, placeholder: '秒杀价格', class: 'form-control', required: "required", type: 'number', min: 0%>
+  </div>
+</div>
+
+
+
+<div class="form-group row mt_20">
+  <label for="auction_seckill_publish_time" class="col-sm-2 control-label">秒杀日期</label>
+  <div class="col-sm-8">
+    <%= f.text_field :date, placeholder: '秒杀日期', class: 'form-control is_date', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_seckill_link_type" class="col-sm-2 control-label">场次</label>
+  <div class="col-sm-8">
+    <%= f.select :play, options_for_select(Auction::Seckill::PLAY.to_a.map(&:reverse), @auction_seckill.play), {}, class: 'form-control is_select2' %>
+  </div>
+</div>

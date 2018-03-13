@@ -1,0 +1,29 @@
+<div class="collapse breadcrumb-collapse-s" id="activity_apply_search">
+  <div class="well">
+     <%= form_for auction_promotion_activities_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">活动名称:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[promotion_activity_name_eq]", params[:q][:promotion_activity_name_eq], class: 'form-control mr_30', placeholder: '活动名称' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">供应商名称:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[provider_name_cont]", params[:q][:provider_name_cont], class: 'form-control mr_30', placeholder: '活动名称' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">提交申报时间:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[apply_time_gteq]", params[:q][:apply_time_gteq], class: 'form-control search_date', id: 'input4', placeholder: '提交申报时间' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

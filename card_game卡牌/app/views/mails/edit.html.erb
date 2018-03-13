@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">营销管理>邮件管理>修改邮件文案</p></div>
+
+<%= form_for @mail, url: mail_path, method: "post",  html: {class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

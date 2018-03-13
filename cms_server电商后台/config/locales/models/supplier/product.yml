@@ -1,0 +1,35 @@
+zh-CN:
+  activerecord:
+    models:
+      supplier/product: 供应商商品
+    attributes:
+      supplier/product:
+        id: 编号
+        name: "名称"
+        description: "描述"
+        price: "市场价"
+        discount: "销售价"
+        provider_price: "供应商结算价"
+        spec_pic: "尺寸说明图片"
+        color_pic: "颜色图片"
+        color_name: "颜色名称"
+        identifier: "编号-原厂货号"
+        keywords: "关键字"
+        relate_product_ids: "相关产品ID列表"
+        category1_id: "一级分类"
+        category2_id: "二级分类"
+        brand_id: "品牌"
+        tpublished_at: "发布时间"
+        target: "对象"
+        match_product_ids: "搭配产品ID列表"
+        major_pic: "主图片"
+        remark: "备注"
+        label: "标注"
+        prefix: "前缀"
+        category3_id: "三级分类"
+        remark2: "备注2"
+        foreign_payment: "是否跨境商品 false 国内"
+        keywords2: "关键字2"
+        use_voucher: "是否禁止用券"
+        percent: "折扣"
+        provider_id: "供应商ID"

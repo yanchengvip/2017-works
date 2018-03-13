@@ -1,0 +1,65 @@
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '返回', app_versions_path, class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<%= form_for @app_version, html: {class: 'form-horizontal'} do |f| %>
+  <div class="form-group">
+    <label for="nickname" class="col-sm-2 control-label">*APP平台：</label>
+    <div class="col-sm-8">
+      <div class="radio">
+        <label class="mr_30">
+          <%= f.radio_button :app_name, 'android', checked: @app_version.app_name == 'android' %>Android
+        </label>
+        <label class="mr_30"><%= f.radio_button :app_name, 'ios', checked: @app_version.app_name == 'ios' %>IOS</label>
+      </div>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="没有选择APP平台" id="app_name_tip"></p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="version" class="col-sm-2 control-label">*版本号：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :version, class: 'form-control', id: 'version', placeholder: '如V1.0.0', required: 'required' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="role_ids_check" class="col-sm-2 control-label">*更新方式：</label>
+    <div class="col-sm-8" id="role_ids_check">
+      <div class="radio">
+        <label class="mr_30"><%= f.radio_button :mode, 0, checked: @app_version.mode == 0 %>不更新</label>
+        <label class="mr_30"><%= f.radio_button :mode, 1, checked: @app_version.mode == 1 %>非强制更新</label>
+        <label class="mr_30"><%= f.radio_button :mode, 2, checked: @app_version.mode == 2 %>强制更新</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="update_url" class="col-sm-2 control-label">*下载地址：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :update_url, class: 'form-control', id: 'update_url', required: 'required', placeholder: '下载地址' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="open_url" class="col-sm-2 control-label">*启动APP链接：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :open_url, class: 'form-control', id: 'open_url', required: 'required', placeholder: '打开链接' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="desc" class="col-sm-2 control-label">*更新描述：</label>
+    <div class="col-sm-8">
+      <%= f.text_area :desc, class: 'form-control', id: 'desc', required: 'required', rows: 6, placeholder: '更新描述' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8 mt_30">
+      <%= link_to '取消', app_versions_path, class: 'btn btn-default mr_20 btn-lg' %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'app_version_submit' %>
+    </div>
+  </div>
+
+<% end %>

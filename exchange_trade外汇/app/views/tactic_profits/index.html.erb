@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tactic Profits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Tactic</th>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Dealer type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tactic_profits.each do |tactic_profit| %>
+      <tr>
+        <td><%= tactic_profit.account_id %></td>
+        <td><%= tactic_profit.tactic_id %></td>
+        <td><%= tactic_profit.amount %></td>
+        <td><%= tactic_profit.date %></td>
+        <td><%= tactic_profit.dealer_type %></td>
+        <td><%= link_to 'Show', tactic_profit %></td>
+        <td><%= link_to 'Edit', edit_tactic_profit_path(tactic_profit) %></td>
+        <td><%= link_to 'Destroy', tactic_profit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tactic Profit', new_tactic_profit_path %>

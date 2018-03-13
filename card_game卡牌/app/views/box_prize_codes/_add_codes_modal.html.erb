@@ -1,0 +1,32 @@
+<div class="modal fade" id="AddBoxPrizeCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title title_name" id="exampleModalLabel">增加兑奖码</h4>
+      </div>
+      <form action="/box_prize_codes/add_box_prize_codes" method="post">
+        <div class="modal-body">
+          <input type="hidden" name="box_prize_id" id="add_box_prize_id">
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">增加</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="number" name="num" min="1" max="100" id="max_num"
+                       step='1' class="form-control" required="required"
+                       placeholder="独立兑奖码最多100,复用兑奖码最多10000">
+                <span class="input-group-addon">个/次</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

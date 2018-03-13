@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="description" />
+    <meta content="webthemez" name="author" />
+    <%= favicon_link_tag 'favicons.ico'%>
+    <title>供应商管理系统</title></head>
+    <%=stylesheet_link_tag 'supplier/application', media: 'all', 'data-turbolinks-track': 'reload'%>
+    <%= javascript_include_tag 'supplier/application', 'data-turbolinks-track': 'reload' %>
+  <body>
+    <div id="wrapper">
+      <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/supplier">
+            <strong>
+              <i class="icon fa fa-plane"></i>供应商管理系统</strong>
+          </a>
+          <div id="sideNav" href="">
+            <i class="fa fa-bars icon"></i>
+          </div>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+              <i class="fa fa-user fa-fw"></i>
+              <i class=""><%=current_user.login%></i>
+              <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+              <li>
+                <a href="/supplier/providers/reset_password">
+                  <i class="fa fa-gear fa-fw"></i>修改密码</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="/supplier/session/destroy">
+                  <i class="fa fa-sign-out fa-fw"></i>注销登陆</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+          <ul class="nav" id="main-menu">
+            <li>
+              <a href="#">
+                <i class="fa fa-shopping-cart"></i>订单管理
+               <!--  1.全部订单：展示该供应商的全部订单，包含订单号、下单时间、商品名称、商品图片、颜色、尺码、原厂货号、sku编号（如果有）、支付方式、收货地址，并标明订单状态（待发货、待收货、已完成、已取消），以及可进行的操作（发货、打印、拒签）
+
+2.待发货订单：只展示待发货状态的订单，展示内容与全部订单页面一致，方便供应商快速发货和打印随货单
+
+3.待收货订单：只展示待收货状态的订单，展示内容与全部订单页面一致，货到付款的订单有拒签按钮，点击后通知客服该订单用户拒签
+
+4.拒签管理：展示已拒签的订单，无可执行操作
+
+5.退货管理：展示该供应商的所有已审核通过的退款单，包含商品所在的订单id、商品名称、sku名称、退款申请时间、退货状态（退货已收货、退货待收货），其中退货待收货状态 的退货单可以进行确认收货-->
+                <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="/supplier/trades">全部</a>
+                </li>
+                <!-- <li>
+                  <a href="/supplier/trades?q[status_eq]=ship">待发货订单</a>
+                </li>
+                <li>
+                  <a href="/supplier/trades?q[status_in]=receive&q[s]=updated_at desc">待收货订单</a>
+                </li> -->
+     <!--            <li>
+                  <a href="/supplier/units">退款管理</a>
+                </li> -->
+                <!-- <li>
+                  <a href="/supplier/trades?q[status_eq]=reject">拒签管理</a>
+                </li> -->
+                <li>
+                  <a href="/supplier/units?q[status_in][]=receive&q[status_in][]=complete&q[status_in][]=transfer">退货管理</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-sitemap"></i>商品管理
+                <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="/supplier/products">商品列表</a>
+                </li>
+                <li>
+                  <a href="/supplier/products/new">上传商品</a>
+                </li>
+                <li>
+                  <a href="/supplier/skus">库存管理</a>
+                </li>
+                <li>
+                  <a href="/supplier/products/import_products">批量导入商品</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">
+                <i class="fa fa-magnet"></i>结算管理
+                <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="/supplier/report_forms">结算历史</a>
+                </li>
+
+              </ul>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-magnet"></i>活动管理
+                <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="/supplier/promotion_activity_suppliers">活动列表</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-magnet"></i>提报管理
+                <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="/supplier/promotion_activity_applies">我的提报</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div id="page-wrapper">
+        <div class="header">
+          <%= render 'shared/alert' %>
+          <%= render 'shared/error_modal' %>
+        </div>
+        <div id="page-inner">
+          <%= yield %>
+          <footer>
+
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

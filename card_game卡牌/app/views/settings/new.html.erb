@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">宝箱管理>宝箱管理>新增配置</p></div>
+
+<%= form_for @setting, url: settings_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

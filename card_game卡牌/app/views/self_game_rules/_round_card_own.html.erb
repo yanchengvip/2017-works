@@ -1,0 +1,78 @@
+<div class="mt_20">
+   <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" id="sheme_nav_tabs">
+    <% @round_num.times do |i| %>
+      <li role="presentation" class="<%= i == 0 ? 'active' : '' %>">
+        <a href="#round_card_pane_<%= i %>" aria-controls="round_card_pane_<%= i %>" role="tab" data-toggle="tab">第<span class="scheme_count"><%= i+1 %></span>轮</a>
+      </li>
+    <% end %>
+    <input type="hidden" id="curr_round_num" value="<%= @round_num %>">
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content" id="scheme_tab_panes">
+    <% @round_num.times do |i| %>
+      <div role="tabpanel" class="tab-pane <%= i == 0 ? 'active' : '' %>" id="round_card_pane_<%= i %>">
+        <input type="hidden" name="round_cards[<%= i+1 %>][round_num]" value="<%= i+1 %>">
+
+        <div class="form-group row mt_10">
+          <label for="trick_max_<%= i+1 %>" class="col-sm-2 control-label">计谋上限</label>
+          <div class="col-sm-8">
+            <input type="number" name="round_cards[<%= i+1 %>][trick_max]" id="trick_max_<%= i+1 %>" value="<%= @game_round_cards.find{|grc| grc.round_num == (i+1)}&.trick_max %>" placeholder="计谋上限" class="custom_input_big" width="100px" required min="1" max="999999">张
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="choose_max_<%= i+1 %>" class="col-sm-2 control-label">可选上限</label>
+          <div class="col-sm-8">
+            <input type="number" name="round_cards[<%= i+1 %>][choose_max]" id="choose_max_<%= i+1 %>" value="<%= @game_round_cards.find{|grc| grc.round_num == (i+1)}&.choose_max %>" placeholder="可选上限" class="custom_input_big" width="100px" required min="1" max="999999">张
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="attack_ratio_<%= i+1 %>" class="col-sm-2 control-label">随机计谋比例</label>
+          <div class="col-sm-8">
+            <!-- 攻 --><input type="number" name="round_cards[<%= i+1 %>][attack_ratio]" id="attack_ratio_<%= i+1 %>" value="<%= @game_round_cards.find{|grc| grc.round_num == (i+1)}&.attack_ratio %>" placeholder="攻" class="custom_input_md" width="100px" required min="1" max="999999">：
+            <!-- 防 --><input type="number" name="round_cards[<%= i+1 %>][guard_ratio]" id="guard_ratio_<%= i+1 %>" value="<%= @game_round_cards.find{|grc| grc.round_num == (i+1)}&.guard_ratio %>" placeholder="防" class="custom_input_md" width="100px" required min="1" max="999999">：
+            <!-- 控 --><input type="number" name="round_cards[<%= i+1 %>][control_ratio]" id="control_ratio_<%= i+1 %>" value="<%= @game_round_cards.find{|grc| grc.round_num == (i+1)}&.control_ratio %>" placeholder="控" class="custom_input_md" width="100px" required min="1" max="999999"><br><span class="red">(三者之和不能超过计谋上限)</span>
+          </div>
+        </div>
+
+        <div class="form-group row mt_10">
+          <label for="choose_time_<%= i+1 %>" class="col-sm-2 control-label">选取时间</label>
+          <div class="col-sm-8">
+            <input type="number" name="round_cards[<%= i+1 %>][choose_time]" id="choose_time_<%= i+1 %>" value="<%= @game_round_cards.find{|grc| grc.round_num == (i+1)}&.choose_time %>" placeholder="选取时间" class="custom_input_big" width="100px" required min="1" max="999999">秒
+          </div>
+        </div>
+
+        <div class="form-group row mt_20">
+          <label for="card_bag_id_<%= i+1 %>" class="col-sm-2 control-label">选择卡包</label>
+          <div class="col-sm-8">
+            <select name="round_cards[<%= i+1 %>][card_bag_id]" id="card_bag_id_<%= i+1 %>" class="form-control game_select2 card_bag_select">
+              <option value="">请选择</option>
+              <% CardBag.active.map{|cb| [cb.name, cb.id]}.each do |bag| %>
+                <% if bag[1] == @game_round_cards&.find{|grc| grc.round_num==i+1}&.card_bag_id %>
+                  <option value="<%= bag[1] %>" selected><%= bag[0] %></option>
+                <% else %>
+                  <option value="<%= bag[1] %>"><%= bag[0] %></option>
+                <% end %>
+              <% end %>
+            </select>
+
+            <div id="chosed_card_bag_div_<%= i+1 %>" class="mt_20">
+              <% if !@game_round_cards.blank? %>
+                <%= render partial: 'self_game_rules/new_chosed_card_bag', locals: {card_bag_items: @game_round_cards.find{|grc| grc.round_num==i+1}&.card_bag&.card_bag_items} %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $(".game_select2").select2()
+  })
+</script>

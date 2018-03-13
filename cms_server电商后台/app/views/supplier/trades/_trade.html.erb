@@ -1,0 +1,71 @@
+
+<div class="widefat" id = "trade_<%=trade.id%>">
+  <div class="content mt40">
+    <div class="right w970">
+      <div class="clearfix">
+        <div>
+          <div class="order_title">
+            <p class="left">订单编号：<span><%=trade.identifier%></span></p>
+            <p class="left">下单时间：<span><%=l trade.auction_trade.created_at%></span></p>
+            <p class="left">付款方式:<span><%= Auction::Trade::PAYMENT_SERVICES[trade.auction_trade&.payment_service] %></span></p>
+            <p class="left">订单状态: <span><%=Auction::Trade::STATUS[trade.status]%></span></p>
+          </div>
+          <table class="prods_detail">
+
+            <tr>
+
+              <td>
+                <%trade.units.each do |unit|%>
+                  <div class="prod_li">
+                    <a class="img_wrapper left" target="_blank" href="#">
+                      <%=image_tag "#{unit.auction_product&.major_pic}"%>
+                    </a>
+                    <div class="left prod_info">
+                      <a class="name" href="#"><%=unit&.auction_product&.name%></a>
+                      <div class="">
+                        <span class="color">颜色：<%=unit&.auction_product&.color%></span>
+                        <span class="size ">尺码：<%=unit.sku_name%></span>
+                      </div>
+                      <div>原厂货号:<%=unit&.auction_product&.identifier%></div>
+                    </div>
+                    <div class="left money">
+                      <p> ￥<%=unit.price%></p>
+                    </div>
+                    <p class="nums left"></p>
+                  </div>
+                <%end%>
+              </td>
+              <!--<td>
+                <p class="total_price">¥16800</p>
+                <p class="delivery">（运费¥0）</p>
+              </td>-->
+              <td class="line-box">
+                <p class="status">
+                  <%=contact_to_str trade&.auction_trade&.contact%>
+                </p>
+              </td>
+              <td class="btns">
+                  <%if trade.status == 'ship'%>
+                    <button type="button" class="ship btn btn-xs btn-primary" data-toggle="modal" data-target="#shipModel" data-id="<%=trade.id%>">发货</button>
+                    <%= link_to t('.print', :default => t("helpers.links.print")),
+                              print_supplier_trade_path(trade), :class => 'btn btn-success btn-xs print', target: "_blank" %>
+                    <%end%>
+                  <%if trade.status == 'receive' %>
+
+                    <button type="button" class="btn btn-xs btn-warning reject"  data-id="<%=trade.id%>">用户拒签</button>
+                  <%end%>
+                  <%if trade.status == 'returning' %>
+                    <span  class="btn btn-xs btn-danger"  data-id="<%=trade.id%>">退款中，请勿发货</span>
+                  <%end%>
+
+              </td>
+            </tr>
+          </table>
+          <div class="trade_remark">备注：<%=trade.remark%></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

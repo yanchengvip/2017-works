@@ -1,0 +1,37 @@
+<%= form_with(model: booking_trade, local: true) do |form| %>
+  <% if booking_trade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(booking_trade.errors.count, "error") %> prohibited this booking_trade from being saved:</h2>
+
+      <ul>
+      <% booking_trade.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :account_id %>
+    <%= form.number_field :account_id, id: :booking_trade_account_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trade_type %>
+    <%= form.number_field :trade_type, id: :booking_trade_trade_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mt4_account %>
+    <%= form.text_field :mt4_account, id: :booking_trade_mt4_account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :symbol %>
+    <%= form.text_field :symbol, id: :booking_trade_symbol %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

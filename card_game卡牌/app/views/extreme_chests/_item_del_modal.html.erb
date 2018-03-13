@@ -1,0 +1,48 @@
+<!-- 礼包删除modal -->
+<div class="modal fade" id="delExtremeChestItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">至尊宝箱内容删除</h4>
+      </div>
+        <div class="modal-body">
+          <h3>确定删除该至尊宝箱内容吗？</h3>
+
+          <input type="hidden" id="del_item_id">
+          <!-- <input type="hidden" id="belong_activity_id"> -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="delete_item">确定</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#delete_item').on('click', function(){
+      var item_id = $('#del_item_id').val()
+      $.ajax({
+        type: "post",
+        url: '/extreme_chests/destroy_item',
+        data: { extreme_chest_item_id: item_id },
+        success: function(result){
+          if(result.status == 200){
+            $('#delExtremeChestItemModal').modal('hide')
+            $("#item_tr_" + item_id).remove()
+          }else{
+            alert('删除失败')
+          }
+        },
+        error: function(XMLHttpResponse){
+          alert('删除失败')
+        }
+      })
+
+    })
+  })
+</script>

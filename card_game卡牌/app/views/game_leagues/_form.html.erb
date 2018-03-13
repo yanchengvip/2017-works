@@ -1,0 +1,175 @@
+<div class="form-group row mt_20">
+  <label for="game_league_league_name" class="col-sm-2 control-label">名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :league_name, placeholder: '名称', class: 'form-control', required: "required"  %>
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_red_package_rule_id" class="col-sm-2 control-label">红包规则</label>
+  <div class="col-sm-8">
+    <%= f.select :red_package_rule_id, options_for_select([["请选择", nil]] + Promotion::RedPackageRule.active.map{|rpr| [rpr.name, rpr.id]}, @game_league.red_package_rule_id), {}, class: 'form-control game_select2', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_product_tag_id" class="col-sm-2 control-label">冠军奖励</label>
+  <div class="col-sm-8">
+    <p>
+      <span class="mr_10">商品类型</span><%= select_tag :game_product_tag_id, options_for_select([["请选择", nil]] + GameProductTag.active.where(status: 1).map{|pt| [pt.name, pt.id]}, {}), class: 'form-control game_select2', style: "width: 500px !important;" %>
+    </p>
+    <p>
+    <span class="mr_10">配置商品</span>
+    <% if params[:action] == 'new' %>
+      <%= f.select :battle_product_id, options_for_select({}, @game_league.battle_product_id), {}, class: 'form-control game_select2', required: "required", style: "width: 500px !important;" %>
+    <% else %>
+      <%= f.select :battle_product_id, options_for_select([[@product&.name, @product&.id]], @game_league.battle_product_id), {}, class: 'form-control game_select2', required: "required", style: "width: 500px !important;" %>
+    <% end %>
+    </p>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_battle_product_doc" class="col-sm-2 control-label">奖品展示文案</label>
+  <div class="col-sm-8">
+    <%= f.text_field :battle_product_doc, placeholder: '奖品展示文案', class: 'form-control', required: "required"  %>
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_league_des" class="col-sm-2 control-label">联赛说明</label>
+  <div class="col-sm-8">
+    <%= f.text_area :league_des, placeholder: '联赛说明', class: 'form-control', required: "required", rows: 5 %>
+  </div>
+</div>
+
+<legend class="mt_30">资格赛</legend>
+
+<div class="form-group row mt_20">
+  <label for="game_league_preliminaries_end" class="col-sm-2 control-label">资格赛截止时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :preliminaries_end, placeholder: '资格赛截止时间', class: 'form-control search_time_begin', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_preliminaries_doc" class="col-sm-2 control-label">首页文案</label>
+  <div class="col-sm-8">
+    <%= f.text_field :preliminaries_doc, placeholder: '首页文案', class: 'form-control', required: "required" %>
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">机器人形象设定</label>
+  <div class="col-sm-8">
+    <%= render partial: 'robot_img' %>
+  </div>
+</div>
+
+<div class="form-group row mt_30">
+  <label for="" class="col-sm-2 control-label">机器人难度设定</label>
+  <div class="col-sm-8">
+    <%= render partial: 'robot_difficulty' %>
+  </div>
+</div>
+
+<div class="form-group row mt_30">
+  <label for="" class="col-sm-2 control-label">机器人语言</label>
+  <div class="col-sm-8">
+    <input type="text" name="robot_text[]" placeholder="第一句" class='form-control' required value="<%= @robot_language[0] %>">
+    <input type="text" name="robot_text[]" placeholder="第二句" class='form-control mt_10' required value="<%= @robot_language[1] %>">
+    <input type="text" name="robot_text[]" placeholder="第三句" class='form-control mt_10' required value="<%= @robot_language[2] %>">
+  </div>
+</div>
+
+<div class="form-group row mt_30">
+  <label for="" class="col-sm-2 control-label">机器场奖励</label>
+  <div class="col-sm-8">
+    <%= render partial: 'robot_prize' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_pre_game_type_id" class="col-sm-2 control-label">赛场规则</label>
+  <div class="col-sm-8">
+    <%= f.select :pre_game_type_id, options_for_select([["请选择", nil]] + @game_types.map{|gt| [gt.name, gt.id]}, @game_league.pre_game_type_id), {}, class: 'form-control game_select2', required: "required" %>
+  </div>
+</div>
+
+<legend class="mt_30">淘汰赛</legend>
+<div class="form-group row mt_20">
+  <label for="game_league_knockout_begin" class="col-sm-2 control-label">淘汰赛开启时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :knockout_begin, placeholder: '淘汰赛开启时间', class: 'form-control search_time_end', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_knockout_doc" class="col-sm-2 control-label">首页文案</label>
+  <div class="col-sm-8">
+    <%= f.text_field :knockout_doc, placeholder: '首页文案', class: 'form-control', required: "required" %>
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_knockout_num" class="col-sm-2 control-label">淘汰赛每场</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :knockout_num, placeholder: '人数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">人</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_knockout_interval" class="col-sm-2 control-label">淘汰赛每场间隔时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :knockout_interval, placeholder: '间隔时间', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_kno_game_type_id" class="col-sm-2 control-label">赛场规则</label>
+  <div class="col-sm-8">
+    <%= f.select :kno_game_type_id, options_for_select([["请选择", nil]] + @game_types.map{|gt| [gt.name, gt.id]}, @game_league.kno_game_type_id), {}, class: 'form-control game_select2', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_finals_game_type_id" class="col-sm-2 control-label">决赛赛场规则</label>
+  <div class="col-sm-8">
+    <%= f.select :finals_game_type_id, options_for_select([["请选择", nil]] + @game_types.map{|gt| [gt.name, gt.id]}, @game_league.finals_game_type_id), {}, class: 'form-control game_select2', required: "required" %>
+  </div>
+</div>
+
+<legend class="mt_30">联赛时间</legend>
+<div class="form-group row mt_20">
+  <label for="game_league_league_begin" class="col-sm-2 control-label">联赛开始时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :league_begin, placeholder: '联赛开始时间', class: 'form-control game_begin', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_league_league_end" class="col-sm-2 control-label">联赛关闭时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :league_end, placeholder: '联赛关闭时间', class: 'form-control game_end', required: "required" %>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', game_leagues_path, class: 'btn btn-default btn-lg mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'game_league_submit' %>
+  </div>
+</div>
+

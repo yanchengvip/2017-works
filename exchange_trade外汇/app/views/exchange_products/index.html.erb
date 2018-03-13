@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Exchange Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Active</th>
+      <th>Published</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exchange_products.each do |exchange_product| %>
+      <tr>
+        <td><%= exchange_product.symbol %></td>
+        <td><%= exchange_product.active %></td>
+        <td><%= exchange_product.published %></td>
+        <td><%= link_to 'Show', exchange_product %></td>
+        <td><%= link_to 'Edit', edit_exchange_product_path(exchange_product) %></td>
+        <td><%= link_to 'Destroy', exchange_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exchange Product', new_exchange_product_path %>

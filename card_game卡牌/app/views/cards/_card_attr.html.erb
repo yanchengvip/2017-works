@@ -1,0 +1,251 @@
+<div class="form-group row mt_20">
+  <legend><h3>计谋属性设置</h3></legend>
+</div>
+
+<div class="form-group row">
+  <label for="card_type" class="col-sm-2 col-form-label">计谋分类</label>
+  <div class="col-sm-4">
+    <%= Card::CARDTYPE[@card.card_type] %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_cooldown" class="col-sm-2 col-form-label">*卡牌冷却CD</label>
+  <div class="col-sm-4">
+    <div class="input-group">
+      <input type="number" class="form-control" min="1" max="999999" name="cooldown" id="card_cooldown" placeholder="正数" required value="<%= @card.cooldown %>">
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_attack_energy" class="col-sm-2 col-form-label">消耗对方能量</label>
+  <div class="col-sm-4">
+    <div class="input-group">
+      <input type="number" name="attack_energy" min="0" value="<%= (@card.attack_energy * 100).to_i %>" max="99999999" step='1' class="form-control" placeholder="整数" id='card_attack_energy'>
+      <span class="input-group-addon" id="basic-addon2">%</span>
+    </div>
+    <p data-container="body" data-toggle="popover" data-placement="right" data-content="消耗对方能量必须大于0" id="card_attack_energy_tip"></p>
+  </div>
+</div>
+
+<% if card_attrs(@card).include?('ignore_defense') %>
+  <div class="form-group row">
+    <label for="ignore_defense" class="col-sm-2 col-form-lable">*无视防御</label>
+    <div class="col-sm-4">
+      <div class="radio">
+        <!-- <label class="mr_30"> -->
+          <% if @card.ignore_defense %>
+            <label class="mr_30">
+              <input class="form-check-input" type="radio" value='0' name="ignore_defense"> 否
+            </label>
+            <label>
+              <input class="form-check-input" type="radio" value='1' name="ignore_defense" checked="checked"> 是
+            </label>
+          <% else %>
+            <label class="mr_30">
+              <input class="form-check-input" type="radio" value='0' name="ignore_defense" checked="checked"> 否
+            </label>
+            <label>
+              <input class="form-check-input" type="radio" value='1' name="ignore_defense"> 是
+            </label>
+          <% end %>
+        <!-- </label> -->
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group row">
+  <label for="card_aim_range" class="col-sm-2 col-form-label">目标范围</label>
+  <div class="col-sm-4">
+    <%= aim_range_str(@card.aim_range) %>
+  </div>
+</div>
+
+<% if @card.max_key %>
+  <div class="form-group row">
+    <label for="card_max_key" class="col-sm-2 col-form-label">最多密钥</label>
+    <div class="col-sm-4">是</div>
+  </div>
+<% end %>
+
+<div class="form-group row">
+  <label for="card_attach_aim" class="col-sm-2 col-form-label">扣减对象</label>
+  <div class="col-sm-4">
+    <%= attach_aim_str(@card.attach_aim) %>
+  </div>
+</div>
+
+<%# if @card.effect_condition.present? %>
+<% if card_attrs(@card).include?('effect_times') %>
+  <div class="form-group row">
+    <label for="card_effect_condition" class="col-sm-2 col-form-label">生效条件</label>
+    <div class="col-sm-4">
+      <% if @card.code == '100006' %>
+        所有计谋
+      <% elsif @card.code.in?(['100007', '100008', '100012']) %>
+        <%= effect_condition_str(@card) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%# if @card.effect_condition.present? %>
+<% if card_attrs(@card).include?('effect_times') %>
+  <div class="form-group row">
+    <label for="card_effect_times" class="col-sm-2 col-form-label">*生效次数</label>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <input type="number" min="0" max="3" name="effect_times" value="<%= @card.effect_times %>" class="form-control" required="required" placeholder="生效次数" id='card_effect_times'>
+        <span class="input-group-addon" id="basic-addon2">次</span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group row">
+  <label for="card_is_disable" class="col-sm-2 col-form-label">无法使用计谋</label>
+  <div class="col-sm-4">
+    <%= @card.is_disable ? '是' : '否' %>
+  </div>
+</div>
+
+<% if card_attrs(@card).include?('disable_time') %>
+  <div class="form-group row">
+    <label for="card_disable_time" class="col-sm-2 col-form-label">*无法使用计谋时间</label>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <input type="number" min="0" max="480" name="disable_time" value="<%= @card.disable_time %>" class="form-control" required="required" placeholder="无法使用计谋时间" id='card_disable_time'>
+        <span class="input-group-addon" id="basic-addon2">秒</span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group row">
+  <label for="card_is_confusion" class="col-sm-2 col-form-label">出牌混乱</label>
+  <div class="col-sm-4">
+    <%= @card.is_confusion ? '是' : '否' %>
+  </div>
+</div>
+
+<% if card_attrs(@card).include?('confusion_time') %>
+  <div class="form-group row">
+    <label for="card_confusion_time" class="col-sm-2 col-form-label">*出牌混乱时间</label>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <input type="number" min="0" max="480" name="confusion_time" value="<%= @card.confusion_time %>" class="form-control" required="required" placeholder="出牌混乱时间" id='card_confusion_time'>
+        <span class="input-group-addon" id="basic-addon2">秒</span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group row">
+  <label for="card_is_exchange" class="col-sm-2 col-form-label">是否置换号码</label>
+  <div class="col-sm-4">
+    <%= @card.is_exchange ? '是' : '否' %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_transfer_type" class="col-sm-2 col-form-label">转移类型</label>
+  <div class="col-sm-4">
+    <%= transfer_type_str(@card.transfer_type) %>
+  </div>
+</div>
+
+<% if card_attrs(@card).include?('transfer_percent') %>
+  <div class="form-group row">
+    <label for="card_transfer_percent" class="col-sm-2 col-form-label">*转移百分比</label>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <input type="number" min="0" max="100" name="transfer_percent" value="<%= (@card.transfer_percent * 100).to_i %>" class="form-control" required="required" placeholder="转移百分比" id='card_transfer_percent'>
+        <span class="input-group-addon" id="basic-addon2">%</span>
+      </div>
+    </div>
+  </div>
+<% elsif @card.code.in?(['100006', '100011']) %>
+  <div class="form-group row">
+    <label for="card_transfer_percent" class="col-sm-2 col-form-label">*转移百分比</label>
+    <div class="col-sm-4">100%</div>
+  </div>
+<% else %>
+  <div class="form-group row">
+    <label for="card_transfer_percent" class="col-sm-2 col-form-label">*转移百分比</label>
+    <div class="col-sm-4">无</div>
+  </div>
+<% end %>
+
+<div class="form-group row">
+  <label for="card_is_double" class="col-sm-2 col-form-label">是否效果翻倍</label>
+  <div class="col-sm-4">
+    <%= @card.is_double ? '是' : '否' %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_attack_full" class="col-sm-2 col-form-label">攻击满值</label>
+  <div class="col-sm-4">
+    <input type="number" name="attack_full" min="0" max="99999" value="<%= @card.attack_full %>" class="form-control" required placeholder="整数" id='card_attack_full'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_attack_curr" class="col-sm-2 col-form-label">当前攻击值</label>
+  <div class="col-sm-4">
+    <input type="number" name="attack_curr" min="0" max="99999" value="<%= @card.attack_curr %>" class="form-control" required placeholder="整数" id='card_attack_curr'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_control_full" class="col-sm-2 col-form-label">控制满值</label>
+  <div class="col-sm-4">
+    <input type="number" name="control_full" min="0" max="99999" value="<%= @card.control_full %>" class="form-control" required placeholder="整数" id='card_control_full'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_control_curr" class="col-sm-2 col-form-label">当前控制值</label>
+  <div class="col-sm-4">
+    <input type="number" name="control_curr" min="0" max="99999" value="<%= @card.control_curr %>" class="form-control" required placeholder="整数" id='card_control_curr'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_defense_full" class="col-sm-2 col-form-label">防御满值</label>
+  <div class="col-sm-4">
+    <input type="number" name="defense_full" min="0" max="99999" value="<%= @card.defense_full %>" class="form-control" required placeholder="整数" id='card_defense_full'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_defense_curr" class="col-sm-2 col-form-label">当前防御值</label>
+  <div class="col-sm-4">
+    <input type="number" name="defense_curr" min="0" max="99999" value="<%= @card.defense_curr %>" class="form-control" required placeholder="整数" id='card_defense_curr'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_consume_full" class="col-sm-2 col-form-label">消耗满值</label>
+  <div class="col-sm-4">
+    <input type="number" name="consume_full" min="0" max="99999" value="<%= @card.consume_full %>" class="form-control" required placeholder="整数" id='card_consume_full'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_consume_curr" class="col-sm-2 col-form-label">当前消耗值</label>
+  <div class="col-sm-4">
+    <input type="number" name="consume_curr" min="0" max="99999" value="<%= @card.consume_curr %>" class="form-control" required placeholder="整数" id='card_consume_curr'>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="card_cool_full" class="col-sm-2 col-form-label">冷却满值</label>
+  <div class="col-sm-4">
+    <input type="number" name="cool_full" min="0" max="99999" value="<%= @card.cool_full %>" class="form-control" required placeholder="整数" id='card_cool_full'>
+  </div>
+</div>
+

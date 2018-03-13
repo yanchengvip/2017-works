@@ -1,0 +1,45 @@
+<div class="row"><p class="sub-header">系统管理>饕餮设置>饕餮等级</p></div>
+
+<%#= render partial: 'search' %>
+
+<div class="row mt_20 mb_20" style="text-align: center;">
+  <%= link_to '新增等级', new_glutton_level_path, class: 'btn btn-primary btn-lg', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>等级</th>
+        <th>饕餮形象</th>
+        <th>升级经验值</th>
+        <th>每日赠送妖丹</th>
+        <th>每日购买妖丹上限</th>
+        <th>每日赠送能量</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @glutton_levels && @glutton_levels.each_with_index do |glutton_level, index| %>
+      <tr id="tr_<%= glutton_level.id %>">
+        <td><%= glutton_level.level %></td>
+        <td><%= show_thumb glutton_level %></td>
+        <td><%= glutton_level.level_up_experience %></td>
+        <td><%= glutton_level.day_pellet %></td>
+        <td><%= glutton_level.day_buy_pellet_up_limit %></td>
+        <td><%= glutton_level.day_energy %></td>
+        <td>
+          <%#= link_to '查看', glutton_level_path(glutton_level), class: 'btn btn-sm btn-info' %>
+          <%= link_to '编辑', edit_glutton_level_path(glutton_level), class: 'btn btn-primary btn-sm' %>
+          <%#= link_to '删除', glutton_level_path(glutton_level), method: :delete, data: {confirm: '确定删除吗？'}, class: 'btn' %>
+          <%= link_to '删除', "javascript:void(0)", onclick: "level_delete(#{glutton_level.id})", role: 'button', class: 'btn btn-danger btn-sm' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @glutton_levels %>
+
+<%= render 'del_level_modal'%>

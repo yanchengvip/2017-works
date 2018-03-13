@@ -1,0 +1,88 @@
+<div class="modal fade" id="cashierModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">收款</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/auction/cashiers/collect_money" method="post" id="cashier_form">
+          <div class="form-group">
+            <label for="message-text" class="control-label">快递单号:<span id="trade_identifier"></span></label>
+            <label for="message-text" class="control-label"><input type="hidden" id="trade_id"></label>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">订单金额:<span id="trade_price"></span></label>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">已收金额:<span id="trade_received_price"></span></label>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">待收金额:<span id="wait_price"></span></label>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">本次收款:</label>
+            <input class="form-control" style="width:50%" name="pay_item[buyer_pay_amount]" type='text'>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">收款方式:</label>
+            <input class="form-control" style="width:50%" value="货到付款" disabled='true'>
+            <input class="form-control" style="width:50%" name="pay_item[pay_type]" value="3" type="hidden">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">第三方支付单号:</label>
+            <input class="form-control" style="width:50%" name="pay_item[trade_no]" type='text'>
+            <label for="message-text" class="control-label">收款时间:</label>
+            <input class="form-control" style="width:50%" id="datetimepicker1" disabled='true'>
+            <input class="form-control" style="width:50%" id="cashiersdate" name="pay_item[gmt_payment]" type='hidden' >
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">内部备注:</label>
+            <input class="form-control" rows="5" name="pay_item[remark]" type='textarea'>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="submit_cashier_form">确认收款</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $('#cashierModel').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var id = button.data('id')
+    var price = button.data('price')
+    var identifier = button.data('identifier')
+    var received_price = button.data('received')
+    var wait_price = price - received_price
+    var modal = $(this)
+    modal.find('#trade_id').val(id)
+    modal.find('#trade_price').text(price)
+    modal.find('#trade_identifier').text(identifier)
+    modal.find('#trade_received_price').text(received_price)
+    modal.find('#wait_price').text(wait_price)
+    $("#cashier_form").attr("action", "/auction/cashiers/"+id+"/collect_money")
+    $("#submit_cashier_form").attr("trade_id", id)
+  })
+  $("#submit_cashier_form").click(function(argument) {
+    $.ajax({
+      type: 'post',
+      url: $("#cashier_form").attr("action"),
+      data: $("#cashier_form").serialize(),
+      success: function (response) {
+        if (response['status'] == 200) {
+          swal('成功')
+          $('#cashierModel').modal('hide')
+        }else{
+          swal(response["msg"])
+        }
+      },
+      error: function (response) {
+          swal('网络异常')
+      }
+
+    })
+  })
+</script>

@@ -1,0 +1,19 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import 'bootstrap-datetimepicker';
+@import 'supplier/font-awesome';
+@import "supplier/custom-styles";
+@import "supplier/sweetalert2";
+@import "supplier/index";
+@import "supplier/ico";
+@import "common";
+@import "paginate";
+@import "select2";
+
+.trade_remark{
+  background-color: #fff;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  color: #777;
+
+}

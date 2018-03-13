@@ -1,0 +1,26 @@
+<header class="app-header navbar">
+  <a class="navbar-brand" href="#"></a>
+  <ul class="nav navbar-nav d-md-down-none nav-left-menu">
+    <li class="nav-item">
+      <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
+    </li>
+    <% @header_menus[0][:children].each do |m| %>
+        <li class="nav-item px-3">
+          <a class="nav-link" href="<%= m[:url]%>"><%= m[:name]%></a>
+        </li>
+    <% end %>
+  </ul>
+  <ul class="nav navbar-nav ml-auto navbar-nav-right">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="d-md-down-none"><%= current_user&.name %><span class="caret"></span></span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <% if current_user.can?("manage/editors#reset_password") %>
+            <a class="dropdown-item" href="/manage/editors/reset_password">设置</a>
+        <% end %>
+        <a class="dropdown-item" href="/logout">退出</a>
+      </div>
+    </li>
+  </ul>
+</header>

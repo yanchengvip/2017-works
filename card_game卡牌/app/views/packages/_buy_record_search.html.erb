@@ -1,0 +1,35 @@
+<div class="row placeholders well">
+  <%= form_for buy_record_packages_path, html: {method: :get, class: "navbar-form navbar-left text-left", id: 'search_form'}  do |f| %>
+    <div class="form-group row">
+      <span>订单编号：</span>
+      <%= text_field_tag "q[code_cont]", params[:q][:code_cont], class: "form-control mr_30", placeholder: "订单编号" %>
+
+      <span>用户手机：</span>
+      <%= text_field_tag "q[user_mobile_cont]", params[:q][:user_mobile_cont], class: "form-control mr_30", placeholder: "用户手机" %>
+
+      <span>礼包名称：</span>
+      <%= text_field_tag "q[package_name_cont]", params[:q][:package_name_cont], class: "form-control mr_30", placeholder: "礼包名称" %>
+    </div>
+    <div class="form-group row">
+      <span>销售渠道：</span>
+      <%= select_tag "q[sale_channel_eq]", options_for_select([["所有渠道", nil]] + Package::SALECHANNEL.to_a.map(&:reverse), params[:q][:sale_channel_eq]), class: 'form-control mr_50' %>
+
+      <span>购买时间：</span>
+      <%= text_field_tag "q[created_at_gteq]", params[:q][:created_at_gteq], class: "form-control mr_30", placeholder: "购买时间" %>
+    </div>
+
+    <%= f.submit '搜索', class: "btn btn-primary mr_10" %>
+    <!-- <button type="reset" class="btn btn-default" id="reset_form">重置</button> -->
+    <button type="button" class="btn btn-default" id="export_result" onclick="export_submit('export');">导出</button>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  function export_submit(submit_type) {
+    if (submit_type === "export") {
+      $("#search_form").attr("action", "/packages/buy_record.csv");
+    }
+
+    $("#search_form").submit();
+  };
+</script>

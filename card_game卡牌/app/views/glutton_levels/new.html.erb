@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">系统管理>饕餮设置>新增等级</p></div>
+
+<%= form_for @glutton_level, url: glutton_levels_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

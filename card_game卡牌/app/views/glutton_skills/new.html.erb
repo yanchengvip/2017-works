@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">系统管理>饕餮设置>新增技能</p></div>
+
+<%= form_for @glutton_skill, url: glutton_skills_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

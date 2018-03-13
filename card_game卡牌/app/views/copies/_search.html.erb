@@ -1,0 +1,16 @@
+<div class="row placeholders well">
+  <%= form_for copies_path, html: {method: :get, class: "navbar-form navbar-left text-left", id: 'search_form'}  do |f| %>
+    <div class="form-group row">
+      <span>文案分类：</span>
+      <%= select_tag "q[copy_type_eq]", options_for_select([["所有分类", nil]] + Copy::COPYTYPE.to_a.map(&:reverse), params[:q][:copy_type_eq]), class: 'form-control mr_50' %>
+
+      <span>文案标题：</span>
+      <%= text_field_tag "q[title_cont]", params[:q][:title_cont], class: "form-control mr_30", placeholder: "文案标题" %>
+
+      <span>启用状态：</span>
+      <%= select_tag "q[status_eq]", options_for_select([["所有状态", nil]] + Copy::STATUS.to_a.map(&:reverse), params[:q][:status_eq]), class: 'form-control mr_30' %>
+
+       <%= f.submit '搜索', class: "btn btn-primary ml_50" %>
+    </div>
+  <% end %>
+</div>

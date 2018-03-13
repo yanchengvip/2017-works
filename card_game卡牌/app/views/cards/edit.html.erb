@@ -1,0 +1,194 @@
+<%#= render partial: 'form' %>
+<div class="row"><p class="sub-header">系统管理>卡牌管理>修改卡牌</p></div>
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '返回', cards_path, class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<%#= form_for @card, html: {class: 'form-horizontal ml_10', method: :post} do |f| %>
+<form action="/cards/update" method="post">
+  <input type="hidden" name="id" value="<%= @card.id %>">
+  <div class="form-group row">
+    <!-- <span class="glyphicon glyphicon-menu-down pull-right" aria-hidden="true"></span> --><!-- <label for="" class="col-sm-2 col-form-label">基础信息</label> -->
+    <legend><h3>卡牌基础资料</h3></legend>
+  </div>
+
+  <div class="form-group row">
+    <label for="card_name" class="col-sm-2 col-form-label">*卡牌名称</label>
+    <div class="col-sm-8">
+      <input type="text" name="name" value="<%= @card.name %>" class="form-control"  placeholder="卡牌名称" id='card_name' required>
+      <input type="hidden" name="operator_id" value="<%= current_user.id %>">
+      <input type="hidden" name="operator_name" value="<%= current_user.nickname %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="card_name" class="col-sm-2 col-form-label">*卡牌编码</label>
+    <div class="col-sm-4">
+      <%= @card.code %>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row">
+    <label for="card_price" class="col-sm-2 col-form-label">*卡牌价格</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="price" min="0" value="<%#= @card.price %>" max="99999999" class="form-control" required placeholder="整数" id='card_price'>
+        <span class="input-group-addon" id="basic-addon2">微集分</span>
+      </div>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="价格必须大于0" id="card_price_tip"></p>
+    </div>
+
+  </div> -->
+
+  <div class="form-group row">
+    <label for="card_order_num" class="col-sm-2 col-form-label">*卡牌排序</label>
+    <div class="col-sm-8">
+      <select name="order_num" id="card_order_num" class="card_select2 select-width-20" required>
+        <option value=''>请选择</option>
+        <%# @order_nums.each do |num| %>
+        <% 30.times do |num| %>
+          <% if @card.order_num == (num + 1) %>
+            <option value="<%= num + 1 %>" selected="selected"><%= num + 1 %></option>
+          <% else %>
+            <option value="<%= num + 1 %>"><%= num + 1 %></option>
+          <% end %>
+        <% end %>
+      </select>
+      <%= link_to '查看所有排序', 'javascript:void(0)', id: 'see_orders' %>
+    </div>
+  </div>
+
+  <div class="form-group row hide" id="card_orders_div">
+    <div class="col-sm-offset-2 col-sm-8" id="card_orders_text">
+      <% Card.active.each_with_index do |card, index| %>
+        <% if card.order_num.present? && card.order_num > 0 %>
+          <span class="mr_15"><%= card.name %>：<%= card.order_num %></span>
+          <% if (index + 1) % 6 == 0 %>
+            <br>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row">
+    <label for="card_energy" class="col-sm-2 col-form-label">*消耗能量</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="energy" min="1" value="<%#= @card.energy %>" max="99999999" class="form-control" required placeholder="整数" id='card_energy'>
+        <span class="input-group-addon" id="basic-addon2">两</span>
+      </div>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="消耗能量必须大于0" id="card_energy_tip"></p>
+    </div>
+  </div> -->
+  <% if Card.epics.pluck(:id).include?(@card.id) %>
+    <div class="form-group row">
+      <label for="card_use_times" class="col-sm-2 col-form-label">
+        *使用次数<strong class="red">（-1为无限次）</strong>
+      </label>
+      <div class="col-sm-8">
+        <div class="input-group">
+          <input type="number" name="use_times" min="-1" value="<%= @card.use_times %>" max="99999999" class="form-control" required placeholder="整数(-1为无限次)" id='card_use_times'>
+          <span class="input-group-addon" id="basic-addon2">次</span>
+        </div>
+        <p data-container="body" data-toggle="popover" data-placement="right" data-content="使用次数必须大于0" id="card_use_times_tip"></p>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- <div class="form-group row">
+    <label for="card_forage" class="col-sm-2 col-form-label">*消耗粮草</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="forage" min="1" value="<%#= @card.forage %>" max="99999999" class="form-control" required placeholder="整数" id='card_forage'>
+        <span class="input-group-addon" id="basic-addon2">两</span>
+      </div>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="消耗粮草必须大于0" id="card_forage_tip"></p>
+    </div>
+  </div> -->
+
+  <div class="form-group row">
+    <label for="card_rarity" class="col-sm-2 col-form-label">稀有度</label>
+    <div class="col-sm-8">
+      <input type="text" name="rarity" value="<%= @card.rarity %>" class="form-control"  placeholder="稀有度" id='card_rarity'>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="card_summary" class="col-sm-2 col-form-label">卡牌简介</label>
+    <div class="col-sm-8">
+      <p class="red">需要黄色展示部分约定用英文单引号包起来，如： 趁火打劫介绍，'黄色显示部分'</p>
+      <textarea class="form-control" name="summary" rows="5" id="card_summary"
+                onkeyup="validate_length_of_words(this.id,70)" placeholder="卡牌简介，最多70字"><%= @card.summary %></textarea>
+      <p class="bg-danger p_last_num left_str_num"></p>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="请填写礼包简介" id="card_summary_tip"></p>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="card_instruction" class="col-sm-2 col-form-label">卡牌说明</label>
+    <div class="col-sm-8">
+      <p class="red">需要黄色展示部分约定用英文单引号包起来，如： 趁火打劫介绍，'黄色显示部分'</p>
+      <textarea class="form-control" name="instruction" rows="5" id="card_instruction"
+                onkeyup="validate_length_of_words(this.id,40)" placeholder="卡牌说明，最多40字"><%= @card.instruction %></textarea>
+      <p class="bg-danger p_last_num left_str_num"></p>
+      <!-- <p data-container="body" data-toggle="popover" data-placement="right" data-content="请填写礼包简介" id="card_instruction_tip"></p> -->
+    </div>
+  </div>
+
+  <!-- 图片开始 -->
+  <%#= render 'images/upload_single_image' %>
+  <%#= render 'images/upload_multiple_image' %>
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">缩略图</label>
+    <div class="col-sm-8">
+      <%= render 'images/upload_single_image' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">展示图片</label>
+    <div class="col-sm-8">
+      <%= render 'images/upload_multiple_image' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="card_details" class="col-sm-2 col-form-label">卡牌攻略</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" name="details" rows="8" id="card_details" required
+                onkeyup="validate_length_of_words(this.id,1000)" placeholder="卡牌攻略，最多1000字"><%= @card.details %></textarea>
+      <p class="bg-danger p_last_num left_str_num"></p>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input_video" class="col-sm-2 col-form-label">视频介绍</label>
+    <div class="col-sm-8">
+      <%= render 'shared/upload_video' %>
+      <!-- <input type="file" name="video_url"> -->
+    </div>
+  </div>
+
+  <%= render partial: 'card_attr' %>
+
+  <div class="form-group row mt_100">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= link_to '取消', '/cards/', class: 'btn btn-default mr_20' %>
+      <%#= f.submit '保存', class: 'btn btn-primary mr_20', data: {:disable_with => "提交中..."} %>
+      <button type="submit" id="add_card_submit" class="btn btn-primary">保存</button>
+      <p data-container="body" data-toggle="popover" data-placement="right" data-content="请上传缩略图" id="card_thumbnail_tip"></p>
+    </div>
+  </div>
+
+</form>
+<%= render partial: 'packages/error_modal' %>
+
+<%# end %>
+
+<%#= image_tag 'close_pop.png', class: 'close_img origin hide', data_url: '' %>
+<script type="text/javascript">
+  $(function () {
+    $(".card_select2").select2()
+  })
+</script>

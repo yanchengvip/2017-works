@@ -1,0 +1,54 @@
+<!-- 提交审核modal -->
+<div class="modal fade" id="bjReviewSupplierProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">商品审核<span id="review_title"></span></h4>
+      </div>
+      <!-- <form action="/auction/products/review" method="post"> -->
+        <div class="modal-body">
+          <h3>确定</span><span id="bj_review_status">审核通过</span>：<span id="bj_review_supplier_product_name" class="red"></span>，提交<span id="bj_next_review_man">上架</span>吗？</h3>
+
+          <input type="hidden" id="bj_review_supplier_product_id">
+          <input type="hidden" id="bj_review_supplier_product_status">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button class="btn btn-primary" id="do_bj_review">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_bj_review').on('click', function(){
+      var review_id = $('#bj_review_supplier_product_id').val()
+      console.log(review_id)
+      $.ajax({
+        type: "post",
+        async: false,
+        url: '/auction/products/' + review_id + '/bj_review',
+        data: { review_status: $('#bj_review_supplier_product_status').val() },
+        success: function(result){
+          if(result.status == 200){
+            $('#bjReviewSupplierProductModal').modal('hide')
+            $('.bj_btn_' + review_id).remove()
+          }else{
+            $('#bjReviewSupplierProductModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#bjReviewSupplierProductModal').modal('hide')
+          elert('网络异常')
+        }
+      })
+    })
+  })
+
+</script>

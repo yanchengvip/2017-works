@@ -1,0 +1,92 @@
+<%# if @package.prize_type == 1 %>
+<% @task_setting.task_items.each do |task_item| %>
+
+  <% if task_item.prize_type == 2 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= task_item.id %>">
+      <td>卡牌<input type="hidden" name="task_items[][prize_type]" value="2"></td>
+      <td width="30">
+        <p class="prize_type_select">
+          <select name="task_items[][card_id]" class="task_item_select2 task_items_card_chose" style="width: 200px !important">
+            <% Card.active.each do |card| %>
+              <% if task_item.card_id.to_i == card.id %>
+                <option value="<%= card.id %>" selected="selected"><%= card.name %></option>
+              <% else %>
+                <option value="<%= card.id %>"><%= card.name %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </p>
+      </td>
+
+      <td>
+        <div class="input-group">
+          <input type="number" name="task_items[][prize_count]" min="0" max="99999" class="form-control" required placeholder="整数" value="<%= task_item.prize_count %>">
+          <span class="input-group-addon">张</span>
+        </div>
+      </td>
+
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_task_item_origin", id: "task_item_#{task_item.id}" %></td>
+      <input type="hidden" name="task_items[][id]" value="<%= task_item.id %>">
+    </tr>
+  <% elsif task_item.prize_type == 1 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= task_item.id %>">
+      <td>功勋<input type="hidden" name="task_items[][prize_type]" value="1"></td>
+      <td width="30">
+        功勋<input type="hidden" name="task_items[][card_id]" value="0">
+      </td>
+
+      <td>
+        <div class="input-group">
+          <input type="number" name="task_items[][prize_count]" min="0" max="99999" class="form-control" required placeholder="整数" value="<%= task_item.prize_count %>">
+          <span class="input-group-addon">点</span>
+        </div>
+      </td>
+
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_task_item_origin", id: "task_item_#{task_item.id}" %></td>
+      <input type="hidden" name="task_items[][id]" value="<%= task_item.id %>">
+    </tr>
+  <% elsif task_item.prize_type == 3 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= task_item.id %>">
+      <td>能量<input type="hidden" name="task_items[][prize_type]" value="3"></td>
+      <td width="30">
+        能量<input type="hidden" name="task_items[][card_id]" value="0">
+      </td>
+
+      <td>
+        <div class="input-group">
+          <input type="number" name="task_items[][prize_count]" min="0" max="99999" class="form-control" required placeholder="整数" value="<%= task_item.prize_count %>">
+          <span class="input-group-addon">点</span>
+        </div>
+      </td>
+
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_task_item_origin", id: "task_item_#{task_item.id}" %></td>
+      <input type="hidden" name="task_items[][id]" value="<%= task_item.id %>">
+    </tr>
+  <% end %>
+
+<% end %>
+
+
+<%= render 'item_del_modal'%>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function () {
+    $(".task_item_select2").select2()
+  })
+</script>
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    $('.del_task_item_origin').on('click', function(){
+      $('#delTaskItemModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delTaskItemModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_item_id').val(this_id.split('_')[2])
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+</script>
+

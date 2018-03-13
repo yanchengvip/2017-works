@@ -1,0 +1,47 @@
+<!-- 删除modal -->
+<div class="modal fade" id="gameProductShelfModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">商品下架</h4>
+      </div>
+      <div class="modal-body">
+        <h3>是否下架当前商品？</h3>
+        <input type="hidden" id="shelf_game_product_id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+        <button type="button" class="btn btn-primary" id="game_shelf">是</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#game_shelf').on('click', function(){
+      var pid = $('#shelf_game_product_id').val()
+      $.ajax({
+        type: "post",
+        url: '/game_types/game_product_shelf',
+        data: { product_id: pid },
+        success: function(result){
+          if(result.status == 200){
+            $('#tr_' + pid).remove()
+            $('#gameProductShelfModal').modal('hide')
+          }else{
+            $('#gameProductShelfModal').modal('hide')
+            alertTX('删除失败')
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#gameProductShelfModal').modal('hide')
+          alertTX('删除失败')
+        }
+      })
+
+    })
+  })
+</script>

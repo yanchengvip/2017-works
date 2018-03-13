@@ -1,0 +1,28 @@
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '修改品牌', edit_auction_brand_path(@auction_brand), class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>品牌信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">英文名：<span class="red"><%= @auction_brand.name %></span></li>
+    <li class="list-group-item">中文名：<span class="red"><%= @auction_brand.chinese %></span></li>
+    <li class="list-group-item">缩写：<%= @auction_brand.abbreviation %></li>
+    <li class="list-group-item">首字母：<%= @auction_brand.initial %></li>
+    <li class="list-group-item">类型：<%= @auction_brand.genre %></li>
+    <li class="list-group-item">图片：<%= image_tag (@auction_brand.pic) || '', width: 60, height: 60 if @auction_brand.pic %></li>
+    <li class="list-group-item">链接：<%= @auction_brand.link %></li>
+    <li class="list-group-item">旗舰店链接：<%= @auction_brand.shop_link %></li>
+    <li class="list-group-item">标题：<%= @auction_brand.title %></li>
+    <li class="list-group-item">描述：<%= @auction_brand.description %></li>
+    <li class="list-group-item">概要：<%= @auction_brand.summary %></li>
+    <li class="list-group-item">材质：<%= image_tag (@auction_brand.material) || '', width: 60, height: 60 if @auction_brand.material %></li>
+    <li class="list-group-item">推荐：<%= @auction_brand.recommend %></li>
+    <li class="list-group-item">国家：<%= @auction_brand.country_id %></li>
+
+  </ul>
+
+</div>

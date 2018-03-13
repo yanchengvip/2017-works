@@ -1,0 +1,162 @@
+zh-CN:
+  routes:
+    controller:
+      auction/carousels: "开机轮播图"
+      manage/app_versions: "app版本控制"
+      auction/levels: "vip等级"
+      manage/homes: "运营首页"
+      sessions: "账户登录"
+      auction/categories: "分类"
+      auction/brands: "品牌"
+      auction/attributes: "属性"
+      auction/products: "商品"
+      auction/pic_ads: "轮播图"
+      auction/themes: "专题"
+      auction/seckills: "秒杀"
+      auction/trades: "订单"
+      auction/supplier_trades: "供应商订单"
+      auction/units: "单件"
+      auction/mails: "H5页面"
+      auction/users: "商城用户"
+      images: "图片"
+      auction/cities: "城市"
+      pay/cmb_signs: "一网通签约"
+      retail/carts: "购物车"
+      manage/users: "运营管理用户"
+      manage/roles: "角色"
+      manage/authority_role_relationships: "角色-权限"
+      manage/authorities: "权限"
+      manage/editors: "运营账户"
+      auction/voucher_trades: "优惠券订单"
+      auction/vouchers: "优惠券"
+      auction/values: "属性值"
+      auction/transactions: "余额变化记录"
+      auction/trades_updatings: "订单状态变更记录"
+      auction/towns: "乡镇"
+      auction/sms: "短信"
+      auction/provinces: "省"
+      auction/multibuys: "连拍"
+      auction/favorites: "商品收藏"
+      auction/fanships: "品牌收藏"
+      auction/events: "券种"
+      auction/coupons: ""
+      auction/countries: "国家"
+      auction/contacts: "收货地址"
+      auction/cards: "礼品卡"
+      core/reports: "用户反馈"
+      core/connections: "第三方登录"
+      core/accounts: "账户"
+      manage/providers: "供应商"
+      manage/report_forms: "结算单"
+    action:
+      manage/report_forms:
+        update_status: "结算"
+      auction/sms:
+        send_sms: "发送短信"
+      manage/editors:
+        reset_password: "重置密码"
+        update_password: "修改密码"
+      images:
+        upload: "上传图片"
+      auction/units:
+        audit: "审核"
+        transfer: "退款"
+        freezed: "冻结"
+      auction/supplier_trades:
+        freezed: "冻结"
+        rejects: "拒签订单列表"
+        returns: "退款订单列表"
+        return_show: "退货商品详情"
+      auction/trades:
+        audit: "审核"
+        freezed: "冻结"
+      auction/themes:
+        up_move: 上移
+        down_move: 下移
+        up_status: "上线"
+        down_status: "下线"
+      auction/pic_ads:
+        up_move: "上移"
+        down_move: "下移"
+        up_status: "上线"
+        down_status: "下线"
+      auction/products:
+        item_form: "添加图片模板"
+        ms_review_index: "买手审核列表页"
+        zj_review_index: "总监审核列表页"
+        cw_review_index: "财务审核列表页"
+        editor_review_index: "编辑审核列表页"
+        ms_review: "买手审核"
+        zj_review: "总监审核"
+        cw_review: "财务审核"
+        bj_review: "编辑审核"
+        shelf: "上下架"
+        change_discount: "改价"
+        get_attributes: '获取分类属性'
+        get_next_categories: '获取下级分类'
+        editor_edit: '编辑编辑商品页面'
+        editor_update: '更新编辑编辑商品结果'
+
+  helpers:
+    index: 列表
+    list: 列表
+    show: 查看
+    new: 新增
+    create: 创建
+    edit: 编辑
+    update: 更新
+    delete: 删除
+    destroy: 删除
+    copy: 复制
+    public: 发布
+    preview: 预览
+    visit: 访问
+    submit: 提交
+    search: 搜索
+    actions: 操作
+    successful: 成功
+    failed: 失败
+    completed: 完成
+    published: 发布
+    confirm: 确定
+    links:
+      ship: "发货"
+      print: "打印"
+
+      index: 列表
+      list: 列表
+      show: 查看
+      new: 新增
+      create: 创建
+      edit: 编辑
+      update: 更新
+      delete: 删除
+      destroy: 删除
+      copy: 复制
+      public: 发布
+      preview: 预览
+      visit: 访问
+      submit: 提交
+      search: 搜索
+      actions: 操作
+      successful: 成功
+      failed: 失败
+      completed: 完成
+      published: 发布
+      confirm: 确定
+
+  views:
+    pagination:
+      first: 首页
+      previous: 上一页
+      next: 下一页
+      last: 末页
+      truncate: "..."
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "short %b %d"
+  time:
+    formats:
+      default: "%Y-%m-%d %H:%M"
+      short: "short %B %d, %Y"

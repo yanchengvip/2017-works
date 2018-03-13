@@ -1,0 +1,37 @@
+<div role="tabpanel" class="tab-pane active" id="<%= params[:tab_id] %>">
+  <form action="/packages/save_scheme" method="post" class="form-horizontal scheme_form">
+    <input type="hidden" name="id" value="<%= @package.id %>">
+    <input type="hidden" name="package_items_price" id="new_item_price_<%= params[:tab_id] %>">
+    <table class="table table-striped table-hover" id="table_<%= params[:tab_id] %>">
+      <thead>
+        <tr>
+          <td colspan='4' align="center">已选卡牌价值共：<span class="price_total label label-danger ft_20" id="price_total_<%= params[:tab_id] %>"></span>&nbsp;微集分<span class="ml_50 hide label label-warning ft_16" id="alert_<%= params[:tab_id] %>">请先选中卡牌</span></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th>卡牌名称</th>
+          <th>卡牌价格(微集分)</th>
+          <th>张数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cards.each do |card| %>
+          <tr class="tr_<%= params[:tab_id] %>">
+            <td><input class="item_scheme_card_check form-control" name="package_items[prize_range][]" type="checkbox" value="<%= card.id %>" id="<%= card.id %>_checkbox_<%= params[:tab_id] %>" data_chosed='0'></td>
+            <td><%= card.name %></td>
+            <td id="<%= card.id %>_card_price_<%= params[:tab_id] %>"><%= card.price %></td>
+            <td>
+              <div class="input-group">
+                <input type="number" name="package_items[range_count][]" min="1" max="9999" placeholder="张数>0的整数" width="100px" class="form-control card_count" id="<%= card.id %>_count_<%= params[:tab_id] %>">
+                <span class="input-group-addon">张</span>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="row text-center">
+      <button type="submit" class="btn btn-primary btn-lg item_scheme_submit" id="item_scheme_submit_<%= params[:tab_id] %>">保存</button>
+    </div>
+  </form>
+</div>

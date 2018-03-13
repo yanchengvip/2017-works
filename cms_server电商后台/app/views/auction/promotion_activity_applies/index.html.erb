@@ -1,0 +1,41 @@
+<ul class="nav nav-tabs" id="otherInfoTab" style="margin-left: 5px">
+  <li class="<%=params[:q][:status_eq].blank? ? 'active' : '' %>"><a href="/auction/promotion_activity_applies">全部</a></li>
+  <li class="<%=params[:q][:status_eq] == '1' ? 'active' : '' %>"><a href="/auction/promotion_activity_applies?q[status_eq]=1">待审核</a></li>
+  <li class="<%=params[:q][:status_eq] == '3' ? 'active' : '' %>"><a href="/auction/promotion_activity_applies?q[status_eq]=3">通过</a></li>
+  <li class="<%=params[:q][:status_eq] == '2' ? 'active' : '' %>"><a href="/auction/promotion_activity_applies?q[status_eq]=2">驳回</a></li>
+</ul>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>供应商</th>
+      <th>申报活动名称</th>
+      <th>提交申报时间</th>
+      <th>申报商品</th>
+      <th>审核状态</th>
+      <th colspan="3">操作</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_promotion_activity_applies.each do |auction_promotion_activity_apply| %>
+      <tr>
+        <td><%= auction_promotion_activity_apply.id %></td>
+        <td><%= auction_promotion_activity_apply.provider.name %></td>
+        <td><%= auction_promotion_activity_apply.promotion_activity.name %></td>
+        <td><%= auction_promotion_activity_apply.apply_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= auction_promotion_activity_apply.product_count %></td>
+        <td><%= Auction::PromotionActivityApply::STATUS[auction_promotion_activity_apply.status] %></td>
+        <td>
+          <%= link_to '查看', auction_promotion_activity_apply, class: 'btn btn-sm btn-primary' %>
+          <% if auction_promotion_activity_apply.status == 1%>
+            <a href="/auction/promotion_activity_applies/<%= auction_promotion_activity_apply.id %>/good_approved" class = 'btn btn-sm btn-success'>运营审核</a>
+          <% end %>
+          <!-- <%= link_to '编辑', edit_auction_promotion_activity_apply_path(auction_promotion_activity_apply), class: 'btn btn-sm btn-primary' %> -->
+          <!-- <%= link_to '删除', auction_promotion_activity_apply, method: :delete, data: { confirm: 'Are you sure?' },class: 'btn btn-sm btn-primary' %> -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @auction_promotion_activity_applies %>

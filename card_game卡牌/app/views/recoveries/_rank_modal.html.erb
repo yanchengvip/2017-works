@@ -1,0 +1,40 @@
+<div class="modal fade" id="RecoverModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title title_name" id="exampleModalLabel" >编辑排序</h4>
+      </div>
+      <form action="" method="get" id="submit_form">
+        <div class="modal-body">
+          <input type="hidden"  class="form-control" name='id' id="recoveries_id">
+          <input type="type"  class="form-control" name='rank' id="rank">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="submit">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    <!--编辑排序-->
+    function update_rank(order_id){
+        $('#RecoverModal').modal('show');
+        $('#RecoverModal').on('shown.bs.modal',function(){
+            $('#recoveries_id').val(order_id)
+        }).on('hidden.bs.modal', function (e) {
+            $('#recoveries_id').val('')
+        })
+    }
+    $(function(){
+      $("#submit").click(function () {
+        var id = $('#recoveries_id').val()
+        $("#submit_form")[0].action = '/recoveries/'+id+'/modify_sort_index'
+        $("#submit_form").submit()
+      })
+    })
+</script>

@@ -1,0 +1,110 @@
+<div class="form-group row mt_20">
+  <label for="red_package_rule_name" class="col-sm-2 control-label">名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '名称', class: 'form-control', required: "required"  %>
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="red_package_rule_open_wait_time" class="col-sm-2 control-label">开启等待时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :open_wait_time, placeholder: '等待开启时长，秒', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="red_package_rule_close_wait_time" class="col-sm-2 control-label">结束等待时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :close_wait_time, placeholder: '结束等待时间，秒', class: 'form-control', required: "required", type: 'number', min: 0, max: 60 %>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="red_package_rule_claim_times_max" class="col-sm-2 control-label">单用户最多可领取次数</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :claim_times_max, placeholder: '单用户最多可领取次数', class: 'form-control', required: "required", type: 'number', min: 1 %>
+      <span class="input-group-addon">次</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="red_package_rule_content" class="col-sm-2 control-label">推送文案</label>
+  <div class="col-sm-8">
+    <%= f.text_field :content, placeholder: '推送文案 {user_name} 替换用户名称, {model_name} 替换触发红包雨 对象名称', class: 'form-control', required: "required"  %>
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row mt_20 mb_20">
+  <label for="red_package_rule_is_auto" class="col-sm-2 control-label">是否自动触发</label>
+  <div class="col-sm-8">
+    <%= f.check_box :is_auto %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="red_package_rule_begin_time" class="col-sm-2 control-label">触发时间</label>
+  <div class="col-sm-8">
+    <%= f.text_field :begin_time, placeholder: '触发时间', class: 'form-control game_time_begin', required: "required"  %>
+  </div>
+</div>
+
+<input type="hidden" id="rule_id" value="<%= @red_package_rule.id %>">
+<legend class="mt_50">
+  <p>
+    <span>现金红包</span>
+    <span><%= link_to '增加红包', 'javascript:void(0)', class: 'btn  btn-success ml_20', id: 'add_rule_item' %></span>
+  </p>
+</legend>
+<div class="form-group row mt_20">
+  <!-- <label for="" class="col-sm-2 control-label"></label> -->
+  <span class="hide" id="random1_id">100000</span>
+  <div class="col-sm-10">
+    <%= render partial: 'item_own' %>
+  </div>
+</div>
+
+<legend class="mt_30">
+  <p>
+    <span>现金券</span>
+    <span><%= link_to '增加红包', 'javascript:void(0)', class: 'btn  btn-success ml_20', id: 'add_rule_item_product' %></span>
+  </p>
+</legend>
+<div class="form-group row mt_20">
+  <!-- <label for="" class="col-sm-2 control-label"></label> -->
+  <span class="hide" id="random2_id">200000</span>
+  <div class="col-sm-10">
+    <%= render partial: 'voucher_item_own' %>
+  </div>
+</div>
+
+<legend class="mt_30">
+  <p>
+    <span>宝箱符</span>
+    <span><%= link_to '增加红包', 'javascript:void(0)', class: 'btn  btn-success ml_20', id: 'add_rule_item_bxf' %></span>
+  </p>
+</legend>
+<div class="form-group row mt_20">
+  <!-- <label for="" class="col-sm-2 control-label"></label> -->
+  <span class="hide" id="random3_id">300000</span>
+  <div class="col-sm-10">
+    <%= render partial: 'bxf_item_own' %>
+  </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', promotion_red_package_rules_path, class: 'btn btn-default btn-lg mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'red_package_rule_submit' %>
+  </div>
+</div>

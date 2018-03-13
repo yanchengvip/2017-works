@@ -1,0 +1,105 @@
+<p class="sub-header">战场管理>战役管理>修改战役规则><%= @battle_rule.name %></p>
+
+<form action="/battle_rules/update" method="post" onsubmit="return battle_rule_form_validate(this)">
+  <input type="hidden" name="id" value="<%=@battle_rule.id %>">
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役规则名称</label>
+    <div class="col-sm-8">
+      <input type="input" name="name" class="form-control" value="<%= @battle_rule.name %>" id="rule_name_input"
+             required="required" onkeyup="validate_words_length(30,'rule_name_input','name_last_num')" maxlength="30"
+             placeholder="战役规则名称，最多30字">
+      <p class="bg-danger p_last_num" id="name_last_num"></p>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役号码位数</label>
+    <div class="col-sm-8">
+      <select id="bout_num_select" name="bout_number" style="width: 100%">
+        <!--<option value=0>请选择</option>-->
+        <% (1..6).each do |i| %>
+            <% if i == @battle_rule.bout_number %>
+                <option selected="true" value=<%= i %>><%= i %>位</option>
+            <% else %>
+                <option value=<%= i %>><%= i %>位</option>
+            <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">第一轮开启人数</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="open_person_number" min="5" max="99999999"
+               step='1' class="form-control" value="<%= @battle_rule.open_person_number %>" required="required" placeholder="战役开启第一轮的最低人数>=5">
+        <span class="input-group-addon">人</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">最大报名人数</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="max_person_number" min="5" max="99999999"
+               step='1' class="form-control" value="<%= @battle_rule.max_person_number %>" required="required" placeholder="允许总报名的人数，入过场但离开的人也算为1人">
+        <span class="input-group-addon">人</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">每轮时间</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="bout_time" min="10" max="99999999"
+               step='10' class="form-control" required="required" value="<%= @battle_rule.bout_time %>" placeholder="每轮时间>=10">
+        <span class="input-group-addon">分</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役规则描述</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" name="desc" rows="3" id="rule_desc_input" required="required"
+                onkeyup="validate_words_length(60,'rule_desc_input','desc_last_num')" maxlength="60" placeholder="战役规则描述，最多60字"><%= @battle_rule.desc %></textarea>
+      <p class="bg-danger p_last_num" id="desc_last_num"></p>
+    </div>
+
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">卡牌使用规则</label>
+    <div class="col-sm-8">
+      <div id="set_card_rules">
+        <%= render 'battle_rules/update_card_rule'%>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--<div class="form-group row">-->
+    <!--<label for="input" class="col-sm-2 col-form-label">规则礼包</label>-->
+    <!--<div class="col-sm-8">-->
+      <!--<%= render 'battle_rules/battle_rule_package' %>-->
+    <!--</div>-->
+
+  <!--</div>-->
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-4 col-form-label"></label>
+    <div class=" col-sm-6">
+      <button type="submit" class="btn-lg btn-primary">保存</button>
+    </div>
+  </div>
+
+</form>
+

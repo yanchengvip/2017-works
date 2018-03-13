@@ -1,0 +1,2 @@
+module Pay::CmbSignsHelper
+end

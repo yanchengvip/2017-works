@@ -1,0 +1,29 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>名称</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @manage_editors.each do |manage_editor| %>
+      <tr>
+        <td><%= manage_editor.id%></td>
+        <td><%= manage_editor.name%></td>
+        <td>
+          <% if current_user.can?("manage/editors#edit")%>
+            <%= link_to '编辑', edit_manage_editor_path(manage_editor),class: "btn btn-warning btn-sm" %>
+          <% end %>
+          <% if current_user.can?("manage/editors#destroy")%>
+            <%= link_to '删除', manage_editor, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' },class: "btn btn-danger btn-sm" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @manage_editors %>

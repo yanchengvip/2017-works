@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Multibuys</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_multibuys.each do |auction_multibuy| %>
+      <tr>
+        <td><%= link_to 'Show', auction_multibuy %></td>
+        <td><%= link_to 'Edit', edit_auction_multibuy_path(auction_multibuy) %></td>
+        <td><%= link_to 'Destroy', auction_multibuy, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Multibuy', new_auction_multibuy_path %>

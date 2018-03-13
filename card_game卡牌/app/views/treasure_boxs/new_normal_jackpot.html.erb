@@ -1,0 +1,42 @@
+<div class="row"><p class="sub-header">系统管理>宝箱管理>新增奖池</p></div>
+<%= form_for @treasure_box, url: new_normal_jackpot_treasure_box_path, html: {method: :post, class: ''} do |f| %>
+  <input type="hidden" id="treasure_box_id" value="<%= @treasure_box.id %>">
+  <div class="form-group row mt_20">
+    <label for="" class="col-sm-2 control-label">奖池名称</label>
+    <div class="col-sm-8">
+      <input type="text" name="jackpot[name]" placeholder="奖池名称" class="form-control" required>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="" class="col-sm-2 control-label">奖品内容</label>
+    <div class="col-sm-8">
+      当前奖品总数量：<input type="number" name="jackpot[num]" id="current_prize_num" class="mr_30" required readonly="readonly">
+       <!-- readonly="readonly" -->
+      当前奖品总价值：<input type="number" name="jackpot[fund]" id="current_prize_fund" required readonly="readonly">
+    </div>
+  </div>
+
+  <legend>幸运大奖</legend>
+  <%= render partial: 'treasure_boxs/level3_form/radio' %>
+
+  <legend>
+    <span class="mr_30">稀有</span><%= link_to '增加', 'javascript:void(0)', class: 'btn btn-sm btn-success add_new_level2_product' %>
+  </legend>
+  <div id="level2_product_div"></div>
+
+  <legend class="mt_50">
+    <span class="mr_30">普通</span><%= link_to '增加', 'javascript:void(0)', class: 'btn btn-sm btn-success add_new_level1_product' %>
+  </legend>
+  <div id="level1_product_div"></div>
+
+  <div class="clearfix"></div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-1 col-sm-4">
+      <%= link_to '取消', treasure_boxs_path, class: 'btn btn-default mr_20', role: 'button' %>
+      <%= f.submit '保存', class: 'btn btn-primary', id: 'treasure_box_submit' %>
+    </div>
+  </div>
+
+<% end %>

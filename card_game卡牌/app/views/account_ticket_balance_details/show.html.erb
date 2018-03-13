@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account ticket:</strong>
+  <%= @account_ticket_balance_detail.account_ticket_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @account_ticket_balance_detail.user_id %>
+</p>
+
+<p>
+  <strong>Fund:</strong>
+  <%= @account_ticket_balance_detail.fund %>
+</p>
+
+<p>
+  <strong>Trad type:</strong>
+  <%= @account_ticket_balance_detail.trad_type %>
+</p>
+
+<%= link_to 'Edit', edit_account_ticket_balance_detail_path(@account_ticket_balance_detail) %> |
+<%= link_to 'Back', account_ticket_balance_details_path %>

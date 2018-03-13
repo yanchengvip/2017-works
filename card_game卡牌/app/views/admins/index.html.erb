@@ -1,0 +1,49 @@
+<p class="sub-header">系统管理>账户管理>管理员列表</p>
+
+<div class="lead text-center well">
+  <p><%= link_to '添加管理员', new_admin_path, class: 'btn btn-primary btn-lg', role: 'button' %></p>
+</div>
+
+<div class="">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>登录名</th>
+        <th>姓名</th>
+        <th>账户角色</th>
+        <th>最近登录时间/IP</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @admins.each_with_index do |admin, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= admin.nickname %></td>
+        <td><%= admin.name %></td>
+        <td><%= admin.role_names %></td>
+        <td>
+          <% if admin.last_login_time %>
+            <%= admin.last_login_time.strftime("%Y-%m-%d %H:%m") %>/<%= admin.request_ip %>
+          <% end %>
+        </td>
+        <td>
+            <%= link_to '修改', edit_admin_path(admin), role: 'button', class: 'btn btn-primary btn-sm' %>
+            <%#= link_to '删除', admin_path(admin), method: :delete, data: {confirm: '确定要删除吗'}, role: 'button', class: 'btn btn-danger' %>
+            <% unless admin.nickname == 'admin' %>
+              <%= link_to '删除', "javascript:void(0)", onclick: "admin_delete(#{admin.id}, '#{admin.name}')", role: 'button', class: 'btn btn-danger btn-sm' %>
+            <% end %>
+            <%= link_to '重置密码', 'javascript:void(0)', onclick: "reset_pwd(#{admin.id}, '#{admin.nickname}')", class: 'btn btn-warning btn-sm' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @admins %>
+
+<%= render partial: 'del_modal' %>
+
+<%= render partial: 'reset_modal' %>

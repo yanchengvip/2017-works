@@ -1,0 +1,75 @@
+<div class="row placeholders">
+  <form action="/battles" method="get" class="navbar-form navbar-left">
+    <div class="search-input-two">
+      战役期号：<input type="text" name="battle_code" id="battle_code" class="form-control" placeholder="战役期号">
+      战役名称：<input type="text" name="name" id="name" class="form-control" placeholder="战役名称">
+      &nbsp&nbsp&nbsp&nbsp发布时间：
+      <input type="text" name="published_at_begin" class="form-control datetime_picker_battle1" placeholder="发布时间"> ~
+      <input type="text" name="published_at_end" class="form-control datetime_picker_battle2" placeholder="发布时间">
+    </div>
+    <div class="search-input-two" style="text-align:left">
+      战役状态：<select name="status" id="status" class="select2-picker form-control select-width-18" >
+        <option value=-1>全部</option>
+        <option value=0>下架</option>
+        <option value=2>待开局</option>
+        <option value=3>开局中</option>
+        <option value=4>已开奖</option>
+        <option value=5>修整中</option>
+        <option value=6>开奖中</option>
+      </select>
+
+      &nbsp&nbsp&nbsp&nbsp&nbsp商品ID：<input type="number" step="1" min="1" name="battle_product_id" id="battle_product_id" class="form-control" placeholder="商品ID">
+      战役规则ID：<input type="number" step="1" min="1" name="battle_rule_id" id="battle_rule_id" class="form-control" placeholder="战役规则ID">
+      &nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-default btn-success">搜索</button>
+      <!-- <button type="button" class="btn btn-success"><a href="javascript:void(0);" onclick="dowload_csv(3)" style="color:#fff">导出csv,导出条件为时间</a></button> -->
+    </div>
+
+  </form>
+
+</div>
+
+<p class="sub-header">战场管理>战役管理>战役列表</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>战役期号</th>
+      <th>战役名称</th>
+      <th>发布时间</th>
+      <th>轮数</th>
+      <th>开启人数</th>
+      <th>战役状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @battles.each do |b| %>
+        <tr>
+          <td><%= b.battle_code %></td>
+          <td><%= b.name %></td>
+          <td><%= datetime_format b.published_at %></td>
+          <td><%= b.battle_rules_copies.first.present? ? b.battle_rules_copies.first.bout_number : '' %></td>
+          <td><%= b.battle_rules_copies.first.present? ? b.battle_rules_copies.first.open_person_number : '' %></td>
+          <td><%= Battle::STATUS[b.status] %></td>
+          <td>
+            <a href="/battles/<%= b.id %>" class="btn btn-info btn-sm">查看</a>
+            <% if [0, 2].include?(b.status)%>
+                <a href="/battles/<%= b.id %>/edit" class="btn btn-warning btn-sm">编辑</a>
+                <%# if b.status == 0 %>
+                <!--<a href="javascript:void(0)" onclick="obj_shelf_modal(<%#= b.id %>,'<%#= b.name %>',2,'上架')">上架</a>-->
+                <%# elsif b.status == 2 %>
+                <!--<a href="javascript:void(0)" onclick="obj_shelf_modal(<%#= b.id %>,'<%#= b.name %>',0,'下架')">下架</a>-->
+                <%# end %>
+                <a href="javascript:void(0)" onclick="obj_delete_modal(<%=b.id%>,'<%=b.name%>')" class="btn btn-danger btn-sm">删除</a>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @battles %>
+
+<%= render 'shared/obj_delete_modal', locals: {title: '战役删除', url: '/battles/destroy'} %>
+<%= render 'shared/obj_onshelf_modal', locals: {title: '战役上架', url: '/battles/update_status'} %>

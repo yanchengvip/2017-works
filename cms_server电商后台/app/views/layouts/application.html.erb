@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= favicon_link_tag 'favicons.ico'%>
+  <title>优众后台</title>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<%= render 'layouts/header' %>
+<div class="app-body">
+  <%= render 'shared/error_modal' %>
+  <%= render 'shared/side_menu' %>
+  <main class="main">
+    <%= render 'shared/breadcrumb_menu' %>
+    <%= render 'shared/alert' %>
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
+  </main>
+</div>
+<%= render 'layouts/footer' %>
+</body>
+</html>

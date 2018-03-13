@@ -1,0 +1,12 @@
+<div class="row placeholders well">
+  <%= form_for card_bags_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>卡包ID：</span>
+      <%= text_field_tag "q[id_eq]", params[:q][:id_eq], class: 'form-control mr_20', placeholder: '卡包ID' %>
+      <span>卡包名称：</span>
+      <%= text_field_tag 'q[name_cont]', params[:q][:name_cont], class: 'form-control mr_20', placeholder: '卡包名称' %>
+
+      <%= f.submit '搜索', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

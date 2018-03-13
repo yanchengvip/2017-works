@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recovery_id: 1
+  price: 9.99
+  delete_flag: 1
+  day: MyString
+
+two:
+  recovery_id: 1
+  price: 9.99
+  delete_flag: 1
+  day: MyString

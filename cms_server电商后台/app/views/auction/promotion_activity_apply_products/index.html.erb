@@ -1,0 +1,33 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Promotion activity</th>
+      <th>Provider</th>
+      <th>Active</th>
+      <th>Promotion activity apply</th>
+      <th>Product</th>
+      <th>Provider price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_promotion_activity_apply_products.each do |auction_promotion_activity_apply_product| %>
+      <tr>
+        <td><%= auction_promotion_activity_apply_product.promotion_activity_id %></td>
+        <td><%= auction_promotion_activity_apply_product.provider_id %></td>
+        <td><%= auction_promotion_activity_apply_product.active %></td>
+        <td><%= auction_promotion_activity_apply_product.promotion_activity_apply_id %></td>
+        <td><%= auction_promotion_activity_apply_product.product_id %></td>
+        <td><%= auction_promotion_activity_apply_product.provider_price %></td>
+        <td><%= link_to 'Show', auction_promotion_activity_apply_product %></td>
+        <td><%= link_to 'Edit', edit_auction_promotion_activity_apply_product_path(auction_promotion_activity_apply_product) %></td>
+        <td><%= link_to 'Destroy', auction_promotion_activity_apply_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Promotion Activity Apply Product', new_auction_promotion_activity_apply_product_path %>

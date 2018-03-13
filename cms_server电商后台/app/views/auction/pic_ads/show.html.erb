@@ -1,0 +1,21 @@
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '修改品牌', edit_auction_pic_ad_path(@auction_pic_ad), class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">标题：<span class="red"><%= @auction_pic_ad.title %></span></li>
+    <li class="list-group-item">图片：<%= image_tag (@auction_pic_ad.pic) || '', width: 60, height: 60, class: 'list' if @auction_pic_ad.pic %></li>
+    <li class="list-group-item">发布时间：<%= @auction_pic_ad.publish_time&.strftime("%Y-%m-%d %H:%M:%S") %></li>
+    <li class="list-group-item">下线时间：<%= @auction_pic_ad.down_time&.strftime("%Y-%m-%d %H:%M:%S") %></li>
+    <li class="list-group-item">链接类型：<%= Auction::PicAd::LINK_TYPE[@auction_pic_ad.link_type] %></li>
+    <li class="list-group-item">链接地址：<%= @auction_pic_ad.link_url %></li>
+    <li class="list-group-item">发布状态：<%= @auction_pic_ad.published ? '已发布' : '未发布' %></li>
+
+  </ul>
+
+</div>

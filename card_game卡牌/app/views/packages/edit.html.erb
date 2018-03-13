@@ -1,0 +1,17 @@
+<div class="row"><p class="sub-header">能量商城>礼包管理>修改礼包</p></div>
+<form action="/packages/update" method="post">
+
+  <%= render partial: 'info' %>
+
+  <%= render partial: 'package_content' %>
+  <input type="hidden" name="id" value="<%= @package.id %>">
+
+  <%#= render partial: 'rule' %>
+
+  <div class="form-group mt_100">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= link_to '取消', '/packages', class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+      <button type="submit" class="btn btn-primary btn-lg" id="package_submit">保存</button>
+    </div>
+  </div>
+</form>

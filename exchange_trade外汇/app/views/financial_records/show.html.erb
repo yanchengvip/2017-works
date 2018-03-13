@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @financial_record.account_id %>
+</p>
+
+<p>
+  <strong>Dealer:</strong>
+  <%= @financial_record.dealer_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @financial_record.amount %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @financial_record.balance %>
+</p>
+
+<p>
+  <strong>Dealer type:</strong>
+  <%= @financial_record.dealer_type %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @financial_record.active %>
+</p>
+
+<%= link_to 'Edit', edit_financial_record_path(@financial_record) %> |
+<%= link_to 'Back', financial_records_path %>

@@ -1,0 +1,2 @@
+module Auction::CouponsHelper
+end

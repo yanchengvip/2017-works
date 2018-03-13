@@ -1,0 +1,20 @@
+<p class="sub-header">营销管理>任务配置>修改任务配置</p>
+
+<form action="/task_settings/update" method="post">
+  <input type="hidden" name="id" value="<%= @task_setting.id %>">
+
+  <%= render partial: 'info' %>
+
+  <% if @task_setting.task_type != 6 %>
+    <%= render partial: 'item' %>
+  <% end %>
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= link_to '取消', '/task_settings', class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+      <button type="submit" class="btn btn-primary btn-lg" id="task_settings_submit">保存</button>
+    </div>
+  </div>
+
+</form>
+

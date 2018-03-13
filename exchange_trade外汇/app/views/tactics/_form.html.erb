@@ -1,0 +1,27 @@
+<%= form_with(model: tactic, local: true) do |form| %>
+  <% if tactic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tactic.errors.count, "error") %> prohibited this tactic from being saved:</h2>
+
+      <ul>
+      <% tactic.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :tactic_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detail %>
+    <%= form.text_field :detail, id: :tactic_detail %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

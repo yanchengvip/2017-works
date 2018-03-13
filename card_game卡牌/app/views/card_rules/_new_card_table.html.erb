@@ -1,0 +1,118 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>卡牌类型</th>
+      <th>卡牌名称</th>
+      <th>卡牌价格</th>
+      <th>描述</th>
+      <th>能量消耗</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--修改卡牌规则-->
+    <% @card_rules.present? && @card_rules[locals[:bout_number]].each do |card| %>
+        <% @e1=card[:init_energy];@e2=card[:inject_energy_time];@e3=card[:inject_energy];@e4=card[:max_inject_energy] %>
+
+        <tr>
+          <td><%= Card::CARDTYPE[card[:card_type]] %></td>
+          <td><%= card[:name] %></td>
+          <td><%= card[:price].to_f %>微集分</td>
+          <td><%= card[:summary] %></td>
+          <td>
+            <div class="input-group">
+              <input type="hidden" name="card_rules[]flag" value="<%= locals[:flag] %>">
+              <input type="hidden" name="card_rules[]bout_rank" value="<%= locals[:bout_number] %>">
+              <input type="hidden" name="card_rules[]card_id" value="<%= card[:card_id] %>">
+              <input type="number" name="card_rules[]card_consume_energy"
+                     value="<%= card[:card_consume_energy] %>" min="1" max="99999999"
+                     step='1' class="form-control"
+                     required="required" placeholder="每次使用需能量消耗">
+              <span class="input-group-addon">个</span>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+
+    <!--添加卡牌规则-->
+    <% @cards.present? && @cards.each do |card| %>
+        <tr>
+          <td><%= Card::CARDTYPE[card.card_type] %></td>
+          <td><%= card.name %></td>
+          <td><%= card.price.to_f %>微集分</td>
+          <td><%= card.summary %></td>
+          <td>
+            <div class="input-group">
+              <input type="hidden" name="card_rules[]flag" value="<%= locals[:flag] %>">
+              <input type="hidden" name="card_rules[]bout_rank" value="<%= locals[:bout_number] %>">
+              <input type="hidden" name="card_rules[]card_id" value="<%= card.id %>">
+              <input type="number" name="card_rules[]card_consume_energy"
+                     value="1" min="1" max="99999999"
+                     step='1' class="form-control"
+                     required="required" placeholder="每次使用需消耗">
+              <span class="input-group-addon">点</span>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<hr/>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>能量初始值</th>
+      <th>能量注入速度</th>
+      <th>能量注入值</th>
+      <th>能量增长上限值</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+      <td>
+        <div class="input-group">
+          <input type="hidden" name="energy_rules[]bout_rank" value="<%= locals[:bout_number] %>">
+          <input type="number" name="energy_rules[]init_energy"
+                 value="<%= @e1.present? ? @e1 : 1 %>" min="1" max="99999999"
+                 step='1' class="form-control"
+                 required="required" placeholder="能量初始值">
+          <span class="input-group-addon">点</span>
+        </div>
+      </td>
+      <td>
+        <div class="input-group">
+          <input type="number" name="energy_rules[]inject_energy_time"
+                 value="<%= @e2.present? ? @e2 : 1 %>" min="1" max="99999999"
+                 step='1' class="form-control"
+                 required placeholder="能量注入速度">
+          <span class="input-group-addon">秒</span>
+        </div>
+
+      </td>
+      <td>
+        <div class="input-group">
+          <input type="number" name="energy_rules[]inject_energy"
+                 value="<%= @e3.present? ? @e3 : 1 %>" min="1" max="99999999"
+                 step='1' class="form-control"
+                 required="required" placeholder="能量注入值">
+          <span class="input-group-addon">点</span>
+        </div>
+      </td>
+      <td>
+        <div class="input-group">
+          <input type="number" name="energy_rules[]max_inject_energy"
+                 value="<%= @e4.present? ? @e4 : 1 %>" min="1" max="99999999"
+                 step='1' class="form-control"
+                 required="required" placeholder="能量增长上限值">
+          <span class="input-group-addon">点</span>
+        </div>
+      </td>
+
+    </tr>
+
+    </tbody>
+  </table>
+</div>

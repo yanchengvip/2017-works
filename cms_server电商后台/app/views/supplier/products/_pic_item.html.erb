@@ -1,0 +1,69 @@
+<div class="form-group row mt_20">
+  <label for="auction_product_images" class="col-sm-2 control-label">展示图片</label>
+
+  <div class="row col-sm-8">
+    <span class="hide" id="random_id">100000</span>
+    <table class="table table-striped table-hover" id="energy_products_items_table">
+      <thead>
+        <tr class="info">
+          <th>图片</th>
+          <th>描述</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="auction_products_images_body">
+        <% @auction_product_images && @auction_product_images.each do |auction_product_image| %>
+          <tr id="tr_<%= auction_product_image.id %>">
+            <input type="hidden" name="auction_product_images[][id]" value="<%= auction_product_image.id %>">
+            <td>
+              图片
+            </td>
+            <td>
+              <input type="text" name="auction_product_images[][description]" value="<%= auction_product_image.description %>" class="form-control" width="100px" required placeholder="描述，排序"  id="description_<%= auction_product_image.id %>">
+            </td>
+            <td>
+              <%= link_to '删除', 'javascript:void(0)', class: "del_auction_product_image_origin", id: "auction_product_image_#{auction_product_image.id}" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to '添加展示图片', 'javascript:void(0)', id: 'add_auction_product_image', class: 'btn btn-success mt_20 ml_15' %>
+  </div>
+</div>
+
+<%= render 'item_del_modal'%>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_auction_product_image').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/auction/products/item_form',
+        data: { random_id: 'api' + Number($('#random_id').text())},
+        success: function(result){
+          $('#auction_products_images_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+      $('#random_id').text(Number($('#random_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_auction_product_image_origin').on('click', function(){
+      $('#delAuctionProductImageModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delAuctionProductImageModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_item_id').val(this_id.split('_')[3])
+      })
+    })
+  })
+
+</script>

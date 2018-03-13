@@ -1,0 +1,29 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>电话</th>
+      <th>地址</th>
+      <th>邮编</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @auction_contacts.each do |auction_contact| %>
+    <tr>
+      <td><%= auction_contact.name%></td>
+      <td><%= auction_contact.mobile%></td>
+      <td><%= auction_contact.address%></td>
+      <td><%= auction_contact.postcode%></td>
+      <td><%= link_to '详情', auction_contact, class: 'btn btn-sm btn-info' %></td>
+      <!-- <%= link_to '编辑', edit_auction_contact_path(auction_contact) %>
+      <%= link_to '删除', auction_contact, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' } %> -->
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @auction_contacts%>

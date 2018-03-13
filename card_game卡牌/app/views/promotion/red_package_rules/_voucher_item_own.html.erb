@@ -1,0 +1,66 @@
+<!-- <div id="prize_div"> -->
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>奖品名称</th>
+        <th>数量</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="voucher_rule_items_body">
+      <% @voucher_rule_items && @voucher_rule_items.each do |rule_item| %>
+        <tr id="tr_<%= rule_item.id %>">
+          <input type="hidden" name="voucher_rule_items[][id]" value="<%= rule_item.id %>">
+          <input type="hidden" name="voucher_rule_items[][prize_type]" value="2">
+          <td>
+            <%= select_tag "voucher_rule_items[][chest_prize_id]", options_for_select([["无", nil]] + ChestPrize.active.where(prize_type: 6).select('id, name').map{|cp| [cp.name, cp.id]}, rule_item.chest_prize_id), required: 'required', class: 'game_select2 chest_prize', style: "width: 200px !important;" %>
+          </td>
+          <td>
+            <input type="number" name="voucher_rule_items[][count]" value="<%= rule_item.count %>" min="1" placeholder="数量" required>
+          </td>
+          <td>
+            <% unless params[:action] == 'show' %>
+              <%= link_to '删除', 'javascript:void(0)', class: "del_rule_item_origin", id: "product_rule_item_#{rule_item.id}" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<!-- </div> -->
+<%= render 'del_rule_item_modal'%>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_rule_item_product').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/promotion/red_package_rules/get_item_form',
+        data: { random_id: 'rpr' + Number($('#random2_id').text()), prize_type: 2},
+        success: function(result){
+          $('#voucher_rule_items_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+      $('#random2_id').text(Number($('#random2_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_rule_item_origin').on('click', function(){
+      $('#delRuleItemModal').modal('show')
+      var this_id = $(this).attr('id')
+      var rule_id = $('#rule_id').val()
+      $('#delRuleItemModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_rule_item_id').val(this_id.split('_')[3])
+        $('#red_package_rule_id').val(rule_id)
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+
+</script>

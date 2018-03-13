@@ -1,0 +1,77 @@
+<div class="modal fade" id="chosePackageItemTypeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">选择赠品类型</h4>
+      </div>
+        <div class="modal-body">
+          <h4>
+            <div class="radio">
+              <!-- *选择赠品类型： -->
+              <label class="mr_30 ml_15">
+                <input class="form-check-input gift_type" type="radio" value="1" name='gitfy_type_name'>
+                <span class="radio_label">功勋</span>
+              </label>
+              <label class="mr_30">
+                <input class="form-check-input gift_type" type="radio" value="2" name='gitfy_type_name'>
+                <span class="radio_label">史诗卡牌</span>
+              </label>
+              <label class="mr_30">
+                <input class="form-check-input gift_type" type="radio" value="3" name='gitfy_type_name'>
+                <span class="radio_label">能量</span>
+              </label>
+              <label class="mr_30">
+                <input class="form-check-input gift_type" type="radio" value="4" name='gitfy_type_name'>
+                <span class="radio_label">普通卡牌</span>
+              </label>
+            </div>
+          </h4>
+
+          <input type="hidden" id="item_type_val">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="chose_item_type">确定</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: '/packages/error_modal' %>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    // 类型
+    $('.gift_type').on('click', function(){
+      $('#item_type_val').val($(this).val())
+      console.log($('#item_type_val').val())
+    })
+
+    $('.radio_label').on('click', function(){
+      $('#item_type_val').val($(this).prev('input').val())
+      console.log($('#item_type_val').val())
+    })
+
+    $('#chose_item_type').on('click', function(){
+      // 类型
+      var item_type_val = $('#item_type_val').val()
+      $.ajax({
+        type: 'get',
+        url: '/packages/content_form',
+        data: {item_type_val: item_type_val},
+        success: function(result){
+          $('#package_content').append(result)
+          $('#chosePackageItemTypeModal').modal('hide')
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+
+    })
+  })
+</script>

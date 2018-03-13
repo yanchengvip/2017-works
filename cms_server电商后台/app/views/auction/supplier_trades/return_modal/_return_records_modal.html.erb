@@ -1,0 +1,23 @@
+<div class="modal fade" id="returnRecordsModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <ul class="nav nav-pills">
+          <li role="presentation"  class="srm_btn srm_btn1 active"><a href="#" onclick="show_return_records_modal(1)">订单操作记录</a></li>
+          <li role="presentation"  class="srm_btn srm_btn2 "><a href="#" onclick="show_return_records_modal(2)">订单支付记录</a></li>
+          <li role="presentation"  class="srm_btn srm_btn3"><a href="#" onclick="show_return_records_modal(3)">订单退款记录</a></li>
+        </ul>
+
+      </div>
+      <div class="modal-body">
+          <div id="return-records-content">
+
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

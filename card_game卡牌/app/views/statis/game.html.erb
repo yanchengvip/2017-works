@@ -1,0 +1,81 @@
+<p class="sub-header">统计>数据统计>赛场数据</p>
+<div class="row placeholders well">
+  <%= form_for game_statis_path, html: {method: :get, class: '', id: 'search_form'} do |f| %>
+    <div class ="navbar-form navbar-left">
+      <div class="form-group ">
+        <span>起始时间：</span>
+        <%= text_field_tag 'q[create_time_gteq]', params[:q][:create_time_gteq], class: 'form-control mr_20 search_time_begin', placeholder: '起始时间' %>
+        <span>结束时间：</span>
+        <%= text_field_tag 'q[create_time_lteq]', params[:q][:create_time_lteq], class: 'form-control mr_20 search_time_end', placeholder: '结束时间' %>
+        <span>赛场ID：</span>
+        <%= text_field_tag 'q[id_eq]', params[:q][:id_eq], class: 'form-control mr_20', placeholder: '赛场ID:' %>
+        <span>赛场名称：</span>
+        <%= text_field_tag 'q[name_eq]', params[:q][:name_eq], class: 'form-control mr_20', placeholder: '赛场名称:' %>
+      </div>
+    </div>
+    <div class ="navbar-form navbar-left">
+      <div class="form-group ">
+        <span>渠道ID：</span>
+        <%= text_field_tag 'opsrc', params[:opsrc], class: 'form-control mr_20', placeholder: '渠道ID:' %>
+        <span>参赛手机号：</span>
+        <%= text_field_tag 'mobile', params[:mobile], class: 'form-control mr_20', placeholder: '参赛手机号:' %>
+        <span>获胜手机号</span>
+        <%= text_field_tag 'lucky_mobile', params[:lucky_mobile], class: 'form-control mr_20', placeholder: '获胜手机号:' %>
+        <div class='btn btn-primary' id = "submit">查询</div>
+        <div class='btn btn-success' id = "download">下载</div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>赛场ID</th>
+        <th>开赛时间</th>
+        <th>赛场名称</th>
+        <th>参赛人数</th>
+        <!-- <th>参赛ID</th> -->
+
+        <th>获胜手机号</th>
+        <th>参赛手机号</th>
+        <th>渠道信息</th>
+        <!-- <th></th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @games && @games.each_with_index do |game, index| %>
+        <tr id="tr_<%= game.id %>">
+          <td><%= game.id %></td>
+          <td><%= game.create_time&.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%= game.name %></td>
+          <td><%= game.battle_user_records&.map(&:user_id)&.uniq&.size %></td>
+          <!-- <td><%#= game.battle_user_records&.map(&:user_id)&.join(', ') %></td> -->
+
+          <td><%= game&.battle_winning_record&.user&.mobile%></td>
+          <td><%= game.battle_user_records&.map{|x| x&.user&.mobile} %></td>
+          <td><%= game.battle_user_records&.map{|x| x&.user&.opsrc} %></td>
+          <!-- <td>
+            <%#= link_to '下载', "javascript:void(0)", onclick: "game_delete(#{game.id}, '#{game.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          </td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @games %>
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/game.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/game'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/game'
+      $("#search_form").submit()
+    })
+  })
+</script>

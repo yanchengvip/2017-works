@@ -1,0 +1,39 @@
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '修改分类', edit_auction_category_path(@auction_category), class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>分类信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">父类：<span class="red"><%= @auction_category.parent_id %></span></li>
+    <li class="list-group-item">名称：<span class="red"><%= @auction_category.name %></span></li>
+    <!-- <li class="list-group-item">描述：<%#= @auction_category.description %></li> -->
+    <li class="list-group-item">图片：<%= image_tag (@auction_category.pic) || '', width: 60, height: 60, class: 'list' if @auction_category.pic %></li>
+    <!-- <li class="list-group-item">优先：<%#= @auction_category.priority %></li> -->
+    <li class="list-group-item">尺寸：<%= @auction_category.measures %></li>
+    <li class="list-group-item">价格区间：<%= @auction_category.ranges %></li>
+    <li class="list-group-item">男士：<%= @auction_category.male ? '是' : '否' %></li>
+    <li class="list-group-item">女士：<%= @auction_category.female ? '是' : '否' %></li>
+    <li class="list-group-item">属性列表：<%= @auction_category.attribute_ids %></li>
+    <!-- <li class="list-group-item">顺序：<%#= @auction_category.order %></li> -->
+    <!-- <li class="list-group-item">尺寸参数：<%#= @auction_category.measure_properties %></li>
+    <li class="list-group-item">尺寸图片：<%#= image_tag (@auction_category.measure_pic) || '', width: 60, height: 60 if @auction_category.measure_pic %></li>
+    <li class="list-group-item">对照图片：<%#= image_tag (@auction_category.contrast_pic) || '', width: 60, height: 60 if @auction_category.contrast_pic %></li>
+    <li class="list-group-item">胸围偏移：<%#= @auction_category.bust_offset %></li>
+    <li class="list-group-item">胸围误差：<%#= @auction_category.bust_error %></li>
+    <li class="list-group-item">腰围偏移：<%#= @auction_category.waistline_offset %></li>
+    <li class="list-group-item">腰围误差：<%#= @auction_category.waistline_error %></li>
+    <li class="list-group-item">臀围偏移：<%#= @auction_category.hip_offset %></li>
+    <li class="list-group-item">臀围误差：<%#= @auction_category.hip_error %></li>
+    <li class="list-group-item">肩宽偏移：<%#= @auction_category.shoulder_offset %></li>
+    <li class="list-group-item">肩宽误差：<%#= @auction_category.shoulder_error %></li>
+    <li class="list-group-item">臂长偏移：<%#= @auction_category.arm_offset %></li>
+    <li class="list-group-item">臂长误差：<%#= @auction_category.arm_error %></li>
+    <li class="list-group-item">腿长偏移：<%#= @auction_category.leg_offset %></li>
+    <li class="list-group-item">腿长误差：<%#= @auction_category.leg_error %></li> -->
+
+  </ul>
+
+</div>

@@ -1,0 +1,34 @@
+<%= simple_form_for @trade, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :auction_trade_id %>
+  <%= error_span(@trade[:auction_trade_id]) %>
+  <%= f.input :provider_id %>
+  <%= error_span(@trade[:provider_id]) %>
+  <%= f.input :status %>
+  <%= error_span(@trade[:status]) %>
+  <%= f.input :price %>
+  <%= error_span(@trade[:price]) %>
+  <%= f.input :payment_price %>
+  <%= error_span(@trade[:payment_price]) %>
+  <%= f.input :tax_price %>
+  <%= error_span(@trade[:tax_price]) %>
+  <%= f.input :active %>
+  <%= error_span(@trade[:active]) %>
+  <%= f.input :delivery_service %>
+  <%= error_span(@trade[:delivery_service]) %>
+  <%= f.input :delivery_identifier %>
+  <%= error_span(@trade[:delivery_identifier]) %>
+  <%= f.input :ship_at %>
+  <%= error_span(@trade[:ship_at]) %>
+  <%= f.input :remark %>
+  <%= error_span(@trade[:remark]) %>
+  <%= f.input :delivery_phone %>
+  <%= error_span(@trade[:delivery_phone]) %>
+  <%= f.input :balance_price %>
+  <%= error_span(@trade[:balance_price]) %>
+  <%= f.input :finish_at %>
+  <%= error_span(@trade[:finish_at]) %>
+
+  <%= f.button :submit, :class => 'btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                supplier_trades_path, :class => 'btn btn-default' %>
+<% end %>

@@ -1,0 +1,80 @@
+<div class="form-group row">
+  <div class="col-sm-6">
+    <%= f.hidden_field :thumbnail, value: @package.thumbnail, id: 'package_thumbnail', class: "form-control", placeholder: "缩略图" %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-sm-6">
+    <% if @images.present? %>
+      <%= hidden_field_tag :pro_image_urls, @images.map(&:url).join(','), id: 'pro_image_urls', class: "form-control", placeholder: "展示图" %>
+    <% else %>
+      <%= hidden_field_tag :pro_image_urls, '', id: 'pro_image_urls', class: "form-control", placeholder: "展示图" %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="form-group">
+  <label for="package_icon" class="col-sm-2 col-form-label">*礼包缩略图：</label>
+  <div class="col-sm-6">
+    <% if @package.thumbnail %>
+      <a href="javascript:void(0)" class="thumbnail col-sm-3" id="package_thumbnail_link">
+        <img id="preview_package_thumbnail" src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + @package.thumbnail %>">
+      </a>
+    <% else %>
+      <a href="javascript:void(0)" class="thumbnail col-sm-3 hide" id="package_thumbnail_link">
+        <img id="preview_package_thumbnail" width='50%' height='50%'>
+      </a>
+    <% end %>
+
+    <a href="javascript:void(0)" class="thumbnail col-sm-3">
+      <%= image_tag 'cicon.png', alt: "礼包缩略图", class: 'z_10', id: 'package_icon_btn' %>
+      <!-- <div><%#= file_field_tag :file, id: 'add_package_icon', class: 'hide' %></div> -->
+      <div><input id="add_package_icon" type="file" accept="image/png,image/gif" name="file" class='hide' /></div>
+    </a>
+    <span col-sm-6>最多上传1张；建议像素：XX*XX。<br>支持扩展名：jpg/jpeg/png/gif，图片大小不能超过100k</span>
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="package_images" class="col-sm-2 col-form-label">礼包展示图：</label>
+  <div class="col-sm-6">
+    <% if @images.present? %>
+      <div id="preview_package_imgs" class="grid fl">
+        <% @images.each do |image| %>
+            <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + image.url %>" class='img_show' style='margin-right: 20px;' width='23%' height='23%'>
+            <%= image_tag 'close_pop.png', class: 'close_img hide', data_url: image.url %>
+        <% end %>
+      </div>
+    <% else %>
+      <div id="preview_package_imgs" class="grid fl">
+        <%#= image_tag 'close_pop.png', class: 'close_img hide', id: '' %>
+        <%#= image_tag 'cicon.png', alt: "卡牌ICON", class: 'mr_10 tet',id: '11111' %>
+        <%#= image_tag 'close_pop.png', class: "closeimg", alt: "删除商品" %>
+        <%#= image_tag 'cicon.png', alt: "卡牌ICON", class: 'mr_10 tet',id: '1111www1' %>
+        <%#= image_tag 'close_pop.png', class: "closeimg", alt: "删除商品" %>
+
+      </div>
+
+    <% end %>
+    <div class="clearfix">
+    <a href="javascript:void(0)" class="thumbnail col-sm-3">
+      <%= image_tag 'cicon.png', alt: "卡牌ICON", class: 'z_10', id: 'package_img_btn' %>
+      <!-- <div><%#= file_field_tag :file, id: 'add_package_image', class: 'hide' %></div> -->
+      <div><input id="add_package_image" type="file" accept="image/png,image/gif" name="file" class='hide' multiple="multiple" /></div>
+    </a>
+    <span col-sm-6>最多上传5张；建议像素：XX*XX。<br>支持扩展名：jpg/jpeg/png/gif，图片大小不能超过100k</span>
+    </div>
+  </div>
+</div>
+
+<%= image_tag 'close_pop.png', class: 'close_img origin hide', data_url: '' %>
+<!-- 图片结束 -->
+
+<div class="form-group">
+  <label for="package_details" class="col-sm-2 col-form-label">详细介绍：</label>
+  <div class="col-sm-6">
+    <%= f.text_area :details, class: 'form-control', id: 'package_details', rows: 8, placeholder: '最多3000汉字' %>
+  </div>
+</div>

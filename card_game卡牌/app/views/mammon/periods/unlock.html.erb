@@ -1,0 +1,8 @@
+<div class="row"><p class="sub-header">财神>期次管理>解锁</p></div>
+
+<form action="/mammon/periods/unlock">
+  <div class="form-group row mt_20">
+    <input type="number" name="mobile" value="<%= params[:mobile] %>" class='custom_input_md mr_50' placeholder='手机号' required>
+    <input type="submit" name="commit" value="解锁" class="btn btn-primary" data-disable-with="解锁中...">
+  </div>
+</form>

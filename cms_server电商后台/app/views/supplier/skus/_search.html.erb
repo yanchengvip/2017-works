@@ -1,0 +1,31 @@
+<div class="row placeholders well">
+  <%= form_for supplier_skus_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row" style="margin-bottom: 5px">
+      <span>SPU-ID:</span>
+      <%= text_field_tag "q[supplier_product_id_eq]", params[:q][:supplier_product_id_eq], class: 'form-control mr_20', placeholder: 'SPU-ID' %>
+      <span>SKU-ID:</span>
+      <%= text_field_tag "q[id_eq]", params[:q][:id_eq], class: 'form-control mr_20', placeholder: 'SKU-ID' %>
+      <span>商品名称:</span>
+      <%= text_field_tag 'q[supplier_product_name_cont]', params[:q][:supplier_product_name_cont], class: 'form-control mr_20', placeholder: '商品名称 ' %>
+      <span>原厂货号:</span>
+      <%= text_field_tag "q[supplier_product_identifier_cont]", params[:q][:supplier_product_identifier_cont], class: 'form-control mr_20', placeholder: '原厂货号' %>
+    </div>
+    <div class="form-group row" style="margin-bottom: 5px">
+      <span>一级分类:</span>
+      <%= select_tag "q[supplier_product_category1_id_eq]", options_for_select([["商品一级分类", nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]}, params[:q][:supplier_product_category1_id_eq]), class: 'form-control mr_20', style: 'width:172px' %>
+      <span>二级分类:</span>
+      <%= select_tag "q[supplier_product_category2_id_eq]", options_for_select([["商品二级分类", nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]}, params[:q][:supplier_product_category2_id_eq]), class: 'form-control mr_20', style: 'width:172px' %>
+      <span>适用对象:</span>
+      <%= select_tag "q[supplier_product_target_eq]", options_for_select([["适用对象", nil]] + Auction::Product::TARGET.to_a.map(&:reverse), params[:q][:supplier_product_target_eq]), class: 'form-control mr_20', style: 'width:172px' %>
+      <span>品牌名称:</span>
+      <%= select_tag "q[supplier_product_brand_id_eq]", options_for_select([["品牌名称", nil]] + Auction::Brand.active.map{|ab| [ab.chinese, ab.id]}, params[:q][:supplier_product_brand_id_eq]), class: 'form-control mr_20', style: 'width:172px' %>
+    </div>
+    <div class="form-group row" style="margin-bottom: 5px">
+      <span>上架下架:</span>
+      <%= select_tag "q[supplier_product_published_eq]", options_for_select([["上下架状态", nil]] + Supplier::Product::SEARCHPUBLISHED.to_a.map(&:reverse), params[:q][:supplier_product_published_eq]), class: 'form-control mr_20', style: 'width:172px' %>
+      <span>审核状态:</span>
+      <%= select_tag "q[supplier_product_status_eq]", options_for_select([["审核状态", nil]] + Supplier::Product::SEARCHSTATUS.to_a.map(&:reverse), params[:q][:supplier_product_status_eq]), class: 'form-control mr_20', style: 'width:172px' %>
+    </div>
+    <%= f.submit '搜索', class: 'btn btn-primary' %>
+  <% end %>
+</div>

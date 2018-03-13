@@ -1,0 +1,50 @@
+<!-- 下架modal -->
+<div class="modal fade" id="mallProductResortModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">调整排序</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label for="new_sort" class="mr_20">排序：</label>
+          <input type="number" name="new_sort" id="new_sort" min="0" max="999999" required class="custom_input_md" placeholder="新排序">
+        </div>
+        <input type="hidden" id="resort_mall_product_id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="resort">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#resort').on('click', function(){
+      var pid = $('#resort_mall_product_id').val()
+      $.ajax({
+        type: "post",
+        url: '/mall_products/'+pid+'/resort',
+        data: { new_sort: $('#new_sort').val() },
+        success: function(result){
+          if(result.status == 200){
+            $('#sort_'+pid).text(result.data)
+            $('#mallProductResortModal').modal('hide')
+          }else{
+            $('#mallProductResortModal').modal('hide')
+            alertTX('调整失败')
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#mallProductResortModal').modal('hide')
+          alertTX('调整失败')
+        }
+      })
+
+    })
+  })
+</script>

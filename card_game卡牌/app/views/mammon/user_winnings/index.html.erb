@@ -1,0 +1,42 @@
+<div class="row"><p class="sub-header">红包管理>财神>中奖详情</p></div>
+
+<div class="page-header">
+  <table class="table">
+    <tbody>
+    <tr>
+      <td>期号: <%= @period.num %></td>
+      <td>结束时间：<%= datetime_format(@period.end_time) %></td>
+      <td>奖金总金额：<%= @period.total_amount.to_f %></td>
+      <td>剩余金额：<%= @period.left_amount.to_f %></td>
+      <td>中奖号码：<%= @period.code %></td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>中奖用户</th>
+      <th>中奖号码</th>
+      <th>中奖金额</th>
+      <th>奖品等级</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @user_winnings.each do |w| %>
+        <tr>
+          <td><%= w.user&.nick_name %></td>
+          <td><%= w.code %></td>
+          <td><%= w.amount.to_f %></td>
+          <td><%= Mammon::PeriodItem::PrizeNum[w.prize_num.to_i] %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @user_winnings %>
+
+

@@ -1,0 +1,2 @@
+class EnergyOrder < ApplicationRecord
+end

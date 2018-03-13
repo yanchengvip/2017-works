@@ -1,0 +1,93 @@
+<div class="row placeholders">
+  <form action="/battle_products" method="get" onsubmit="return validate_search_form(this)" class="navbar-form navbar-left">
+    商品名称：<input type="text" name="name" class="form-control" placeholder="商品名称">
+    商品分类：
+    <select class="select2-picker form-control select-width-10" name="product_tag" >
+      <option value=-1>全部</option>
+      <% @product_tags.each do |tag| %>
+          <option value=<%= tag.id %>><%= tag.name %></option>
+      <% end %>
+    </select>
+    上架状态：
+    <select class="select2-picker form-control select-width-10" name="status" >
+      <option  value=-1 <%#= is_selected(-1, params[:status].to_i) %> >全部</option>
+      <option value=0 <%= is_selected(0, params[:status].blank? ? -1 : params[:status].to_i) %> >下架</option>
+      <option value=1 <%= is_selected(1, params[:status].to_i) %> >上架</option>
+    </select>
+    赛场商品：
+    <select class="select2-picker form-control select-width-10" name="is_game_product" >
+      <option  value=-1 >全部</option>
+      <option  value=1 >是</option>
+      <option value=0 >否</option>
+    </select>
+    自建赛场商品：
+    <select class="select2-picker form-control select-width-10" name="is_self_game_product" >
+      <option  value=-1 >全部</option>
+      <option  value=1 >是</option>
+      <option value=0 >否</option>
+    </select>
+    兑奖阁商品：
+    <select class="select2-picker form-control select-width-10" name="is_mall_product" >
+      <option  value=-1 >全部</option>
+      <option  value=1 >是</option>
+      <option value=0 >否</option>
+    </select>
+
+    剩余库存：<input type="number" min="0" class="form-control" name="inventory_count_begin" placeholder="剩余库存">
+    ~
+    <input type="number"  min="0" name="inventory_count_end" class="form-control" placeholder="剩余库存">
+    <button type="submit" class="btn btn-success">搜索</button>
+  </form>
+
+</div>
+
+
+<p class="sub-header">战场管理>商品管理>商品列表</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>商品名称</th>
+      <th>商品缩略图</th>
+      <th>价格</th>
+      <th>剩余库存</th>
+      <th>商品使用渠道</th>
+      <th>排序</th>
+      <!-- <th>状态</th> -->
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @battle_products.each do |product| %>
+        <tr>
+          <td><%= product.id %></td>
+          <td><%= product.name %></td>
+          <td><img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + product.thumbnail %>" class='img_show' style='margin-right: 20px;' width='60' height='60'></td>
+          <td><%= product.market_price.to_f %></td>
+          <td><%= product.inventory_count %></td>
+          <td><%= product_channel product %></td>
+          <td><%= product.sort %></td>
+          <!-- <td><%#= BattleProduct::STATUS[product.status] %></td> -->
+          <td>
+            <a href="/battle_products/<%= product.id %>" class="btn btn-info btn-sm ">查看</a>
+            <a href="/battle_products/<%= product.id %>/edit?page=<%=params[:page]%>" class="btn btn-primary btn-sm">编辑</a>
+            <!-- <%# if product.status.to_i == 0 %>
+                <a href="javascript:void(0)" onclick="obj_shelf_modal(<%#=product.id%>,'<%#=product.name%>',1,'上架商品')" class="btn btn-success btn-sm ">上架</a>
+            <%# elsif product.status == 1 %>
+                <a href="javascript:void(0)" onclick="obj_shelf_modal(<%#=product.id%>,'<%#=product.name%>',0,'下架商品')" class="btn btn-danger btn-sm ">下架</a>
+            <%# end %> -->
+            <!--<a href="javascript:void(0)" onclick="battle_product_delete(<%#= product.id%>,'<%#= product.name%>')" class="">删除</a>-->
+            <%= link_to '上下架', 'javascript:void(0)', class: 'battle_product_shelf btn btn-danger btn-sm', data_id: product.id %>
+          </td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @battle_products %>
+<%= render 'battle_products/product_modal' %>
+<%= render 'shared/obj_onshelf_modal', locals: {title: '商品上架', url: '/battle_products/update_status'} %>
+<%= render partial: 'shelf_modal' %>

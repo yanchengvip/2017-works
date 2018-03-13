@@ -1,0 +1,39 @@
+  <%= render 'card_rules/show_card_rule'%>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">报警规则</div>
+    <div class="panel-body">
+      报警触发条件:
+      <% @bout_number.times do |bn| %>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <div class="form-check">
+                <input class="form-check-input" name="bout_rank_checked_array[]" value="<%= bn+1%>" checked="checked" type="checkbox">
+                <input type="hidden" name="battle_rule_warns[]bout_rank" value="<%= bn+1%>">
+                第<%= bn+1 %>轮出牌结束前
+                <input class="form-check-input" name="battle_rule_warns[]limit_time_begin"   type="number" min="1" value="5" max="99999999" step='1' >分钟内，使用卡牌总价值(当前轮使用的卡牌总价值+前边所有轮使用的卡牌总价值）低于商品成本价
+                <input class="form-check-input" name="battle_rule_warns[]micro_score"  type="number" min="1" value="10" max="99999999" step='1' >%报警
+
+              </div>
+            </div>
+          </div>
+      <% end %>
+
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">接收报警手机</span>
+        <input type="text" name="warn_phone"  class="form-control" aria-describedby="basic-addon3"
+               placeholder="多个手机号码以英文逗号进行隔开，如110,12306">
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <%= render 'battle_rules/set_taoti_rule'%>
+
+
+
+
+

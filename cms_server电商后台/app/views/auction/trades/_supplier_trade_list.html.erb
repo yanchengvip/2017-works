@@ -1,0 +1,66 @@
+<% index = locals[:index] %>
+<% trade = locals[:trade].supplier_trade %>
+<% auction_trade = locals[:trade].auction_trade %>
+<% account = locals[:trade].account %>
+<% contact = locals[:trade].contact %>
+<tr>
+  <td><a href="/auction/trades/<%= auction_trade&.id %>"><%= auction_trade&.id %></a></td>
+  <td><%= trade.id %></td>
+  <td><%= trade.identifier ||= '无' %></td>
+  <td><%= Auction::Trade::STATUS[trade.status] %></td>
+  <td><%= Auction::Trade::PAYMENTSERVICE[auction_trade&.payment_service.to_s] %></td>
+  <td><%= trade.price.to_f %></td>
+  <td><%= trade.payment_price.to_f %></td>
+  <td>商品总数量</td>
+  <td>
+    <a href="#" data-toggle="popover" data-trigger="hover" data-placement="<%= trade_popover_placement index %>" data-html="true" title="收货信息"
+       data-content="<div>
+             <h4>用户信息</h4> 用户ID: <%= account&.id %>
+             <h4>收货信息</h4>收货人:<%= contact&.name %>;
+             收货电话: <%= contact&.phone %>
+             <h4>物流信息</h4>
+             物流方式:<%= Auction::Trade::DELIVERYSERVICE[trade.delivery_service.to_s] %>;
+             物流单号:<%= trade.delivery_identifier ||= '无' %>
+             </div>">
+      <%= contact&.name %>
+    </a>
+  </td>
+  <!--<td><%#= Auction::Trade::DELIVERYSERVICE[trade.delivery_service.to_s] %></td>&lt;!&ndash; 快递 &ndash;&gt;-->
+  <!--<td><%#= trade.delivery_identifier ||= '无' %></td>-->
+  <!--<td><%#= Auction::Trade::DELIVERYSERVICE[trade.invoice_delivery_service]%></td>发票地址-->
+  <td><%= trade.created_at.present? ? trade.created_at.strftime('%Y-%m-%d') : '' %></td>
+  <td>
+
+    <a href="#" data-toggle="popover" data-trigger="hover" data-placement="<%= trade_popover_placement index %>" data-html="true" title="收货信息"
+       data-content="<%= trade.remark.present? ? trade.remark : '无' %>">
+      详情
+    </a>
+
+
+  </td>
+  <td>
+    <a href="/auction/supplier_trades/<%= trade.id %>" class="btn btn-sm btn-info">详情</a>
+    <!--<a href="/auction/trades/supplier_trade_edit/?id=<%#= trade.id%>" class="btn btn-sm btn-warning">编辑</a>-->
+    <% if (current_user.can? 'auction/supplier_trades#freezed') && (trade.status == 'reject') %>
+        <a href="javascript:void(0)" onclick="obj_status_modal('<%= trade.id%>','拒签审核通过','确定关闭订单?','','/auction/supplier_trades/freezed')" class='btn btn-sm btn-danger'>拒签通过</a>
+    <% end %>
+
+    <% if (current_user.can? 'auction/supplier_trades#reject_cancel') && (trade.status == 'reject') %>
+        <a href="javascript:void(0)" onclick="obj_status_modal('<%= trade.id%>','拒签驳回','确定驳回订单的拒签申请?','','/auction/supplier_trades/reject_cancel')" class='btn btn-sm btn-warning'>拒签驳回</a>
+    <% end %>
+
+    <% if (current_user.can? 'auction/supplier_trades#receive') && (trade.status == 'receive') %>
+        <a href="javascript:void(0)" onclick="obj_status_modal('<%= trade.id%>','确认收货','已确认用户收货?','','/auction/supplier_trades/receive')" class='btn btn-sm btn-warning'>确认收货</a>
+    <% end %>
+
+    <% if (current_user.can? 'auction/supplier_trades#returning') && (trade.status == 'ship' && ['alipay', 'wechat'].include?(trade.payment_price)) %>
+        <a href="javascript:void(0)" onclick="obj_status_modal('<%= trade.id%>','申请退款','申请订单退款?','','/auction/supplier_trades/returning')" class='btn btn-sm btn-warning'>申请退款</a>
+    <% end %>
+
+    <% if (current_user.can? 'auction/supplier_trades#cancel') && (trade.status == 'ship' && auction_trade&.payment_service == 'express') %>
+        <a href="javascript:void(0)" onclick="obj_status_modal('<%= trade.id%>','取消订单','取消订单?','','/auction/supplier_trades/cancel')" class='btn btn-sm btn-warning'>取消订单</a>
+    <% end %>
+
+  </td>
+</tr>
+

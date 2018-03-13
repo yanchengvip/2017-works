@@ -1,0 +1,36 @@
+<p class="sub-header">系统管理>卡牌管理>添加礼包分类</p>
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '返回', cards_path, class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<%= form_for @package_type, html: {class: 'form-horizontal ml_10'} do |f| %>
+  <div class="form-group">
+    <h4>分类信息</h4>
+  </div>
+
+  <div class="form-group">
+    <label for="package_sale_channel" class="col-sm-2 col-form-label">*销售渠道：</label>
+    <div class="col-sm-8">
+      <%= f.select :sale_channel, options_for_select(Package::SALECHANNEL.to_a.map(&:reverse)), class: 'form-control', id: 'package_sale_channel', required: 'required' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="package_type_name" class="col-sm-2 col-form-label">*名称：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: 'form-control', id: 'package_type_name', required: 'required', onkeyup: "validate_length_of_words(this.id,30)", placeholder: '分类名称，不能重复，最多30字' %>
+      <p class="bg-danger p_last_num left_str_num"></p>
+      <%#= f.hidden_field :operator_id, value: current_user.id, class: 'form-control' %>
+      <%#= f.hidden_field :operator_name, value: current_user.nickname, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= link_to '取消', package_types_path, class: 'btn btn-default btn-lg' %>
+      <%= f.submit '保存', class: 'btn btn-primary mr_20 btn-lg', data: {:disable_with => "提交中..."} %>
+    </div>
+  </div>
+
+<% end %>

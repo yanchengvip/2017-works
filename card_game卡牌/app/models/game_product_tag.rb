@@ -1,0 +1,2 @@
+class GameProductTag < ApplicationRecord
+end

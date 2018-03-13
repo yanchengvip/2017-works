@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Sms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_sms.each do |auction_sm| %>
+      <tr>
+        <td><%= link_to 'Show', auction_sm %></td>
+        <td><%= link_to 'Edit', edit_auction_sm_path(auction_sm) %></td>
+        <td><%= link_to 'Destroy', auction_sm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Sm', new_auction_sm_path %>

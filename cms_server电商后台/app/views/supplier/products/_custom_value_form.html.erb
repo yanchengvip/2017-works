@@ -1,0 +1,12 @@
+<tr class="fields content_tr custom_value_content">
+  <td>
+    <input type="text" name="custom_values[][attribute_name]" placeholder="属性名称" class="form-control" width="100px" required>
+  </td>
+
+  <td>
+    <input type="text" name="custom_values[][content]" placeholder="属性值" class="form-control" width="200px" id="<%= params[:random_id] %>" required>
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </td>
+
+  <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+</tr>

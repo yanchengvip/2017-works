@@ -1,0 +1,187 @@
+<div class="form-group row mt_20">
+  <%= f.hidden_field :user_id, value: current_user&.id %>
+  <label for="auction_category_parent_id" class="col-sm-2 control-label">父类</label>
+  <div class="col-sm-8">
+    <%= f.select :parent_id, options_for_select([['无', nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]} ,@auction_category.parent_id), {}, class: 'form-control is_select2' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_name" class="col-sm-2 control-label">名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '名称', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_description" class="col-sm-2 control-label">描述</label>
+  <div class="col-sm-8">
+    <%#= f.text_area :description, rows: 6, placeholder: '描述', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="auction_category_pic" class="col-sm-2 control-label">图片</label>
+  <div class="col-sm-8">
+    <%= render partial: 'images/upload_single_image', locals: {prev_id: 'pic', item_name: "auction_category[pic]", item_id: "auction_category_pic", upload_btn_id: 'upload_pic', preview_id: 'preview_pic', image_path: @auction_category.pic, model_name: @auction_category.class.to_s} %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_product_tag_id" class="col-sm-2 control-label">优先</label>
+  <div class="col-sm-8">
+    <%#= f.select :priority, options_for_select(Auction::Category::PRIORITY.invert.to_a, @auction_category.priority), {}, class: 'form-control is_select2', required: "required" %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="auction_category_measures" class="col-sm-2 control-label">尺寸</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :measures, placeholder: '尺寸', class: 'form-control', required: "required" %>
+      <span class="input-group-addon">（用英文逗号分隔）</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_ranges" class="col-sm-2 control-label">价格区间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :ranges, placeholder: '价格区间', class: 'form-control', required: "required" %>
+      <span class="input-group-addon">（用英文逗号分隔）</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_male" class="col-sm-2 control-label">男士/女士</label>
+  <div class="col-sm-8">
+    <%= f.check_box :male, placeholder: '男士', class: '' %>
+    <label for="auction_category_male" class="mr_50">男士</label>
+    <%= f.check_box :female, placeholder: '女士', class: '' %>
+    <label for="auction_category_female">女士</label>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_attribute_ids" class="col-sm-2 control-label">属性列表</label>
+  <div class="col-sm-8">
+    <%= f.select :attribute_ids, options_for_select(Auction::ProductAttribute.active.map{|aa| [aa.name, aa.id]} ,@auction_category.attribute_ids&.split(',')&.map(&:to_i)), {}, class: 'form-control is_select2', required: "required", multiple: true %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_attribute_ids" class="col-sm-2 control-label">顺序</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :order, placeholder: '顺序，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_measure_properties" class="col-sm-2 control-label">尺寸参数</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%#= f.text_field :measure_properties, placeholder: '尺寸参数', class: 'form-control', required: "required" %>
+      <span class="input-group-addon">（用英文逗号分隔）</span>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_measure_pic" class="col-sm-2 control-label">尺寸图片</label>
+  <div class="col-sm-8">
+    <%#= render partial: 'images/upload_single_image', locals: {prev_id: 'measure_pic', item_name: "auction_category[measure_pic]", item_id: "auction_category_measure_pic", upload_btn_id: 'upload_measure_pic', preview_id: 'preview_measure_pic', image_path: @auction_category.measure_pic, model_name: @auction_category.class.to_s} %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_contrast_pic" class="col-sm-2 control-label">对照图片</label>
+  <div class="col-sm-8">
+    <%#= render partial: 'images/upload_single_image', locals: {prev_id: 'contrast_pic', item_name: "auction_category[contrast_pic]", item_id: "auction_category_contrast_pic", upload_btn_id: 'upload_contrast_pic', preview_id: 'preview_contrast_pic', image_path: @auction_category.contrast_pic, model_name: @auction_category.class.to_s} %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_bust_offset" class="col-sm-2 control-label">胸围偏移</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :bust_offset, placeholder: '胸围偏移，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_bust_error" class="col-sm-2 control-label">胸围误差</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :bust_error, placeholder: '胸围误差，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_waistline_offset" class="col-sm-2 control-label">腰围偏移</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :waistline_offset, placeholder: '腰围偏移，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_waistline_error" class="col-sm-2 control-label">腰围误差</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :waistline_error, placeholder: '腰围误差，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_hip_offset" class="col-sm-2 control-label">臀围偏移</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :hip_offset, placeholder: '臀围偏移，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_category_hip_error" class="col-sm-2 control-label">臀围误差</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :hip_error, placeholder: '臀围误差，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_shoulder_offset" class="col-sm-2 control-label">肩宽偏移</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :shoulder_offset, placeholder: '肩宽偏移，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_shoulder_error" class="col-sm-2 control-label">肩宽误差</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :shoulder_error, placeholder: '肩宽误差，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_arm_offset" class="col-sm-2 control-label">臂长偏移</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :arm_offset, placeholder: '臂长偏移，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_arm_error" class="col-sm-2 control-label">臂长误差</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :arm_error, placeholder: '臂长误差，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_leg_offset" class="col-sm-2 control-label">腿长偏移</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :leg_offset, placeholder: '腿长偏移，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_category_leg_error" class="col-sm-2 control-label">腿长误差</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :leg_error, placeholder: '腿长误差，整数', class: 'form-control', required: "required", type: 'number' %>
+  </div>
+</div> -->

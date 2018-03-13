@@ -1,0 +1,26 @@
+<p class="sub-header">卡牌商城>礼包管理>添加礼包</p>
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '返回', packages_path, class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<%= form_for @package, html: {class: 'form-horizontal ml_10'} do |f| %>
+
+  <%= render partial: 'info', locals: {f: f} %>
+
+  <!-- 图片开始 -->
+  <%= render partial: 'package_pic', locals: {f: f} %>
+
+  <%= render partial: 'package_content', locals: {f: f} %>
+
+  <%= render partial: 'rule', locals: {f: f} %>
+
+  <div class="form-group mt_100">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= link_to '取消', packages_path, class: 'btn btn-default btn-lg', role: 'button' %>
+      <%= f.submit '保存', class: 'btn btn-primary mr_20 btn-lg', data: {:disable_with => "提交中..."} %>
+    </div>
+  </div>
+
+<% end %>
+

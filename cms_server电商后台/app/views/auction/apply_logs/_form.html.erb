@@ -1,0 +1,16 @@
+<%= simple_form_for(@auction_apply_log) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :apply_id %>
+    <%= f.input :user_id %>
+    <%= f.input :active %>
+    <%= f.input :content %>
+    <%= f.input :check_result %>
+    <%= f.input :check_time %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

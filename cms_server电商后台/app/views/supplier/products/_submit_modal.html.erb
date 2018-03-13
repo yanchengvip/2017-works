@@ -1,0 +1,53 @@
+<!-- 提交审核modal -->
+<div class="modal fade" id="submitSupplierProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">商品<span id="review_title"></span></h4>
+      </div>
+      <!-- <form action="/packages/review" method="post"> -->
+        <div class="modal-body">
+          <h3>确定</span>提交：“<span id="review_supplier_product_name" class=""></span><span id="review_status">”&nbsp;审核吗？</h3>
+
+          <input type="hidden" id="review_supplier_product_id">
+          <input type="hidden" id="review_supplier_product_status">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="do_submit">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_submit').on('click', function(){
+      var review_id = $('#review_supplier_product_id').val()
+      console.log(review_id)
+      $.ajax({
+        type: "post",
+        url: '/supplier/products/'+review_id+'/review',
+        data: { review_status: $('#review_supplier_product_status').val()},
+        success: function(result){
+          if(result.status == 200){
+            $('#submitSupplierProductModal').modal('hide')
+            window.location.reload();
+          }else{
+            $('#submitSupplierProductModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#submitSupplierProductModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

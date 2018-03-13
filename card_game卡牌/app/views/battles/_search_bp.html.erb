@@ -1,0 +1,14 @@
+<% if @message.present? %>
+    <div class="alert alert-danger" role="alert"><%= @message[:message]%></div>
+<% else %>
+
+    <input type="hidden" id="bp_id_val" name="bp_id_val" value="<%= @battle_product.id %>">
+    <input type="hidden"  name="bp_copy_id" value="<%= @battle_products_copy_id %>">
+    <tr>
+      <th><%= @battle_product.id %></th>
+      <th><%= @battle_product.name %></th>
+      <th><%= @battle_product.market_price %></th>
+      <th><%= @battle_product.postage %></th>
+    </tr>
+<% end %>
+

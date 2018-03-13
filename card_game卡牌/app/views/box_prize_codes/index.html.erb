@@ -1,0 +1,70 @@
+<p class="sub-header">系统管理>宝箱管理>兑奖码</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">兑奖码列表 <a href="/box_prize_codes/new" class="btn btn-info btn-sm " role="button">添加兑奖码</a>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>类型</th>
+          <th>赠送类型</th>
+          <th>赠送付费宝箱符</th>
+          <th>赠送免费宝箱符</th>
+          <th>生成时间</th>
+          <th>有效期</th>
+
+          <th>说明</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @box_prizes.each_with_index do |bp, i| %>
+            <tr>
+              <td><%= i + 1 %></td>
+              <td><%= bp.name %></td>
+              <% if bp.prize_type == 1 %>
+                  <td>独立兑奖码</td>
+              <% elsif bp.prize_type == 2 %>
+                  <td>复用兑奖码</td>
+              <% end %>
+              <td><%= BoxPrizeRecord::TREASURETYPE[bp.treasure_type] %></td>
+              <td><%= bp.treasure_amount %>个</td>
+              <td><%= bp.free_treasure_amount %>个</td>
+              <td><%= bp.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+              <td><%= bp.valid_date.strftime('%Y-%m-%d') %></td>
+
+              <td><%= bp.remark %></td>
+              <td>
+                <a href="/box_prize_codes/<%= bp.id %>" class="btn btn-info btn-sm " role="button">详情</a>
+                <% if bp.status == 1 %>
+                    <a href="javascript:void(0)" class="btn btn-primary btn-sm " role="button"
+                       onclick="add_box_prize_code_modal(<%= bp.id%>,<%= bp.prize_type == 1 ? 100 : 10000%>)">增加</a>
+                    <a href="javascript:void(0)"
+                       onclick="obj_shelf_modal(<%= bp.id%>,'<%= bp.name%>',2,'停止')"
+                       class="btn btn-warning btn-sm" role="button">停止</a>
+                <% elsif bp.status == 2 %>
+
+                    <a href="javascript:void(0)"
+                       class="btn btn-warning btn-sm" role="button">已停止</a>
+                <% end %>
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm "
+                   role="button" onclick="obj_delete_modal(<%= bp.id%>,'<%= bp.name%>')">删除</a>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+    <%= paginate @box_prizes %>
+  </div>
+</div>
+
+
+<%= render 'add_codes_modal' %>
+<%= render 'shared/obj_delete_modal', locals: {title: '刪除', url: '/box_prize_codes/destroy_prize'} %>
+<%= render 'shared/obj_onshelf_modal', locals: {title: '停止', url: '/box_prize_codes/box_prize_status'} %>

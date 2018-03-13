@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">系统管理>宝箱管理>新增宝箱</p></div>
+
+<%= form_for @treasure_box, url: treasure_boxs_path, html: {class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

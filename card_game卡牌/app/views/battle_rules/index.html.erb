@@ -1,0 +1,75 @@
+<div class="row placeholders">
+  <form action="/battle_rules" method="get" class="navbar-form navbar-left">
+    规则名称：<input type="text" name="name" class="form-control" placeholder="规则名称">
+    轮数：
+    <select class="select2-picker form-control select-width-20" name="bout_number">
+      <option value=-1>全部</option>
+      <option value=1>1轮</option>
+      <option value=2>2轮</option>
+      <option value=3>3轮</option>
+      <option value=4>4轮</option>
+      <option value=5>5轮</option>
+      <option value=6>6轮</option>
+    </select>
+    状态：
+    <select class="select2-picker form-control select-width-20" name="status">
+      <option value=-1>全部</option>
+      <option value=0>启用</option>
+      <option value=1>禁用</option>
+    </select>
+    <button type="submit" class="btn btn-success">搜索</button>
+  </form>
+
+</div>
+
+<p class="sub-header">战场管理>战役规则管理>战役规则列表</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>战役规则ID</th>
+      <th>规则名称</th>
+      <th>轮数</th>
+      <th>首轮开启人数</th>
+      <th>每轮时间</th>
+      <th>描述</th>
+      <th>创建时间</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <% @battle_rules.each_with_index do |br, index| %>
+        <tr>
+          <td><%= br.id %></td>
+          <td><%= br.name %></td>
+          <td><%= br.bout_number %></td>
+          <td><%= br.open_person_number %></td>
+          <td><%= br.bout_time %></td>
+          <td><%= br.desc[0, 10] %></td>
+          <td><%= datetime_format br.created_at %></td>
+          <td><%= battle_rule_status_name br.status %></td>
+          <td>
+            <a href="/battle_rules/<%= br.id %>" class="btn btn-info btn-sm " role="button">查看</a>
+            <% if br.battle_rules_copies.present? %>
+                <a href="#" class="btn  btn-sm disabled" role="button"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+            <% else %>
+                <a href="/battle_rules/<%= br.id %>/edit" class="btn btn-warning btn-sm " role="button">编辑</a>
+            <% end %>
+            <% if br.status == 0 %>
+                <a href="javascript:void(0)" onclick="obj_shelf_modal(<%=br.id%>,'<%=br.name%>','1','禁用')" class="btn btn-danger btn-sm " role="button">禁用</a>
+            <% elsif br.status == 1 %>
+                <a href="javascript:void(0)" onclick="obj_shelf_modal(<%=br.id%>,'<%=br.name%>','0','启用')" class="btn btn-danger btn-sm " role="button">启用</a>
+            <% end %>
+
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @battle_rules %>
+
+<%= render 'shared/obj_onshelf_modal', locals: {title: '战役规则状态', url: '/battle_rules/update_status'} %>

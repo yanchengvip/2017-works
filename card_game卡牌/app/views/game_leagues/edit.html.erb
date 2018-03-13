@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">赛场>联赛>编辑联赛</p></div>
+
+<%= form_for @game_league, url: game_league_path, html: {method: :post, class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%#= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

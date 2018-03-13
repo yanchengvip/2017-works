@@ -1,0 +1,52 @@
+<div class="row"><p class="sub-header">统计>数据统计>邀请人数统计</p></div>
+<div class="row placeholders well">
+  <%= form_for invite_count_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>邀请人数：</span>
+      <input type="number" name="invite_num" id="invite_num" class="form-control mr_20" placeholder="邀请人数" value="<%= params[:invite_num]%>" min='1' >
+      <%#= f.submit '查询', class: 'btn btn-primary', id: 'submit' %>
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>登录名</th>
+        <th>渠道编号</th>
+        <th>邀请人数</th>
+        <!-- <th>id</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @res && @res.each do |res| %>
+        <tr>
+          <td><%= res.login_name %></td>
+          <td><%= res.opsrc %></td>
+
+          <td><%= res.num %></td>
+          <!-- <td><%= res.invite_user_id %></td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/invite_count.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/invite_count'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/invite_count'
+      $("#search_form").submit()
+    })
+  })
+</script>
+

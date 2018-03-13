@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Exchange product:</strong>
+  <%= @exchange_product_price_log.exchange_product_id %>
+</p>
+
+<p>
+  <strong>Dealer:</strong>
+  <%= @exchange_product_price_log.dealer_id %>
+</p>
+
+<p>
+  <strong>Dealer type:</strong>
+  <%= @exchange_product_price_log.dealer_type %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @exchange_product_price_log.price %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @exchange_product_price_log.time %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @exchange_product_price_log.active %>
+</p>
+
+<%= link_to 'Edit', edit_exchange_product_price_log_path(@exchange_product_price_log) %> |
+<%= link_to 'Back', exchange_product_price_logs_path %>

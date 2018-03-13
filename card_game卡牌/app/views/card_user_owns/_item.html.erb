@@ -1,0 +1,40 @@
+<div class="form-group row mt_50">
+  <label for="user_mobiles" class="col-sm-1 control-label">*选择卡牌：</label>
+  <div class="row col-sm-8">
+    <table class="table table-striped table-hover ml_15" id="card_user_own_items_table">
+      <thead>
+        <tr class="info">
+          <th>卡牌名称</th>
+          <th>张数</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="card_user_own_items_body">
+
+      </tbody>
+    </table>
+
+    <%= link_to '添加', 'javascript:void(0)', id: 'add_card_user_own_item', class: 'mt_50 ml_15' %>
+  </div>
+</div>
+<%#= render partial: 'item_type_modal' %>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_card_user_own_item').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/card_user_owns/item_form',
+        data: { },
+        success: function(result){
+          $('#card_user_own_items_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+    })
+  })
+</script>

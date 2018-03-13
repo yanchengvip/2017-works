@@ -1,0 +1,27 @@
+<p class="sub-header">宝箱管理>宝箱设置>查看设置</p>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+
+  <div class="panel-heading"><strong>奖品信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">ID：<span><%= @chest_prize.id %></span></li>
+    <li class="list-group-item ">奖品名称：<%= @chest_prize.name %></li>
+    <li class="list-group-item">
+      奖品类型：<%= ChestPrize::PRIZE_TYPE[@chest_prize.prize_type] %>
+    </li>
+    <li class="list-group-item">展示图：<br><%= show_thumb @chest_prize, false %></li>
+    <li class="list-group-item">分享奖励：<%= @chest_prize.share_num %>个宝箱券</li>
+    <li class="list-group-item">
+      奖品价值：<%= @chest_prize.price %>
+    </li>
+    <li class="list-group-item">
+      中奖文案：<%= @chest_prize.win_copy %>
+    </li>
+    <li class="list-group-item">
+      获取后，跳转场景：<%= ChestPrize::JUMP_TYPE[@chest_prize.jump_type] %>
+    </li>
+  </ul>
+
+</div>

@@ -1,0 +1,49 @@
+<div class="modal fade" id="grantVoucherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">发放现金券</h4>
+        <!-- <input type="hidden" id="grant_voucher_id"> -->
+        <input type="hidden" name='id' id="grant_voucher_id">
+      </div>
+      <div class="modal-body" id="grant_div">
+        <h3>确定发放现金券吗？</h3>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary" id="do_grant">确认发放</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_grant').on('click', function(){
+      var record_id = $('#grant_voucher_id').val()
+      $.ajax({
+        type: "post",
+        url: '/chest_records/'+record_id+'/grant_voucher',
+        data: { },
+        success: function(result){
+          if(result.status == 200){
+            $('#grantVoucherModal').modal('hide')
+            // window.location.reload();
+            $('#grant_'+record_id).hide()
+          }else{
+            $('#grantVoucherModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#grantVoucherModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

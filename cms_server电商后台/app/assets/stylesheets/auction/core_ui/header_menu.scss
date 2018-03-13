@@ -1,0 +1,53 @@
+$h-color1: rgba(0, 0, 0, 0.3);
+$h-color2: #000000;
+$h-color3: rgb(0,0,0);
+@mixin nav-header-menu-item {
+  padding-top: 15px;
+
+}
+
+.app-header .nav-left-menu a {
+  color: #ffffff !important;
+  font-size: 18px;
+}
+.app-header .nav-item a:hover {
+  color: $h-color2;
+}
+
+.app-header .d-md-down-none .nav-item {
+  @include nav-header-menu-item;
+}
+
+.app-header  .nav-left-menu a{
+  color: $h-color3;
+  font-weight: bold;
+}
+
+
+//导航右侧菜单
+.app-header .navbar-nav-right {
+  @include nav-header-menu-item;
+  padding-right: 50px;
+  float: right;
+}
+
+.app-header .navbar-nav-right .nav-link span{
+  color: #ffffff;
+}
+.app-header .navbar-nav-right .dropdown-menu-right {
+  padding: 0;
+}
+.app-header .navbar-nav-right .dropdown-menu-right a {
+  color: $h-color2;
+  display: block;
+  position: relative;
+  padding: 10px 20px;
+  border-bottom: 1px solid #cfd8dc;
+  text-align: center;
+  text-decoration: none;
+
+}
+.app-header .navbar-nav-right .dropdown-menu-right a:hover{
+  background-color: #eceff1;
+}
+

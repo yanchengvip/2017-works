@@ -1,0 +1,21 @@
+<div class="form-group row mt_20"><legend><h3>饕餮奖励</h3></legend></div>
+
+<div class="panel panel-info">
+  <div class="panel-heading ft_16"><strong>饕餮死亡后用户奖励</strong></div>
+  <%= render partial: 'dead_prize' %>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading ft_16"><strong>饕餮血量临界点奖励</strong></div>
+  <div class="panel-body">
+    <p>当饕餮血量达到特定临界点时，造成血量恰好下降到此临界点的某个用户获得能量值奖励</p>
+    <%= render partial: 'prize_table' %>
+  </div>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading ft_16"><strong>封印解封奖励</strong></div>
+  <div class="panel-body">
+    <p>用户解除封印时，消耗的能量会拿出<input type="number" name="offer_energy_percent" id="offer_energy_percent" min="0" max="100" step="0.1" value="<%= @glutton_setting.offer_energy_percent * 100 %>" required placeholder='最多1位小数' class='custom_input'>%，反馈给上一次攻打饕餮能量消耗前三名用户</p>
+  </div>
+</div>

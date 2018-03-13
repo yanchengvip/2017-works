@@ -1,0 +1,37 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>名字</th>
+      <th>商品满</th>
+      <th>减</th>
+      <th>描述</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @auction_events.each do |auction_event| %>
+    <tr>
+      <td><%= auction_event.id%></td>
+      <td><%= auction_event.name%></td>
+      <td><%= auction_event.limitation%></td>
+      <td><%= auction_event.amount%></td>
+      <td><%= auction_event.description%></td>
+      <td><%= auction_event.started_at&.strftime('%Y-%m-%d %H:%M')%></td>
+      <td><%= auction_event.ended_at&.strftime('%Y-%m-%d %H:%M')%></td>
+      <td>
+        <% if current_user.can?("auction/events#edit")%>
+          <a href="/auction/events/<%= auction_event.id%>/edit" class="btn btn-warning btn-sm">编辑</a>
+        <% end %>
+        <% if auction_event.published == false && current_user.can?("auction/events#published") %>
+          <a href="/auction/events/<%= auction_event.id%>/published" class="btn btn-success btn-sm">发布</a>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @auction_events%>

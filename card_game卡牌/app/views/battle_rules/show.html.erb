@@ -1,0 +1,58 @@
+<% if @is_use_battle_rule_show.to_i != 1 %><!--战役详情页面复用此页面-->
+    <p class="sub-header">战役管理>战役规则列表>战役规则详情</p>
+<% end %>
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>战役规则详情</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">战役规则ID：<%= @battle_rule.id %></li>
+    <li class="list-group-item">战役规则名称：<%= @battle_rule.name %></li>
+    <li class="list-group-item">战役号码位数：<%= @battle_rule.bout_number %></li>
+    <li class="list-group-item">第一轮开启人数：<%= @battle_rule.open_person_number %></li>
+    <li class="list-group-item">最大报名人数：<%= @battle_rule.max_person_number %></li>
+    <li class="list-group-item">每轮时间：<%= @battle_rule.bout_time %></li>
+    <li class="list-group-item">战役规则描述：<%= @battle_rule.desc %></li>
+
+  </ul>
+
+</div>
+
+<%= render 'card_rules/show_card_rule' %>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>饕鬄血量规则</strong></div>
+  <ul class="list-group">
+    <% @battle_rule.taoti_blood.split(',').each_with_index do |b,index| %>
+        <li class="list-group-item">第<%= index+1%>轮饕鬄血量为：
+          <nobr class="text-primary"><%=b%></nobr>点
+        </li>
+    <% end %>
+  </ul>
+
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>报警规则</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">报警触发条件:</li>
+    <% @br_warns.each do |bw| %>
+        <li class="list-group-item">第
+          <nobr class="text-danger"><%= bw.bout_rank %></nobr>
+          轮前
+          <nobr class="text-danger"><%= bw.limit_time_begin %></nobr>
+          分钟内，使用卡牌总价值(当前轮使用的卡牌总价值+前边所有轮使用的卡牌总价值）低于商品成本价
+          <nobr class="text-danger"><%= bw.micro_score %></nobr>
+          %报警
+        </li>
+    <% end %>
+    <% if @br_warns.present? %>
+        <li class="list-group-item">接收报警手机：
+          <nobr class="text-primary"><%= @br_warns.first.phone %></nobr>
+        </li>
+    <% end %>
+
+  </ul>
+
+</div>
+
+

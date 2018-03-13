@@ -1,0 +1,23 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @manage_report_form, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+
+        <!-- <%= f.input :provider_id, label: '供应商id:' ,required: 'true'%> -->
+        <%= f.input :provider_id, collection: Manage::Provider.all.map { |k, v| [k.name, k.id] }, prompt: "选择供应商", wrapper: :horizontal_form, label: '供应商:',required: 'true' %>
+        <%= f.input :trade_amount, label: '订单金额:',required: 'true'%>
+        <%= f.input :express_amount, label: '物流金额:', required: 'true'%>
+        <%= f.input :other_fee, label: '其他金额:', required: 'true'%>
+        <%= f.input :total_amount, label: '总金额:', required: 'true'%>
+        <%= f.input :date,:as => :string,  input_html: { format: :long, id:'accountdate'}, label: '结算月份:',required: 'true'%>
+        <%= f.input :status, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @manage_report_form_status, checked: @manage_report_form.status, label: '状态:',required: 'true' %>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit' %>
+        <%= link_to '取消', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>

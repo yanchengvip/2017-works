@@ -1,0 +1,81 @@
+<%= javascript_include_tag 'auction/bootstrap-table.min' %>
+<%= stylesheet_link_tag 'auction/bootstrap-table.min' %>
+<%= javascript_include_tag 'auction/trade_bootstrap_table_tooltip' %>
+
+<ul class="nav nav-tabs">
+  <li role="presentation" class="<%= trades_show_tab(1, @tab) %>">
+    <a href="/auction/trades?tab=1">全部订单</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(2, @tab) %>">
+    <a href="/auction/trades?q[auction_trade_status_eq]=pay&tab=2">待付款</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(3, @tab) %>">
+    <a href="/auction/trades?q[auction_trade_status_eq]=audit&tab=3">待审核</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(4, @tab) %>">
+    <a href="/auction/trades?q[supplier_trade_status_eq]=ship&tab=4">待发货</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(5, @tab) %>">
+    <a href="/auction/trades?q[supplier_trade_status_eq]=returning&tab=5">退款中</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(6, @tab) %>">
+    <a href="/auction/trades?q[supplier_trade_status_eq]=receive&tab=6">待收货</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(7, @tab) %>">
+    <a href="/auction/trades?q[supplier_trade_status_eq]=reject&tab=7">拒签</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(8, @tab) %>">
+    <a href="/auction/trades?q[supplier_trade_status_eq]=complete&tab=8">已完成</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(9, @tab) %>">
+    <a href="/auction/trades?q[auction_trade_status_eq]=cancel&q[supplier_trade_status_eq]=cancel&q[m]=or&tab=9">已取消</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(10, @tab) %>">
+    <a href="/auction/trades?q[auction_trade_status_eq]=freezed&tab=10">已关闭</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(11, @tab) %>">
+    <a href="/auction/trades?q[supplier_trade_status_eq]=return&tab=10">已退款</a>
+  </li>
+</ul>
+
+
+<table class="table " id="table" data-toggle="table"
+       data-detail-view="true"
+       data-detail-formatter="detailFormatter">
+  <thead>
+  <tr>
+    <th>用户订单ID</th>
+    <th>商家订单ID</th>
+    <th>订单编号</th>
+    <th>订单状态</th>
+    <th>支付方式</th>
+    <th>总价</th>
+    <th>支付价格</th>
+    <th>商品总数量</th>
+    <th>收货信息</th>
+    <th>创建时间</th>
+    <th>备注</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @trade_lists.each_with_index do |trade, index| %>
+      <% if [1,2].include?(trade.status) %>
+          <%= render 'auction_trade_list', locals: {trade: trade, index: index} %>
+      <% elsif trade.status == 3 %>
+          <%= render 'supplier_trade_list', locals: {trade: trade, index: index} %>
+      <% end %>
+  <% end %>
+
+  </tbody>
+
+</table>
+
+
+<div id="test" style="background: #000000">
+  <%= paginate @trade_lists %>
+</div>
+<%= render 'auction/shared/obj_status_modal' %>
+
+
+

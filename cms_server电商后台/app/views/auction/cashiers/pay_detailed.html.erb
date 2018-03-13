@@ -1,0 +1,26 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>支付单号</th>
+      <th>支付时间</th>
+      <th>支付方式</th>
+      <th width="15%">第三方单号</th>
+      <th>支付金额</th>
+      <th>支付备注</th>
+      <th>操作人</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pay_items.each do |pay_item| %>
+    <tr>
+      <td><%= pay_item.supplier_trade_no %></td>
+      <td><%= pay_item.gmt_payment&.strftime('%Y-%m-%d') %></td>
+      <td><%= Pay::Item::PAYTYPE[pay_item.pay_type]%></td>
+      <td><%= pay_item.trade_no%></td>
+      <td><%= pay_item.buyer_pay_amount%></td>
+      <td><%= pay_item.remark%></td>
+      <td><%= pay_item.editor&.name%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

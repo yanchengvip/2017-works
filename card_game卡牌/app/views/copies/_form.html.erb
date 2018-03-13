@@ -1,0 +1,79 @@
+<div class="form-group row">
+  <label for="copy_types" class="col-sm-2 control-label">*文案分类：</label>
+  <div class="col-sm-8">
+    <select name="copy_type" id="copy_types" class='form-control copy_select2' required>
+      <% Copy::COPYTYPE.each do |key, val| %>
+        <% if @copy.copy_type == key %>
+          <option value="<%= key %>" selected><%= val %></option>
+        <% else %>
+          <option value="<%= key %>"><%= val %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="copy_status" class="col-sm-2 control-label">*是否启用：</label>
+  <div class="col-sm-8">
+    <% if @copy.status %>
+      <div class="radio">
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="1" name="status"  checked="checked">启用
+        </label>
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="0" name="status">关闭
+        </label>
+      </div>
+    <% else %>
+      <div class="radio">
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="1" name="status">启用
+        </label>
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="0" name="status"  checked="checked">关闭
+        </label>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- col-form-label -->
+<div class="form-group row">
+  <label for="input" class="col-sm-2 control-label">文案图片：</label>
+  <div class="col-sm-8">
+    <%= render 'upload_single_copy_image' %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="copy_title" class="col-sm-2 control-label">*标题：</label>
+  <div class="col-sm-8">
+    <input type="text" name="title" class="form-control" id="copy_title" placeholder="文案标题，<20字" required value="<%= @copy.title %>">
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="copy_url" class="col-sm-2 control-label">链接地址：</label>
+  <div class="col-sm-8">
+    <input type="text" name="url" class="form-control" id="copy_url" placeholder="链接地址（密钥来源分类用，其他分类不用填）" value="<%= @copy.url %>">
+    <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="copy_content" class="col-sm-2 control-label">内容：</label>
+  <div class="col-sm-8">
+    <p class="red">如要在某位置插入用户名称或商品名称，格式如下：用户{user_name}邀请好友{friend_name}</p>
+    <p><span>变量约定：</span>用户名称：{user_name}，战役名称：{battle_name}，奖品名称：{prize_name}</p>
+    <textarea name="content" id="copy_content" cols="30" rows="10" placeholder='文案内容' class='form-control'><%= @copy.content %></textarea>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+// $(document).on('turbolinks:load', function () {
+  $(".copy_select2").select2();
+})
+</script>

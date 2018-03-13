@@ -1,0 +1,1 @@
+json.partial! "exchange_product_price_logs/exchange_product_price_log", exchange_product_price_log: @exchange_product_price_log

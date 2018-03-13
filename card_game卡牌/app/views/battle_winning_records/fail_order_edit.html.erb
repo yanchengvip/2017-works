@@ -1,0 +1,103 @@
+<p class="sub-header">战场管理>商品管理>订单管理><%= @order.good_name %></p>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>夺宝信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item">夺宝期号：<%= @order.battle_code %></li>
+    <li class="list-group-item">夺宝商品：<%= @order.good_name %></li>
+  </ul>
+
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>购买用户</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">购买用户：<%= @order.user.nick_name %></li>
+    <li class="list-group-item">联系手机：<%= @order.user.mobile %></li>
+  </ul>
+
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>兑换商品信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">领取类型：<%= BattleWinningRecord::DRAWSTATUS[@order.draw_status.to_i] %></li>
+    <% if @order.draw_status.to_i == 1 %>
+        <li class="list-group-item">领取商品：<%= @order.good_name %></li>
+        <% if @order.battle_products_copies %>
+            <li class="list-group-item">商品SKU：<%= @order.battle_products_copies.first.sku %></li>
+            <li class="list-group-item">商品库存地：<%= @order.battle_products_copies.first.inventory_place %></li>
+            <li class="list-group-item">商品市场价：<%= @order.battle_products_copies.first.market_price.to_f %></li>
+        <% end %>
+    <% end %>
+    <li class="list-group-item">认领时间：<%= datetime_format @order.claim_time %></li>
+
+  </ul>
+
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>收货信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">收货姓名：<%= @order.consignee %></li>
+    <li class="list-group-item">联系方式：<%= @order.mobile %></li>
+    <li class="list-group-item">邮编：<%= @order.postcode %></li>
+    <li class="list-group-item">收货地址：<%= @order.shipping_address %></li>
+  </ul>
+</div>
+
+<!--修改订单物流信息-->
+<div class="panel panel-info">
+
+  <div class="panel-heading"><strong>物流信息</strong></div>
+  <div class="panel-body">
+    <form action="/battle_winning_records/update" method="post">
+      <input type="hidden" value="1" name="order_type">
+      <input type="hidden" value="<%= @order.id %>" name="id">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">订单状态：<%= BattleWinningRecord::SHIPPINGSTATUS[@order.shipping_status] %></span>
+        <select class="select2-picker" name="shipping_status" style="width: 100%">
+          <option value=-1>请选择</option>
+          <% if [0].include?(@order.shipping_status) %>
+              <option value=1>已发货</option>
+          <% end %>
+          <option value=3>已作废</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">发货日期：</span>
+        <input type='text' class="form-check-input"
+               value="<%= @order.shipping_time.present? ? @order.shipping_time.strftime('%Y-%m-%d %H:%M') : '' %>"
+               name="shipping_time" id="datetime_picker"/>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">发货商品：</span>
+        <input type="text" name="shipping_name" class="form-control" value="<%= @order.shipping_name %>"></li>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">物流公司：</span>
+        <input type="text" class="form-control" name="logistics_company" value="<%= @order.logistics_company %>">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">物流单号：</span>
+        <input type="text" class="form-control" name="logistics_num" value="<%= @order.logistics_num %>">
+      </div>
+
+
+      <div class="form-group row">
+        <label for="input" class="col-sm-4 col-form-label"></label>
+        <div class=" col-sm-6">
+          <button type="submit" class="btn-lg btn-primary">保存</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

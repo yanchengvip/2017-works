@@ -1,0 +1,2 @@
+class RecoverHistoryPrice < ApplicationRecord
+end

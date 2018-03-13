@@ -1,0 +1,510 @@
+                                  Prefix Verb   URI Pattern                                              Controller#Action
+                             sidekiq_web        /sidekiq                                                 Sidekiq::Web
+                     manage_app_versions GET    /manage/app_versions(.:format)                           manage/app_versions#index
+                                         POST   /manage/app_versions(.:format)                           manage/app_versions#create
+                  new_manage_app_version GET    /manage/app_versions/new(.:format)                       manage/app_versions#new
+                 edit_manage_app_version GET    /manage/app_versions/:id/edit(.:format)                  manage/app_versions#edit
+                      manage_app_version GET    /manage/app_versions/:id(.:format)                       manage/app_versions#show
+                                         PATCH  /manage/app_versions/:id(.:format)                       manage/app_versions#update
+                                         PUT    /manage/app_versions/:id(.:format)                       manage/app_versions#update
+                                         DELETE /manage/app_versions/:id(.:format)                       manage/app_versions#destroy
+                          auction_levels GET    /auction/levels(.:format)                                auction/levels#index
+                                         POST   /auction/levels(.:format)                                auction/levels#create
+                       new_auction_level GET    /auction/levels/new(.:format)                            auction/levels#new
+                      edit_auction_level GET    /auction/levels/:id/edit(.:format)                       auction/levels#edit
+                           auction_level GET    /auction/levels/:id(.:format)                            auction/levels#show
+                                         PATCH  /auction/levels/:id(.:format)                            auction/levels#update
+                                         PUT    /auction/levels/:id(.:format)                            auction/levels#update
+                                         DELETE /auction/levels/:id(.:format)                            auction/levels#destroy
+                 supplier_session_create POST   /supplier/session/create(.:format)                       supplier/session#create
+                supplier_session_destroy GET    /supplier/session/destroy(.:format)                      supplier/session#destroy
+                    supplier_session_new GET    /supplier/session/new(.:format)                          supplier/session#new
+                  receive_supplier_units POST   /supplier/units/receive(.:format)                        supplier/units#receive
+                          supplier_units GET    /supplier/units(.:format)                                supplier/units#index
+                    print_supplier_trade GET    /supplier/trades/:id/print(.:format)                     supplier/trades#print
+                     ship_supplier_trade POST   /supplier/trades/:id/ship(.:format)                      supplier/trades#ship
+                   return_supplier_trade POST   /supplier/trades/:id/return(.:format)                    supplier/trades#return
+                   reject_supplier_trade POST   /supplier/trades/:id/reject(.:format)                    supplier/trades#reject
+                         supplier_trades GET    /supplier/trades(.:format)                               supplier/trades#index
+                                         POST   /supplier/trades(.:format)                               supplier/trades#create
+                      new_supplier_trade GET    /supplier/trades/new(.:format)                           supplier/trades#new
+                     edit_supplier_trade GET    /supplier/trades/:id/edit(.:format)                      supplier/trades#edit
+                          supplier_trade GET    /supplier/trades/:id(.:format)                           supplier/trades#show
+                                         PATCH  /supplier/trades/:id(.:format)                           supplier/trades#update
+                                         PUT    /supplier/trades/:id(.:format)                           supplier/trades#update
+                                         DELETE /supplier/trades/:id(.:format)                           supplier/trades#destroy
+                 review_supplier_product POST   /supplier/products/:id/review(.:format)                  supplier/products#review
+           destroy_sku_supplier_products POST   /supplier/products/destroy_sku(.:format)                 supplier/products#destroy_sku
+              sku_form_supplier_products GET    /supplier/products/sku_form(.:format)                    supplier/products#sku_form
+        get_attributes_supplier_products GET    /supplier/products/get_attributes(.:format)              supplier/products#get_attributes
+   get_next_categories_supplier_products GET    /supplier/products/get_next_categories(.:format)         supplier/products#get_next_categories
+            image_form_supplier_products GET    /supplier/products/image_form(.:format)                  supplier/products#image_form
+       import_products_supplier_products GET    /supplier/products/import_products(.:format)             supplier/products#import_products
+create_import_products_supplier_products POST   /supplier/products/create_import_products(.:format)      supplier/products#create_import_products
+         destroy_image_supplier_products POST   /supplier/products/destroy_image(.:format)               supplier/products#destroy_image
+     custom_value_form_supplier_products GET    /supplier/products/custom_value_form(.:format)           supplier/products#custom_value_form
+  destroy_custom_value_supplier_products POST   /supplier/products/destroy_custom_value(.:format)        supplier/products#destroy_custom_value
+                       supplier_products GET    /supplier/products(.:format)                             supplier/products#index
+                                         POST   /supplier/products(.:format)                             supplier/products#create
+                    new_supplier_product GET    /supplier/products/new(.:format)                         supplier/products#new
+                   edit_supplier_product GET    /supplier/products/:id/edit(.:format)                    supplier/products#edit
+                        supplier_product GET    /supplier/products/:id(.:format)                         supplier/products#show
+                                         PATCH  /supplier/products/:id(.:format)                         supplier/products#update
+                                         PUT    /supplier/products/:id(.:format)                         supplier/products#update
+                                         DELETE /supplier/products/:id(.:format)                         supplier/products#destroy
+                   supplier_report_forms GET    /supplier/report_forms(.:format)                         supplier/report_forms#index
+                                         POST   /supplier/report_forms(.:format)                         supplier/report_forms#create
+                new_supplier_report_form GET    /supplier/report_forms/new(.:format)                     supplier/report_forms#new
+               edit_supplier_report_form GET    /supplier/report_forms/:id/edit(.:format)                supplier/report_forms#edit
+                    supplier_report_form GET    /supplier/report_forms/:id(.:format)                     supplier/report_forms#show
+                                         PATCH  /supplier/report_forms/:id(.:format)                     supplier/report_forms#update
+                                         PUT    /supplier/report_forms/:id(.:format)                     supplier/report_forms#update
+                                         DELETE /supplier/report_forms/:id(.:format)                     supplier/report_forms#destroy
+       reset_password_supplier_providers GET    /supplier/providers/reset_password(.:format)             supplier/providers#reset_password
+      update_password_supplier_providers POST   /supplier/providers/update_password(.:format)            supplier/providers#update_password
+                      supplier_providers GET    /supplier/providers(.:format)                            supplier/providers#index
+                                         POST   /supplier/providers(.:format)                            supplier/providers#create
+                   new_supplier_provider GET    /supplier/providers/new(.:format)                        supplier/providers#new
+                  edit_supplier_provider GET    /supplier/providers/:id/edit(.:format)                   supplier/providers#edit
+                       supplier_provider GET    /supplier/providers/:id(.:format)                        supplier/providers#show
+                                         PATCH  /supplier/providers/:id(.:format)                        supplier/providers#update
+                                         PUT    /supplier/providers/:id(.:format)                        supplier/providers#update
+                                         DELETE /supplier/providers/:id(.:format)                        supplier/providers#destroy
+                           supplier_skus GET    /supplier/skus(.:format)                                 supplier/skus#index
+                       edit_supplier_sku GET    /supplier/skus/:id/edit(.:format)                        supplier/skus#edit
+                            supplier_sku GET    /supplier/skus/:id(.:format)                             supplier/skus#show
+                                         PATCH  /supplier/skus/:id(.:format)                             supplier/skus#update
+                                         PUT    /supplier/skus/:id(.:format)                             supplier/skus#update
+                                         DELETE /supplier/skus/:id(.:format)                             supplier/skus#destroy
+                           supplier_root GET    /supplier(.:format)                                      supplier/trades#index
+                  upload_supplier_images POST   /supplier/images/upload(.:format)                        supplier/images#upload
+                         supplier_images GET    /supplier/images(.:format)                               supplier/images#index
+                                         POST   /supplier/images(.:format)                               supplier/images#create
+                      new_supplier_image GET    /supplier/images/new(.:format)                           supplier/images#new
+                     edit_supplier_image GET    /supplier/images/:id/edit(.:format)                      supplier/images#edit
+                          supplier_image GET    /supplier/images/:id(.:format)                           supplier/images#show
+                                         PATCH  /supplier/images/:id(.:format)                           supplier/images#update
+                                         PUT    /supplier/images/:id(.:format)                           supplier/images#update
+                                         DELETE /supplier/images/:id(.:format)                           supplier/images#destroy
+                                    root GET    /                                                        manage/homes#index
+                                sessions GET    /sessions(.:format)                                      sessions#index
+                                         POST   /sessions(.:format)                                      sessions#create
+                             new_session GET    /sessions/new(.:format)                                  sessions#new
+                            edit_session GET    /sessions/:id/edit(.:format)                             sessions#edit
+                                 session GET    /sessions/:id(.:format)                                  sessions#show
+                                         PATCH  /sessions/:id(.:format)                                  sessions#update
+                                         PUT    /sessions/:id(.:format)                                  sessions#update
+                                         DELETE /sessions/:id(.:format)                                  sessions#destroy
+                                   login GET    /login(.:format)                                         sessions#new
+                                  logout GET    /logout(.:format)                                        sessions#logout
+                       auction_carousels GET    /auction/carousels(.:format)                             auction/carousels#index
+                                         POST   /auction/carousels(.:format)                             auction/carousels#create
+                    new_auction_carousel GET    /auction/carousels/new(.:format)                         auction/carousels#new
+                   edit_auction_carousel GET    /auction/carousels/:id/edit(.:format)                    auction/carousels#edit
+                        auction_carousel GET    /auction/carousels/:id(.:format)                         auction/carousels#show
+                                         PATCH  /auction/carousels/:id(.:format)                         auction/carousels#update
+                                         PUT    /auction/carousels/:id(.:format)                         auction/carousels#update
+                                         DELETE /auction/carousels/:id(.:format)                         auction/carousels#destroy
+                      auction_categories GET    /auction/categories(.:format)                            auction/categories#index
+                                         POST   /auction/categories(.:format)                            auction/categories#create
+                    new_auction_category GET    /auction/categories/new(.:format)                        auction/categories#new
+                   edit_auction_category GET    /auction/categories/:id/edit(.:format)                   auction/categories#edit
+                        auction_category GET    /auction/categories/:id(.:format)                        auction/categories#show
+                                         PATCH  /auction/categories/:id(.:format)                        auction/categories#update
+                                         PUT    /auction/categories/:id(.:format)                        auction/categories#update
+                                         DELETE /auction/categories/:id(.:format)                        auction/categories#destroy
+                          auction_brands GET    /auction/brands(.:format)                                auction/brands#index
+                                         POST   /auction/brands(.:format)                                auction/brands#create
+                       new_auction_brand GET    /auction/brands/new(.:format)                            auction/brands#new
+                      edit_auction_brand GET    /auction/brands/:id/edit(.:format)                       auction/brands#edit
+                           auction_brand GET    /auction/brands/:id(.:format)                            auction/brands#show
+                                         PATCH  /auction/brands/:id(.:format)                            auction/brands#update
+                                         PUT    /auction/brands/:id(.:format)                            auction/brands#update
+                                         DELETE /auction/brands/:id(.:format)                            auction/brands#destroy
+                      auction_attributes GET    /auction/attributes(.:format)                            auction/attributes#index
+                                         POST   /auction/attributes(.:format)                            auction/attributes#create
+                   new_auction_attribute GET    /auction/attributes/new(.:format)                        auction/attributes#new
+                  edit_auction_attribute GET    /auction/attributes/:id/edit(.:format)                   auction/attributes#edit
+                       auction_attribute GET    /auction/attributes/:id(.:format)                        auction/attributes#show
+                                         PATCH  /auction/attributes/:id(.:format)                        auction/attributes#update
+                                         PUT    /auction/attributes/:id(.:format)                        auction/attributes#update
+                                         DELETE /auction/attributes/:id(.:format)                        auction/attributes#destroy
+              item_form_auction_products GET    /auction/products/item_form(.:format)                    auction/products#item_form
+                 review_auction_products POST   /auction/products/review(.:format)                       auction/products#review
+        ms_review_index_auction_products GET    /auction/products/ms_review_index(.:format)              auction/products#ms_review_index
+        zj_review_index_auction_products GET    /auction/products/zj_review_index(.:format)              auction/products#zj_review_index
+        cw_review_index_auction_products GET    /auction/products/cw_review_index(.:format)              auction/products#cw_review_index
+    editor_review_index_auction_products GET    /auction/products/editor_review_index(.:format)          auction/products#editor_review_index
+         get_attributes_auction_products GET    /auction/products/get_attributes(.:format)               auction/products#get_attributes
+    get_next_categories_auction_products GET    /auction/products/get_next_categories(.:format)          auction/products#get_next_categories
+             image_form_auction_products GET    /auction/products/image_form(.:format)                   auction/products#image_form
+          destroy_image_auction_products POST   /auction/products/destroy_image(.:format)                auction/products#destroy_image
+            batch_shelf_auction_products POST   /auction/products/batch_shelf(.:format)                  auction/products#batch_shelf
+        batch_ms_review_auction_products POST   /auction/products/batch_ms_review(.:format)              auction/products#batch_ms_review
+        batch_zj_review_auction_products POST   /auction/products/batch_zj_review(.:format)              auction/products#batch_zj_review
+        batch_cw_review_auction_products POST   /auction/products/batch_cw_review(.:format)              auction/products#batch_cw_review
+             review_log_auction_products GET    /auction/products/review_log(.:format)                   auction/products#review_log
+        batch_edit_form_auction_products GET    /auction/products/batch_edit_form(.:format)              auction/products#batch_edit_form
+           batch_update_auction_products POST   /auction/products/batch_update(.:format)                 auction/products#batch_update
+               ms_review_auction_product POST   /auction/products/:id/ms_review(.:format)                auction/products#ms_review
+               zj_review_auction_product POST   /auction/products/:id/zj_review(.:format)                auction/products#zj_review
+               cw_review_auction_product POST   /auction/products/:id/cw_review(.:format)                auction/products#cw_review
+               bj_review_auction_product POST   /auction/products/:id/bj_review(.:format)                auction/products#bj_review
+                   shelf_auction_product POST   /auction/products/:id/shelf(.:format)                    auction/products#shelf
+         change_discount_auction_product POST   /auction/products/:id/change_discount(.:format)          auction/products#change_discount
+             editor_edit_auction_product GET    /auction/products/:id/editor_edit(.:format)              auction/products#editor_edit
+           editor_update_auction_product PUT    /auction/products/:id/editor_update(.:format)            auction/products#editor_update
+                        auction_products GET    /auction/products(.:format)                              auction/products#index
+                    edit_auction_product GET    /auction/products/:id/edit(.:format)                     auction/products#edit
+                         auction_product GET    /auction/products/:id(.:format)                          auction/products#show
+                                         PATCH  /auction/products/:id(.:format)                          auction/products#update
+                                         PUT    /auction/products/:id(.:format)                          auction/products#update
+                  up_move_auction_pic_ad GET    /auction/pic_ads/:id/up_move(.:format)                   auction/pic_ads#up_move
+                down_move_auction_pic_ad GET    /auction/pic_ads/:id/down_move(.:format)                 auction/pic_ads#down_move
+                up_status_auction_pic_ad GET    /auction/pic_ads/:id/up_status(.:format)                 auction/pic_ads#up_status
+              down_status_auction_pic_ad GET    /auction/pic_ads/:id/down_status(.:format)               auction/pic_ads#down_status
+                         auction_pic_ads GET    /auction/pic_ads(.:format)                               auction/pic_ads#index
+                                         POST   /auction/pic_ads(.:format)                               auction/pic_ads#create
+                      new_auction_pic_ad GET    /auction/pic_ads/new(.:format)                           auction/pic_ads#new
+                     edit_auction_pic_ad GET    /auction/pic_ads/:id/edit(.:format)                      auction/pic_ads#edit
+                          auction_pic_ad GET    /auction/pic_ads/:id(.:format)                           auction/pic_ads#show
+                                         PATCH  /auction/pic_ads/:id(.:format)                           auction/pic_ads#update
+                                         PUT    /auction/pic_ads/:id(.:format)                           auction/pic_ads#update
+                                         DELETE /auction/pic_ads/:id(.:format)                           auction/pic_ads#destroy
+                   up_move_auction_theme GET    /auction/themes/:id/up_move(.:format)                    auction/themes#up_move
+                 down_move_auction_theme GET    /auction/themes/:id/down_move(.:format)                  auction/themes#down_move
+                 up_status_auction_theme GET    /auction/themes/:id/up_status(.:format)                  auction/themes#up_status
+               down_status_auction_theme GET    /auction/themes/:id/down_status(.:format)                auction/themes#down_status
+                          auction_themes GET    /auction/themes(.:format)                                auction/themes#index
+                                         POST   /auction/themes(.:format)                                auction/themes#create
+                       new_auction_theme GET    /auction/themes/new(.:format)                            auction/themes#new
+                      edit_auction_theme GET    /auction/themes/:id/edit(.:format)                       auction/themes#edit
+                           auction_theme GET    /auction/themes/:id(.:format)                            auction/themes#show
+                                         PATCH  /auction/themes/:id(.:format)                            auction/themes#update
+                                         PUT    /auction/themes/:id(.:format)                            auction/themes#update
+                                         DELETE /auction/themes/:id(.:format)                            auction/themes#destroy
+                        auction_seckills GET    /auction/seckills(.:format)                              auction/seckills#index
+                                         POST   /auction/seckills(.:format)                              auction/seckills#create
+                     new_auction_seckill GET    /auction/seckills/new(.:format)                          auction/seckills#new
+                    edit_auction_seckill GET    /auction/seckills/:id/edit(.:format)                     auction/seckills#edit
+                         auction_seckill GET    /auction/seckills/:id(.:format)                          auction/seckills#show
+                                         PATCH  /auction/seckills/:id(.:format)                          auction/seckills#update
+                                         PUT    /auction/seckills/:id(.:format)                          auction/seckills#update
+                                         DELETE /auction/seckills/:id(.:format)                          auction/seckills#destroy
+                    audit_auction_trades POST   /auction/trades/audit(.:format)                          auction/trades#audit
+                  freezed_auction_trades POST   /auction/trades/freezed(.:format)                        auction/trades#freezed
+                          auction_trades GET    /auction/trades(.:format)                                auction/trades#index
+                                         POST   /auction/trades(.:format)                                auction/trades#create
+                       new_auction_trade GET    /auction/trades/new(.:format)                            auction/trades#new
+                      edit_auction_trade GET    /auction/trades/:id/edit(.:format)                       auction/trades#edit
+                           auction_trade GET    /auction/trades/:id(.:format)                            auction/trades#show
+                                         PATCH  /auction/trades/:id(.:format)                            auction/trades#update
+                                         PUT    /auction/trades/:id(.:format)                            auction/trades#update
+                                         DELETE /auction/trades/:id(.:format)                            auction/trades#destroy
+         freezed_auction_supplier_trades POST   /auction/supplier_trades/freezed(.:format)               auction/supplier_trades#freezed
+         rejects_auction_supplier_trades GET    /auction/supplier_trades/rejects(.:format)               auction/supplier_trades#rejects
+         returns_auction_supplier_trades GET    /auction/supplier_trades/returns(.:format)               auction/supplier_trades#returns
+     return_show_auction_supplier_trades GET    /auction/supplier_trades/return_show(.:format)           auction/supplier_trades#return_show
+                 auction_supplier_trades GET    /auction/supplier_trades(.:format)                       auction/supplier_trades#index
+                                         POST   /auction/supplier_trades(.:format)                       auction/supplier_trades#create
+              new_auction_supplier_trade GET    /auction/supplier_trades/new(.:format)                   auction/supplier_trades#new
+             edit_auction_supplier_trade GET    /auction/supplier_trades/:id/edit(.:format)              auction/supplier_trades#edit
+                  auction_supplier_trade GET    /auction/supplier_trades/:id(.:format)                   auction/supplier_trades#show
+                                         PATCH  /auction/supplier_trades/:id(.:format)                   auction/supplier_trades#update
+                                         PUT    /auction/supplier_trades/:id(.:format)                   auction/supplier_trades#update
+                                         DELETE /auction/supplier_trades/:id(.:format)                   auction/supplier_trades#destroy
+                     audit_auction_units POST   /auction/units/audit(.:format)                           auction/units#audit
+                    audit2_auction_units POST   /auction/units/audit2(.:format)                          auction/units#audit2
+                  transfer_auction_units POST   /auction/units/transfer(.:format)                        auction/units#transfer
+                   freezed_auction_units POST   /auction/units/freezed(.:format)                         auction/units#freezed
+            collapse_table_auction_units GET    /auction/units/collapse_table(.:format)                  auction/units#collapse_table
+                           auction_units GET    /auction/units(.:format)                                 auction/units#index
+                                         POST   /auction/units(.:format)                                 auction/units#create
+                        new_auction_unit GET    /auction/units/new(.:format)                             auction/units#new
+                       edit_auction_unit GET    /auction/units/:id/edit(.:format)                        auction/units#edit
+                            auction_unit GET    /auction/units/:id(.:format)                             auction/units#show
+                                         PATCH  /auction/units/:id(.:format)                             auction/units#update
+                                         PUT    /auction/units/:id(.:format)                             auction/units#update
+                                         DELETE /auction/units/:id(.:format)                             auction/units#destroy
+notify_drp_service_auction_voucher_trade POST   /auction/voucher_trades/:id/notify_drp_service(.:format) auction/voucher_trades#notify_drp_service
+                  auction_voucher_trades GET    /auction/voucher_trades(.:format)                        auction/voucher_trades#index
+                           auction_mails GET    /auction/mails(.:format)                                 auction/mails#index
+                                         POST   /auction/mails(.:format)                                 auction/mails#create
+                        new_auction_mail GET    /auction/mails/new(.:format)                             auction/mails#new
+                       edit_auction_mail GET    /auction/mails/:id/edit(.:format)                        auction/mails#edit
+                            auction_mail GET    /auction/mails/:id(.:format)                             auction/mails#show
+                                         PATCH  /auction/mails/:id(.:format)                             auction/mails#update
+                                         PUT    /auction/mails/:id(.:format)                             auction/mails#update
+                                         DELETE /auction/mails/:id(.:format)                             auction/mails#destroy
+                           auction_users GET    /auction/users(.:format)                                 auction/users#index
+                                         POST   /auction/users(.:format)                                 auction/users#create
+                        new_auction_user GET    /auction/users/new(.:format)                             auction/users#new
+                       edit_auction_user GET    /auction/users/:id/edit(.:format)                        auction/users#edit
+                            auction_user GET    /auction/users/:id(.:format)                             auction/users#show
+                                         PATCH  /auction/users/:id(.:format)                             auction/users#update
+                                         PUT    /auction/users/:id(.:format)                             auction/users#update
+                                         DELETE /auction/users/:id(.:format)                             auction/users#destroy
+                           upload_images POST   /images/upload(.:format)                                 images#upload
+                      mult_upload_images PUT    /images/mult_upload(.:format)                            images#mult_upload
+                                  images GET    /images(.:format)                                        images#index
+                                         POST   /images(.:format)                                        images#create
+                               new_image GET    /images/new(.:format)                                    images#new
+                              edit_image GET    /images/:id/edit(.:format)                               images#edit
+                                   image GET    /images/:id(.:format)                                    images#show
+                                         PATCH  /images/:id(.:format)                                    images#update
+                                         PUT    /images/:id(.:format)                                    images#update
+                                         DELETE /images/:id(.:format)                                    images#destroy
+                          auction_cities GET    /auction/cities(.:format)                                auction/cities#index
+                                         POST   /auction/cities(.:format)                                auction/cities#create
+                        new_auction_city GET    /auction/cities/new(.:format)                            auction/cities#new
+                       edit_auction_city GET    /auction/cities/:id/edit(.:format)                       auction/cities#edit
+                            auction_city GET    /auction/cities/:id(.:format)                            auction/cities#show
+                                         PATCH  /auction/cities/:id(.:format)                            auction/cities#update
+                                         PUT    /auction/cities/:id(.:format)                            auction/cities#update
+                                         DELETE /auction/cities/:id(.:format)                            auction/cities#destroy
+                           pay_cmb_signs GET    /pay/cmb_signs(.:format)                                 pay/cmb_signs#index
+                                         POST   /pay/cmb_signs(.:format)                                 pay/cmb_signs#create
+                        new_pay_cmb_sign GET    /pay/cmb_signs/new(.:format)                             pay/cmb_signs#new
+                       edit_pay_cmb_sign GET    /pay/cmb_signs/:id/edit(.:format)                        pay/cmb_signs#edit
+                            pay_cmb_sign GET    /pay/cmb_signs/:id(.:format)                             pay/cmb_signs#show
+                                         PATCH  /pay/cmb_signs/:id(.:format)                             pay/cmb_signs#update
+                                         PUT    /pay/cmb_signs/:id(.:format)                             pay/cmb_signs#update
+                                         DELETE /pay/cmb_signs/:id(.:format)                             pay/cmb_signs#destroy
+                            retail_carts GET    /retail/carts(.:format)                                  retail/carts#index
+                                         POST   /retail/carts(.:format)                                  retail/carts#create
+                         new_retail_cart GET    /retail/carts/new(.:format)                              retail/carts#new
+                        edit_retail_cart GET    /retail/carts/:id/edit(.:format)                         retail/carts#edit
+                             retail_cart GET    /retail/carts/:id(.:format)                              retail/carts#show
+                                         PATCH  /retail/carts/:id(.:format)                              retail/carts#update
+                                         PUT    /retail/carts/:id(.:format)                              retail/carts#update
+                                         DELETE /retail/carts/:id(.:format)                              retail/carts#destroy
+                            manage_users GET    /manage/users(.:format)                                  manage/users#index
+                                         POST   /manage/users(.:format)                                  manage/users#create
+                         new_manage_user GET    /manage/users/new(.:format)                              manage/users#new
+                        edit_manage_user GET    /manage/users/:id/edit(.:format)                         manage/users#edit
+                             manage_user GET    /manage/users/:id(.:format)                              manage/users#show
+                                         PATCH  /manage/users/:id(.:format)                              manage/users#update
+                                         PUT    /manage/users/:id(.:format)                              manage/users#update
+                                         DELETE /manage/users/:id(.:format)                              manage/users#destroy
+                            manage_roles GET    /manage/roles(.:format)                                  manage/roles#index
+                                         POST   /manage/roles(.:format)                                  manage/roles#create
+                         new_manage_role GET    /manage/roles/new(.:format)                              manage/roles#new
+                        edit_manage_role GET    /manage/roles/:id/edit(.:format)                         manage/roles#edit
+                             manage_role GET    /manage/roles/:id(.:format)                              manage/roles#show
+                                         PATCH  /manage/roles/:id(.:format)                              manage/roles#update
+                                         PUT    /manage/roles/:id(.:format)                              manage/roles#update
+                                         DELETE /manage/roles/:id(.:format)                              manage/roles#destroy
+     manage_authority_role_relationships GET    /manage/authority_role_relationships(.:format)           manage/authority_role_relationships#index
+                                         POST   /manage/authority_role_relationships(.:format)           manage/authority_role_relationships#create
+  new_manage_authority_role_relationship GET    /manage/authority_role_relationships/new(.:format)       manage/authority_role_relationships#new
+ edit_manage_authority_role_relationship GET    /manage/authority_role_relationships/:id/edit(.:format)  manage/authority_role_relationships#edit
+      manage_authority_role_relationship GET    /manage/authority_role_relationships/:id(.:format)       manage/authority_role_relationships#show
+                                         PATCH  /manage/authority_role_relationships/:id(.:format)       manage/authority_role_relationships#update
+                                         PUT    /manage/authority_role_relationships/:id(.:format)       manage/authority_role_relationships#update
+                                         DELETE /manage/authority_role_relationships/:id(.:format)       manage/authority_role_relationships#destroy
+                      manage_authorities GET    /manage/authorities(.:format)                            manage/authorities#index
+                                         POST   /manage/authorities(.:format)                            manage/authorities#create
+                    new_manage_authority GET    /manage/authorities/new(.:format)                        manage/authorities#new
+                   edit_manage_authority GET    /manage/authorities/:id/edit(.:format)                   manage/authorities#edit
+                        manage_authority GET    /manage/authorities/:id(.:format)                        manage/authorities#show
+                                         PATCH  /manage/authorities/:id(.:format)                        manage/authorities#update
+                                         PUT    /manage/authorities/:id(.:format)                        manage/authorities#update
+                                         DELETE /manage/authorities/:id(.:format)                        manage/authorities#destroy
+           reset_password_manage_editors GET    /manage/editors/reset_password(.:format)                 manage/editors#reset_password
+          update_password_manage_editors POST   /manage/editors/update_password(.:format)                manage/editors#update_password
+                          manage_editors GET    /manage/editors(.:format)                                manage/editors#index
+                                         POST   /manage/editors(.:format)                                manage/editors#create
+                       new_manage_editor GET    /manage/editors/new(.:format)                            manage/editors#new
+                      edit_manage_editor GET    /manage/editors/:id/edit(.:format)                       manage/editors#edit
+                           manage_editor GET    /manage/editors/:id(.:format)                            manage/editors#show
+                                         PATCH  /manage/editors/:id(.:format)                            manage/editors#update
+                                         PUT    /manage/editors/:id(.:format)                            manage/editors#update
+                                         DELETE /manage/editors/:id(.:format)                            manage/editors#destroy
+                        auction_vouchers GET    /auction/vouchers(.:format)                              auction/vouchers#index
+                                         POST   /auction/vouchers(.:format)                              auction/vouchers#create
+                     new_auction_voucher GET    /auction/vouchers/new(.:format)                          auction/vouchers#new
+                    edit_auction_voucher GET    /auction/vouchers/:id/edit(.:format)                     auction/vouchers#edit
+                         auction_voucher GET    /auction/vouchers/:id(.:format)                          auction/vouchers#show
+                                         PATCH  /auction/vouchers/:id(.:format)                          auction/vouchers#update
+                                         PUT    /auction/vouchers/:id(.:format)                          auction/vouchers#update
+                                         DELETE /auction/vouchers/:id(.:format)                          auction/vouchers#destroy
+                          auction_values GET    /auction/values(.:format)                                auction/values#index
+                                         POST   /auction/values(.:format)                                auction/values#create
+                       new_auction_value GET    /auction/values/new(.:format)                            auction/values#new
+                      edit_auction_value GET    /auction/values/:id/edit(.:format)                       auction/values#edit
+                           auction_value GET    /auction/values/:id(.:format)                            auction/values#show
+                                         PATCH  /auction/values/:id(.:format)                            auction/values#update
+                                         PUT    /auction/values/:id(.:format)                            auction/values#update
+                                         DELETE /auction/values/:id(.:format)                            auction/values#destroy
+                    auction_transactions GET    /auction/transactions(.:format)                          auction/transactions#index
+                                         POST   /auction/transactions(.:format)                          auction/transactions#create
+                 new_auction_transaction GET    /auction/transactions/new(.:format)                      auction/transactions#new
+                edit_auction_transaction GET    /auction/transactions/:id/edit(.:format)                 auction/transactions#edit
+                     auction_transaction GET    /auction/transactions/:id(.:format)                      auction/transactions#show
+                                         PATCH  /auction/transactions/:id(.:format)                      auction/transactions#update
+                                         PUT    /auction/transactions/:id(.:format)                      auction/transactions#update
+                                         DELETE /auction/transactions/:id(.:format)                      auction/transactions#destroy
+                auction_trades_updatings GET    /auction/trades_updatings(.:format)                      auction/trades_updatings#index
+                                         POST   /auction/trades_updatings(.:format)                      auction/trades_updatings#create
+             new_auction_trades_updating GET    /auction/trades_updatings/new(.:format)                  auction/trades_updatings#new
+            edit_auction_trades_updating GET    /auction/trades_updatings/:id/edit(.:format)             auction/trades_updatings#edit
+                 auction_trades_updating GET    /auction/trades_updatings/:id(.:format)                  auction/trades_updatings#show
+                                         PATCH  /auction/trades_updatings/:id(.:format)                  auction/trades_updatings#update
+                                         PUT    /auction/trades_updatings/:id(.:format)                  auction/trades_updatings#update
+                                         DELETE /auction/trades_updatings/:id(.:format)                  auction/trades_updatings#destroy
+                           auction_towns GET    /auction/towns(.:format)                                 auction/towns#index
+                                         POST   /auction/towns(.:format)                                 auction/towns#create
+                        new_auction_town GET    /auction/towns/new(.:format)                             auction/towns#new
+                       edit_auction_town GET    /auction/towns/:id/edit(.:format)                        auction/towns#edit
+                            auction_town GET    /auction/towns/:id(.:format)                             auction/towns#show
+                                         PATCH  /auction/towns/:id(.:format)                             auction/towns#update
+                                         PUT    /auction/towns/:id(.:format)                             auction/towns#update
+                                         DELETE /auction/towns/:id(.:format)                             auction/towns#destroy
+                     send_sms_auction_sm GET    /auction/sms/:id/send_sms(.:format)                      auction/sms#send_sms
+                             auction_sms GET    /auction/sms(.:format)                                   auction/sms#index
+                                         POST   /auction/sms(.:format)                                   auction/sms#create
+                          new_auction_sm GET    /auction/sms/new(.:format)                               auction/sms#new
+                         edit_auction_sm GET    /auction/sms/:id/edit(.:format)                          auction/sms#edit
+                              auction_sm GET    /auction/sms/:id(.:format)                               auction/sms#show
+                                         PATCH  /auction/sms/:id(.:format)                               auction/sms#update
+                                         PUT    /auction/sms/:id(.:format)                               auction/sms#update
+                                         DELETE /auction/sms/:id(.:format)                               auction/sms#destroy
+                       auction_provinces GET    /auction/provinces(.:format)                             auction/provinces#index
+                                         POST   /auction/provinces(.:format)                             auction/provinces#create
+                    new_auction_province GET    /auction/provinces/new(.:format)                         auction/provinces#new
+                   edit_auction_province GET    /auction/provinces/:id/edit(.:format)                    auction/provinces#edit
+                        auction_province GET    /auction/provinces/:id(.:format)                         auction/provinces#show
+                                         PATCH  /auction/provinces/:id(.:format)                         auction/provinces#update
+                                         PUT    /auction/provinces/:id(.:format)                         auction/provinces#update
+                                         DELETE /auction/provinces/:id(.:format)                         auction/provinces#destroy
+                       auction_multibuys GET    /auction/multibuys(.:format)                             auction/multibuys#index
+                                         POST   /auction/multibuys(.:format)                             auction/multibuys#create
+                    new_auction_multibuy GET    /auction/multibuys/new(.:format)                         auction/multibuys#new
+                   edit_auction_multibuy GET    /auction/multibuys/:id/edit(.:format)                    auction/multibuys#edit
+                        auction_multibuy GET    /auction/multibuys/:id(.:format)                         auction/multibuys#show
+                                         PATCH  /auction/multibuys/:id(.:format)                         auction/multibuys#update
+                                         PUT    /auction/multibuys/:id(.:format)                         auction/multibuys#update
+                                         DELETE /auction/multibuys/:id(.:format)                         auction/multibuys#destroy
+                       auction_favorites GET    /auction/favorites(.:format)                             auction/favorites#index
+                                         POST   /auction/favorites(.:format)                             auction/favorites#create
+                    new_auction_favorite GET    /auction/favorites/new(.:format)                         auction/favorites#new
+                   edit_auction_favorite GET    /auction/favorites/:id/edit(.:format)                    auction/favorites#edit
+                        auction_favorite GET    /auction/favorites/:id(.:format)                         auction/favorites#show
+                                         PATCH  /auction/favorites/:id(.:format)                         auction/favorites#update
+                                         PUT    /auction/favorites/:id(.:format)                         auction/favorites#update
+                                         DELETE /auction/favorites/:id(.:format)                         auction/favorites#destroy
+                        auction_fanships GET    /auction/fanships(.:format)                              auction/fanships#index
+                                         POST   /auction/fanships(.:format)                              auction/fanships#create
+                     new_auction_fanship GET    /auction/fanships/new(.:format)                          auction/fanships#new
+                    edit_auction_fanship GET    /auction/fanships/:id/edit(.:format)                     auction/fanships#edit
+                         auction_fanship GET    /auction/fanships/:id(.:format)                          auction/fanships#show
+                                         PATCH  /auction/fanships/:id(.:format)                          auction/fanships#update
+                                         PUT    /auction/fanships/:id(.:format)                          auction/fanships#update
+                                         DELETE /auction/fanships/:id(.:format)                          auction/fanships#destroy
+                 published_auction_event GET    /auction/events/:id/published(.:format)                  auction/events#published
+                          auction_events GET    /auction/events(.:format)                                auction/events#index
+                                         POST   /auction/events(.:format)                                auction/events#create
+                       new_auction_event GET    /auction/events/new(.:format)                            auction/events#new
+                      edit_auction_event GET    /auction/events/:id/edit(.:format)                       auction/events#edit
+                           auction_event GET    /auction/events/:id(.:format)                            auction/events#show
+                                         PATCH  /auction/events/:id(.:format)                            auction/events#update
+                                         PUT    /auction/events/:id(.:format)                            auction/events#update
+                                         DELETE /auction/events/:id(.:format)                            auction/events#destroy
+                published_auction_coupon GET    /auction/coupons/:id/published(.:format)                 auction/coupons#published
+                         auction_coupons GET    /auction/coupons(.:format)                               auction/coupons#index
+                                         POST   /auction/coupons(.:format)                               auction/coupons#create
+                      new_auction_coupon GET    /auction/coupons/new(.:format)                           auction/coupons#new
+                     edit_auction_coupon GET    /auction/coupons/:id/edit(.:format)                      auction/coupons#edit
+                          auction_coupon GET    /auction/coupons/:id(.:format)                           auction/coupons#show
+                                         PATCH  /auction/coupons/:id(.:format)                           auction/coupons#update
+                                         PUT    /auction/coupons/:id(.:format)                           auction/coupons#update
+                                         DELETE /auction/coupons/:id(.:format)                           auction/coupons#destroy
+                       auction_countries GET    /auction/countries(.:format)                             auction/countries#index
+                                         POST   /auction/countries(.:format)                             auction/countries#create
+                     new_auction_country GET    /auction/countries/new(.:format)                         auction/countries#new
+                    edit_auction_country GET    /auction/countries/:id/edit(.:format)                    auction/countries#edit
+                         auction_country GET    /auction/countries/:id(.:format)                         auction/countries#show
+                                         PATCH  /auction/countries/:id(.:format)                         auction/countries#update
+                                         PUT    /auction/countries/:id(.:format)                         auction/countries#update
+                                         DELETE /auction/countries/:id(.:format)                         auction/countries#destroy
+                        auction_contacts GET    /auction/contacts(.:format)                              auction/contacts#index
+                                         POST   /auction/contacts(.:format)                              auction/contacts#create
+                     new_auction_contact GET    /auction/contacts/new(.:format)                          auction/contacts#new
+                    edit_auction_contact GET    /auction/contacts/:id/edit(.:format)                     auction/contacts#edit
+                         auction_contact GET    /auction/contacts/:id(.:format)                          auction/contacts#show
+                                         PATCH  /auction/contacts/:id(.:format)                          auction/contacts#update
+                                         PUT    /auction/contacts/:id(.:format)                          auction/contacts#update
+                                         DELETE /auction/contacts/:id(.:format)                          auction/contacts#destroy
+                                         GET    /auction/categories(.:format)                            auction/categories#index
+                                         POST   /auction/categories(.:format)                            auction/categories#create
+                                         GET    /auction/categories/new(.:format)                        auction/categories#new
+                                         GET    /auction/categories/:id/edit(.:format)                   auction/categories#edit
+                                         GET    /auction/categories/:id(.:format)                        auction/categories#show
+                                         PATCH  /auction/categories/:id(.:format)                        auction/categories#update
+                                         PUT    /auction/categories/:id(.:format)                        auction/categories#update
+                                         DELETE /auction/categories/:id(.:format)                        auction/categories#destroy
+                           auction_cards GET    /auction/cards(.:format)                                 auction/cards#index
+                                         POST   /auction/cards(.:format)                                 auction/cards#create
+                        new_auction_card GET    /auction/cards/new(.:format)                             auction/cards#new
+                       edit_auction_card GET    /auction/cards/:id/edit(.:format)                        auction/cards#edit
+                            auction_card GET    /auction/cards/:id(.:format)                             auction/cards#show
+                                         PATCH  /auction/cards/:id(.:format)                             auction/cards#update
+                                         PUT    /auction/cards/:id(.:format)                             auction/cards#update
+                                         DELETE /auction/cards/:id(.:format)                             auction/cards#destroy
+                                         GET    /auction/brands(.:format)                                auction/brands#index
+                                         POST   /auction/brands(.:format)                                auction/brands#create
+                                         GET    /auction/brands/new(.:format)                            auction/brands#new
+                                         GET    /auction/brands/:id/edit(.:format)                       auction/brands#edit
+                                         GET    /auction/brands/:id(.:format)                            auction/brands#show
+                                         PATCH  /auction/brands/:id(.:format)                            auction/brands#update
+                                         PUT    /auction/brands/:id(.:format)                            auction/brands#update
+                                         DELETE /auction/brands/:id(.:format)                            auction/brands#destroy
+                                         GET    /auction/attributes(.:format)                            auction/attributes#index
+                                         POST   /auction/attributes(.:format)                            auction/attributes#create
+                                         GET    /auction/attributes/new(.:format)                        auction/attributes#new
+                                         GET    /auction/attributes/:id/edit(.:format)                   auction/attributes#edit
+                                         GET    /auction/attributes/:id(.:format)                        auction/attributes#show
+                                         PATCH  /auction/attributes/:id(.:format)                        auction/attributes#update
+                                         PUT    /auction/attributes/:id(.:format)                        auction/attributes#update
+                                         DELETE /auction/attributes/:id(.:format)                        auction/attributes#destroy
+                            core_reports GET    /core/reports(.:format)                                  core/reports#index
+                                         POST   /core/reports(.:format)                                  core/reports#create
+                         new_core_report GET    /core/reports/new(.:format)                              core/reports#new
+                        edit_core_report GET    /core/reports/:id/edit(.:format)                         core/reports#edit
+                             core_report GET    /core/reports/:id(.:format)                              core/reports#show
+                                         PATCH  /core/reports/:id(.:format)                              core/reports#update
+                                         PUT    /core/reports/:id(.:format)                              core/reports#update
+                                         DELETE /core/reports/:id(.:format)                              core/reports#destroy
+                        core_connections GET    /core/connections(.:format)                              core/connections#index
+                                         POST   /core/connections(.:format)                              core/connections#create
+                     new_core_connection GET    /core/connections/new(.:format)                          core/connections#new
+                    edit_core_connection GET    /core/connections/:id/edit(.:format)                     core/connections#edit
+                         core_connection GET    /core/connections/:id(.:format)                          core/connections#show
+                                         PATCH  /core/connections/:id(.:format)                          core/connections#update
+                                         PUT    /core/connections/:id(.:format)                          core/connections#update
+                                         DELETE /core/connections/:id(.:format)                          core/connections#destroy
+                           core_accounts GET    /core/accounts(.:format)                                 core/accounts#index
+                                         POST   /core/accounts(.:format)                                 core/accounts#create
+                        new_core_account GET    /core/accounts/new(.:format)                             core/accounts#new
+                       edit_core_account GET    /core/accounts/:id/edit(.:format)                        core/accounts#edit
+                            core_account GET    /core/accounts/:id(.:format)                             core/accounts#show
+                                         PATCH  /core/accounts/:id(.:format)                             core/accounts#update
+                                         PUT    /core/accounts/:id(.:format)                             core/accounts#update
+                                         DELETE /core/accounts/:id(.:format)                             core/accounts#destroy
+                        manage_providers GET    /manage/providers(.:format)                              manage/providers#index
+                                         POST   /manage/providers(.:format)                              manage/providers#create
+                     new_manage_provider GET    /manage/providers/new(.:format)                          manage/providers#new
+                    edit_manage_provider GET    /manage/providers/:id/edit(.:format)                     manage/providers#edit
+                         manage_provider GET    /manage/providers/:id(.:format)                          manage/providers#show
+                                         PATCH  /manage/providers/:id(.:format)                          manage/providers#update
+                                         PUT    /manage/providers/:id(.:format)                          manage/providers#update
+                                         DELETE /manage/providers/:id(.:format)                          manage/providers#destroy
+        update_status_manage_report_form GET    /manage/report_forms/:id/update_status(.:format)         manage/report_forms#update_status
+                     manage_report_forms GET    /manage/report_forms(.:format)                           manage/report_forms#index
+                                         POST   /manage/report_forms(.:format)                           manage/report_forms#create
+                  new_manage_report_form GET    /manage/report_forms/new(.:format)                       manage/report_forms#new
+                 edit_manage_report_form GET    /manage/report_forms/:id/edit(.:format)                  manage/report_forms#edit
+                      manage_report_form GET    /manage/report_forms/:id(.:format)                       manage/report_forms#show
+                                         PATCH  /manage/report_forms/:id(.:format)                       manage/report_forms#update
+                                         PUT    /manage/report_forms/:id(.:format)                       manage/report_forms#update
+                                         DELETE /manage/report_forms/:id(.:format)                       manage/report_forms#destroy

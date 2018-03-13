@@ -1,0 +1,38 @@
+<!-- <div class="form-group row"> -->
+  <table class="table table-striped table-hover" id="extreme_chest_items_table">
+    <thead>
+      <tr class="info">
+        <th>赠品类型</th>
+        <th width="30%">赠品范围<span class="gift_range_text">（单选）</span></th>
+        <th>赠品数量</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="extreme_chest_items_body">
+      <% if @extreme_chest.extreme_chest_items.present? %>
+        <%= render partial: 'item_own' %>
+      <% end %>
+    </tbody>
+  </table>
+  <p data-container="body" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="没有添加赠品内容" id="extreme_chest_items_tip"></p>
+
+  <%= link_to '添加', 'javascript:void(0)', id: 'add_extreme_chest_item', class: 'mt_50 btn btn-success' %>
+<!-- </div> -->
+
+<%= render partial: 'item_type_modal' %>
+<%= render partial: '/packages/error_modal' %>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    // 添加
+    $('#add_extreme_chest_item').on('click', function(){
+      if($('.content_tr').length >= 1){
+        elert('能量只能添加一个！')
+        return false
+      }
+      $('#choseExtremeItemTypeModal').modal('show')
+    })
+  })
+</script>

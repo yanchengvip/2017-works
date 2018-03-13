@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Manage Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manage_users.each do |manage_user| %>
+      <tr>
+        <td><%= link_to 'Show', manage_user %></td>
+        <td><%= link_to 'Edit', edit_manage_user_path(manage_user) %></td>
+        <td><%= link_to 'Destroy', manage_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manage User', new_manage_user_path %>

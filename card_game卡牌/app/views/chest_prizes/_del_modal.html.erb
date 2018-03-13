@@ -1,0 +1,52 @@
+<!-- 删除modal -->
+<div class="modal fade" id="deleteChestPrizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">奖品删除</h4>
+      </div>
+      <!-- <form action="/packages/destroy" method="post"> -->
+        <!-- <input name="_method" type="hidden" value="delete" /> -->
+        <div class="modal-body">
+          <h3>确定删除奖品：<span id="del_chest_prize_name"></span>吗？</h3>
+
+          <input type="hidden" id="del_chest_prize_id">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="delete_chest_prize">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#delete_chest_prize').on('click', function(){
+      var cpid = $('#del_chest_prize_id').val()
+      $.ajax({
+        type: "delete",
+        url: '/chest_prizes/' + cpid,
+        data: { },
+        success: function(result){
+          if(result.status == 200){
+            $('#tr_' + cpid).remove()
+            $('#deleteChestPrizeModal').modal('hide')
+          }else{
+            $('#deleteChestPrizeModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#deleteChestPrizeModal').modal('hide')
+          elert('删除失败')
+        }
+      })
+
+    })
+  })
+</script>

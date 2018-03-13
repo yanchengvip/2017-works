@@ -1,0 +1,38 @@
+<%= render partial: 'msg_records/search_form/search_notice' %>
+
+<div class="lead text-center row">
+  <p><%= link_to '新增公告', new_msg_record_path(msg_type: 2), class: 'btn btn-primary btn-lg', role: 'button' %></p>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>创建时间</th>
+        <th>公告标题</th>
+        <th>公告摘要</th>
+        <th>是否首页显示</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @msg_records && @msg_records.each_with_index do |msg_record, index| %>
+      <tr>
+        <td><%= msg_record.created_at.strftime("%Y.%m.%d %H:%M") %></td>
+        <td><%= msg_record.title %></td>
+        <td><%= msg_record.summary %></td>
+        <td><%= msg_record.is_show ? '是' : '否' %></td>
+        <td>
+          <% if msg_record.published == true%>
+            <%= link_to '下架', down_published_msg_record_path(msg_record), role: 'button', class: 'btn btn-danger'  %>
+          <% else %>
+            <%= link_to '上架', up_published_msg_record_path(msg_record), role: 'button', class: 'btn btn-info' %>
+          <% end %>
+          <%= link_to '修改', edit_msg_record_path(msg_record), role: 'button', class: 'btn btn-primary btn-sm' %>
+          <%= link_to '删除', 'javascript:void(0)', role: 'button', class: 'btn btn-danger btn-sm del_msg_record', id: "msg_record_#{msg_record.id}", data_msg_type: msg_record.msg_type, data_msg_type_str: msg_type_str(msg_record.msg_type) %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

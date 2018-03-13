@@ -1,0 +1,212 @@
+.widefat .trade_status { /*border-color: #666; color: #fff; background-color: #999; */ text-align: center;}
+.widefat td, .widefat th { overflow: inherit;}
+
+.widefat thead th { border-color:#333;}
+.clients_icon,
+.widefat .express_icon,
+.widefat .payment_icon,
+.source_link { position: relative; width: 16px; height: 16px; display: inline-block; /*overflow: hidden; text-indent: -999px;*/}
+.clients_icon { background: asset-url('manage/auction/client_icons.png') no-repeat -99px 0px;}
+.widefat .express_icon { background: asset-url('manage/auction/express_icons.png') no-repeat -99px 0px;}
+.widefat .payment_icon { background: asset-url('manage/auction/payment_icons.png') no-repeat -99px 0px;}
+.clients-android {
+  background-position: 0 -144px;
+}
+.clients-flash {
+  background-position: 0 -160px;
+}
+.clients-html5 {
+  background-position: 0 -80px;
+}
+.clients-ipad {
+  background-position: 0 -112px;
+}
+.clients-ipad_web {
+  background-position: 0 -128px;
+}
+.clients-iphone {
+  background-position: 0 -48px;
+}
+.clients-linux {
+  background-position: 0 0;
+}
+.clients-manage {
+  background-position: 0 -16px;
+}
+.clients-phone_web {
+  background-position: 0 -96px;
+}
+.clients-wechat {
+  background-position: 0 -64px;
+}
+.clients-windows {
+  background-position: 0 -32px;
+}
+.clients-osx {
+  background-position: 0 -176px;
+}
+
+.widefat .express-ems {
+  background-position: 0 -80px;
+}
+.widefat .express-fedex {
+  background-position: 0 -16px;
+}
+.widefat .express-offline {
+  background-position: 0 -64px;
+}
+.widefat .express-pickup {
+  background-position: 0 -48px;
+}
+.widefat .express-sf {
+  background-position: 0 0;
+}
+.widefat .express-zjs {
+  background-position: 0 -32px;
+}
+.widefat .express-empty {
+  background-position: -999px 0;
+}
+
+.widefat .payment-alipay {
+  background-position: 0 -48px;
+}
+.widefat .payment-bill99 {
+  background-position: 0 -80px;
+}
+.widefat .payment-boc_creditcard,
+.widefat .payment-boc {
+  background-position: 0 -16px;
+}
+.widefat .payment-ccb {
+  background-position: 0 -64px;
+}
+.widefat .payment-cmbc {
+  background-position: 0 -96px;
+}
+.widefat .payment-cmbchina_creditcard,
+.widefat .payment-cmbchina {
+  background-position: 0 -32px;
+}
+.widefat .payment-comm_creditcard {
+  background-position: 0 -128px;
+}
+.widefat .payment-express {
+  background-position: 0 -160px;
+}
+.widefat .payment-lakala {
+  background-position: 0 -192px;
+}
+.widefat .payment-pab {
+  background-position: 0 -176px;
+}
+.widefat .payment-pgs {
+  background-position: 0 0;
+}
+.widefat .payment-unionpay_wap,
+.widefat .payment-unionpay {
+  background-position: 0 -144px;
+}
+.widefat .payment-yeepay {
+  background-position: 0 -112px;
+}
+.widefat .payment-shop {
+  background-position: 0 -208px;
+}
+.widefat .payment-giveaway {
+  background-position: 0 -224px;
+}
+.widefat .payment-wechat {
+  background-position: 0 -241px;
+}
+.widefat .payment-pab_pay {
+  background-position: 0px -256px;
+}
+.widefat .payment-tenpay {
+  background-position: 0px -272px;
+}
+.widefat .payment-empty {
+  background-position: -999px 0;
+}
+.a_show,
+.a_edit,
+.a_copy,
+.a_delete,
+.a_visit,
+.a_sms,
+.a_phone,
+.is_present,
+.no_present,
+.whisper_style_1,
+.whisper_style_2,
+.whisper_style_3 { position: relative; display: inline-block; float: left; width: 16px; height: 16px; /*overflow: hidden; text-indent: -99px;*/ background: asset-url('manage/auction/button_icons.png') no-repeat 0px 0px; transition-duration: 0s;}
+h2 {
+  .a_show,
+  .a_edit,
+  .a_copy,
+  .a_delete,
+  .a_visit {
+    float: none;
+  }
+}
+.a_show,
+.a_edit,
+.a_copy,
+.a_delete,
+.a_visit,
+.a_sms,
+.a_phone,
+.is_present,
+.no_present {overflow: hidden; text-indent: -99px;}
+.a_show { background-position: 0px 0px;}
+.a_edit { background-position: -21px 0px;}
+.a_delete { background-position: -42px 0px;}
+.a_copy { background-position: -105px 0px; margin-right: 5px !important;}
+.a_visit { background-position: -147px 0px; margin-left: 2px; margin-right: 6px !important;}
+.a_sms { background-position: -168px 0px;}
+.a_phone { background-position: -188px 0px;}
+.is_present { background-position: -210px 0;}
+.no_present { background-position: 230px 0;}
+.whisper_style_1 { background-position: -251px 0;}
+.whisper_style_2 { background-position: -273px 0;}
+.whisper_style_3 { background-position: -294px 0;}
+.a_show:hover,
+.a_edit:hover,
+.a_copy:hover,
+.a_delete:hover,
+.a_visit:hover { transition-duration: 0s;}
+.a_show:hover { background-position: 0px -24px;}
+.a_edit:hover { background-position: -21px -24px;}
+.a_delete:hover { background-position: -42px -24px;}
+.a_copy:hover { background-position: -105px -24px;}
+.a_visit:hover { background-position: -147px -24px;}
+.a_sms:hover { background-position: -168px -24px;}
+.a_phone:hover { background-position: -188px -24px;}
+.whisper_style_1:hover { background-position: -251px -24px;}
+.whisper_style_2:hover { background-position: -273px -24px;}
+.whisper_style_3:hover { background-position: -294px -24px;}
+
+.widefat td a { /*vertical-align: middle;*/ vertical-align: top\9;}
+
+@media \0screen {
+  .widefat td a { vertical-align: top;}
+  .a_copy { margin-right: 8px !important;}
+  .a_visit { margin-left: 2px; margin-right: 9px !important;}
+}
+
+.tips_text { display: block;}
+.form-table .tips_text { display: inline;}
+
+.widefat .tips_text { display: block; bottom: 24px; left: 50%; margin-left: -80px; position: absolute; text-align: center; width: 160px; z-index: 99;}
+.widefat span:hover .tips_text,
+.widefat a:hover .tips_text { display: block;}
+.widefat .tips_text span { background: rgba(0,0,0,0.5); *background: #000; border-radius: 12px; color: #FFF; display: inline-block; padding: 2px 8px; font-size: 12px; text-shadow: 1px 0 2px #000000;}
+.widefat .tips_text .icon { border-color: rgba(0,0,0,0.5) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0); *border-color: #000 #fff #fff; border-image: none; border-style: solid; border-width: 6px; content: ""; height: 0; left: 74px; position: absolute; /*top: 20px;*/bottom: -12px; width: 0; z-index: 2;}
+
+@media \0screen {
+  .widefat .tips_text span { background: #000;}
+  .widefat .tips_text .icon { border-color: #000 transparent transparent;}
+}
+.popup .express_icon { display: inline-block; margin: 14px 10px 0;}
+.popup .tips_text { display: inline-block;}
+

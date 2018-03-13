@@ -1,0 +1,45 @@
+<div class="bg pdt_20">
+  <legend class="ml_50">
+    <% 3.times do |i| %>
+      <span class="mr_50"><%= link_to Auction::Seckill::PLAY[i + 1], auction_seckills_path(play: i + 1), class: "ft_20 #{'btn btn-info' if params[:play].to_i == (i + 1)}" %></span>
+    <% end %>
+    <span class="mr_50"><%= link_to '历史秒杀', auction_seckills_path(history: true), class: "ft_20 #{'btn btn-info' if params[:history]}" %></span>
+  </legend>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>商品名称</th>
+        <th>秒杀价格</th>
+        <th>秒杀日期</th>
+        <th>场次</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @auction_seckills && @auction_seckills.each_with_index do |auction_seckill, index| %>
+      <tr id="tr_<%= auction_seckill.id %>">
+        <td><%= auction_seckill.id %></td>
+        <td><%= auction_seckill.product&.name %></td>
+        <td><%= auction_seckill.discount&.round(2) %></td>
+        <td><%= auction_seckill.date %></td>
+        <td><%= Auction::Seckill::PLAY[auction_seckill.play] %></td>
+        <td>
+          <% if can?("auction/seckills#show") %>
+            <%= link_to '查看', auction_seckill_path(auction_seckill), class: 'btn btn-sm btn-info' %>
+          <% end %>
+          <% if can?("auction/seckills#edit") %>
+            <%= link_to '编辑', edit_auction_seckill_path(auction_seckill), class: 'btn btn-sm btn-primary' %>
+          <% end %>
+          <%# if auction_seckill.status == 0 %>
+            <%#= link_to '删除', "javascript:void(0)", onclick: "auction_seckill_delete(#{auction_seckill.id}, '#{auction_seckill.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          <%# end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @auction_seckills %>

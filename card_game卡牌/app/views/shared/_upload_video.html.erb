@@ -1,0 +1,19 @@
+<input  type="hidden"  name="video_url" id="card_video_url" value="<%= @video_path%>" class="form-control" placeholder="视频介绍">
+
+
+<div class="panel panel-info">
+  <div class="panel-heading">视频介绍文件(仅一个;文件格式：.mp3, .mp4, .avi, .rmvb, .AVI, .wma, .rm, .flash, .mid, .3GP)</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-8 col-md-4">
+        <video id="preview_video" src="<%= @video_path %>" controls="controls"></video>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <input type="file" id="upload_video_url" name="file" accept=".mp3, .mp4, .avi, .rmvb, .AVI, .wma, .rm, .flash, .mid, .3GP" >
+  </div>
+</div>
+
+
+

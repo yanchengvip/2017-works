@@ -1,0 +1,30 @@
+<div class="form-group row">
+  <label for="input" class="col-sm-2 col-form-label">商品类型</label>
+  <div class="col-sm-8">
+    <p>
+      <input type="radio" name="product_type" value="0" <%= product_type_checked(@battle_product, 0) %> required>普通商品
+      <input type="hidden" name="product_num[0]" value="1">
+    </p>
+    <p>
+      <input type="radio" name="product_type" value="1" <%= product_type_checked(@battle_product, 1) %> required>手机充值
+      <select class="select2-picker" name="product_num[1]" style="width: 100px;">
+        <!-- <option value=''>请选择</option> -->
+        <% BattleProduct::PHONE_FEE.each do |fee| %>
+            <option value=<%= fee %> <%= phone_fee_selected(@battle_product, fee) %>><%= fee %></option>
+        <% end %>
+      </select>
+    </p>
+    <p>
+      <input type="radio" name="product_type" value="2" <%= product_type_checked(@battle_product, 2) %> required>入场券
+      <input type="number" name="product_num[2]" placeholder="入场券数量" min="1" value="<%= @battle_product&.product_num if @battle_product&.product_type == 2 %>">
+    </p>
+    <p>
+      <input type="radio" name="product_type" value="3" <%= product_type_checked(@battle_product, 3) %> required>兑奖券
+      <input type="number" name="product_num[3]" placeholder="兑奖券数量" min="1" value="<%= @battle_product&.product_num if @battle_product&.product_type == 3 %>">
+    </p>
+    <p>
+      <input type="radio" name="product_type" value="4" <%= product_type_checked(@battle_product, 4) %> required>宝箱符
+      <input type="number" name="product_num[4]" placeholder="宝箱符数量" min="1" value="<%= @battle_product&.product_num if @battle_product&.product_type == 4 %>">
+    </p>
+  </div>
+</div>

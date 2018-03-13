@@ -1,0 +1,93 @@
+<%# if @package.prize_type == 1 %>
+<% @activity.activity_items.each do |activity_item| %>
+
+  <% if activity_item.gift_type == 1 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= activity_item.id %>">
+      <td>计谋<input type="hidden" name="activity_items[][gift_type]" value="1"></td>
+      <td width="30">
+        <p class="gift_type_select">
+          <select name="activity_items[][gift_range]" class="activity_select2 card_chose">
+            <% Card.active.each do |card| %>
+              <% if activity_item.gift_range.to_i == card.id %>
+                <option value="<%= card.id %>" selected="selected"><%= card.name %></option>
+              <% else %>
+                <option value="<%= card.id %>"><%= card.name %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </p>
+      </td>
+
+      <td>
+        <div class="input-group">
+          <input type="number" name="activity_items[][gift_count]" min="0" max="99999" class="form-control" required="required" placeholder="整数" value="<%= activity_item.gift_count %>">
+          <span class="input-group-addon">份</span>
+        </div>
+      </td>
+
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_activity_item_origin", id: "activity_item_#{activity_item.id}" %></td>
+      <input type="hidden" name="activity_items[][activity_item_id]" value="<%= activity_item.id %>">
+    </tr>
+  <% elsif activity_item.gift_type == 2 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= activity_item.id %>">
+      <td>入场券<input type="hidden" name="activity_items[][gift_type]" value="2"></td>
+      <td width="30">
+        入场券<input type="hidden" name="activity_items[][gift_range]" value="入场券">
+      </td>
+
+      <td>
+        <div class="input-group">
+          <input type="number" name="activity_items[][gift_count]" min="0" max="99999" class="form-control" required="required" placeholder="整数" value="<%= activity_item.gift_count %>">
+          <span class="input-group-addon">份</span>
+        </div>
+      </td>
+
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_activity_item_origin", id: "activity_item_#{activity_item.id}" %></td>
+      <input type="hidden" name="activity_items[][activity_item_id]" value="<%= activity_item.id %>">
+    </tr>
+  <% elsif activity_item.gift_type == 3 %>
+    <tr class="fields_origin_statc content_tr" id="item_tr_<%= activity_item.id %>">
+      <td>能量<input type="hidden" name="activity_items[][gift_type]" value="3"></td>
+      <td width="30">
+        能量<input type="hidden" name="activity_items[][gift_range]" value="能量">
+      </td>
+
+      <td>
+        <div class="input-group">
+          <input type="number" name="activity_items[][gift_count]" min="0" max="99999" class="form-control" required="required" placeholder="整数" value="<%= activity_item.gift_count %>">
+          <span class="input-group-addon">点</span>
+        </div>
+      </td>
+
+      <td><%= link_to '删除', 'javascript:void(0)', class: "del_activity_item_origin", id: "activity_item_#{activity_item.id}" %></td>
+      <input type="hidden" name="activity_items[][activity_item_id]" value="<%= activity_item.id %>">
+    </tr>
+  <% end %>
+
+<% end %>
+
+
+<%= render 'item_del_modal'%>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function () {
+    $(".activity_select2").select2()
+  })
+</script>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('.del_activity_item_origin').on('click', function(){
+      $('#delActivityItemModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delActivityItemModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_item_id').val(this_id.split('_')[2])
+        // $('#belong_activity_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+</script>
+

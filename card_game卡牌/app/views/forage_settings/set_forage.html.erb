@@ -1,0 +1,50 @@
+<p class="sub-header">系统管理>粮草系统>粮草设置</p>
+
+<%= form_for @forage_setting, html: {class: 'form-horizontal mt_50'} do |f| %>
+  <%= hidden_field_tag :from, 'set_forage' %>
+  <div class="form-group">
+    <label for="base_forage" class="col-sm-2 control-label">*进入战场时用户基础粮草：</label>
+    <div class="col-sm-6">
+      <div class="input-group">
+        <%= f.text_field :base_forage, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "form-control", id: 'base_forage' %>
+        <span class="input-group-addon">两</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="turn_second" class="col-sm-2 control-label">*用户每轮粮草增长速度：</label>
+    <div class="col-sm-6 pull-left">
+      <div class="input-group">
+        每<%= f.text_field :turn_second, placeholder: '整数', type: 'number', min: 1, max: 99999, required: "required", id: 'turn_second' %>秒，增长粮草
+        <%= f.text_field :turn_forage_incr, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", id: 'turn_forage_incr', style: "width: 100px" %>两
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="last_turn_second" class="col-sm-2 control-label">*最后一轮：</label>
+    <div class="col-sm-6">
+      <span>最后<%= f.text_field :last_turn_second, placeholder: '整数', type: 'number', min: 1, max: 99999, required: "required", id: 'last_turn_second' %>秒，每</span>
+      <span><%= f.text_field :last_turn_per_second, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", id: 'last_turn_per_second' %>秒，增长粮草</span>
+      <span><%= f.text_field :last_turn_forage_incr, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", id: 'last_turn_forage_incr', style: "width: 100px" %>两</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="max_forage" class="col-sm-2 control-label">*用户每场战役粮草值上限：</label>
+    <div class="col-sm-6">
+      <div class="input-group">
+        <%= f.text_field :max_forage, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", id: 'max_forage', class: "form-control" %>
+        <span class="input-group-addon">两</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%#= link_to '取消', admins_path, class: 'btn btn-default' %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', data: {:disable_with => "提交中..."} %>
+    </div>
+  </div>
+<% end %>

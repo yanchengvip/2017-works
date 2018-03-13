@@ -1,0 +1,17 @@
+<p class="sub-header mb_20">营销管理>任务配置>新建任务配置</p>
+
+<form action="/task_settings" method="post">
+
+  <%= render partial: 'info' %>
+
+  <div id="for_item_div" class="hide"><%= render partial: 'item' %></div>
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= link_to '取消', '/task_settings', class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+      <button type="submit" class="btn btn-primary btn-lg" id="task_settings_submit">保存</button>
+    </div>
+  </div>
+
+</form>
+

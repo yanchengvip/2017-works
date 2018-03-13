@@ -1,0 +1,25 @@
+<%= form_for packages_path, html: {method: :get, class: "text-right row well", id: 'search_form'}  do |f| %>
+  <table class="table-hover table-condensed">
+    <tr>
+      <td>礼包名称：</td>
+      <td><%= text_field_tag "q[name_cont]", params[:q][:name_cont], class: "form-control mr_30", placeholder: "礼包名称" %></td>
+      <td>销售渠道：</td>
+      <td><%= select_tag "q[sale_channels_cont]", options_for_select([["所有渠道", nil]] + Package::SALECHANNEL.to_a.map(&:reverse), params[:q][:sale_channels_cont]), class: 'form-control mr_50' %></td>
+      <td>礼包分类：</td>
+      <td><%= select_tag "q[package_type_id_eq]", options_for_select([["所有分类", nil]] + PackageType.active.map{|pt| [pt.name, pt.id]}, params[:q][:package_type_id_eq]), class: 'form-control mr_50' %></td>
+      <!-- <td>中奖类型：</td>
+      <td><%#= select_tag "q[prize_type_eq]", options_for_select([["所有类型", nil]] + Package::PRIZETYPE.to_a.map(&:reverse), params[:q][:prize_type_eq]), class: 'form-control mr_30' %></td> -->
+      <td><%= f.submit '搜索', class: "btn btn-primary ml_20" %></td>
+    </tr>
+    <!-- <tr>
+      <td>上架状态：</td>
+      <td><%#= select_tag "q[status_eq]", options_for_select([["所有状态", nil]] + Package::SHELFSTATUS.to_a.map(&:reverse), params[:q][:status_eq]), class: 'form-control mr_30' %></td>
+      <td>销量：</td>
+      <td><%#= text_field_tag "q[saled_count_gteq]", params[:q][:saled_count_gteq], class: "form-control mr_30", placeholder: "销量" %></td>
+      <td>上架时间：</td>
+      <td><%#= text_field_tag "q[onshelf_time_gteq]", params[:q][:onshelf_time_gteq], class: "form-control mr_30", placeholder: "上架时间" %></td>
+      <td><%#= f.submit '搜索', class: "btn btn-primary" %></td>
+      <td></td>
+    </tr> -->
+  </table>
+<% end %>

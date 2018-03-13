@@ -1,0 +1,38 @@
+<div class="row">
+  <p class="sub-header">系统管理>其它管理>操作日志</p>
+</div>
+
+<%= render partial: 'search' %>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>操作人员ID</th>
+        <th>登录名</th>
+        <th>操作资源</th>
+        <th>资源ID</th>
+        <th>执行action</th>
+        <th>操作详情</th>
+        <th>操作时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @operate_logs && @operate_logs.each_with_index do |operate_log| %>
+      <tr>
+        <td><%= operate_log.admin_id %></td>
+        <td><%= operate_log.nickname %></td>
+        <td><%= operate_log.table_type %></td>
+        <td>
+          <%= link_to operate_log.table_id, table_link(operate_log), target: 'blank' %>
+        </td>
+        <td><%= operate_log.exec_action %></td>
+        <td><%= operate_log.details %></td>
+        <td><%= operate_log.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @operate_logs %>

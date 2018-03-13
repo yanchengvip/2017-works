@@ -1,0 +1,101 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>图片</th>
+      <th>商品名称</th>
+      <th>SPU_ID</th>
+      <th>供应商名称</th>
+      <th>库存</th>
+      <th>旧优众价</th>
+      <th>旧结算价</th>
+      <th>新结算价</th>
+      <th>优众价</th>
+      <th>优众降价幅度</th>
+      <th>活动价</th>
+      <th>毛利率</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_promotion_activity_apply_products.each_with_index do |auction_promotion_activity_apply_product, index| %>
+      <tr>
+        <td><%= index + 1%></td>
+        <td><%= image_tag (auction_promotion_activity_apply_product.product.major_pic + '.thumb145.jpg') || '', width: 60, height: 60, class: 'list' if auction_promotion_activity_apply_product.product&.major_pic %></td>
+        <td><%= auction_promotion_activity_apply_product.product.name %></td>
+        <td><%= auction_promotion_activity_apply_product.product.id %></td>
+        <td><%= auction_promotion_activity_apply_product.provider.name %></td>
+        <td><%= auction_promotion_activity_apply_product.product.skus&.sum(:amount) %></td>
+        <td><%= auction_promotion_activity_apply_product.product.discount %></td>
+        <td><%= auction_promotion_activity_apply_product.product.provider_price %></td>
+        <td><%= auction_promotion_activity_apply_product.provider_price %></td>
+        <td>
+          <%= auction_promotion_activity_apply_product.product.promotion_provider_price * (get_bonus_rate(auction_promotion_activity_apply_product.promotion_activity.rate_of_margin) + 0.01) if auction_promotion_activity_apply_product.product.promotion_provider_price%>
+        </td>
+        <td>
+          <%= (auction_promotion_activity_apply_product.promotion_activity.discount * 100).to_i.to_s + "%"%>
+        </td>
+        <td>
+          <%= auction_promotion_activity_apply_product.product.promotion_provider_price%>
+        </td>
+        <td>
+          <%= auction_promotion_activity_apply_product.promotion_activity.rate_of_margin%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @auction_promotion_activity_apply_products %>
+<% if !@auction_apply_logs.blank?%>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>审核时间</th>
+        <th>审核结果</th>
+        <th>审核人</th>
+        <th>审核备注</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @auction_apply_logs.each do |auction_apply_log| %>
+        <tr>
+          <td><%= auction_apply_log.check_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          <td><%= auction_apply_log.check_result %></td>
+          <td><%= auction_apply_log.editor.name %></td>
+          <td><%= auction_apply_log.content %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<div class="panel panel-info" id ="check">
+     <%= form_for auction_promotion_activity_applies_path, html: {class: 'form-horizontal', method: 'get', id: 'pass_form'} do |f| %>
+      <div class="form-group">
+        <label for="input3" class=" col-sm-4 control-label">审核备注:</label>
+        <div class="col-sm-8">
+          <input type="hidden" value="<%= params[:id]%>" name="apply_id">
+          <%= text_field_tag "content",params[:content], class: 'form-control', require: "require"%>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <div class='btn btn-primary' id = "submit">通过</div>
+          <div class='btn btn-success' id = "unpass">驳回</div>
+        </div>
+      </div>
+    <% end %>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#unpass").click(function () {
+      $("#pass_form")[0].action = '/auction/promotion_activity_applies/good_audit_unpass'
+      $("#pass_form").submit()
+      $("#pass_form")[0].action = '/auction/promotion_activity_applies'
+    })
+    $("#submit").click(function () {
+      $("#pass_form")[0].action = '/auction/promotion_activity_applies/good_audit'
+      $("#pass_form").submit()
+    })
+  })
+</script>

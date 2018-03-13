@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @account.user_id %>
+</p>
+
+<p>
+  <strong>Dealer:</strong>
+  <%= @account.dealer_id %>
+</p>
+
+<p>
+  <strong>Dealer type:</strong>
+  <%= @account.dealer_type %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @account.status %>
+</p>
+
+<p>
+  <strong>Agent account:</strong>
+  <%= @account.agent_account %>
+</p>
+
+<p>
+  <strong>Mt4 account:</strong>
+  <%= @account.mt4_account %>
+</p>
+
+<p>
+  <strong>Mt4 group:</strong>
+  <%= @account.mt4_group %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @account.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @account.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @account.phone %>
+</p>
+
+<p>
+  <strong>Certificate:</strong>
+  <%= @account.certificate %>
+</p>
+
+<p>
+  <strong>Certificate num:</strong>
+  <%= @account.certificate_num %>
+</p>
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>

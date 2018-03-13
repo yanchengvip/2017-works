@@ -1,0 +1,56 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col" class="check-column"><!-- <input type="checkbox" /> --></th>
+      <th>ID</th>
+      <th>用户ID</th>
+      <th>微积分数量</th>
+      <th width="20%">系统订单号</th>
+      <th width="20%">微积分系统单号</th>
+      <th>创建时间</th>
+      <th>支付系统</th>
+      <th width="20%">支付订单号</th>
+      <th>订单总价</th>
+      <th>增加微积分</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @score_items.each do |score_item| %>
+      <tr>
+        <th scope="row" class="check-column"><!-- <input type="checkbox" name="delete[]" value="1" /> --></th>
+        <td><%= h score_item.id %></td>
+        <td><%= h score_item.user_id %></td>
+        <td><%= h score_item.amount %></td>
+        <td><%= h score_item.out_trade_no %></td>
+        <td id="score_item_<%=score_item.id%>"><%= score_item.drp_server_trade_no %></td>
+        <td><%= l score_item.created_at %></td>
+        <td><%= h score_item.table.try(:payment_service) %></td>
+        <td><%= h score_item.table.try(:payment_identifier) %></td>
+        <td><%= h(score_item.table_type == 'Auction::Unit' ? score_item.table.price :  score_item.table.payment_price) %></td>
+        <td>
+          <%if score_item.drp_server_trade_no.blank?%>
+            <button class='notify_drp_service' data-id = "<%=score_item.id%>" data-voucher_trade_id = "<%=score_item.id%>" >同步微积分</button>
+          <%else%>
+            已同步
+          <%end%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @score_items%>
+<script type="text/javascript">
+  $(".notify_drp_service").click(function() {
+    id = $(this).attr("data-id")
+    $.ajax({
+      type: "post",
+      url: "/auction/voucher_trades/"+ id +"/notify_drp_service",
+      success: function(result){
+        // alert(result.msg);
+        // console.log(result)
+        $("#score_item_"+id).html(result.data.drp_server_trade_no)
+        item.remove()
+      }
+    });
+  })
+</script>

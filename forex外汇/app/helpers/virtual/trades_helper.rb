@@ -1,0 +1,2 @@
+module Virtual::TradesHelper
+end

@@ -1,0 +1,24 @@
+<p class="sub-header">财神>期次管理>查看期次</p>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基本信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">ID：<span><%= @period.id %></span></li>
+    <li class="list-group-item ">期次：<span><%= @period.num %></span></li>
+    <li class="list-group-item ">幸运号码：<strong class="red"><%= @period.code %></strong></li>
+    <li class="list-group-item ">号码总数：<span><%= @period.code_count %>个</span></li>
+    <li class="list-group-item ">准备开始时间：<span><%= @period.pre_begin_time %></span></li>
+    <li class="list-group-item ">结算时间：<span><%= @period.end_time %></span></li>
+    <li class="list-group-item ">红包规则：<span><%= @period.red_package_rule&.name %></span></li>
+    <li class="list-group-item ">邀请分享金额上限：<span><%= @period.invite_share_max_amount %>元</span></li>
+    <li class="list-group-item ">邀请者邀请好友奖励金额：<span><%= @period.invite_reward %></span>元</li>
+    <li class="list-group-item ">被邀请好友注册获得奖励金额：<span><%= @period.been_invite_reg_reward %></span>元</li>
+    <li class="list-group-item ">被邀请者号码及技能牌领取有效期：<span><%= @period.been_invite_receive_time %></span>秒</li>
+    <li class="list-group-item ">休整时间：<span><%= @period.rest_time %></span>秒</li>
+    <li class="list-group-item ">竞赛结束后触发红包雨时间：<span><%= @period.red_package_time %></span>秒</li>
+  </ul>
+  <div class="panel-heading"><strong>奖金</strong></div>
+  <%= render partial: 'prize' %>
+
+</div>

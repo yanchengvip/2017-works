@@ -1,0 +1,61 @@
+<p class="sub-header">系统管理>资源管理>权限名称</p>
+<form action="/authority_resources" method="post">
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">权限名称</label>
+    <div class="col-sm-8">
+      <input type="input" name="name" class="form-control" id="add_product_name_input" required="required"
+             onkeyup="validate_words_length(30,'add_product_name_input','apn_last_num')"
+             placeholder="权限名称，最多30字">
+      <p class="bg-danger p_last_num" id="apn_last_num"></p>
+    </div>
+
+  </div>
+
+
+
+  <% @types.each do |t| %>
+      <div class="form-group row">
+        <label for="input" class="col-sm-2 col-form-label"><%= t[:name] %></label>
+        <div class="col-sm-8">
+          <% @model_n[t[:type].to_sym].each do |m| %>
+              <label>
+                <input type="radio" name="model_n" value=<%= m[:value] %>> <%= m[:name] %>
+              </label>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+
+
+
+  <div class="form-group row list-group-item-danger">
+    <label for="input" class="col-sm-2 col-form-label">权限(必选)</label>
+    <div class="col-sm-8">
+      <% @action_n.each do |a| %>
+          <label>
+            <input type="radio" id="inlineRadio3" name="action_n" value=<%= a[:value] %>> <%= a[:name] %>
+          </label>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">资源描述</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" name="desc" rows="3" id="r_desc_input"
+                onkeyup="validate_words_length(60,'r_desc_input','dec_last_num')" placeholder="资源描述，最多60字"></textarea>
+      <p class="bg-danger p_last_num" id="dec_last_num"></p>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <div class="offset-sm-2 col-sm-10">
+      <button type="submit" id="add_product_submit" class="btn btn-primary">保存</button>
+    </div>
+  </div>
+
+</form>

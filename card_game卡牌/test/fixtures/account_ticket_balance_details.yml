@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account_ticket_id: 1
+  user_id: MyString
+  fund: 9.99
+  trad_type: 1
+
+two:
+  account_ticket_id: 1
+  user_id: MyString
+  fund: 9.99
+  trad_type: 1

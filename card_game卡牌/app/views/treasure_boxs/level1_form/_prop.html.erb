@@ -1,0 +1,16 @@
+<tr>
+  <td>道具类型</td>
+  <td>
+    <span class="mr_20"><%= select_tag "jackpot_product_level1[#{@random_id}][product_id]", options_for_select([["无", nil]] + LevelGift.prop_for_chose, {}), class: 'custom_input_md mr_50', required: 'required' %></span>
+    <span class="mr_10">道具数量</span><input type="text" name="jackpot_product_level1[<%= @random_id %>][count]" placeholder="道具数量" class="custom_input_md" required>
+  </td>
+</tr>
+<tr>
+  <td>奖品价值</td>
+  <td>
+    <input type="text" name="jackpot_product_level1[<%= @random_id %>][fund]" placeholder="奖品价值" class="custom_input_md prize_fund" required>
+    <span class="mr_10 ml_20">奖品数量</span>
+    <input type="text" name="jackpot_product_level1[<%= @random_id %>][num]" placeholder="奖品数量" class="custom_input_md prize_num" required>
+    <span class="ml_20 mr_10">总价值</span><span class="level_fund_all"></span>
+  </td>
+</tr>

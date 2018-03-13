@@ -1,0 +1,41 @@
+<tr class="fields content_tr">
+  <td>
+    <%= select_tag "given_chest_box_prizes[][level]", options_for_select(ChestBoxPrize::LEVEL.to_a.map(&:reverse), {}), required: 'required', class: 'level' %>
+  </td>
+  <td>
+    <%= select_tag "given_chest_box_prizes[][chest_prize_id]", options_for_select([["无", nil]] + ChestPrize.active.select('id, name').map{|cp| [cp.name, cp.id]}, {}), required: 'required', class: 'game_select2 chest_prize', style: "width: 150px !important;" %>
+  </td>
+  <td>
+    <input type="hidden" class="price">
+    <input type="number" name="given_chest_box_prizes[][base_num]" min="0" placeholder="奖品数量" class="prize_num" required value="0" min="0" style="width: 80px !important;">
+    <input type="hidden" name="given_chest_box_prizes[][prize_type]" value="3">
+  </td>
+  <td class="hide"></td>
+  <td class="worth_td">
+    <input type="number" name="given_chest_box_prizes[][worth]" min="0" placeholder="奖品总价值" class="worth" required value="0" min="0" readonly="readonly" style="width: 80px !important;">
+  </td>
+  <!-- <td class="user_td">
+    <input type="text" name="given_chest_box_prizes[][user_id]" placeholder="用户id" class="user_id" readonly="readonly" style="width: 100px !important;">
+  </td> -->
+  <td>
+    <input type="number" name="given_chest_box_prizes[][min_index]" placeholder="最小范围" required min="0" style="width: 80px !important;" max="100">%~<input type="number" name="given_chest_box_prizes[][max_index]" placeholder="最大范围" required min="0" style="width: 80px !important;" max="100">%
+  </td>
+  <td>
+    <%= select_tag "given_chest_box_prizes[][is_prior]", options_for_select(ChestPrize::IS_PRIOR.to_a.map(&:reverse), 0), required: 'required', class: 'is_prior' %>
+  </td>
+  <td>
+    <%= select_tag "given_chest_box_prizes[][red_package_rule_id]", options_for_select([["无", nil]] + Promotion::RedPackageRule.active.select('id, name').map{|rpr| [rpr.name, rpr.id]}, {}), class: 'game_select2 red_package_rule', style: "width: 150px !important;" %>
+  </td>
+  <td>
+    <input type="number" name="given_chest_box_prizes[][sort_num]" min="0" value="0" placeholder="越大越前" required style="width: 50px !important;">
+  </td>
+  <td>
+    <%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %>
+  </td>
+</tr>
+
+<script type="text/javascript">
+  $(function(){
+    $(".game_select2").select2()
+  })
+</script>

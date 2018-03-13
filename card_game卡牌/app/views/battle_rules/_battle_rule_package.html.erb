@@ -1,0 +1,42 @@
+<div class="panel panel-info">
+  <div class="panel-heading">战役规则礼包</div>
+  <div class="panel-body">
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>礼包分类</th>
+      <th>选择</th>
+      <th>商品名称</th>
+      <th>价格(微集分)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% ['技巧包', '基础包', '高级包', '土豪包'].each_with_index do |pac, index| %>
+        <%brp_id=''; name = ''; price='';package_id='';pt_name='' %>
+        <% @battle_rule&&@battle_rule.battle_rule_packages.each do |brp| %>
+            <% if brp.pt_name == pac %>
+                <% brp_id=brp.id;name = brp.name;price=brp.price;package_id=brp.package_id;pt_name=brp.pt_name %>
+            <% end %>
+        <% end %>
+        <tr>
+          <td><%= pac %></td>
+          <td><input type="button" class="btn-info" value="选择礼包" onclick="battle_rule_package_modal('<%= pac%>')"></td>
+          <td><input id="name<%= index %>" name="packages[]name" value="<%= name %>" class="readonly" required></td>
+          <td><input id="price<%= index %>" name="packages[]price" value="<%= price %>" readonly></td>
+          <input id="package_id<%= index %>" name="packages[]package_id" value="<%= package_id %>" type="hidden">
+          <input id="pt_name<%= index %>" name="packages[]pt_name" value="<%= pt_name %>" type="hidden">
+          <input id="brp_id<%= index %>" name="packages[]brp_id" value="<%= brp_id %>" type="hidden">
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+
+<script>
+    $(".readonly").on('keydown paste', function(e){
+        e.preventDefault();
+    });
+</script>

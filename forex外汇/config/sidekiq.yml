@@ -1,0 +1,17 @@
+#启动sidekiq, sidekiq -C config/sidekiq.yml默认执行此配置文件
+#:daemon: true
+#:verbose: true
+
+
+:pidfile: tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:queues:
+  - default
+  - [pending_trades,2]
+
+development:
+  concurrency: 5 # 并发数
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 20

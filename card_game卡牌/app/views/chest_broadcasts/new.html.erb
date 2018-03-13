@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">宝箱管理>顶部广播>新增顶部广播</p></div>
+
+
+<%= form_for @chest_broadcast, url: chest_broadcasts_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

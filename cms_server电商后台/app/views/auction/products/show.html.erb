@@ -1,0 +1,75 @@
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>商品信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">名称：<span class=""><%= @supplier_product.name %></span></li>
+    <li class="list-group-item">参考价：<span class=""><%= @supplier_product.price %></span></li>
+    <li class="list-group-item">优众价：<%= @supplier_product.discount %></li>
+    <li class="list-group-item">销售底价：<%= @supplier_product.provider_price %></li>
+    <li class="list-group-item bg_tr"><strong>SKU信息</strong></li>
+    <table class="table table-striped table-hover ml_10" style="width: 90%">
+      <thead>
+        <tr>
+          <th width="30%">SKU名称</th>
+          <th>库存</th>
+          <th>SKU编号</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @skus && @skus.each do |sku| %>
+          <tr class="fields content_tr">
+            <td><%= sku.name %></td>
+            <td><%= sku.amount %></td>
+            <td><%= sku.code %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <li class="list-group-item mt_20">描述：<%= @supplier_product.description %></li>
+    <li class="list-group-item">尺寸说明图片：<%= image_tag (@supplier_product.spec_pic) || '', width: 450, height: 200 if @supplier_product.spec_pic %></li>
+    <li class="list-group-item">颜色图片：<%= image_tag (@supplier_product.color_pic) || '', width: 60, height: 60 if @supplier_product.color_pic %></li>
+    <li class="list-group-item">颜色名称：<%= @supplier_product.color_name %></li>
+    <li class="list-group-item">编号-原厂货号：<%= @supplier_product.identifier %></li>
+    <li class="list-group-item">相关产品ID列表：<%= @supplier_product.relate_product_ids %></li>
+    <li class="list-group-item">一级分类：<%= @supplier_product.category1_id %></li>
+    <li class="list-group-item">二级分类：<%= @supplier_product.category2_id %></li>
+    <li class="list-group-item">三级分类：<%= @supplier_product.category3_id %></li>
+    <li class="list-group-item bg_tr"><strong>属性信息：</strong></li>
+    <% @values && @values.each do |k, v| %>
+      <li class="list-group-item">
+        <span class="link"><%= k %>：</span>
+        <%= v.map(&:content).join('、') %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="panel-heading"><strong>其他信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">品牌：<%= @supplier_product.brand.name %></li>
+    <li class="list-group-item">对象：<%= @supplier_product.target %></li>
+    <li class="list-group-item">搭配产品ID列表：<%= @supplier_product.match_product_ids %></li>
+    <li class="list-group-item">主图片：<%= image_tag (@supplier_product.major_pic) || '', width: 150, height: 150 if @supplier_product.major_pic %></li>
+    <li class="list-group-item bg_tr"><strong>详情图片</strong></li>
+    <table class="table table-striped table-hover ml_10" style="width: 90%">
+      <thead>
+        <tr>
+          <th width="8%">id</th>
+          <th width="67%">描述</th>
+          <th width="25%">大图</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @images && @images.each do |image| %>
+          <tr class="fields content_tr">
+            <td><%= image.id %></td>
+            <td><%= image.description %></td>
+            <td><%= image_tag (image.large) || '', width: 150, height: 150 if image.large %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </ul>
+
+</div>

@@ -1,0 +1,75 @@
+<div class="form-group row">
+  <label for="task_type" class="col-sm-2 control-label">*任务类型</label>
+  <div class="col-sm-8">
+    <select name="task_type" id="task_type" class="form-control game_select2" required <%= "disabled='disabled'" if params[:action] == 'edit' %>>
+      <option>请选择</option>
+      <% TaskSetting::TASK_TYPE.each do |key, val| %>
+        <% if @task_setting.task_type == key %>
+          <option value="<%= key %>" selected="selected"><%= val %></option>
+        <% else %>
+          <option value="<%= key %>"><%= val %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="direction_type" class="col-sm-2 control-label">*跳转页面类型</label>
+  <div class="col-sm-8">
+    <select name="direction_type" id="direction_type" class="form-control game_select2" required <%= "disabled='disabled'" if params[:action] == 'edit' %>>
+      <option>请选择</option>
+      <% TaskSetting::Direction_Type.each do |key, val| %>
+          <% if @task_setting.task_type == key %>
+              <option value="<%= key %>" selected="selected"><%= val %></option>
+          <% else %>
+              <option value="<%= key %>"><%= val %></option>
+          <% end %>
+      <% end %>
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="task_setting_status" class="col-sm-2 control-label">*是否启用：</label>
+  <div class="col-sm-6">
+    <% if @task_setting.status %>
+      <div class="radio">
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="1" name="status"  checked="checked">启用
+        </label>
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="0" name="status">关闭
+        </label>
+      </div>
+    <% else %>
+      <div class="radio">
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="1" name="status">启用
+        </label>
+        <label class="mr_30">
+          <input class="form-check-input" type="radio" value="0" name="status"  checked="checked">关闭
+        </label>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div id="dynamic_div">
+  <%= render partial: 'dynamic' %>
+</div>
+
+<div class="form-group row">
+  <label for="input" class="col-sm-2 control-label">*任务缩略图：</label>
+  <div class="col-sm-8">
+    <%= render 'images/upload_single_image'%>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="task_remark" class="col-sm-2 control-label">*任务说明：</label>
+  <div class="col-sm-8">
+    <textarea name="task_remark" id="task_remark" cols="30" rows="5" placeholder="任务说明，<20字" onkeyup="validate_length_of_words(this.id,20)" class="form-control"><%= @task_setting.task_remark %></textarea>
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="row placeholders well">
+  <%= form_for mall_products_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>商品编号：</span>
+      <%= text_field_tag "q[sku_cont]", params[:q][:sku_cont], class: 'form-control mr_20', placeholder: '商品编号' %>
+      <span>名称：</span>
+      <%= text_field_tag 'q[name_cont]', params[:q][:name_cont], class: 'form-control mr_20', placeholder: '名称' %>
+      <span>平台赛场分类：</span>
+      <%= select_tag "q[mall_product_tag_ids_cont]", options_for_select([["所有分类", nil]] + MallProductTag.active.map{|pt| [pt.name, pt.id]}, params[:q][:mall_product_tag_ids_cont]), class: 'form-control mr_50' %>
+
+      <%= f.submit '搜索', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,44 @@
+<div class="row"><p class="sub-header">系统管理>宝箱管理>宝箱设置</p></div>
+
+<%#= render partial: 'search' %>
+<%= render partial: 'baofu_table' %>
+
+<div class="row mt_20 mb_20">
+  <%= link_to '新增宝箱', new_treasure_box_path, class: 'btn btn-primary', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>宝箱名称</th>
+        <th>解锁消耗宝符</th>
+        <th>开启1次消耗宝符</th>
+        <th>开启5次消耗宝符</th>
+        <th>当前可用奖池</th>
+        <!-- <th>每日赠送能量</th> -->
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @treasure_boxs && @treasure_boxs.each_with_index do |treasure_box, index| %>
+      <tr id="tr_<%= treasure_box.id %>">
+        <td><%= treasure_box.name %></td>
+        <td><%= treasure_box.num %></td>
+        <td><%= treasure_box.once_num %></td>
+        <td><%= treasure_box.more_num %></td>
+        <td><%= '当前可用奖池' %></td>
+        <!-- <td><%#= treasure_box.day_energy %></td> -->
+        <td>
+          <%#= link_to '查看', treasure_box_path(treasure_box), class: 'btn btn-sm btn-info' %>
+          <%= link_to '奖池管理', manage_jackpot_treasure_box_path(treasure_box), class: 'btn btn-sm btn-success' %>
+          <%= link_to '编辑', edit_treasure_box_path(treasure_box), class: 'btn' %>
+          <%#= link_to '删除', treasure_box_path(treasure_box), method: :delete, data: {confirm: '确定删除吗？'}, class: 'btn' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @treasure_boxs %>

@@ -1,0 +1,45 @@
+<%index = locals[:index]%>
+<%trade = locals[:trade].auction_trade%>
+<%account = locals[:trade].account%>
+<%contact = locals[:trade].contact%>
+<tr>
+  <td><%= trade.id %></td>
+  <td></td>
+  <td><%= trade.identifier %></td>
+  <td><%= Auction::Trade::STATUS[trade.status] %></td>
+  <td><%= Auction::Trade::PAYMENTSERVICE[trade.payment_service] %></td>
+  <td><%= trade.price.to_f %></td>
+  <td><%= trade.payment_price.to_f %></td>
+  <td>商品总数量</td>
+  <td>
+    <a href="#" data-toggle="popover" data-trigger="hover" data-placement="<%= trade_popover_placement index%>"  data-html="true" title="收货信息"
+       data-content="<div><h4>用户信息</h4> 用户ID: <%= account&.id%> <h4>收货信息</h4>收货人:<%= contact&.name%>;
+             收货电话: <%= contact&.phone%></div>"  >
+      <%= contact&.name%>
+    </a>
+  </td>
+
+  <td><%= trade.created_at.present? ? trade.created_at.strftime('%Y-%m-%d') : '' %></td>
+  <td>
+
+    <a href="#" data-toggle="popover" data-trigger="hover" data-placement="<%= trade_popover_placement index%>"  data-html="true" title="收货信息"
+       data-content="<%= trade.remark.present? ? trade.remark : '无'%>"  >
+      详情
+    </a>
+
+  </td>
+  <td>
+
+    <a href="/auction/trades/<%= trade.id%>" class="btn btn-sm btn-info">详情</a>
+    <% if trade.status == 'audit' %>
+        <% if current_user.can? 'auction/trades#audit' %>
+            <a href="javascript:void(0)" onclick="obj_status_modal('<%= trade.id%>','审核','审核通过?','','/auction/trades/audit')" class='btn btn-sm btn-success'>审核</a>
+        <% end %>
+    <% end %>
+    <% if is_show_freezed_button(trade) %>
+        <% if current_user.can? 'auction/trades#freezed' %>
+            <a href="javascript:void(0)" onclick="obj_status_modal('<%= trade.id%>','审核驳回','审核驳回订单?','','/auction/trades/freezed')" class='btn btn-sm btn-warning'>驳回</a>
+        <% end %>
+    <% end %>
+  </td>
+</tr>

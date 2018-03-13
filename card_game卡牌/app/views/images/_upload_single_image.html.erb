@@ -1,0 +1,18 @@
+<input  type="hidden"  name="thumbnail" id="thumbnail" value="<%= @thumbnail_path%>" class="form-control" placeholder="缩略图">
+
+
+<div class="panel panel-info">
+  <div class="panel-heading">缩略图(仅一张;图片比例为1:1，图片大小：50k以内)</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-8 col-md-4">
+        <img id="preview_thumbnail"  src="<%= @thumbnail%>">
+
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer"><input type="file" id="upload_thumbnail" file_size="50k" name="file" accept=".png, .jpg, .jpeg" ></div>
+</div>
+
+
+

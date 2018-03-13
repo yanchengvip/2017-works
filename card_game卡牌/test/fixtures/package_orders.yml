@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  package_id: 1
+  user_id: 1
+  request_ip: MyString
+  total_count: 1
+  total_price: 9.99
+
+two:
+  package_id: 1
+  user_id: 1
+  request_ip: MyString
+  total_count: 1
+  total_price: 9.99

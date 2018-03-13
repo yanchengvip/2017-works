@@ -1,0 +1,17 @@
+<tr>
+  <td>商品ID</td>
+  <td><input type="text" name="jackpot_product_level1[<%= @random_id %>][product_id]" placeholder="输入商品id" class="custom_input_md" required><%= link_to '确定', 'javascript:void(0)', class: 'btn btn-sm btn-success add_jackpot_product' %></td>
+</tr>
+<tr>
+  <td>商品</td>
+  <td class="content"></td>
+</tr>
+<tr>
+  <td>奖品价值</td>
+  <td>
+    <input type="text" name="jackpot_product_level1[<%= @random_id %>][fund]" placeholder="奖品价值" class="custom_input_md prize_fund" required>
+    <span class="mr_10 ml_20">奖品数量</span>
+    <input type="text" name="jackpot_product_level1[<%= @random_id %>][num]" placeholder="奖品数量" class="custom_input_md prize_num" required>
+    <span class="ml_20 mr_10">总价值</span><span class="level_fund_all"></span>
+  </td>
+</tr>

@@ -1,0 +1,103 @@
+<div class="form-group row">
+  <legend><h3>卡牌规则</h3></legend>
+</div>
+
+<!-- <div class="form-group row">
+  <label for="game_rule_deal_init_cd" class="col-sm-2 control-label">发牌时间CD</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :deal_init_cd, id: 'game_rule_deal_init_cd', placeholder: '初始发牌CD时间，整数', class: 'custom_input_md', required: "required", type: 'number' %><span class="mr_10">秒</span>
+    <%#= f.text_field :deal_min_cd, id: 'game_rule_deal_min_cd', placeholder: '发牌最小CD时间，整数', class: 'custom_input_md', required: "required", type: 'number' %><span class="mr_10">秒</span>
+    <%#= f.text_field :deal_max_cd, id: 'game_rule_deal_max_cd', placeholder: '发牌最大CD时间，整数', class: 'custom_input_md', required: "required", type: 'number' %><span class="mr_10">秒</span>
+  </div>
+</div> -->
+
+<div class="form-group row">
+  <label for="game_rule_play_init_cd" class="col-sm-2 control-label">出牌时间CD</label>
+  <div class="col-sm-8">
+    <%= f.text_field :play_init_cd, id: 'game_rule_play_init_cd', placeholder: '初始出牌CD时间，整数', class: 'custom_input_md', required: "required", type: 'number' %><span class="mr_10">秒</span>
+    <%= f.text_field :play_min_cd, id: 'game_rule_play_min_cd', placeholder: '出牌最小CD时间，整数', class: 'custom_input_md', required: "required", type: 'number' %><span class="mr_10">秒</span>
+    <%= f.text_field :play_max_cd, id: 'game_rule_play_max_cd', placeholder: '出牌最大CD时间，整数', class: 'custom_input_md', required: "required", type: 'number' %><span class="mr_10">秒</span>
+  </div>
+</div>
+
+<!-- <div class="form-group row">
+  <label for="game_rule_init_card_num" class="col-sm-2 control-label">入场发牌张数</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%#= f.text_field :init_card_num, id: 'game_rule_init_card_num', placeholder: '入场发牌张数，整数', class: 'form-control', required: "required", type: 'number' %>
+      <span class="input-group-addon">张</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="game_rule_card_max_num" class="col-sm-2 control-label">拥有卡牌上限</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%#= f.text_field :card_max_num, id: 'game_rule_card_max_num', placeholder: '拥有卡牌上限，整数', class: 'form-control', required: "required", type: 'number' %>
+      <span class="input-group-addon">张</span>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row">
+  <label for="game_rule_card_max_num" class="col-sm-2 control-label">卡牌失效</label>
+  <div class="col-sm-8">
+    <div class="radio input-group">
+      <label class="mr_30"><input type="radio" value="0" name="status" checked="checked">是</label>
+      <label><input type="radio" value='1' name="status">否</label>
+      <%#= f.text_field :card_max_num, @game_rule.card_max_num, id: 'game_rule_card_max_num', placeholder: '拥有卡牌上限，整数', class: 'form-control', required: "required", type: 'number' %>
+      <span class="input-group-addon">张</span>
+    </div>
+  </div>
+</div> -->
+
+<div class="form-group row">
+  <legend><h3>时间奖惩规则</h3></legend>
+</div>
+
+<div class="form-group row">
+  <label for="game_rule_play_cd_inc" class="col-sm-2 control-label">可选计谋数量增减</label>
+  <div class="col-sm-8">
+   【用户拥有密钥百分比（%）— <span class="key_percent"><%= key_percent(@game_rule) rescue 0 %></span> 】/
+    <%= f.text_field :play_cd_inc, id: 'game_rule_play_cd_inc', placeholder: '最多1位小数点', class: 'custom_input_md', required: "required", type: 'number', step: '0.01' %>%
+  </div>
+</div>
+
+<!-- <div class="form-group row">
+  <legend><h3>宝符奖励规则</h3></legend>
+</div>
+
+<div class="form-group row">
+  <label for="game_rule_round_baofu_num" class="col-sm-2 control-label">每轮结束奖励</label>
+  <div class="col-sm-8">
+   【 用户拥有密钥百分比（%）> <span class="key_percent"><%#= key_percent(@game_rule) rescue 0 %></span> 】
+    <%#= f.text_field :round_baofu_num, id: 'game_rule_round_baofu_num', placeholder: '整数', class: 'custom_input_md', required: "required", type: 'number' %>个
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="game_rule_loser_baofu_min_num" class="col-sm-2 control-label">竞赛结束奖励</label>
+  <div class="col-sm-8">
+    竞赛失败的用户
+    <%#= f.text_field :loser_baofu_min_num, id: 'game_rule_loser_baofu_min_num', placeholder: '整数', class: 'custom_input_md', required: "required", type: 'number' %>～
+    <%#= f.text_field :loser_baofu_max_num, id: 'game_rule_loser_baofu_max_num', placeholder: '整数', class: 'custom_input_md', required: "required", type: 'number' %>个
+  </div>
+</div> -->
+
+<!-- <div class="form-group row">
+  <legend><h3>宝箱符奖励规则</h3></legend>
+</div>
+<div class="form-group row">
+  <label for="game_rule_winner_bxf" class="col-sm-2 control-label">竞赛胜利奖励</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :winner_bxf, placeholder: '整数', class: 'form_control', required: "required", type: 'number', min: 0 %>个
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="game_rule_loser_bxf" class="col-sm-2 control-label">竞赛失败奖励</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :loser_bxf, placeholder: '整数', class: 'form_control', required: "required", type: 'number', min: 0 %>个
+  </div>
+</div> -->

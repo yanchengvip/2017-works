@@ -1,0 +1,24 @@
+<!-- 解除封印 -->
+<div class="form-group row mt_20"><legend><h3>解除封印条件</h3></legend></div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading ft_16"><strong>免疫封印法阵条件</strong></div>
+  <div class="panel-body">
+    <p>
+      在饕餮死亡前（包括饕餮出现、未出现时），用户使用卡牌消耗能量 =（饕餮血量/饕餮出现时玩家人数）*
+      <input type="number" name="immune_seal_ratio" id="immune_seal_ratio" min="0" max="100" step="0.01" value="<%= @glutton_setting.immune_seal_ratio %>" required placeholder='最多小数点后两位' class='custom_input'>时获得能量结界可抵消一次饕餮释放的封印法阵
+    </p>
+  </div>
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading ft_16"><strong>解封能量</strong></div>
+  <div class="panel-body">
+    <p>
+      解封能量 = 用户使用卡牌消耗能量 *
+      <input type="number" name="enabling_ratio" id="enabling_ratio" min="0" max="100" step="0.01" value="<%= @glutton_setting.enabling_ratio %>" required placeholder='最多小数点后两位' class='custom_input'>，当用户直接付出此能量时会直接解除封印
+    </p>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">财神>编辑卡牌</p></div>
+
+<%= form_for @mammon_card, url: mammon_card_path, html: {class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

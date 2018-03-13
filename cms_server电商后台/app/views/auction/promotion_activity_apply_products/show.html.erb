@@ -1,0 +1,72 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>SPU_ID</th>
+      <th>图片</th>
+      <th>商品名称</th>
+      <th>供应商名称</th>
+      <th>分类</th>
+      <th>市场价</th>
+      <th>库存</th>
+      <th>旧优众价</th>
+      <th>旧结算价</th>
+      <th>新结算价</th>
+      <th>优众价</th>
+      <th>优众降价幅度</th>
+      <th>活动价</th>
+      <th>毛利率</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_promotion_activity_apply_products.each_with_index do |auction_promotion_activity_apply_product, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= auction_promotion_activity_apply_product.product.id %></td>
+        <td><%= image_tag (auction_promotion_activity_apply_product.product.major_pic + '.thumb145.jpg') || '', width: 60, height: 60, class: 'list' if auction_promotion_activity_apply_product.product&.major_pic %></td>
+        <td><%= auction_promotion_activity_apply_product.product.name %></td>
+        <td><%= auction_promotion_activity_apply_product.provider.name %></td>
+        <td><%= pcategory(auction_promotion_activity_apply_product.product) %></td>
+        <td><%= auction_promotion_activity_apply_product.product.price %></td>
+        <td><%= auction_promotion_activity_apply_product.product.skus&.sum(:amount) %></td>
+        <td><%= auction_promotion_activity_apply_product.product.discount %></td>
+        <td><%= auction_promotion_activity_apply_product.product.provider_price %></td>
+        <td><%= auction_promotion_activity_apply_product.provider_price %></td>
+        <td>
+          <%= auction_excellent_price(auction_promotion_activity_apply_product.provider_price,
+            auction_promotion_activity_apply_product.promotion_activity.rate_of_margin,
+            auction_promotion_activity_apply_product.promotion_activity.discount_type,
+            auction_promotion_activity_apply_product.promotion_activity.multiple_sales_discount,
+            auction_promotion_activity_apply_product.promotion_activity.price_more,
+            auction_promotion_activity_apply_product.promotion_activity.price_off,
+            auction_promotion_activity_apply_product.promotion_activity.pre_price_off,
+            auction_promotion_activity_apply_product.promotion_activity.pre_price_more,
+            auction_promotion_activity_apply_product.promotion_activity.pre_discount_total,
+            auction_promotion_activity_apply_product.provider.partner_type,
+            auction_promotion_activity_apply_product.provider.invoice_type)%>
+        </td>
+        <td>
+          <%= excellent_down_price(auction_promotion_activity_apply_product.provider_price,
+            auction_promotion_activity_apply_product.promotion_activity.rate_of_margin,
+            auction_promotion_activity_apply_product.promotion_activity.discount_type,
+            auction_promotion_activity_apply_product.promotion_activity.multiple_sales_discount,
+            auction_promotion_activity_apply_product.promotion_activity.price_more,
+            auction_promotion_activity_apply_product.promotion_activity.price_off,
+            auction_promotion_activity_apply_product.promotion_activity.pre_price_off,
+            auction_promotion_activity_apply_product.promotion_activity.pre_price_more,
+            auction_promotion_activity_apply_product.promotion_activity.pre_discount_total,
+            auction_promotion_activity_apply_product.provider.partner_type,
+            auction_promotion_activity_apply_product.provider.invoice_type,auction_promotion_activity_apply_product.provider_price)%>
+        </td>
+        <td>
+          <%= auction_activity_price(auction_promotion_activity_apply_product.promotion_activity.rate_of_margin,auction_promotion_activity_apply_product.provider.partner_type,auction_promotion_activity_apply_product.provider.invoice_type,auction_promotion_activity_apply_product.provider_price)%>
+        </td>
+        <td>
+          <%= auction_promotion_activity_apply_product.promotion_activity.rate_of_margin%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @auction_promotion_activity_apply_products %>

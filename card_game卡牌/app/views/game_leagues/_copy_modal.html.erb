@@ -1,0 +1,51 @@
+<div class="modal fade" id="copyGameLeagueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">联赛复制</h4>
+        <!-- <input type="hidden" id="grant_voucher_id"> -->
+        <input type="hidden" id="copy_game_league_id">
+      </div>
+      <div class="modal-body" id="grant_div">
+        <h3>确定复制该联赛吗？</h3>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary" id="do_copy">确认复制</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_copy').on('click', function(){
+      var league_id = $('#copy_game_league_id').val()
+      $.ajax({
+        type: "post",
+        url: '/game_leagues/'+league_id+'/copy',
+        data: { },
+        success: function(result){
+          if(result.status == 200){
+            $('#copyGameLeagueModal').modal('hide')
+            elert("已复制")
+            setTimeout(function(){
+              window.location.reload()
+            },1500);
+          }else{
+            $('#copyGameLeagueModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#copyGameLeagueModal').modal('hide')
+          elert('网络异常')
+        }
+      })
+    })
+  })
+
+</script>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @mammon_card.name %>
+</p>
+
+<p>
+  <strong>Num:</strong>
+  <%= @mammon_card.num %>
+</p>
+
+<%= link_to 'Edit', edit_mammon_card_path(@mammon_card) %> |
+<%= link_to 'Back', mammon_cards_path %>

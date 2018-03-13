@@ -1,0 +1,55 @@
+<!-- 上下架modal -->
+<div class="modal fade" id="shelfPackagetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">礼包<span id="shelf_title"></span></h4>
+      </div>
+      <!-- <form action="/packages/shelf" method="post"> -->
+        <div class="modal-body">
+          <h3>确定<span id="shelf_status"></span>礼包：<span id="shelf_package_name"></span>吗？</h3>
+
+          <input type="hidden" id="shelf_package_id">
+          <input type="hidden" id="shelf_package_status">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="do_shelf">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'error_modal' %>
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_shelf').on('click', function(){
+      var shelf_id = $('#shelf_package_id').val()
+      console.log(shelf_id)
+      $.ajax({
+        type: "post",
+        url: '/packages/'+shelf_id+'/shelf',
+        data: { shelf_status: $('#shelf_package_status').val()},
+        success: function(result){
+          if(result.status == 200){
+            window.location.reload();
+          }else{
+            // alert(result.msg)
+            $('#shelfPackagetModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#shelfPackagetModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

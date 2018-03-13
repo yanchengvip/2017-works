@@ -1,0 +1,43 @@
+<div class="row"><p class="sub-header">宝箱管理>充值管理>手机充值订单详情</p></div>
+
+<%= render partial: 'phone_search' %>
+
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>订单号</th>
+        <th>互亿无线订单号</th>
+        <th>订单渠道</th>
+        <th>下单时间</th>
+        <th>用户手机</th>
+        <th>用户昵称</th>
+        <th>充值手机</th>
+        <th>充值金额</th>
+        <th>充值状态</th>
+        <!-- <th>操作</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @chest_orders && @chest_orders.each_with_index do |chest_order, index| %>
+      <tr id="tr_<%= chest_order.id %>">
+        <td><%= chest_order.code %></td>
+        <td><%= chest_order.huyi_code %></td>
+        <td>宝箱</td>
+        <td><%= chest_order.order_time&.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= chest_order.user&.mobile %></td>
+        <td><%= chest_order.user&.nick_name %></td>
+        <td class="key_percent"><%= chest_order.number %></td>
+        <td class="key_percent">¥&nbsp;<%= chest_order.amount %></td>
+        <td class="key_percent"><%= ChestOrder::STATUS[chest_order.status] %></td>
+        <!-- <td>
+          <%#= link_to '获取状态', test_status_chest_order_path(chest_order), class: 'btn btn-invert btn-sm', role: 'button' %>
+        </td> -->
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @chest_orders %>

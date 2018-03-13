@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title" id="exampleModalLabel">批量修改<%= change_item_name(@item_type_val) %></h4>
+</div>
+<form action="/auction/products/batch_update" method="post">
+  <div class="modal-body">
+    <div class="form-group row">
+      <label for="change_game_type_name" class="col-sm-2 col-form-label"><%= change_item_name(@item_type_val) %>：</label>
+      <div class="col-sm-10">
+        <input type="text" name="content" id="change_game_type_name" class="form-control">
+      </div>
+    </div>
+
+    <input type="hidden" name='pids' id="change_product_ids" value="<%= @product_ids %>">
+    <input type="hidden" name='item_type' value="<%= @item_type_val %>">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+    <button type="submit" class="btn btn-primary" id="do_change">确定</button>
+  </div>
+</form>

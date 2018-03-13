@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @booking_trade.account_id %>
+</p>
+
+<p>
+  <strong>Trade type:</strong>
+  <%= @booking_trade.trade_type %>
+</p>
+
+<p>
+  <strong>Mt4 account:</strong>
+  <%= @booking_trade.mt4_account %>
+</p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @booking_trade.symbol %>
+</p>
+
+<%= link_to 'Edit', edit_booking_trade_path(@booking_trade) %> |
+<%= link_to 'Back', booking_trades_path %>

@@ -1,0 +1,3 @@
+class BattleRuleWarn < ApplicationRecord
+
+end

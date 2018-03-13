@@ -1,0 +1,94 @@
+<p class="sub-header">卡牌商城>礼包管理>礼包中奖方案设置</p>
+
+<% if @package.prize_type == 3 %>
+  <div>
+    <div class="lead well">
+      <strong>礼包名称：</strong><span class="mr_50"><%= @package.name %></span>
+      <strong>中奖价值设定：</strong><span id="fix_price"><%= @package.fix_price %></span>
+      <span class="pull-right"><%= link_to '添加方案', 'javascript:void(0)', id: "#{@package.id}_add_scheme_package_#{@package.id}", class: 'btn btn-primary btn-lg add_scheme_package' %></span>
+      <input type="hidden" id="random_num" value="100000">
+      <h4 class="red">等值随机礼包，必须配置好中奖方案后才能手动上架</h4>
+    </div>
+
+    <div class="mt_20 <%#= @package.package_items.blank? ? 'hide' : '' %>">
+       <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist" id="sheme_nav_tabs">
+        <% @package.package_items.each_with_index do |package_item, index| %>
+          <li role="presentation" class="<%= index == 0 ? 'active' : '' %>">
+            <a href="#package_item_pane_<%= package_item.id %>" aria-controls="package_item_pane_<%= package_item.id %>" role="tab" data-toggle="tab">方案<span class="scheme_count"><%= index + 1 %></span></a>
+          </li>
+        <% end %>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content" id="scheme_tab_panes">
+        <% @package.package_items.each_with_index do |package_item, index| %>
+          <div role="tabpanel" class="tab-pane <%= index == 0 ? 'active' : '' %>" id="package_item_pane_<%= package_item.id %>">
+            <form action="/packages/save_scheme" method="post" class="scheme_form">
+              <input type="hidden" name="package_item_id" value="<%= package_item&.id %>">
+              <input type="hidden" name="id" value="<%= @package.id %>">
+              <input type="hidden" name="package_items_price" id="new_item_price_<%= package_item.id %>" value="<%= package_item.price %>">
+              <table class="table table-striped table-hover table-condensed" id="table_<%= package_item&.id %>">
+                <tr>
+                  <td colspan='4' align="center">已选卡牌价值共：<span class="price_total label label-danger ft_20" id="price_total_<%= package_item.id %>"><%= package_item.price %></span>&nbsp;微集分<span class="ml_50 hide label label-warning ft_16" id="alert_<%= package_item.id %>">请先选中卡牌</span></td>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>卡牌名称</th>
+                  <th>卡牌价格(微集分)</th>
+                  <th>张数</th>
+                </tr>
+                <tbody>
+                  <% @cards.each do |card| %>
+                    <tr class="tr_<%= package_item.id %>">
+                      <td>
+                        <% if package_item.prize_range.split(',').include?(card.id.to_s) %>
+                          <input class="item_scheme_card_check form-control" name="package_items[prize_range][]" checked="checked" type="checkbox" value="<%= card.id %>" id="<%= card.id %>_checkbox_<%= package_item.id %>" data_chosed='0'>
+                        <% else %>
+                          <input class="item_scheme_card_check form-control" name="package_items[prize_range][]" type="checkbox" value="<%= card.id %>" id="<%= card.id %>_checkbox_<%= package_item.id %>" data_chosed='0'>
+                        <% end %>
+                      </td>
+                      <td><%= card.name %></td>
+                      <td id="<%= card.id %>_card_price_<%= package_item.id %>"><%= card.price %></td>
+                      <td>
+                        <div class="input-group">
+                          <% if package_item.prize_range.split(',').include?(card.id.to_s) %>
+                            <input type="number" name="package_items[range_count][]" min="1" max="9999" placeholder="张数>0的整数" value="<%= sheme_card_count(package_item, card.id) %>" class="form-control card_count" id="<%= card.id %>_count_<%= package_item.id %>" width="100px">
+                          <% else %>
+                            <input type="number" name="package_items[range_count][]" min="1" max="9999" placeholder="张数>0的整数" class="form-control card_count" id="<%= card.id %>_count_<%= package_item.id %>" width="100px">
+                          <% end %>
+                          <span class="input-group-addon">张</span>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+              <div class="row text-center">
+                <%#= link_to '删除', destroy_item_scheme_package_path(@package.id, item_id: package_item.id), method: :post, class: 'btn btn-danger mr_30', data: {confirm: "确定要删除该方案吗？"} %>
+                <%= link_to '删除', 'javascript:void(0)', role: 'button', class: 'btn btn-danger mr_30', onclick: "del_scheme_confirm(#{package_item.id})" %>
+                <button type="submit" class="btn btn-primary item_scheme_submit" id="item_scheme_submit_<%= package_item.id %>">保存</button>
+              </div>
+
+            </form>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: 'scheme_del_modal' %>
+
+<script type="text/javascript">
+  // 保存方案
+  $('body').on('click', '.item_scheme_submit', function(){
+    var fix_price = parseFloat($('#fix_price').text())
+    var tab_id = $(this).attr('id').split('_')[3]
+    var total_price = parseFloat($('#price_total_'+tab_id).text())
+    var over_range = parseFloat("<%= SYSTEMCONFIG[:admin_config][:fix_price_over].presence || 10 %>")
+    if(Math.abs(total_price-fix_price) > over_range){
+      alertTX('方案总价值不能相差礼包设定价值上下 ' + over_range + ' 微集分')
+      return false
+    }
+  })
+</script>

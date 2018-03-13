@@ -1,0 +1,49 @@
+<div class="row"><p class="sub-header">宝箱管理>宝箱设置>APP注册宝箱增加奖品</p></div>
+
+<%= form_for @chest_box, url: add_prize_chest_box_path, html: {method: :post, class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <legend>
+    <p>宝箱ID：<%= @chest_box.id %></p>
+    <input type="hidden" name="id" value="<%= @chest_box.id %>">
+    <input type="hidden" id="chest_box_hands" value="<%= @chest_box.hands %>">
+    <input type="hidden" id="chest_box_total_num" value="<%= @chest_box.total_prize_num %>">
+    <input type="hidden" id="chest_box_prize_max" value="<%= @chest_box.prize_max %>">
+  </legend>
+
+  <div id="app_prize">
+    <legend class="mt_30">
+      <p>
+        <span>APP注册实物</span>
+        <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_app_product' %></span>
+      </p>
+    </legend>
+    <div class="form-group row mt_20">
+      <span class="hide" id="random5_id">500000</span>
+      <div class="col-sm-10">
+        <%= render partial: 'new_app_product' %>
+      </div>
+    </div>
+
+    <legend class="mt_30">
+      <p>
+        <span>APP注册虚拟</span>
+        <span><%= link_to '增加奖品', 'javascript:void(0)', class: 'btn btn-success ml_20', id: 'add_chest_prize_app_virtual' %></span>
+      </p>
+    </legend>
+    <div class="form-group row mt_20">
+      <span class="hide" id="random6_id">600000</span>
+      <div class="col-sm-10">
+        <%= render partial: 'new_app_virtual' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= link_to '取消', chest_boxs_path, class: 'btn btn-default btn-lg mr_20', role: 'button' %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'new_chest_box_submit' %>
+    </div>
+  </div>
+
+<% end %>

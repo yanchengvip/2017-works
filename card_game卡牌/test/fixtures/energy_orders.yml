@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  energy_product_id: 1
+  status: 1
+  user_id: 1
+  give_energy_count: 1
+
+two:
+  code: MyString
+  energy_product_id: 1
+  status: 1
+  user_id: 1
+  give_energy_count: 1

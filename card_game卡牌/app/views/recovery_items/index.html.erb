@@ -1,0 +1,35 @@
+<p class="sub-header">回收管理>回收明细列表</p>
+<%= render partial: 'search' %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>用户名称</th>
+        <th>用户手机</th>
+        <th>回收数量</th>
+        <th>对应金额</th>
+        <th>回收状态</th>
+        <!-- <th colspan="3">操作</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @recovery_items.each do |recovery_item| %>
+        <tr>
+          <td><%= recovery_item.id %></td>
+          <td><%= recovery_item.user&.nick_name %></td>
+          <td><%= recovery_item.user&.mobile %></td>
+          <td><%= recovery_item.count %></td>
+          <td><%= recovery_item.recovery&.total_cost %></td>
+          <td><%= Recovery::STATUS[recovery_item.recovery&.status] %></td>
+          <!-- <td> -->
+            <!-- <%= link_to '详情', recovery_item, class: 'btn btn-sm btn-primary' %> -->
+            <!-- <%= link_to 'Edit', edit_recovery_item_path(recovery_item) %>
+            <%= link_to 'Destroy', recovery_item, method: :delete, data: { confirm: 'Are you sure?' } %> -->
+          <!-- </td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @recovery_items %>

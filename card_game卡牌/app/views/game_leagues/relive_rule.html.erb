@@ -1,0 +1,45 @@
+<p class="sub-header">赛场>联赛>复活</p>
+
+<%#= form_tag relive_game_leagues_path, html: {method: :post, class: 'form-horizontal mt_50'} do |f| %>
+<form action="/game_leagues/relive" method="post" class="form-horizontal mt_50" id="profileForm">
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label">复活规则:</label>
+    <div class="col-sm-8">
+      <textarea name="relive_rule" id="relive_rule" rows="10" placeholder="复活规则" class="tinymce"><%= @web_setting.relive_rule %></textarea>
+      <%#= f.text_area :relive_rule, id: "relive_rule", rows: "10", placeholder: "复活规则", class: "tinymce"%>
+      <%#= text_area_tag :relive_rule, '', id: "relive_rule", rows: "10", placeholder: "复活规则", class: "tinymce"%>
+    </div>
+  </div>
+  <%= render partial: 'tinymce', locals: {text_id: 'relive_rule'} %>
+
+  <div class="clearfix"></div>
+  <div class="form-group mt_20">
+    <label for="" class="col-sm-2 control-label">填写邀请码奖励:</label>
+    <div class="col-sm-8">
+      <input type="number" name="write_invite_code_reward_times" placeholder="整数" required class="custom_input_big" min="0" value="<%= @web_setting.write_invite_code_reward_times %>">次
+      <%#= f.text_field :write_invite_code_reward_times, placeholder: '整数', class: 'custom_input_big', min: 0 %>
+      <%#= text_field_tag :write_invite_code_reward_times, '', placeholder: '整数', class: 'custom_input_big', min: 0 %>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+  <div class="form-group mt_20">
+    <label for="" class="col-sm-2 control-label">被填写邀请码奖励:</label>
+    <div class="col-sm-8">
+      <input type="number" name="been_write_invite_code_reward_times" placeholder="整数" required class="custom_input_big" min="0" value="<%= @web_setting.been_write_invite_code_reward_times %>">次
+      <%#= f.text_field :been_write_invite_code_reward_times, placeholder: '整数', class: 'custom_input_big', min: 0 %>
+      <%#= text_field_tag :been_write_invite_code_reward_times, '', placeholder: '整数', class: 'custom_input_big', min: 0 %>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-4 col-sm-4">
+      <input type="submit" name="commit" value="保存" class="btn btn-primary btn-lg" data-disable-with="保存中...">
+      <%#= f.submit '保存', class: 'btn btn-primary btn-lg' %>
+      <%#= submit_tag '保存', class: 'btn btn-primary btn-lg' %>
+    </div>
+  </div>
+</form>
+<%# end %>
+

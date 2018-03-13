@@ -1,0 +1,106 @@
+<p class="sub-header">奇珍商城>商品类别>修改类别</p>
+<form action="/product_tags/update" method="post">
+
+  <input type="hidden" value="<%= @product_tag.id%>" name="id">
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">分类名称</label>
+    <div class="col-sm-6">
+      <input type="input" name="name" class="form-control" id="tag_name_input" value="<%= @product_tag.name%>"
+             required onkeyup="validate_words_length(30,'tag_name_input','tag_last_num')"
+             placeholder="类别名称，最多30字">
+      <p class="bg-danger p_last_num" id="tag_last_num"></p>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">分类别名</label>
+    <div class="col-sm-6">
+      <input type="input" name="alias" class="form-control" id="tag_alias_input" value="<%#= @product_tag.alias %>" required
+             onkeyup="validate_words_length(30,'tag_alias_input','tag_last_num')"
+             placeholder="类别名称，最多30字">
+      <p class="bg-danger p_last_num" id="tag_last_num"></p>
+    </div>
+  </div> -->
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">排序</label>
+    <div class="col-sm-6">
+      <input type="number" min="1" max="99999999" value="<%= @product_tag.sort%>" name="sort"
+             class="form-control" placeholder="排序">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2">启用状态</label>
+    <div class="col-sm-8">
+      <div class="radio">
+        <label class="mr_30"><input type="radio" value="0" name="status" <%= "checked='checked'" if @product_tag.status == 0 %>>启用</label>
+        <label><input type="radio" value='1' name="status" <%= "checked='checked'" if @product_tag.status == 1 %>>停用</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row">
+    <label class="col-sm-2">支持自建赛场</label>
+    <div class="col-sm-8">
+      <div class="radio">
+        <label class="mr_30"><input type="radio" value="1" name="is_self" <%#= "checked='checked'" if @product_tag.is_self %>>支持</label>
+        <label><input type="radio" value='0' name="is_self" <%#= "checked='checked'" if !@product_tag.is_self %>>不支持</label>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 control-label">商品缩略图：</label>
+    <div class="col-sm-8">
+      <%= render 'images/upload_single_image'%>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <legend><h3>自建赛场基础设置</h3></legend>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">最大人数</label>
+    <div class="col-sm-6" style="padding-right: 0px">
+      <input type="number" min="0" max="99999999" name="max_user_num" class="form-control" placeholder="最大人数" value="<%= @product_tag.max_user_num %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">商品数量</label>
+    <div class="col-sm-6" style="padding-right: 0px">
+      <input type="number" min="0" max="99999999" name="product_num" class="form-control" placeholder="商品数量" value="<%= @product_tag.product_num %>">
+    </div>
+    <div class="col-sm-4" style="padding-left: 0px;">
+      <span class="red">用户自建赛场，胜利后可选择的商品数量</span>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">建场能量消耗</label>
+    <div class="col-sm-6">
+      <input type="number" min="0" max="99999999" name="energy_cost" class="form-control" placeholder="建场能量消耗" value="<%= @product_tag.energy_cost %>">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">献祭可得功勋</label>
+    <div class="col-sm-6">
+      <input type="number" min="0" max="99999999" name="glory_gain" class="form-control" placeholder="献祭可得功勋" value="<%= @product_tag.glory_gain %>">
+    </div>
+  </div>
+
+
+
+  <div class="form-group row mt_20">
+    <div class="col-sm-offset-2 col-sm-10 mt_20">
+      <a href="/product_tags" class="btn btn-default btn-lg">取消</a>
+      <button type="submit" id="add_product_submit" class="btn btn-primary">保存</button>
+    </div>
+  </div>
+
+</form>

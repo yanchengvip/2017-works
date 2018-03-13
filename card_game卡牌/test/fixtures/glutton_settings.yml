@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trigger_energy_count: 1
+  gain_user_key: 9.99
+  show_text: MyString
+  delete_flag: false
+
+two:
+  trigger_energy_count: 1
+  gain_user_key: 9.99
+  show_text: MyString
+  delete_flag: false

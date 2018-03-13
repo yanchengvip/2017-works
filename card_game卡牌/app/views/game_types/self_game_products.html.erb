@@ -1,0 +1,38 @@
+<p class="sub-header">赛场管理>赛场管理>自建赛场商品</p>
+<%= render partial: 'self_game_product_search' %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>商品名称</th>
+      <th>自建赛场分类</th>
+      <th>剩余库存</th>
+      <th>价格</th>
+      <!-- <th>商品使用渠道</th> -->
+      <!-- <th>状态</th> -->
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @self_game_products.each do |product| %>
+        <tr id="tr_<%= product.id %>">
+          <td><%= product.id %></td>
+          <td><%= product.name %></td>
+          <td><%= product.product_tag&.name %></td>
+          <td><%= product.inventory_count %></td>
+          <td><%= product.market_price.to_f %></td>
+          <!-- <td><%#= BattleProduct::STATUS[product.status] %></td> -->
+          <td>
+            <a href="/game_types/show_product?product_id=<%= product.id %>" class="btn btn-info btn-sm ">查看</a>
+            <%= link_to '下架', 'javascript:void(0)', class: 'self_game_product_shelf btn btn-danger btn-sm', data_id: product.id %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @self_game_products %>
+<%= render partial: 'self_game_product_shelf_modal' %>
+

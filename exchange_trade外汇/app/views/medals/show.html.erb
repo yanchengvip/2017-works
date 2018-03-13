@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @medal.name %>
+</p>
+
+<p>
+  <strong>Condition:</strong>
+  <%= @medal.condition %>
+</p>
+
+<p>
+  <strong>Medal type:</strong>
+  <%= @medal.medal_type %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @medal.image %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @medal.content %>
+</p>
+
+<p>
+  <strong>Enable:</strong>
+  <%= @medal.enable %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @medal.active %>
+</p>
+
+<%= link_to 'Edit', edit_medal_path(@medal) %> |
+<%= link_to 'Back', medals_path %>

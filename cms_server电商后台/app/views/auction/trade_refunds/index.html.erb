@@ -1,0 +1,64 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="<%= trades_show_tab(1, @tab) %>">
+    <a href="/auction/trade_refunds?tab=1">全部退款单</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(2, @tab) %>">
+    <a href="/auction/trade_refunds?q[status_eq]=audit&tab=2">待供应商审核</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(3, @tab) %>">
+    <a href="/auction/trade_refunds?q[status_eq]=transfer&tab=3">待财务退款</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(4, @tab) %>">
+    <a href="/auction/trade_refunds?q[status_eq]=cancel&tab=4">供应商驳回退款</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(5, @tab) %>">
+    <a href="/auction/trade_refunds?q[status_eq]=complete&tab=5">已退款</a>
+  </li>
+
+</ul>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>退单编号</th>
+    <th>商家订单ID</th>
+    <th>退款金额</th>
+    <th>已退金额</th>
+    <th>申请人</th>
+    <th>申请时间</th>
+    <th>退款说明</th>
+    <th>状态</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @trade_refunds.each do |refund| %>
+
+      <tr>
+        <td><%= refund.id %></td>
+        <td><%= refund.supplier_trade_id %></td>
+        <td><%= refund.amount %></td>
+        <td><%= refund.return_amount %></td>
+        <% if refund.editor.present? %>
+            <td><%= refund.editor.name %></td>
+        <% end %>
+        <td><%= refund.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+        <td><%= refund.remark %></td>
+        <td><%= Auction::TradeRefund::STATUS[refund.status] %></td>
+        <% if (current_user.can? 'auction/trade_refunds#transfer') && (refund.status == 'transfer') %>
+            <td>
+              <a href="javascript:void(0)" onclick="trade_refund_modal('<%= refund.id%>','<%= refund.amount%>','<%= Auction::Trade::PAYMENTSERVICE[refund.auction_trade&.payment_service]%>')" class='btn btn-sm btn-warning'>退款</a>
+            </td>
+
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+
+</table>
+
+<div id="test" style="background: #000000">
+  <%= paginate @trade_refunds %>
+</div>
+
+<%= render 'refund_modal'%>

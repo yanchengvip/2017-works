@@ -1,0 +1,45 @@
+<div class="row placeholders">
+  <form action="/account_logs" method="get" class="navbar-form navbar-left">
+    充值时间：
+    <input type="text" name="create_time_begin"  class="form-control datetime_picker_battle1" placeholder="开始时间"> ~
+    <input type="text" name="create_time_end"  class="form-control datetime_picker_battle2" placeholder="结束时间">
+    <button type="submit" class="btn btn-success">搜索</button>
+    <button type="button" class="btn btn-success"><a href="javascript:void(0);" onclick="dowload_csv(6)" style="color:#fff">导出csv</a></button>
+  </form>
+
+</div>
+
+<p class="sub-header">报表>用户管理>用户充值微积分列表</p>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>用户id</th>
+      <th>渠道</th>
+      <th>变更类型</th>
+      <th>变更数量</th>
+      <th>交易流水号</th>
+      <th>备注</th>
+      <th>ip</th>
+      <th>充值时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @account_logs.each do |account_log|%>
+        <tr>
+          <td><%= account_log.user_id %></td>
+          <td><%= AccountLog::Channel[account_log.channel] %></td>
+          <td><%= AccountLog::ChangeType[account_log.change_type]%></td>
+          <td><%= account_log.change_amount %></td>
+          <td><%= account_log.trade_no %></td>
+          <td><%= account_log.attach %></td>
+          <td><%= account_log.ip %></td>
+          <td><%= account_log.create_time.strftime('%Y-%m-%d %H:%M:%S')%></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%=paginate @account_logs%>

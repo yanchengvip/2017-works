@@ -1,0 +1,42 @@
+<div class="row placeholders">
+  <form action="/battles/csv_index" method="get" class="navbar-form navbar-left">
+      发布时间：
+      <input type="text" name="published_at_begin" class="form-control datetime_picker_battle1" placeholder="发布时间"> ~
+      <input type="text" name="published_at_end" class="form-control datetime_picker_battle2" placeholder="发布时间">
+      <button type="submit" class="btn btn-default btn-success">搜索</button>
+      <button type="button" class="btn btn-success"><a href="javascript:void(0);" onclick="dowload_csv(3)" style="color:#fff">导出csv</a></button>
+  </form>
+</div>
+
+<p class="sub-header">战场管理>战役管理>战役列表</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>战役期号</th>
+      <th>战役名称</th>
+      <th>发布时间</th>
+      <th>轮数</th>
+      <th>开启人数</th>
+      <th>战役状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @battles.each do |b| %>
+        <tr>
+          <td><%= b.battle_code %></td>
+          <td><%= b.name %></td>
+          <td><%= datetime_format b.published_at %></td>
+          <td><%= b.battle_rules_copies.first.present? ? b.battle_rules_copies.first.bout_number : '' %></td>
+          <td><%= b.battle_rules_copies.first.present? ? b.battle_rules_copies.first.open_person_number : '' %></td>
+          <td><%= Battle::STATUS[b.status] %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @battles %>
+
+<%= render 'shared/obj_delete_modal', locals: {title: '战役删除', url: '/battles/destroy'} %>
+<%= render 'shared/obj_onshelf_modal', locals: {title: '战役上架', url: '/battles/update_status'} %>

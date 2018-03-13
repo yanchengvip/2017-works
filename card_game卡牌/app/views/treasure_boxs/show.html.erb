@@ -1,0 +1,15 @@
+<p class="sub-header">商品管理>赛场商品分类>查看分类</p>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+
+  <div class="panel-heading"><strong>基本信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">分类ID：<span><%= @game_product_tag.id %></span></li>
+    <li class="list-group-item">分类名称：<span><%= @game_product_tag.name %></span></li>
+    <li class="list-group-item">分类排序：<%= @game_product_tag.order_num %></li>
+    <li class="list-group-item">启用状态：<%= @game_product_tag.status ? '启用' : '禁用' %></li>
+  </ul>
+
+</div>

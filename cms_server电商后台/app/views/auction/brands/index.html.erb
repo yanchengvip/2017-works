@@ -1,0 +1,63 @@
+<%#= render partial: 'search' %>
+
+<!-- <div class="row"> -->
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>英文名</th>
+        <th>中文名</th>
+        <!-- <th>缩写</th> -->
+        <th>首字母</th>
+        <th>标题</th>
+        <!-- <th>类型</th> -->
+        <!-- <th>图片</th> -->
+        <!-- <th>发音</th> -->
+        <th>推荐</th>
+        <!-- <th>排序</th> -->
+        <th width="20%">描述</th>
+        <th>创建时间</th>
+        <!-- <th>编辑</th> -->
+        <th>操作</th>
+        <!-- <th>发布</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @manage_brands && @manage_brands.each_with_index do |manage_brand, index| %>
+      <tr id="tr_<%= manage_brand.id %>">
+        <td><%= manage_brand.id %></td>
+        <td><%= manage_brand.name %></td>
+        <td><%= manage_brand.chinese %></td>
+        <!-- <td><%#= manage_brand.abbreviation %></td> -->
+        <td><%= manage_brand.initial %></td>
+        <td><%= manage_brand.title %></td>
+        <!-- <td><%#= manage_brand.genre %></td> -->
+        <!-- <td><%#= image_tag (manage_brand.pic) || '', width: 60, height: 60 if manage_brand.pic %></td> -->
+        <!-- <td>发音</td> -->
+        <th><%= Auction::Brand::RECOMMEND[manage_brand.recommend] %></th>
+        <!-- <td><%#= manage_brand.order %></td> -->
+        <td><%= truncate(manage_brand.description, length: 60) %></td>
+        <td><%= manage_brand.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <!-- <td><%#= manage_brand.editor_id %></td> -->
+        <td>
+          <% if can? 'auction/brands#show' %>
+            <%= link_to '查看', auction_brand_path(manage_brand), class: 'btn btn-sm btn-info' %>
+          <% end %>
+          <% if can? 'auction/brands#edit' %>
+            <%= link_to '编辑', edit_auction_brand_path(manage_brand), class: 'btn btn-sm btn-primary' %>
+          <% end %>
+          <%# if manage_brand.status == 0 %>
+            <%#= link_to '删除', "javascript:void(0)", onclick: "manage_brand_delete(#{manage_brand.id}, '#{manage_brand.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          <%# end %>
+        </td>
+        <!-- <td><%#= manage_brand.published ? '已发布' : '未发布' %></td> -->
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<!-- </div> -->
+
+<%= paginate @manage_brands %>
+
+
+

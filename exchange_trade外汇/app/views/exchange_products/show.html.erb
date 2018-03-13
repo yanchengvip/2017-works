@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @exchange_product.symbol %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @exchange_product.active %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @exchange_product.published %>
+</p>
+
+<%= link_to 'Edit', edit_exchange_product_path(@exchange_product) %> |
+<%= link_to 'Back', exchange_products_path %>

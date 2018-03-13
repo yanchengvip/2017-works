@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">宝箱管理>宝箱设置>修改宝箱</p></div>
+
+<%= form_for @chest_box, url: chest_box_path, html: {class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%#= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

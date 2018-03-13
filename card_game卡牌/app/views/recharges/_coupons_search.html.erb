@@ -1,0 +1,17 @@
+<div class="row placeholders well">
+  <%= form_for coupons_recharges_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>用户手机：</span>
+      <%= text_field_tag "q[user_mobile_cont]", params[:q][:user_mobile_cont], class: 'form-control mr_20', placeholder: '用户手机' %>
+      <!-- <span>订单分类：</span> -->
+      <%#= select_tag 'q[order_type_eq]', options_for_select([['所有分类', nil]] + MallOrder::ORDER_TYPE.to_a.map(&:reverse), params[:q][:order_type_eq]), class: 'form-control game_select2 select-width-20' %>
+      <span>下单时间：</span>
+      <%= text_field_tag 'q[created_at_gteq]', params[:q][:created_at_gteq], class: 'form-control mr_20', placeholder: '订单时间' %>-
+      <%= text_field_tag 'q[created_at_lteq]', params[:q][:created_at_lteq], class: 'form-control mr_20', placeholder: '订单时间' %>
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <!-- <div class='btn btn-success' id = "download">下载</div> -->
+      <!-- <%#= f.submit '查询', class: 'btn btn-primary ml_50', id: 'order_search_submit' %>
+      <button type="button" class="btn btn-default" id="export_result" onclick="order_export_submit('export');">导出</button> -->
+    </div>
+  <% end %>
+</div>

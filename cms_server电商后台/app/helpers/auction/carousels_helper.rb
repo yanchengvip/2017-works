@@ -1,0 +1,2 @@
+module Auction::CarouselsHelper
+end

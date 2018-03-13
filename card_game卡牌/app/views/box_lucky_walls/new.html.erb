@@ -1,0 +1,92 @@
+
+<div class="row placeholders">
+
+</div>
+
+<p class="sub-header">系统管理>宝箱管理>推广页设定>商品添加</p>
+<div class="panel panel-default">
+  <div class="panel-heading">添加</div>
+  <div class="panel-body">
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <form action="/box_lucky_walls/other_create" method="post">
+
+
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">商品名称
+            </label>
+            <div class="col-sm-8">
+              <input type="input" name="name" class="form-control" placeholder="商品名称">
+              <p class="bg-danger p_last_num" id="sku_id_last_num"></p>
+            </div>
+          </div>
+
+
+
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">商品价格</label>
+            <div class="col-sm-8">
+              <input type="number" name="price" min="0" max="99999999" step='0.01'
+                     class="form-control" required
+                     oninvalid="setCustomValidity('价格必填数字')" oninput="setCustomValidity('')"
+                     placeholder="商品价格">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">排序(由大到小)</label>
+            <div class="col-sm-8">
+              <input type="number" name="sort_num" min="0" max="99999999" step='1'
+                     class="form-control" required
+                     oninvalid="setCustomValidity('排序必填数字')" oninput="setCustomValidity('')"
+                     placeholder="排序">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2">是否领空</label>
+            <div class="col-sm-8">
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" value='false' name="is_over" checked="checked">否
+                  <input class="form-check-input" type="radio" value="true" name="is_over"> 是
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">展示图片</label>
+            <div class="col-sm-8">
+              <%= render 'images/upload_single_image' %>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="battle_product_desc" class="col-sm-2 col-form-label">商品内容</label>
+            <div class="col-sm-8">
+              <textarea class="form-control"  rows="4" name="content"  placeholder="商品内容"></textarea>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label for="battle_product_desc" class="col-sm-2 col-form-label">推广文字</label>
+            <div class="col-sm-8">
+              <textarea class="form-control"  rows="4" name="promotion_words"  placeholder="请输入xxx人必得，不输入则无"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit"   class="btn btn-primary">保存</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

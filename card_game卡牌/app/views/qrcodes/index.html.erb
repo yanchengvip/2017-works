@@ -1,0 +1,43 @@
+<p class="sub-header">系统管理>角色管理>运营渠道商</p>
+<div class="row placeholders">
+  <a href="/qrcodes/new" class="btn btn-primary btn-lg" role="button">新增</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>渠道ID</th>
+      <th>渠道名称</th>
+      <th>访问下载数量</th>
+      <th>二维码</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @qrcodes.each do |qr| %>
+        <tr>
+          <td><%= qr.id%></td>
+          <td><%= qr.name%></td>
+          <td><%= qr.number%></td>
+          <td>
+            <div id="qrcode_<%= qr.id%>"></div>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<script type="text/javascript">
+    <% @qrcodes.each do |qr| %>
+    var qrcode = new QRCode(document.getElementById("qrcode_<%=qr.id%>"), {
+        text: "<%= @url%>?qrcode_id=<%= qr.id%>",
+        width: 80,
+        height: 80,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+    <% end %>
+</script>
+<%= paginate @qrcodes %>

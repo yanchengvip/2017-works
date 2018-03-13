@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">营销管理>邮件管理>新增邮件分类</p></div>
+
+<%= form_for @mail_type, url: mail_types_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

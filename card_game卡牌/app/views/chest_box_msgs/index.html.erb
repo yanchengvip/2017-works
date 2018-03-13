@@ -1,0 +1,37 @@
+<div class="row"><p class="sub-header">系统管理>宝箱设置>宝箱抽奖文案</p></div>
+
+<div class="row placeholders well">
+  <span style="color: red">变量约定：宝箱符数量：{treasure_amount}，免费次数数量：{free_treasure_amount}，宝箱名称: {box_name}</span>
+</div>
+
+<form action="/chest_box_msgs/msg_create" method="post">
+
+  <label class="control-label" for="inputSuccess1">情况1，开启免费宝箱，次数不足，但拥有宝箱券可开启任意一个宝箱</label>
+  <textarea class="form-control" rows="3" name="m1"><%= @chest_box_msgs[0]&.content%></textarea>
+
+
+  <label class="control-label" for="inputSuccess1">情况2，开启当前付费宝箱（宝箱符开启），宝箱符数量不足，但拥有宝箱券可开启其他付费宝箱</label>
+  <textarea class="form-control" rows="3" name="m2"><%= @chest_box_msgs[1]&.content%></textarea>
+
+
+  <label class="control-label" for="inputSuccess1">情况3，开启付费宝箱后，剩余宝箱符无法开启任何付费宝箱，且拥有免费开启次数</label>
+  <textarea class="form-control" rows="3" name="m3"><%= @chest_box_msgs[2]&.content%></textarea>
+
+  <label class="control-label" for="inputSuccess1">情况4，用户开启完宝箱后，所有免费次数、宝箱符数量均不足开启任何一个宝箱</label>
+  <textarea class="form-control" rows="3" name="m4"><%= @chest_box_msgs[3]&.content%></textarea>
+
+  <label class="control-label" for="inputSuccess1">情况5，当用户进入宝箱界面，免费次数＆宝箱符均不够开启任何1个宝箱</label>
+  <textarea class="form-control" rows="3" name="m5"><%= @chest_box_msgs[4]&.content%></textarea>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-4 col-form-label"></label>
+    <div class=" col-sm-6">
+      <button type="submit" class="btn-lg btn-primary">保存</button>
+    </div>
+  </div>
+
+</form>
+
+
+

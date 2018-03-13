@@ -1,0 +1,61 @@
+<%#= render partial: 'form' %>
+<p class="sub-header">卡牌商城>卡牌促销>免费宝箱</p>
+<form action="/activities" method="post">
+  <div class="form-group row">
+    <label for="activities_status" class="col-sm-2 col-form-label">*前台启用：</label>
+    <div class="col-sm-6">
+      <% if @activity.status %>
+        <div class="radio">
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="1" name="status"  checked="checked">启用
+          </label>
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="0" name="status">关闭
+          </label>
+        </div>
+      <% else %>
+        <div class="radio">
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="1" name="status">启用
+          </label>
+          <label class="mr_30">
+            <input class="form-check-input" type="radio" value="0" name="status"  checked="checked">关闭
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render partial: 'item' %>
+
+  <div class="form-group row mt_50">
+    <label for="activities_status" class="col-sm-2 col-form-label">*领取时间：</label>
+    <div class="col-sm-6">
+      <div class="input-group">
+        <input type="number" name="receive_hour" min="0" value="<%= @activity.receive_hour %>" max="23" class="form-control" required="required" placeholder="整数" id='activity_receive_hour'>
+        <span class="input-group-addon">小时</span>
+
+        <input type="number" name="receive_minute" min="0" value="<%= @activity.receive_minute %>" max="23" class="form-control" required="required" placeholder="0~59整数" id='activity_receive_minute'>
+        <span class="input-group-addon">分钟</span>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" name="name" value="免费宝箱">
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%#= link_to '取消', activities_path, class: 'btn btn-default mr_20', role: 'button' %>
+      <%#= f.submit '保存', class: 'btn btn-primary', data: {:disable_with => "提交中..."} %>
+      <button type="submit" class="btn btn-primary">更新信息</button>
+    </div>
+  </div>
+
+</form>
+
+<script type="text/javascript">
+  $(function(){
+    $('body').on('click', '.del_item_new', function(){
+      $(this).parent().parent().remove()
+    })
+  })
+</script>

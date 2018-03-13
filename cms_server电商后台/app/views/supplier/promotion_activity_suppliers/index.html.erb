@@ -1,0 +1,49 @@
+<%= render partial: 'search' %>
+<ul class="nav nav-tabs" id="otherInfoTab" style="margin-left: 5px">
+  <li class="<%=params[:q][:promotion_activity_status_eq].blank? ? 'active' : '' %>"><a href="/supplier/promotion_activity_suppliers">全部活动</a></li>
+  <li class="<%=params[:action] == 'no_begin_activity' ? 'active' : '' %>"><a href="/supplier/promotion_activity_suppliers/no_begin_activity">未开始</a></li>
+  <li class="<%=params[:action] == 'proceed_activity' ? 'active' : '' %>"><a href="/supplier/promotion_activity_suppliers/proceed_activity">进行中</a></li>
+  <li class="<%=params[:action] == 'end_activity' ? 'active' : '' %>"><a href="/supplier/promotion_activity_suppliers/end_activity">已结束</a></li>
+</ul>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>活动ID</th>
+      <th>活动名称</th>
+      <th>优惠方式</th>
+      <th>活动中商品</th>
+      <th>活动时间</th>
+      <th>招商时间</th>
+      <th>活动状态</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @supplier_promotion_activity.each do |supplier_promotion_activity| %>
+      <tr>
+        <td><%= supplier_promotion_activity.promotion_activity_id %></td>
+        <td><%= supplier_promotion_activity.promotion_activity.name %></td>
+        <td><%= Auction::PromotionActivity::DISCOUNTTYPE[supplier_promotion_activity.promotion_activity.discount_type] %></td>
+        <td><a href="/supplier/promotion_activity_apply_products/<%= supplier_promotion_activity.promotion_activity.id %>"><%= supplier_promotion_activity.promotion_activity.apply&.sum(:product_count) %></a></td>
+        <td><%= supplier_promotion_activity.promotion_activity.promotion_begin.strftime('%Y-%m-%d %H:%M:%S') %><br><%= supplier_promotion_activity.promotion_activity.promotion_end.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= supplier_promotion_activity.promotion_activity.declar_begin.strftime('%Y-%m-%d %H:%M:%S') %><br><%= supplier_promotion_activity.promotion_activity.declar_end.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= status_text(supplier_promotion_activity.promotion_activity.status,supplier_promotion_activity.promotion_activity.promotion_begin,supplier_promotion_activity.promotion_activity.promotion_end)%></td>
+        <td>
+          <%= link_to '查看活动', supplier_promotion_activity_supplier_path(supplier_promotion_activity)%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script type="text/javascript">
+  $(function () {
+    if($('#otherInfoTab li:eq(1)').hasClass('active')){
+      $('#otherInfoTab li:first').removeClass('active');
+    }else if ($('#otherInfoTab li:eq(2)').hasClass('active')) {
+      $('#otherInfoTab li:first').removeClass('active');
+    }else if ($('#otherInfoTab li:eq(3)').hasClass('active')) {
+      $('#otherInfoTab li:first').removeClass('active');
+    }
+  })
+</script>
+<%= paginate @supplier_promotion_activity %>

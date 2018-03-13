@@ -1,0 +1,57 @@
+<div class="row placeholders">
+  <form class="navbar-form navbar-left">
+    类别名称：<input type="text" name="name" class="form-control" placeholder="类别名称">
+    <button type="submit" class="btn btn-success">搜索</button>
+  </form>
+
+</div>
+
+<p class="sub-header">夺宝商城>商品管理>重宝分类</p>
+<div class="row placeholders">
+  <a href="/product_tags/new" class="btn btn-primary btn-lg" role="button">新增分类</a>
+</div>
+
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>分类ID</th>
+      <th>分类名称</th>
+      <th>分类别名</th>
+      <th>当前排序</th>
+      <th>启用状态</th>
+      <th>是否支持自建赛场</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @product_tags.each do |tag| %>
+        <tr>
+          <td><%= tag.id %></td>
+          <td><%= tag.name %></td>
+          <td><%= tag.alias %></td>
+          <td><%= tag.sort.to_i %></td>
+          <td><%= ProductTag::STATUS[tag.status]  %></td>
+          <td><%= tag.is_self ? '是' : '否' %></td>
+          <td><%= datetime_format tag.created_at %></td>
+          <td>
+            <!--<a href="#" class="">排序</a>-->
+            <a href="/product_tags/<%= tag.id %>/edit" class="btn btn-primary btn-sm">编辑</a>
+            <% if tag.status == 0 %>
+                <a href="javascript:void(0)" onclick="obj_shelf_modal(<%= tag.id%>,'<%= tag.name%>',1,'禁用/启用')" class="btn btn-danger btn-sm">禁用</a>
+            <% elsif tag.status == 1 %>
+                <a href="javascript:void(0)" onclick="obj_shelf_modal(<%= tag.id%>,'<%= tag.name%>',0,'禁用/启用')" class="btn btn-info btn-sm">启用</a>
+            <% end %>
+
+          </td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @product_tags %>
+<%= render 'shared/obj_onshelf_modal',locals:{title: '修改商品类别状态',url: '/product_tags/destroy'}%>

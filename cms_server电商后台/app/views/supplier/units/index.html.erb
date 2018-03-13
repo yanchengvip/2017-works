@@ -1,0 +1,110 @@
+<%= render partial: 'search' %>
+
+<ul class="nav nav-tabs" id="otherInfoTab" style="margin-left: 28px">
+  <li class="<%=params[:q][:status_eq].blank? ? 'active' : '' %>"><a href="/supplier/units">全部订单</a></li>
+  <li class="<%=params[:q][:status_eq] == 'audit' ? 'active' : '' %>"><a href="/supplier/units?q[status_eq]=audit">待客服审核</a></li>
+  <li class="<%=params[:q][:status_eq] == 'receive' ? 'active' : '' %>"><a href="/supplier/units?q[status_eq]=receive">待供应商收货</a></li>
+  <li class="<%=params[:q][:status_eq] == 'transfer' ? 'active' : '' %>"><a href="/supplier/units?q[status_eq]=transfer">待财务退款</a></li>
+  <li class="<%=params[:q][:status_eq] == 'complete' ? 'active' : '' %>"><a href="/supplier/units?q[status_eq]=complete">已退款</a></li>
+  <li class="<%=params[:q][:status_eq] == 'freezed' ? 'active' : '' %>"><a href="/supplier/units?q[status_eq]=freezed">客服驳回</a></li>
+  <li class="<%=params[:q][:status_eq] == 'cancel' ? 'active' : '' %>"><a href="/supplier/units?q[status_eq]=cancel">取消</a></li>
+</ul>
+
+<%@units.each do |unit|%>
+<%auction_trade = unit.trade%>
+<div>
+  <div class="content mt40">
+    <div class="right w970">
+      <div class="clearfix">
+        <div>
+          <div class="order_title">
+            <p class="left">订单编号：<span><%=unit.supplier_trade&.identifier%></span></p>
+            <p class="left">下单时间：<span><%=auction_trade.created_at%></span></p>
+            <p class="left widefat">付款方式:<span><%= Auction::Trade::PAYMENT_SERVICES[auction_trade&.payment_service] %></span></p>
+            <p class="left">状态：<span><%=Auction::Unit::STATUS[unit.status]%></span></p>
+          </div>
+          <table class="prods_detail">
+            <tr>
+              <td>
+                <div class="prod_li">
+                  <a class="img_wrapper left" target="_blank" href="javascript:void(0)">
+                    <%=image_tag "#{unit.auction_product&.major_pic}"%>
+                  </a>
+                  <div class="left prod_info">
+                    <a class="name" href="javascript:void(0)"><%=unit.auction_product&.name%></a>
+                    <div class="">
+                      <span class="color">颜色：<%=unit.auction_product&.color%></span>
+                      <span class="size ">尺码：<%=unit.sku_name%></span>
+                    </div>
+                    <div>原厂货号:<%=unit.auction_product.identifier%></div>
+                  </div>
+                  <div class="left money">
+                    <p> ￥<%=unit.price%></p>
+                  </div>
+                  <p class="nums left"></p>
+                </div>
+              </td>
+              <td class="line-box">
+                <p class="status">
+                 <%=contact_to_str auction_trade.contact%></p>
+              </td>
+              <td class="btns">
+                  <%if unit.status == 'receive' %>
+                    <button type="button" class="btn btn-xs btn-warning receive"  data-id="<%=unit.id%>" data-sku-id="<%=unit.auction_sku_id%>">收到退货</button>
+                  <%end%>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%end%>
+<%= paginate @units %>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+$(".receive").click(function (argument) {
+  obj = $(this)
+  id = obj.attr("data-id")
+  sku_id = obj.attr("data-sku-id")
+  swal({
+    title: '',
+    text: '确认收到退货？',
+    showCancelButton: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+    reverseButtons: true
+  }).then(function (e) {
+    console.log(e)
+    $.ajax({
+      type: "post",
+      url: "/supplier/units/receive",
+      data: {id: obj.attr("data-id")},
+      success: function(res){
+        if(res.status == 200){
+          obj.hide()
+          swal({
+            title: '是否增加库存提示！',
+            text: '您收到了用户的一件退货，您是否要去库存管理中增加此件商品的库存？',
+            showCancelButton: true,
+            confirmButtonText: '<a href="/supplier/skus/'+sku_id+'/edit">去添加库存</a>',
+            cancelButtonText: '不去增加库存',
+            reverseButtons: true
+          }).then(function (argument) {
+          })
+        }else{
+          swal({text: res.msg})
+        }
+      },
+      error: function(){
+        console.log("error")
+      }
+    })
+  }, function(e){
+    console.log(2)
+  })
+})
+</script>

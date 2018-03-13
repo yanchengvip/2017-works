@@ -1,0 +1,42 @@
+<!-- 广播功能 -->
+<div class="form-group row mt_20"><legend><h3>广播功能</h3></legend></div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading ft_16"><strong>饕餮语言提示</strong></div>
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <p class="mb_20">饕餮出现时，提示语言：</p>
+      <input type="text" name="appear_text" id="appear_text" value="<%= @glutton_setting.appear_text %>" required placeholder='饕餮出现时，提示语言' class='custom_input_lg'>
+    </li>
+    <li class="list-group-item">
+      <p class="mb_20">饕餮将要出现时，提示语言：</p>
+      <input type="text" name="gonna_appear_text" id="gonna_appear_text" value="<%= @glutton_setting.gonna_appear_text %>" required placeholder='饕餮将要出现时，提示语言' class='custom_input_lg'>
+    </li>
+    <li class="list-group-item">
+      <p class="mb_20">饕餮血量为0时，提示语言：</p>
+      <input type="text" name="zero_blood_text" id="zero_blood_text" value="<%= @glutton_setting.zero_blood_text %>" required placeholder='饕餮血量为0时，提示语言' class='custom_input_lg'>
+    </li>
+  </ul>
+
+  <div class="panel-body">
+    <p>饕餮血量分别达到以下值时，饕餮身上出现语言提示</p>
+    <%= render partial: 'text_table' %>
+  </div>
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading ft_16"><strong>APP广播功能</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      当饕餮血量低于<input type="number" name="broadcast_blood" id="broadcast_blood" min="0" max="100" step="0.1" value="<%= @glutton_setting.broadcast_blood * 100 %>" required placeholder='最多1位小数' class='custom_input'>%，
+      拥有密钥大于<input type="number" name="broadcast_key" id="broadcast_key" min="0" max="100" step="0.1" value="<%= @glutton_setting.broadcast_key * 100 %>" required placeholder='最多1位小数' class='custom_input'>% 时，APP内全体广播，提示大家进入击杀饕餮
+    </li>
+    <li class="list-group-item">
+      <p class="mb_20">全体广播内容：</p>
+      <input type="text" name="broadcast_text" id="broadcast_text" value="<%= @glutton_setting.broadcast_text %>" required placeholder='全体广播内容' class='custom_input_lg'>
+    </li>
+  </ul>
+</div>

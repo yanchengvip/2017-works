@@ -1,0 +1,50 @@
+<div class="row">
+  <p class="sub-header">赛场管理>赛场规则>赛场规则列表</p>
+</div>
+
+<%= render partial: 'search' %>
+
+<div class="row mt_20 mb_20">
+  <%= link_to '新增赛场规则', new_game_rule_path, class: 'btn btn-primary', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>规则名称</th>
+        <th>开赛人数</th>
+        <!-- <th>赛场轮数</th> -->
+        <!-- <th>每轮时间</th> -->
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @game_rules && @game_rules.each_with_index do |game_rule, index| %>
+      <tr id="tr_<%= game_rule.id %>">
+        <td><%= game_rule.id %></td>
+        <td><%= game_rule.name %></td>
+        <td><%= game_rule.open_user_num %></td>
+        <!-- <td><%#= game_rule.round_num %></td>
+        <td><%#= game_rule.round_time %>分钟</td> -->
+        <td><%= game_rule.created_at.strftime('%Y.%m.%d') %></td>
+        <td>
+          <%= link_to '查看', game_rule_path(game_rule), class: 'btn btn-sm btn-info' %>
+          <%= link_to '编辑', edit_game_rule_path(game_rule), class: 'btn btn-sm btn-primary' %>
+          <%# if game_type.status == 0 %>
+            <%#= link_to '删除', "javascript:void(0)", onclick: "game_type_delete(#{game_type.id}, '#{game_type.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          <%# end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @game_rules %>
+
+
+
+

@@ -1,0 +1,54 @@
+# config/app.yml for rails-settings-cached
+defaults: &defaults
+  test:
+    user_id: 42205
+  java_server:
+
+    base: "http://127.0.0.1/" #测试服务器
+
+    timeout: 20
+  solr_url: "http://127.0.0.1:8080/"
+  redis:
+      url: "redis://127.0.0.1/0"
+
+  hosts: "http://127.0.0.1/"
+  pay:
+    currency: "CNY" #当前币种 CNY 人民币 USD美元
+    pay_list:
+      wechat:
+        use: true
+        currency: "CNY"
+      alipay:
+        use: true
+        currency: "CNY"
+      paypal:
+        use: true
+        currency: "USD"
+      express:
+        use: true
+        currency: "CNY"
+    wechat_discount: 0.98 #微信支付优惠 2%
+    alipay_discount: 0.99 #支付宝支付优惠 1%
+  sms:
+    type: 'mw' #mw=梦网,yunpian=云片
+    yunpian:
+      apikey: '123'
+      single_url: 'https://sms.yunpian.com/v2/sms/single_send.json'
+      sign: '【优众网】'
+    mw:
+      submit_url: "http://127.0.0.1/MWGate/wmgw.asmx"
+      userid: "J02039"
+      password: "289292"
+    mwad:
+      submit_url: "http://127.0.0.1/MWGate/wmgw.asmx?wsdl"
+      userid: "123"
+      password: "123"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

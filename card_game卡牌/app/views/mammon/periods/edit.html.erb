@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">财神>期次管理>编辑期次</p></div>
+
+<%= form_for @period, url: mammon_period_path, html: {class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%#= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

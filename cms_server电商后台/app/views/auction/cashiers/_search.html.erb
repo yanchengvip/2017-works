@@ -1,0 +1,74 @@
+<!--查询-->
+<div class="collapse breadcrumb-collapse-s" id="cashiers_search">
+  <div class="well">
+    <form action="/auction/cashiers" method="get" class="form-inline">
+
+      <div class="form-group col-sm-4">
+        <label class="col-sm-4 text-right">用户订单ID:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="q[auction_trade_id_eq]" placeholder="用户订单ID">
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label class="col-sm-4 text-right">支付方式:</label>
+        <div class="col-sm-8">
+          <select class="select2-picker form-control" name="q[auction_trade_payment_service_eq]">
+            <option value="">请选择</option>
+            <% Auction::Trade::PAYMENTSERVICE.to_a.each do |s| %>
+                <option value="<%= s[0] %>"><%= s[1] %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label class="col-sm-4 text-right">商家订单ID:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="q[id_eq]" placeholder="商家订单ID">
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label class="col-sm-4 text-right">开始时间:</label>
+        <div class="col-sm-8">
+          <input type='text' class="form-control trade_search_dt8" placeholder="创建时间" name="q[created_at_gteq]"/>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label class="col-sm-4 text-right">结束时间:</label>
+        <div class="col-sm-8">
+          <input type='text' class="form-control trade_search_dt9" placeholder="结束时间" name="q[created_at_lteq]"/>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-4">
+        <label class="col-sm-4 text-right">订单状态:</label>
+        <div class="col-sm-8">
+          <select class="select2-picker form-control" name="q[status_eq]">
+            <option value="">请选择</option>
+            <% Auction::Trade::STATUS.to_a.each do |s| %>
+                <option value="<%= s[0] %>"><%= s[1] %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label class="col-sm-4 text-right">支付状态:</label>
+        <div class="col-sm-8">
+          <select class="select2-picker form-control" name="q[pay_status_eq]">
+            <option value="">请选择</option>
+            <% Supplier::Trade::PAYSTATUS.to_a.each do |s| %>
+                <option value="<%= s[0] %>"><%= s[1] %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin:0 auto;width:200px;">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">查询</button>
+      </div>
+
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Trades Updatings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_trades_updatings.each do |auction_trades_updating| %>
+      <tr>
+        <td><%= link_to 'Show', auction_trades_updating %></td>
+        <td><%= link_to 'Edit', edit_auction_trades_updating_path(auction_trades_updating) %></td>
+        <td><%= link_to 'Destroy', auction_trades_updating, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Trades Updating', new_auction_trades_updating_path %>

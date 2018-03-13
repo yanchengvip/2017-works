@@ -1,0 +1,83 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="<%= trades_show_tab(1, @tab) %>">
+    <a href="/auction/supplier_trades/returns?q[status_eq]=normal&tab=1">申请退货</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(2, @tab) %>">
+    <a href="/auction/supplier_trades/returns?q[status_eq]=normal&tab=2">全部退货</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(3, @tab) %>">
+    <a href="/auction/supplier_trades/returns?q[status_eq]=audit&tab=3">待客服审核</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(4, @tab) %>">
+    <a href="/auction/supplier_trades/returns?q[status_eq]=receive&tab=4">待供应商收货</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(5, @tab) %>">
+    <a href="/auction/supplier_trades/returns?q[status_eq]=transfer&tab=5">待财务退款</a>
+  </li>
+  <li role="presentation" class="<%= trades_show_tab(6, @tab) %>">
+    <a href="/auction/supplier_trades/returns?q[status_eq]=complete&tab=6">已退款</a>
+  </li>
+</ul>
+
+
+
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>UnitID</th>
+    <th>用户订单号</th>
+    <th>商家订单号</th>
+    <th>支付方式</th>
+    <th>商品名称</th>
+    <th>申请时间</th>
+    <th>申请理由</th>
+    <th>退货状态</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @return_units.each do |unit| %>
+      <tr>
+        <td><%= unit.id %></td>
+        <td><%= unit.trade_identifier %></td>
+        <td><%= unit.supplier_trade&.identifier %></td>
+        <td><%= Auction::Trade::PAYMENTSERVICE[unit.payment_service] %></td>
+        <td><%= unit.auction_product&.name %></td>
+        <td><%= unit.request_at.present? ? unit.request_at.strftime('%Y-%m-%d') : ''%></td>
+        <td><%= unit.return_reason %></td>
+        <td><a href="#" onclick="returnRecordsModal()"><%= Auction::Unit::STATUS[unit.status] %></a></td>
+        <td>
+          <a href="/auction/supplier_trades/return_show?id=<%= unit.id %>" class='btn btn-sm btn-info'>详情</a>
+          <% if unit.status.nil? %>
+              <a href="javascript:void(0)" onclick="apply_refund_modal('<%= unit.id%>','<%= unit.auction_product&.name%>','<%= unit.discount%>','<%= unit.payment_service%>')" class='btn btn-sm btn-warning'>审请</a>
+          <% end %>
+          <% if unit.status == 'audit' %>
+              <% if current_user.can? ('auction/units#audit') %>
+                  <a href="javascript:void(0)" onclick="unit_audit_modal('<%= unit.id%>','<%= unit.auction_product&.name %>','<%= unit.return_reason%>','<%= Auction::Trade::PAYMENTSERVICE[unit.payment_service]%>','<%= unit.return_name%>;<%= unit.return_bank%>;<%= unit.return_account%>','<%= unit.discount%>','audit')" class='btn btn-sm btn-danger'>审核</a>
+                  <a href="javascript:void(0)" onclick="unit_audit_modal('<%= unit.id%>','<%= unit.auction_product&.name %>','<%= unit.return_reason%>','<%= Auction::Trade::PAYMENTSERVICE[unit.payment_service]%>','<%= unit.return_name%>;<%= unit.return_bank%>;<%= unit.return_account%>','<%= unit.discount%>','freezed')" class='btn btn-sm btn-warning'>驳回</a>
+              <% end %>
+
+          <% end %>
+          <% if unit.status == 'transfer' %>
+              <% if current_user.can? ('auction/units#transfer') %>
+                  <a href="javascript:void(0)" onclick="obj_status_modal('<%= unit.id%>','退款','退款确定已完成?','','/auction/units/transfer')" class='btn btn-sm btn-danger'>退款</a>
+              <% end %>
+          <% end %>
+
+        </td>
+      </tr>
+  <% end %>
+
+  </tbody>
+
+</table>
+
+<div id="test" style="background: #000000">
+  <%= paginate @return_units %>
+</div>
+
+<%= render 'auction/shared/obj_status_modal' %>
+<%= render '/auction/supplier_trades/return_modal/return_records_modal' %>
+<%= render '/auction/supplier_trades/return_modal/apply_refund_modal'%>
+<%= render '/auction/supplier_trades/return_modal/audit_modal'%>

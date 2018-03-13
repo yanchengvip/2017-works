@@ -1,0 +1,113 @@
+<div class="form-group row mt_20">
+  <label for="chest_prize_name" class="col-sm-2 control-label">奖品名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '奖品名称', class: 'form-control', required: "required", readonly: params[:action] == 'edit' ? true : false %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_prize_exchange" class="col-sm-2 control-label">献祭比例</label>
+  <div class="col-sm-8">
+    <%= f.text_field :exchange, placeholder: '献祭百分比：0为不可献祭', class: 'form-control', required: "required", type: 'number', min: 0, max: 100, readonly: params[:action] == 'edit' ? true : false %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_prize_prize_type" class="col-sm-2 control-label">奖品类型</label>
+  <div class="col-sm-8">
+    <% if params[:action] == 'new' %>
+      <%= f.select :prize_type, options_for_select(ChestPrize::PRIZE_TYPE.to_a.map(&:reverse), @chest_prize.prize_type), {}, class: 'form-control game_select2 chest_prize_type', required: "required" %>
+    <% else %>
+      <span><%= ChestPrize::PRIZE_TYPE[@chest_prize.prize_type] %></span>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group row mt_20 hide event_div">
+  <label for="chest_prize_event_id" class="col-sm-2 control-label">券 ID</label>
+  <div class="col-sm-8">
+    <%= f.text_field :event_id, placeholder: '券id', class: 'form-control', type: 'number', min: 0, readonly: params[:action] == 'edit' ? true : false %>
+  </div>
+</div>
+
+<div class="form-group row mt_20 hide event_div">
+  <label for="chest_prize_memo" class="col-sm-2 control-label">奖品说明</label>
+  <div class="col-sm-8">
+    <%= f.text_area :memo, placeholder: '奖品说明', class: 'form-control', rows: 3, readonly: params[:action] == 'edit' ? true : false %>
+  </div>
+</div>
+
+<!-- 金额（如：100电话卡）都用 num ，price 只是用来排序的 -->
+<div class="form-group row mt_20">
+  <label for="chest_prize_num" class="col-sm-2 control-label">充值金额/数量</label>
+  <div class="col-sm-8">
+    <%= f.text_field :num, placeholder: '充值金额/数量', class: 'form-control', required: "required", type: 'number', min: 0, step: 0.1, readonly: params[:action] == 'edit' ? true : false %>
+    <span class="red">*手机话费充值只能充固定值：1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 50, 100, 200, 300, 500</span>
+    <%#= f.select :num, options_for_select(ChestPrize::PHONE_FEE.map{|i| [i, i]}, @chest_prize.num), {}, class: 'form-control game_select2 chest_prize_type', required: "required" %>
+    <!-- <span class="input-group-addon">元/个</span> -->
+  </div>
+</div>
+
+
+<div class="form-group row mt_20">
+  <label for="input" class="col-sm-2 control-label">展示图</label>
+  <div class="col-sm-8">
+    <%= render 'images/upload_single_image' %>
+  </div>
+</div>
+
+
+<div class="form-group row mt_20">
+  <label for="chest_prize_share_num" class="col-sm-2 control-label">分享奖励</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :share_num, placeholder: '分享奖励数量', class: 'form-control', required: "required", type: 'number', min: 0, readonly: params[:action] == 'edit' ? true : false %>
+      <span class="input-group-addon">个宝箱券</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_prize_price" class="col-sm-2 control-label">奖品价值</label>
+  <div class="col-sm-8">
+    <%= f.text_field :price, placeholder: '单个奖品价值', class: 'form-control', required: "required", type: 'float', min: 0, readonly: params[:action] == 'edit' ? true : false %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_prize_postage" class="col-sm-2 control-label">快递费</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :postage, placeholder: '快递费', class: 'form-control', required: "required", type: 'number', min: 0 %>
+      <span class="input-group-addon">元</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_prize_win_copy" class="col-sm-2 control-label">中奖文案</label>
+  <div class="col-sm-8">
+    <%= f.text_field :win_copy, placeholder: '获得提示中的文案', class: 'form-control', required: "required", readonly: params[:action] == 'edit' ? true : false %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_prize_jump_type" class="col-sm-2 control-label">获取后，跳转场景</label>
+  <div class="col-sm-8">
+    <% if params[:action] == 'new' %>
+      <%= f.select :jump_type, options_for_select([['无', nil]] + ChestPrize::JUMP_TYPE.to_a.map(&:reverse), @chest_prize.jump_type), {}, class: 'form-control game_select2' %>
+    <% else %>
+      <span><%= ChestPrize::JUMP_TYPE[@chest_prize.jump_type] || '无' %></span>
+    <% end %>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-2 col-sm-4">
+    <%= link_to '取消', chest_prizes_path, class: 'btn btn-default mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary', id: 'chest_prize_submit' %>
+  </div>
+</div>
+

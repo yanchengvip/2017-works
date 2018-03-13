@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chest_record_id: 1
+  chest_prize_id: 1
+  user_id: MyString
+  chest_box_id: 1
+  status: 1
+
+two:
+  chest_record_id: 1
+  chest_prize_id: 1
+  user_id: MyString
+  chest_box_id: 1
+  status: 1

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Manage Editors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manage_editors.each do |manage_editor| %>
+      <tr>
+        <td><%= link_to 'Show', manage_editor %></td>
+        <td><%= link_to 'Edit', edit_manage_editor_path(manage_editor) %></td>
+        <td><%= link_to 'Destroy', manage_editor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manage Editor', new_manage_editor_path %>

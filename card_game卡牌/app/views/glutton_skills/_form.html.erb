@@ -1,0 +1,59 @@
+<div class="form-group row mt_20">
+  <label for="glutton_skill_skill_level" class="col-sm-2 control-label">等级</label>
+  <div class="col-sm-8">
+    <%= f.text_field :skill_level, placeholder: '等级', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_skill_name" class="col-sm-2 control-label">名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '名称', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_skill_skill_up_limit" class="col-sm-2 control-label">选择计谋增加上限</label>
+  <div class="col-sm-8">
+    <%= f.text_field :skill_up_limit, placeholder: '选择计谋增加上限', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_skill_skill_comment" class="col-sm-2 control-label">技能描述</label>
+  <div class="col-sm-8">
+    <%= f.text_area :skill_comment, placeholder: '技能描述', class: 'form-control', required: "required", rows: 6 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_skill_each_game_sum" class="col-sm-2 control-label">每场可使用总次数</label>
+  <div class="col-sm-8">
+    <%= f.text_field :each_game_sum, placeholder: '每场可使用总次数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_skill_each_round_sum" class="col-sm-2 control-label">每轮最多使用次数</label>
+  <div class="col-sm-8">
+    <%= f.text_field :each_round_sum, placeholder: '每轮最多使用次数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_skill_use_last_round" class="col-sm-2 control-label">是否可在最后一轮使用</label>
+  <div class="col-sm-8">
+    <%= f.select :use_last_round, options_for_select(GluttonSkill::ULR.to_a.map(&:reverse), @glutton_skill.use_last_round), {}, class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', glutton_skills_path, class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'glutton_skill_submit' %>
+  </div>
+</div>
+

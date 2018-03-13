@@ -1,0 +1,53 @@
+<!-- 礼包删除modal -->
+<div class="modal fade" id="deleteGlLevelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">礼包删除</h4>
+      </div>
+      <!-- <form action="/packages/destroy" method="post"> -->
+        <!-- <input name="_method" type="hidden" value="delete" /> -->
+        <div class="modal-body">
+          <h3>确定删除该等级吗？</h3>
+
+          <input type="hidden" id="del_level_id">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="delete_level">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#delete_level').on('click', function(){
+      var lid = $('#del_level_id').val()
+      $.ajax({
+        type: "delete",
+        url: '/glutton_levels/' + lid,
+        data: { },
+        success: function(result){
+          if(result.status == 200){
+            // window.location.reload();
+            $('#tr_' + lid).remove()
+            $('#deleteGlLevelModal').modal('hide')
+          }else{
+            $('#deleteGlLevelModal').modal('hide')
+            elert('删除失败')
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#deleteGlLevelModal').modal('hide')
+          elert('删除失败')
+        }
+      })
+
+    })
+  })
+</script>

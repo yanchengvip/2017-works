@@ -1,0 +1,12 @@
+concurrency: 5 # 并发数
+pidfile: tmp/pids/sidekiq.pid
+logfile: ./log/sidekiq.log # 输出的日志地址
+
+development:
+  :concurrency: 10
+  :queues: ["chest_order_item_queue", "chest_order_voucher_queue", "default"]
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 20
+  :queues: ["chest_order_item_queue", "chest_order_voucher_queue", "default"]

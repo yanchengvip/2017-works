@@ -1,0 +1,10 @@
+<% @game_round_times && @game_round_times.each do |i| %>
+  <div class="form-group row">
+    <div class="col-sm-offset-2 col-sm-8">
+      第<input type="number" name="round_times[][round_num]" value="<%= i.round_num %>" class="custom_input round_num" width="100px" required readonly="readonly">
+      <span class="mr_20">轮，</span>
+      <input type="number" name="round_times[][round_time]" min="1" max="999999" value="<%= i.round_time %>"  placeholder="时间，>0" class="custom_input_big" width="100px" required>秒
+    </div>
+  </div>
+<% end %>
+

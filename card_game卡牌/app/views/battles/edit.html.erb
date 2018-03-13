@@ -1,0 +1,169 @@
+<p class="sub-header">战场管理>战役管理>修改战役><%= @battle.name %></p>
+
+
+<form action="/battles/update" method="post" onsubmit="return battle_form_validate(this)">
+  <input type="hidden" name="id" value="<%= @battle.id %>">
+  <div class="form-group row">
+    <label class="col-sm-2">战役等级</label>
+    <div class="col-sm-8">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" value='1' name="battle_rank" <%= battle_rank_is_checked 1, @battle.battle_rank %>>初级场
+          <input class="form-check-input" type="radio" value="2" name="battle_rank"  <%= battle_rank_is_checked 2, @battle.battle_rank %>>
+          中级场
+        </label>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役名称</label>
+    <div class="col-sm-8">
+      <input type="input" name="name" value="<%= @battle.name %>" maxlength="30" class="form-control" id="battle_name_input"
+             required="required"
+             onkeyup="validate_words_length(30,'battle_name_input','name_last_num')"
+             placeholder="战役名称，最多30字">
+      <p class="bg-danger p_last_num" id="name_last_num"></p>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2">战役发布时间</label>
+    <div class="col-sm-8">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" value='1' name="published_at_radio"> 立即发布
+        </label>
+
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="radio" value="2" name="published_at_radio" checked="checked"> 自定义时间
+          <input type='text' class="form-check-input datetime_picker_before" value="<%= datetime_format @battle.published_at %>" name="published_at_val"/>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="form-group row">-->
+  <!--<label class="col-sm-2">战役开局时间段</label>-->
+  <!--<div class='col-md-3'>-->
+  <!--<div class="form-group">-->
+
+  <!--<div class='input-group date ' id="begin_time_picker">-->
+  <!--<input type='text' name="begin_time" value="<%#= @battle.begin_time.strftime("%H:%M") %>" class="form-control"/>-->
+  <!--<span class="input-group-addon">-->
+  <!--<span class="glyphicon glyphicon-calendar"></span>-->
+  <!--</span>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class='col-md-3'>-->
+  <!--<div class="form-group">-->
+  <!--<div class='input-group date time_hour_picker ' id="end_time_picker">-->
+  <!--<input type='text' name="end_time" value="<%#= @battle.end_time.strftime("%H:%M") %>" class="form-control"/>-->
+  <!--<span class="input-group-addon">-->
+  <!--<span class="glyphicon glyphicon-calendar"></span>-->
+  <!--</span>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+
+  <!--</div>-->
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役规则</label>
+    <div class="col-sm-8">
+      <select class="select2-picker" name="battle_rule_id" style="width: 100%">
+        <% @battle_rules.each do |br| %>
+            <% if @br_id.to_i == br.id %>
+                <option selected="true" value=<%= br.id %>><%= br.name %></option>
+            <% else %>
+                <option value=<%= br.id %>><%= br.name %></option>
+            <% end %>
+        <% end %>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役描述</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" name="desc" rows="3" id="battle_desc_input" required="required"
+                onkeyup="validate_words_length(60,'battle_desc_input','desc_last_num')" maxlength="60" placeholder="战役描述，最多60字"><%= @battle.desc %></textarea>
+      <p class="bg-danger p_last_num" id="desc_last_num"></p>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">展示图片</label>
+    <div class="col-sm-8">
+      <%= render 'images/upload_multiple_image' %>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役商品</label>
+    <div class="col-sm-8">
+      <%= render 'battles/add_battle_product' %>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-sm-2">领奖设置</label>
+    <div class="col-sm-8">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value='1' name="award_setting1" <%= award_setting_is_checked 1, @battle.award_setting %>>
+          可领实物
+        </label>
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value='2' name="award_setting2" <%= award_setting_is_checked 2, @battle.award_setting %>>
+          可将奖品兑换成
+          <input class="form-check-input" type="number" min="0" max="99999999" step='1' name="exchange_micro_ticket"
+                 value="<%= @battle.exchange_micro_ticket %>">功勋
+        </label>
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value='3' name="award_setting3" <%= award_setting_is_checked 3, @battle.award_setting %> >
+          可将奖品兑换成礼包
+        </label>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役胜利兑换礼包</label>
+    <div class="col-sm-8">
+      <%= render 'battles/battle_package_table' %>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-2 col-form-label">战役失败获赠的礼包</label>
+    <div class="col-sm-8">
+      <%= render 'battles/battle_package_table_fail' %>
+    </div>
+
+  </div>
+
+
+  <div class="form-group row">
+    <label for="input" class="col-sm-4 col-form-label"></label>
+    <div class=" col-sm-8">
+      <button type="submit" class="btn-lg btn-primary">保存</button>
+    </div>
+  </div>
+
+</form>
+
+<%= render 'battles/packages/package_win_modal'%>
+<%= render 'battles/packages/package_fail_modal'%>

@@ -1,0 +1,81 @@
+<div class="form-group row mt_20">
+  <label for="supplier_product_percent" class="col-sm-2 control-label">详情图片</label>
+  <div class="col-sm-8">
+    <span class="hide" id="random_id">100000</span>
+    <table class="table table-striped table-hover" id="energy_products_items_table">
+      <thead>
+        <tr class="info">
+          <th width="8%">操作</th>
+          <th width="18%">排序</th>
+          <th width="49%">描述</th>
+          <th width="25%">图片</th>
+        </tr>
+      </thead>
+      <tbody id="product_images_body">
+        <% @images && @images.each do |image| %>
+          <tr id="img_tr_<%= image.id %>" class='imgtr'>
+            <input type="hidden" name="pimages[][id]" value="<%= image.id %>">
+            <td>
+              <%= link_to '删除', 'javascript:void(0)', class: "del_image_origin link", id: "image_#{image.id}" %>
+            </td>
+            <td>
+              <input type="number" name="pimages[][sequence]" value="<%= image.sequence %>" required placeholder="排序" class="form-control sequence_td" min='1' max='99999999' step='1'>
+            </td>
+            <td>
+              <textarea name="pimages[][description]" cols="10" rows="5" placeholder="描述（选填）" class="form-control"><%= image.description %></textarea>
+            </td>
+            <td>
+              <%= image_tag (image.large) || '', width: 100, height: 100 if image.large %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%# if current_user.class.to_s == 'Supplier::Provider' %>
+      <%#= link_to '新增图片', 'javascript:void(0)', id: 'add_image_item', class: 'btn btn-success mt_20 ml_15' %>
+      <%= link_to '上传图片', 'javascript:void(0)', id: 'add_multiple_images', class: 'btn btn-success mt_20 ml_15' %>
+      <input type="file" id="begin_up" name="file" accept=".png, .jpg, .jpeg" multiple class="hide" >
+    <%# end %>
+
+  </div>
+</div>
+
+<%= render '/supplier/products/image_del_modal'%>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_image_item').on('click', function(){
+      $.ajax({
+        type: 'get',
+        <% if current_user.class.to_s == 'Manage::Editor' %>
+          url: '/auction/products/image_form',
+        <% elsif current_user.class.to_s == 'Supplier::Provider' %>
+          url: '/supplier/products/image_form',
+        <% end %>
+        data: { random_id: 'spi' + Number($('#random_id').text())},
+        success: function(result){
+          $('#product_images_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('新增图片失败')
+        }
+      })
+      $('#random_id').text(Number($('#random_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_image_origin').on('click', function(){
+      $('#delProductImageModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delProductImageModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_image_id').val(this_id.split('_')[1])
+      })
+    })
+  })
+
+</script>

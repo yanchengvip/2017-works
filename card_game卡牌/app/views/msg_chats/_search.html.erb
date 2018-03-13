@@ -1,0 +1,12 @@
+<div class="row">
+  <%= form_for msg_chats_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <!-- <span>文案名称：</span>
+      <%#= text_field_tag "q[name_cont]", params[:q][:name_cont], class: 'form-control mr_20', placeholder: '文案名称' %> -->
+      <span>适用赛场：</span>
+      <%= select_tag "q[game_type_eq]", options_for_select([['所有', nil]] + MsgChat::GAME_TYPE.to_a.map(&:reverse), params[:q][:game_type_eq]), class: 'form-control mr_50'  %>
+
+      <%= f.submit '查询', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

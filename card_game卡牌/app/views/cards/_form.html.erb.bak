@@ -1,0 +1,169 @@
+<p class="sub-header">系统管理>卡牌管理>添加卡牌</p>
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '返回', cards_path, class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<%= form_for @card, html: {class: 'form-horizontal ml_10'} do |f| %>
+  <div class="form-group">
+    <h4>计谋基础资料</h4><!-- <label for="" class="col-sm-2 col-form-label">基础信息</label> -->
+    <!-- glyphicon glyphicon-menu-down -->
+    <!-- <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> -->
+  </div>
+
+  <div class="form-group">
+    <label for="card_type" class="col-sm-2 col-form-label">*卡牌类型：</label>
+    <div class="col-sm-4">
+      <div class="radio">
+        <% Card::CARDTYPE.each do |key, val| %>
+          <label class="mr_30">
+            <%= f.radio_button :card_type, key, checked: @card.card_type == key %>
+            <%= val %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="card_name" class="col-sm-2 col-form-label">*计谋名称：</label>
+    <div class="col-sm-4">
+      <%= f.text_field :name, class: 'form-control', id: 'card_name', required: 'required' %>
+      <%= f.hidden_field :operator_id, value: current_user.id, class: 'form-control' %>
+      <%= f.hidden_field :operator_name, value: current_user.nickname, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="card_price" class="col-sm-2 col-form-label">*卡牌价格：</label>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <%= f.text_field :price, class: 'form-control', id: 'card_price', required: 'required' %>
+        <span class="input-group-addon" id="basic-addon2">微集分</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="card_summary" class="col-sm-2 col-form-label">*卡牌简介：</label>
+    <div class="col-sm-4">
+      <%= f.text_area :summary, class: 'form-control', id: 'card_summary', rows: 5, required: 'required' %>
+    </div>
+  </div>
+
+  <!-- 图片开始 -->
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <%= f.hidden_field :thumbnail, value: @card&.thumbnail, id: 'card_thumbnail', class: "form-control", placeholder: "缩略图" %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <% if @images.present? %>
+        <%= hidden_field_tag :pro_image_urls, @images.map(&:url).join(','), id: 'pro_image_urls', class: "form-control", placeholder: "展示图" %>
+      <% else %>
+        <%= hidden_field_tag :pro_image_urls, '', id: 'pro_image_urls', class: "form-control", placeholder: "展示图" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="card_icon" class="col-sm-2 col-form-label">*卡牌ICON：</label>
+    <div class="col-sm-6">
+      <% if @card.thumbnail %>
+        <a href="javascript:void(0)" class="thumbnail col-sm-3" id="thumbnail_link">
+          <img id="preview_card_thumbnail" src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + @card.thumbnail %>">
+        </a>
+      <% else %>
+        <a href="javascript:void(0)" class="thumbnail col-sm-3 hide" id="thumbnail_link">
+          <img id="preview_card_thumbnail" width='50%' height='50%'>
+        </a>
+      <% end %>
+
+      <a href="javascript:void(0)" class="thumbnail col-sm-3">
+        <%= image_tag 'cicon.png', alt: "卡牌ICON", class: 'z_10', id: 'icon_btn' %>
+        <!-- <div><%#= file_field_tag :file, id: 'add_card_icon', class: 'hide' %></div> -->
+        <div><input id="add_card_icon" type="file" accept="image/png,image/gif" name="file" class='hide' /></div>
+      </a>
+      <span col-sm-6>最多上传1张；建议像素：XX*XX。<br>支持扩展名：jpg/jpeg/png/gif，图片大小不能超过100k</span>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="card_images" class="col-sm-2 col-form-label">卡牌展示图：</label>
+    <div class="col-sm-6">
+      <% if @images.present? %>
+        <div id="preview_card_imgs" class="grid fl">
+
+        <% @images.each do |image| %>
+            <!-- <a href="javascript:void(0)" class="thumbnail col-sm-3 mr_10" id="card_images_link"> -->
+              <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + image.url %>" class='img_show' style='margin-right: 20px;' width='23%' height='23%'>
+            <!-- </a> -->
+            <%= image_tag 'close_pop.png', class: 'close_img hide', data_url: image.url %>
+        <% end %>
+        </div>
+      <% else %>
+        <div id="preview_card_imgs" class="grid fl">
+          <%#= image_tag 'close_pop.png', class: 'close_img hide', id: '' %>
+          <%#= image_tag 'cicon.png', alt: "卡牌ICON", class: 'mr_10 tet',id: '11111' %>
+          <%#= image_tag 'close_pop.png', class: "closeimg", alt: "删除商品" %>
+          <%#= image_tag 'cicon.png', alt: "卡牌ICON", class: 'mr_10 tet',id: '1111www1' %>
+          <%#= image_tag 'close_pop.png', class: "closeimg", alt: "删除商品" %>
+
+        </div>
+
+      <% end %>
+      <div class="clearfix">
+      <a href="javascript:void(0)" class="thumbnail col-sm-3">
+        <%= image_tag 'cicon.png', alt: "卡牌ICON", class: 'z_10', id: 'img_btn' %>
+        <!-- <div><%#= file_field_tag :file, id: 'add_card_image', accept: "image/png,image/gif", class: 'hide' %></div> -->
+        <div><input id="add_card_image" type="file" accept="image/png,image/gif" name="file" class='hide' multiple="multiple" /></div>
+      </a>
+      <span col-sm-6>最多上传5张；建议像素：XX*XX。<br>支持扩展名：jpg/jpeg/png/gif，图片大小不能超过100k</span>
+      </div>
+    </div>
+  </div>
+  <!-- 图片结束 -->
+
+  <div class="form-group">
+    <label for="card_details" class="col-sm-2 col-form-label">详细介绍：</label>
+    <div class="col-sm-6">
+      <%= f.text_area :details, class: 'form-control', id: 'card_details', rows: 8, required: 'required' %>
+    </div>
+  </div>
+
+
+  <div class="form-group mt_50">
+    <h4>属性设定</h4><!-- <label for="" class="col-sm-2 col-form-label">属性设定</label> -->
+  </div>
+  <div class="form-group">
+    <label for="card_cooldown" class="col-sm-2 col-form-label">*卡牌冷却CD：</label>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <%= f.text_field :cooldown, class: 'form-control', id: 'card_cooldown', placeholder: '正数', required: 'required' %>
+        <span class="input-group-addon">秒</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="card_effect" class="col-sm-2 col-form-label">*使用效果设置：</label>
+    <div class="col-sm-4">
+      <%= f.text_area :effect, class: 'form-control', id: 'card_effect', required: 'required' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= link_to '取消', cards_path, class: 'btn btn-default' %>
+      <%= f.submit '保存', class: 'btn btn-primary mr_20', data: {:disable_with => "提交中..."} %>
+    </div>
+  </div>
+
+<% end %>
+
+<%#= image_tag 'close_pop.png', class: "closeimg img_div", alt: "删除商品" %>
+<%= image_tag 'close_pop.png', class: 'close_img origin hide', data_url: '' %>
+

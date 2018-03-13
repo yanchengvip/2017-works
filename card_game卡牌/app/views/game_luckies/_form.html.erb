@@ -1,0 +1,51 @@
+<!-- <div class="form-group row mt_20">
+  <label for="glutton_level_level" class="col-sm-2 control-label">饕餮等级</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :level, placeholder: '等级不可重复，根据等级排序，从低到高', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="input" class="col-sm-2 control-label">中奖商品图片</label>
+  <div class="col-sm-8">
+    <%= render 'images/upload_single_image' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_lucky_price" class="col-sm-2 control-label">中奖商品价格</label>
+  <div class="col-sm-8">
+    <%= f.text_field :price, placeholder: '中奖商品价格', class: 'form-control', required: "required", type: 'number', min: 0, step: 0.01 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="input" class="col-sm-2 control-label">用户头像</label>
+  <div class="col-sm-8">
+    <%= render partial: 'headimg' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_lucky_nickname" class="col-sm-2 control-label">用户昵称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :nickname, placeholder: '用户昵称', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_50">
+  <label for="game_lucky_remark" class="col-sm-2 control-label">备注</label>
+  <div class="col-sm-8">
+    <%= f.text_area :remark, placeholder: '备注', class: 'form-control', required: "required", rows: 6 %>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', game_luckies_path, class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'game_lucky_submit' %>
+  </div>
+</div>
+

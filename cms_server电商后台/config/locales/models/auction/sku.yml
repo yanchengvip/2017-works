@@ -1,0 +1,14 @@
+zh-CN:
+  activerecord:
+    models:
+      auction/sku: 结算单
+    attributes:
+      auction/sku:
+        id: 编号
+        product_id: 商品ID*
+        date: 账单期
+        active: 软删除标志
+        name: SKU名称*
+        amount: 库存*
+        code: SKU编码
+        created_at: 创建日期

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Check Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_check_logs.each do |auction_check_log| %>
+      <tr>
+        <td><%= link_to 'Show', auction_check_log %></td>
+        <td><%= link_to 'Edit', edit_auction_check_log_path(auction_check_log) %></td>
+        <td><%= link_to 'Destroy', auction_check_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Check Log', new_auction_check_log_path %>

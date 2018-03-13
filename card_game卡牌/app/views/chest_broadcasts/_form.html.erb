@@ -1,0 +1,24 @@
+<div class="form-group row mt_20">
+  <label for="chest_broadcast_content" class="col-sm-2 control-label">广播内容</label>
+  <div class="col-sm-8">
+    <%= f.text_area :content, placeholder: '广播内容', class: 'form-control', required: "required", rows: 3, onkeyup: "validate_length_of_words(this.id,30)" %>
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="chest_broadcast_published" class="col-sm-2 control-label">是否发布</label>
+  <div class="col-sm-8 mt_10">
+    <%= f.check_box :published %>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-2 col-sm-4">
+    <%= link_to '取消', chest_broadcasts_path, class: 'btn btn-default mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary', id: 'chest_broadcast_submit' %>
+  </div>
+</div>
+

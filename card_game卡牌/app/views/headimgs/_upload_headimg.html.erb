@@ -1,0 +1,18 @@
+<input  type="hidden"  name="url" id="headimg_url" value="<%= @headimg_path%>" class="form-control">
+
+
+<div class="panel panel-info">
+  <div class="panel-heading">头像(仅一张;图片比例为1:1，图片大小：30k以内)</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-8 col-md-4">
+        <img id="preview_headimg" src="<%= @headimg_url%>">
+
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer"><input type="file" id="upload_headimg" name="file" accept=".png, .jpg, .jpeg" ></div>
+</div>
+
+
+

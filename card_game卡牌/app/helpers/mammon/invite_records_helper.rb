@@ -1,0 +1,2 @@
+module Mammon::InviteRecordsHelper
+end

@@ -1,0 +1,365 @@
+<%= render 'auction/trades/search'%>
+<%= render 'auction/supplier_trades/search'%>
+<%= render 'auction/cashiers/search'%>
+<%= render 'auction/promotion_activities/search'%>
+<%= render 'auction/promotion_activity_apply_products/search'%>
+<%= render 'auction/promotion_activity_applies/search'%>
+<!--收货地址查询-->
+<div class="collapse breadcrumb-collapse-s" id="contact_search">
+  <div class="well">
+     <%= form_for auction_contacts_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">用户名:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[name_cont]", params[:q][:name_cont], class: 'form-control', id: 'input3', placeholder: '用户名' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">手机号:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[phone_cont]", params[:q][:phone_cont], class: 'form-control', id: 'input4', placeholder: '手机号' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">地址:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[address_cont]", params[:q][:address_cont], class: 'form-control', id: 'input4', placeholder: '地址' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+<!--券种查询-->
+<div class="collapse breadcrumb-collapse-s" id="event_search">
+  <div class="well">
+     <%= form_for auction_events_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">券种名:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[name_cont]", params[:q][:name_cont], class: 'form-control', id: 'input3', placeholder: '券种名' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">客户端:</label>
+        <div class="col-sm-8">
+          <%= select_tag "q[clients_cont]", options_for_select([["客户端", nil]] + Auction::Event::CLIENTS.to_a.map(&:reverse), params[:q][:clients_cont]), class: 'form-control mr_100' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">开始时间</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[started_at_gteq]", params[:q][:started_at_gteq], class: 'form-control search_date', id: 'input4', placeholder: '开始时间' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">结束时间:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[ended_at_lteq]", params[:q][:ended_at_lteq], class: 'form-control search_end_date', id: 'input4', placeholder: '结束时间' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<!--轮播查询-->
+<div class="collapse breadcrumb-collapse-s" id="pic_ads_search">
+  <div>
+     <%= render '/auction/pic_ads/search' %>
+  </div>
+</div>
+
+<!--专题查询-->
+<div class="collapse breadcrumb-collapse-s" id="themes_search">
+  <div>
+     <%= render '/auction/themes/search' %>
+  </div>
+</div>
+
+<!--H5查询-->
+<div class="collapse breadcrumb-collapse-s" id="mails_search">
+  <div>
+     <%= render '/auction/mails/search' %>
+  </div>
+</div>
+
+<!--秒杀查询-->
+<div class="collapse breadcrumb-collapse-s" id="seckills_search">
+  <div>
+     <%= render '/auction/seckills/search' %>
+  </div>
+</div>
+
+<!--分类查询-->
+<div class="collapse breadcrumb-collapse-s" id="categories_search">
+  <div>
+     <%= render '/auction/categories/search' %>
+  </div>
+</div>
+
+<!--属性查询-->
+<div class="collapse breadcrumb-collapse-s" id="attributes_search">
+  <div>
+     <%= render '/auction/attributes/search' %>
+  </div>
+</div>
+
+<!--品牌查询-->
+<div class="collapse breadcrumb-collapse-s" id="brands_search">
+  <div>
+     <%= render '/auction/brands/search' %>
+  </div>
+</div>
+
+<!--商品查询-->
+<div class="collapse breadcrumb-collapse-s" id="products_search">
+  <div>
+     <%= render '/auction/products/search' %>
+  </div>
+</div>
+
+<!--买手审核页面查询-->
+<div class="collapse breadcrumb-collapse-s" id="ms_review_index_products_search">
+  <div>
+     <%= render '/auction/products/ms_review_search' %>
+  </div>
+</div>
+
+<!--总监审核页面查询-->
+<div class="collapse breadcrumb-collapse-s" id="zj_review_index_products_search">
+  <div>
+     <%= render '/auction/products/zj_review_search' %>
+  </div>
+</div>
+
+<!--财务审核页面查询-->
+<div class="collapse breadcrumb-collapse-s" id="cw_review_index_products_search">
+  <div>
+     <%= render '/auction/products/cw_review_search' %>
+  </div>
+</div>
+
+<!--编辑审核页面商品查询-->
+<div class="collapse breadcrumb-collapse-s" id="editor_review_index_products_search">
+  <div>
+     <%= render '/auction/products/search' %>
+  </div>
+</div>
+
+<!--审核记录查询-->
+<div class="collapse breadcrumb-collapse-s" id="products_review_log_search">
+  <div>
+     <%= render '/auction/products/review_log_search' %>
+  </div>
+</div>
+
+<!--供应商商品查询-->
+<div class="collapse breadcrumb-collapse-s" id="supplier_products_search">
+  <div>
+     <%= render '/supplier/products/search' %>
+  </div>
+</div>
+
+<!--查询-->
+<div class="collapse breadcrumb-collapse-s" id="users_search">
+  <div>
+     <%= render '/auction/users/search' %>
+  </div>
+</div>
+
+<!--代金券查询-->
+<div class="collapse breadcrumb-collapse-s" id="voucher_search">
+  <div class="well">
+     <%= form_for auction_vouchers_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">券种名称:</label>
+        <div class="col-sm-8">
+          <%= select_tag "q[event_id_eq]", options_for_select([['所有类型', nil]] + Auction::Event.where(:editor_id => 1).map { |k| [k.name, k.id] } , params[:q][:event_id_eq]), class: 'form-control mr_100' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">开始时间</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[started_at_gteq]", params[:q][:started_at_gteq], class: 'form-control search_date', id: 'input4', placeholder: '开始时间' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">结束时间:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[ended_at_lteq]", params[:q][:ended_at_lteq], class: 'form-control search_end_date', id: 'input4', placeholder: '结束时间' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<!--优惠券查询-->
+<div class="collapse breadcrumb-collapse-s" id="coupon_search">
+  <div class="well">
+     <%= form_for auction_coupons_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">券种名称:</label>
+        <div class="col-sm-8">
+          <%= select_tag "q[event_id_eq]", options_for_select([['所有类型', nil]] + Auction::Event.where(:editor_id => 1).map { |k| [k.name, k.id] } , params[:q][:event_id_eq]), class: 'form-control mr_100' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">开始时间</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[started_at_gteq]", params[:q][:started_at_gteq], class: 'form-control search_date', id: 'input4', placeholder: '开始时间' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input4" class=" control-label col-sm-4">结束时间:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[ended_at_lteq]", params[:q][:ended_at_lteq], class: 'form-control search_end_date', id: 'input4', placeholder: '结束时间' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="collapse breadcrumb-collapse-s" id="sms_search">
+  <div class="well">
+     <%= form_for auction_sms_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">电话:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[phone_cont]", params[:q][:phone_cont], class: 'form-control', id: 'input4', placeholder: '手机号' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="collapse breadcrumb-collapse-s" id="report_forms_search">
+  <div class="well">
+     <%= form_for manage_report_forms_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">供应商id:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[provider_id_cont]", params[:q][:provider_id_cont], class: 'form-control', id: 'input4', placeholder: '供应商id' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">结算状态:</label>
+        <div class="col-sm-8">
+          <%= select_tag "q[status_eq]", options_for_select([['所有类型', nil]] + Manage::ReportForm::STATUS.invert.to_a , params[:q][:status_eq]), class: 'form-control mr_100' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="collapse breadcrumb-collapse-s" id="providers_search">
+  <div class="well">
+     <%= form_for manage_providers_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">供应商:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[name_cont]", params[:q][:name_cont], class: 'form-control', id: 'input4', placeholder: '供应商' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="collapse breadcrumb-collapse-s" id="vouche_trades_search">
+  <div class="well">
+     <%= form_for auction_voucher_trades_path, html: {class: 'form-horizontal', method: 'get'} do |f| %>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">用户id:</label>
+        <div class="col-sm-8">
+          <%= text_field_tag "q[user_id_eq]", params[:q][:user_id_eq], class: 'form-control', id: 'input4', placeholder: '用户id' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">支付状态:</label>
+        <div class="col-sm-8">
+          <%= select_tag "q[status_eq]", options_for_select([["请选择", nil]] + Auction::VoucherTrade::STATUS.to_a.map(&:reverse), params[:q][:status_cont]), class: 'form-control mr_100' %>
+        </div>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="input3" class=" col-sm-4 control-label">发券状态:</label>
+        <div class="col-sm-8">
+          <%= select_tag "q[is_created_voucher_eq]", options_for_select([["请选择", nil]] + Auction::VoucherTrade::ISCREATEDVOUCHER.to_a.map(&:reverse), params[:q][:is_created_voucher_eq]), class: 'form-control mr_100' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+          <%= f.submit '查询', class: 'btn btn-default' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

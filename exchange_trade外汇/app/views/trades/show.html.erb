@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @trade.account_id %>
+</p>
+
+<p>
+  <strong>Mt4 account:</strong>
+  <%= @trade.mt4_account %>
+</p>
+
+<p>
+  <strong>Order code:</strong>
+  <%= @trade.order_code %>
+</p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @trade.symbol %>
+</p>
+
+<p>
+  <strong>Digits:</strong>
+  <%= @trade.digits %>
+</p>
+
+<p>
+  <strong>Cmd:</strong>
+  <%= @trade.cmd %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @trade.volume %>
+</p>
+
+<p>
+  <strong>Open time:</strong>
+  <%= @trade.open_time %>
+</p>
+
+<p>
+  <strong>Open price:</strong>
+  <%= @trade.open_price %>
+</p>
+
+<%= link_to 'Edit', edit_trade_path(@trade) %> |
+<%= link_to 'Back', trades_path %>

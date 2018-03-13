@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Account Ticket Balance Details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Account ticket</th>
+      <th>User</th>
+      <th>Fund</th>
+      <th>Trad type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @account_ticket_balance_details.each do |account_ticket_balance_detail| %>
+      <tr>
+        <td><%= account_ticket_balance_detail.account_ticket_id %></td>
+        <td><%= account_ticket_balance_detail.user_id %></td>
+        <td><%= account_ticket_balance_detail.fund %></td>
+        <td><%= account_ticket_balance_detail.trad_type %></td>
+        <td><%= link_to 'Show', account_ticket_balance_detail %></td>
+        <td><%= link_to 'Edit', edit_account_ticket_balance_detail_path(account_ticket_balance_detail) %></td>
+        <td><%= link_to 'Destroy', account_ticket_balance_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Account Ticket Balance Detail', new_account_ticket_balance_detail_path %>

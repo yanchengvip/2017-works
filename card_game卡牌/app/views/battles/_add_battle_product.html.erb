@@ -1,0 +1,33 @@
+<div class="panel panel-info">
+  <div class="panel-heading">战役商品</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="number" min="0" id="bp_id" class="form-control" placeholder="请输入商品ID">
+          <span class="input-group-btn">
+        <button class="btn btn-default add_bp_btn" onclick="search_bp()" type="button">搜索</button>
+      </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>商品名称</th>
+      <th>市场价</th>
+      <th>邮费</th>
+    </tr>
+    </thead>
+    <tbody id="search_add_bp_tbody">
+    <% if @battle_product.present? %>
+        <%= render 'battles/search_bp' %>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+

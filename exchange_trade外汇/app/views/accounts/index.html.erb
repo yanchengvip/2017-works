@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Dealer</th>
+      <th>Dealer type</th>
+      <th>Status</th>
+      <th>Agent account</th>
+      <th>Mt4 account</th>
+      <th>Mt4 group</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Certificate</th>
+      <th>Certificate num</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= account.user_id %></td>
+        <td><%= account.dealer_id %></td>
+        <td><%= account.dealer_type %></td>
+        <td><%= account.status %></td>
+        <td><%= account.agent_account %></td>
+        <td><%= account.mt4_account %></td>
+        <td><%= account.mt4_group %></td>
+        <td><%= account.name %></td>
+        <td><%= account.email %></td>
+        <td><%= account.phone %></td>
+        <td><%= account.certificate %></td>
+        <td><%= account.certificate_num %></td>
+        <td><%= link_to 'Show', account %></td>
+        <td><%= link_to 'Edit', edit_account_path(account) %></td>
+        <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Account', new_account_path %>

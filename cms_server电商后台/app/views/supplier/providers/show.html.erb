@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @supplier_provider.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @supplier_provider.description %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @supplier_provider.active %>
+</p>
+
+<p>
+  <strong>Login:</strong>
+  <%= @supplier_provider.login %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @supplier_provider.password %>
+</p>
+
+<p>
+  <strong>Salt:</strong>
+  <%= @supplier_provider.salt %>
+</p>
+
+<%= link_to 'Edit', edit_supplier_provider_path(@supplier_provider) %> |
+<%= link_to 'Back', supplier_providers_path %>

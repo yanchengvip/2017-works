@@ -1,0 +1,52 @@
+<!-- 礼包删除modal -->
+<div class="modal fade" id="delProductImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">图片删除</h4>
+      </div>
+        <div class="modal-body">
+          <h3>确定删除该图片吗？</h3>
+
+          <input type="hidden" id="del_image_id">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="delete_image">确定</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#delete_image').on('click', function(){
+      var item_id = $('#del_image_id').val()
+      $.ajax({
+        type: "post",
+        <% if current_user.class.to_s == 'Manage::Editor' %>
+          url: '/auction/products/destroy_image',
+        <% elsif current_user.class.to_s == 'Supplier::Provider' %>
+          url: '/supplier/products/destroy_image',
+        <% end %>
+        data: { image_id: item_id },
+        success: function(result){
+          if(result.status == 200){
+            $("#img_tr_" + item_id).remove()
+            $('#delProductImageModal').modal('hide')
+          }else{
+            $('#delProductImageModal').modal('hide')
+            alert('删除失败')
+          }
+        },
+        error: function(XMLHttpResponse){
+          alert('删除失败')
+        }
+      })
+
+    })
+  })
+</script>

@@ -1,0 +1,55 @@
+<!-- <div id="prize_div"> -->
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>奖品级别</th>
+        <th>奖品名称</th>
+        <th>奖品数量</th>
+        <th>剩余数量</th>
+        <th class="hide">奖品总价值</th>
+        <!-- <th>指定获得</th> -->
+        <th>概率</th>
+        <th>优先展示</th>
+        <th>排序</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="app_virtual_prizes_body">
+
+    </tbody>
+  </table>
+<!-- </div> -->
+<%#= render 'del_box_prize_modal'%>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_chest_prize_app_virtual').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/chest_boxs/get_prize_form',
+        data: { random_id: 'wlf' + Number($('#random6_id').text()), prize_type: 6},
+        success: function(result){
+          $('#app_virtual_prizes_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+      $('#random6_id').text(Number($('#random6_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_box_prize_origin').on('click', function(){
+      $('#delBoxPrizeModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delBoxPrizeModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_box_prize_id').val(this_id.split('_')[3])
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+
+</script>

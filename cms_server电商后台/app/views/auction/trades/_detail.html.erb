@@ -1,0 +1,64 @@
+<%= render 'auction/trades/user' %>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>订单信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">ID：<%= @auction_trade.id %></li>
+    <li class="list-group-item">订单状态：<span class="red"><%= Auction::Trade::STATUS[@auction_trade.status] %> </span></li>
+    <li class="list-group-item">总价格：<%= @auction_trade.price.to_f %></li>
+    <!--<li class="list-group-item">U元价格：<%#=  @auction_trade.u_price.to_f %></li>-->
+    <li class="list-group-item">支付价格：<span class="red"><%= @auction_trade.payment_price.to_f %></span></li>
+    <li class="list-group-item">付款：<%= Auction::Trade::PAYMENTSERVICE[@auction_trade.payment_service] %></li>
+    <li class="list-group-item">创建时间：<%= @auction_trade.created_at.present? ? @auction_trade.created_at.strftime('%Y-%m-%d') : ''%></li>
+    <li class="list-group-item">备注：<span><%= @auction_trade.remark %> </span></li>
+  </ul>
+</div>
+
+
+<% if @supplier_trades.present? %>
+
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong>商品信息(订单已拆单)</strong></div>
+      <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <% @supplier_trades.each_with_index do |st, index| %>
+              <li role="presentation">
+                <a href="#tab<%= st.id %>" aria-controls="home" role="tab" data-toggle="tab">
+                  <%= st.provider&.name.nil? ? "供应商"+(index+1).to_s : st.provider.name %>
+                </a>
+              </li>
+          <% end %>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <% @supplier_trades.each_with_index do |st, index| %>
+              <div role="tabpanel" class="tab-pane" id="tab<%= st.id %>">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    快递单号：<%= st.delivery_identifier %>
+                    快递公司：<span class="red">
+                                <%= Auction::Trade::DELIVERYSERVICE[st.delivery_service] %>
+                            </span>
+                  </li>
+                  <%= render 'auction/trades/product', data: {units: st.units} %>
+                </ul>
+
+              </div>
+          <% end %>
+
+        </div>
+
+      </div>
+    </div>
+
+<% else %>
+    <div class="panel panel-info">
+      <div class="panel-heading"><strong>商品信息(订单未拆单)</strong></div>
+      <ul class="list-group">
+        <%= render 'auction/trades/product', data: {units: @auction_trade.units} %>
+      </ul>
+    </div>
+
+<% end %>

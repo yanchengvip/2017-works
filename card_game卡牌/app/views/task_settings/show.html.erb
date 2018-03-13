@@ -1,0 +1,61 @@
+<p class="sub-header">营销管理>任务配置>查看任务配置</p>
+
+<div class="lead text-right well">
+  <p><%= link_to '修改', edit_task_setting_path(@task_setting), class: 'btn btn-primary', role: 'button' %></p>
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <ul class="list-group">
+    <li class="list-group-item">任务类型：<%= TaskSetting::TASK_TYPE[@task_setting.task_type] %></li>
+    <li class="list-group-item">跳转页面类型：<%= TaskSetting::Direction_Type[@task_setting.task_type] %></li>
+    <li class="list-group-item">是否启用：<%= status_str(@task_setting.status) %></li>
+    <% if @task_setting.task_type != 6 %>
+      <li class="list-group-item">完成条件：完成<strong class="red ml_5 mr_10"><%= @task_setting.need_count %></strong>次时，赠</li>
+      <li class="list-group-item">
+        奖励次数限制：<span class="red"><%= @task_setting.reward_times %></span>
+        （-1：不限次数，0：每日一次，1：1次, 2：2次，以此类推）
+      </li>
+    <% end %>
+
+    <% if @task_setting.task_type == 6 %>
+      <li class="list-group-item">能量数量：<%= @task_setting.energy_num %></li>
+      <li class="list-group-item">可领取人数：<%= @task_setting.receive_user_num %></li>
+      <li class="list-group-item">失效时间：<%= @task_setting.expire_time %>小时</li>
+      <li class="list-group-item">竞赛胜利获得：<%= @task_setting.from_win_num %>次</li>
+      <li class="list-group-item">竞赛失败获得：<%= @task_setting.from_fail_num %>次</li>
+    <% end %>
+
+    <li class="list-group-item">任务缩略图：
+      <div class="row">
+        <% if @task_setting.thumbnail %>
+          <%= image_tag FASTDFSCONFIG[:fastdfs][:tracker_url] + @task_setting.thumbnail, width: 100, height: 100 %>
+        <% end %>
+      </div>
+    <li class="list-group-item">任务说明：<%= @task_setting.task_remark %></li>
+  </ul>
+
+  <% if @task_setting.task_type != 6 %>
+    <div class="panel-heading"><strong>赠品内容</strong></div>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>赠品类型</th>
+          <th width="30%">赠品范围</th>
+          <th>赠品数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @task_setting.task_items.each do |task_item| %>
+          <tr class="fields content_tr">
+            <td><%= task_item_type_str(task_item.prize_type) %></td>
+            <td><%= task_item_range_str(task_item) %></td>
+            <td><%= task_item.prize_count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+</div>

@@ -1,0 +1,35 @@
+<div class="modal fade" id="PayWithModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title title_name" id="exampleModalLabel" >确认充值</h4>
+      </div>
+      <form action="/pay/withdrawals_orders/complete" method="post">
+        <div class="modal-body">
+          <h5>充值金额:<span id="pay_amount"></span>元</h5>
+          <input type="hidden"  class="form-control" name='id' id="pay_with_id">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    <!--确认充值-->
+    function confirm_transfer(order_id,amount){
+        $('#PayWithModal').modal('show');
+        $('#PayWithModal').on('shown.bs.modal',function(){
+            $('#pay_with_id').val(order_id)
+            $('#pay_amount').html(amount)
+        }).on('hidden.bs.modal', function (e) {
+            $('#pay_with_id').val('')
+            $('#pay_amount').html('')
+        })
+    }
+</script>

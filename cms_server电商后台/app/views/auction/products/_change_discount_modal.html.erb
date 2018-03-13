@@ -1,0 +1,79 @@
+<!-- 上下架modal -->
+<div class="modal fade" id="changeDiscountAuctionProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">商品改价<span id="change_title"></span></h4>
+      </div>
+      <!-- <form action="/auction/products/change" method="post"> -->
+        <div class="modal-body">
+
+          <div class="form-group row mt_20">
+            <label for="change_auction_product_id" class="col-sm-3 control-label text-right">商品ID：</label>
+            <div class="col-sm-8">
+              <span id="change_auction_product_id"></span>
+            </div>
+          </div>
+
+          <div class="form-group row mt_20">
+            <label for="change_auction_product_name" class="col-sm-3 control-label text-right">商品名称：</label>
+            <div class="col-sm-8">
+              <span id="change_auction_product_name"></span>
+            </div>
+          </div>
+
+          <div class="form-group row mt_20">
+            <label for="change_auction_product_discount" class="col-sm-3 control-label text-right">优众价：</label>
+            <div class="col-sm-8">
+              <input type="number" name="new_discount" id="change_auction_product_discount" required min="0" max="9999999" class="form-control"><span class="discount_tip red"></span>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button class="btn btn-primary" id="do_change">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_change').on('click', function(){
+      var change_id = $('#change_auction_product_id').text()
+      var new_discount = $('#change_auction_product_discount').val()
+      if(!new_discount){
+        $('.discount_tip').text('没有填写价格')
+        return false
+      }
+      console.log(change_id)
+      // console.log(new_discount)
+      $.ajax({
+        type: "post",
+        async: false,
+        url: '/auction/products/' + change_id + '/change_discount',
+        data: { new_discount: new_discount },
+        success: function(result){
+          if(result.status == 200){
+            $('#changeDiscountAuctionProductModal').modal('hide')
+            $('#discount_' + change_id).text(new_discount)
+            elert(result.msg)
+            // window.location.reload()
+          }else{
+            $('#changeDiscountAuctionProductModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#changeDiscountAuctionProductModal').modal('hide')
+          elert('网络异常')
+        }
+      })
+    })
+  })
+
+</script>

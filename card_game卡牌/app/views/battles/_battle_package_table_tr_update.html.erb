@@ -1,0 +1,30 @@
+<% if @battle_packages.present? %>
+    <% @battle_packages.each do |bpac| %>
+        <% if bpac.bp_type == locals[:bp_type].to_i %>
+            <% @tr_id = MyUtils.generate_uuid %>
+            <tr id="<%= @tr_id %>">
+              <input type="hidden" name="battle_packages[]id" value="<%= bpac.id %>">
+              <input type="hidden" class="package_id" name="battle_packages[]package_id" value="<%= bpac.package_id %>">
+              <input type="hidden" name="battle_packages[]bp_type" value=<%= locals[:bp_type].to_i%>>
+              <% if locals[:bp_type].to_i == 2 %>
+                  <td>
+                    <div class="input-group" style="width: 200px !important;">
+                      <input type="number" required min="1" class="form-control package_micro_score" name="battle_packages[]micro_score" placeholder="微集分" aria-describedby="basic-addon2" value="<%= bpac.micro_score %>">
+                      <span class="input-group-addon" id="basic-addon2">微集分</span>
+                    </div>
+                  </td>
+              <% end %>
+              <td><input type="text" readonly name="battle_packages[]name" value="<%= bpac.name %>">
+                <a target="_blank" href="/packages/<%= bpac.package_id%>">详情</a></td>
+              <td><%= bpac.package.present? ? bpac.package.price.to_f : 0 %></td>
+              <td><input type="number" name="battle_packages[]package_num"
+                         onkeyup="countBPackagePrice(this,<%= bpac.package.present? ? bpac.package.price.to_f : 0%>,'<%= 'p'+@tr_id%>')"
+                         value="<%= bpac.package_num %>"></td>
+              <td>
+                <input id="<%= 'p'+@tr_id %>" class="pac_price" type="input" value="<%= bpac.package.present? ? (bpac.package.price.to_f*bpac.package_num) : 0 %>" readonly>
+              </td>
+              <td><a href="javascript:void(0)" onclick="delBattlePackageTr('<%= @tr_id%>')">删除</a></td>
+            </tr>
+        <% end %>
+    <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+development:
+  pic_host: 'http://127.0.0.1/'
+production:
+  pic_host: 'http://127.0.0.1/'
+
+
+
+

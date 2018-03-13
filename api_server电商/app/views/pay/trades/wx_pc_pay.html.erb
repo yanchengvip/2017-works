@@ -1,0 +1,13 @@
+<h1>微信扫码支付</h1>
+<div id="test"></div>
+
+<script>
+    var qrcode = new QRCode(document.getElementById("test"), {
+        text: "<%= @res["code_url"]%>",
+        width: 160,
+        height: 160,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+</script>

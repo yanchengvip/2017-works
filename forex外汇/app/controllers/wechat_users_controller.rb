@@ -1,0 +1,2 @@
+class WechatUsersController < ApplicationController
+end

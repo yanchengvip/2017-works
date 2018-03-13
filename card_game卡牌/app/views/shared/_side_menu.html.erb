@@ -1,0 +1,16 @@
+<div class="col-sm-2 col-md-2 sidebar">
+  <% @side_menus && @side_menus.each_with_index do |menus,index| %>
+      <p style="color: #9d9d9d; font-weight: bold;font-size: 16px;"><%= menus[:parent] %><span class="caret"></span></p>
+      <ul class="nav nav-sidebar">
+        <% menus[:children].each_with_index do |m, i| %>
+            <li class="side_menu_list <%= 'side_bg' if session['side_bg'] == index.to_s+'-'+i.to_s %>" id="side_menu_list_<%= index %>-<%= i %>">
+              <a href="<%=m[:url]%>">
+                <span class="glyphicon glyphicon-menu-right"></span><%= m[:name]%>
+              </a>
+            </li>
+        <% end %>
+      </ul>
+  <% end %>
+</div>
+
+

@@ -1,0 +1,32 @@
+<div class="row"><p class="sub-header">营销管理>卡牌管理>赠送卡牌</p></div>
+
+<form action="/card_user_owns" method="post" class="form-horizontal">
+  <div class="form-group row mt_50">
+    <label for="user_mobiles" class="col-sm-1 control-label">*手机号码：</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" name="mobiles" id="user_mobiles" rows="5" required="required" placeholder="用户手机号码，以英文逗号隔开（一次最多20个手机号），如：123,678" onkeyup="check_words(this.id)"></textarea>
+      <p class="red">用户手机号码，以英文逗号隔开（一次最多20个手机号），如：123,678</p>
+    </div>
+  </div>
+
+  <%= render partial: 'item' %>
+
+  <div class="clearfix"></div>
+  <div class="form-group row mt_50">
+    <label for="memo" class="col-sm-1 control-label">充值原因备注：</label>
+    <div class="col-sm-8">
+      <textarea class="form-control" name="memo" id="memo" rows="5" required="required" onkeyup="validate_length_of_words(this.id,300)" placeholder="最多300汉字"></textarea>
+      <p class="bg-danger p_last_num left_str_num"></p>
+    </div>
+  </div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-1 col-sm-4">
+      <%= link_to '取消', '/card_user_owns', class: 'btn btn-default mr_20', role: 'button' %>
+      <button type="submit" class="btn btn-primary" id="card_user_owns_submit">保存</button>
+    </div>
+  </div>
+
+</form>
+
+<%= render partial: 'packages/error_modal' %>

@@ -1,0 +1,55 @@
+<%= form_for @sign_gift_setting, html: {class: 'form-horizontal'} do |f| %>
+
+    <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">连续登陆天数：</label>
+      <div class="col-sm-4">
+        <%= f.number_field :running_days, required: "required", class: 'form-control', min: 1 %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">是否突出显示：</label>
+      <div class="col-sm-4">
+        <label class="radio-inline">
+          <%= f.radio_button :is_main, 0 ,checked: true%>否
+        </label>
+        <label class="radio-inline">
+          <%= f.radio_button :is_main, 1 %>是
+        </label>
+      </div>
+      
+    </div>
+
+
+
+
+
+
+    <div class="form-group">
+      <label for="chest_prize_prize_type" class="col-sm-2 control-label">奖品类型</label>
+      <div class="col-sm-4">
+        <%= f.select :gift_type, options_for_select(SignGiftSetting::GIFTTYPE.to_a.map(&:reverse), 1), {}, class: 'form-control game_select2' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">获得奖品数量：</label>
+      <div class="col-sm-4">
+        <%= f.text_field :amount, class: 'form-control', id: 'amount', type: 'number', min: 1 %>
+      </div>
+    </div>
+
+    <!--<div class="form-group">-->
+    <!--<label for="phone" class="col-sm-2 control-label">文案：</label>-->
+    <!--<div class="col-sm-4">-->
+    <!--<%#= f.text_field :remark, class: 'form-control', placeholder: '已登录x天，第xx天可获得x次免费开启次数'%>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-4">
+        <%= f.submit '保存', class: 'btn btn-primary', id: 'admin_submit' %>
+      </div>
+    </div>
+
+<% end %>

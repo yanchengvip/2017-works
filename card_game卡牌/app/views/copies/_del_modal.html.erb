@@ -1,0 +1,51 @@
+<!-- 礼包删除modal -->
+<div class="modal fade" id="deleteCopyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">版本删除</h4>
+      </div>
+      <div class="modal-body">
+        <h3>确定删除<span id="del_copy_title" class="red"></span>吗？</h3>
+
+        <input type="hidden" id="del_copy_id">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="delete_copy">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'packages/error_modal'  %>
+
+<script type="text/javascript">
+  $(function(){
+    $('#delete_copy').on('click', function(){
+      var pid = $('#del_copy_id').val()
+      $.ajax({
+        type: "delete",
+        url: '/copies/' + pid,
+        data: { },
+        success: function(result){
+          if(result.status == 200){
+            $('#deleteCopyModal').modal('hide');
+            $('#tr_' + pid).remove()
+          }else{
+            $('#deleteCopyModal').modal('hide');
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#deleteCopyModal').modal('hide');
+          elert('删除失败')
+        }
+      })
+
+    })
+  })
+</script>

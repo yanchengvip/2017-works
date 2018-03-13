@@ -1,0 +1,2 @@
+json.extract! auction_promotion_activity, :id, :name, :declar_begin, :declar_end, :promotion_begin, :promotion_end, :label, :description, :requirement, :discount, :discount_type, :multiple_sales_count, :multiple_sales_discount, :price_more, :price_off, :pre_price_more, :pre_price_off, :pre_discount_total, :rate_of_margin, :status, :user_id, :active, :created_at, :updated_at
+json.url auction_promotion_activity_url(auction_promotion_activity, format: :json)

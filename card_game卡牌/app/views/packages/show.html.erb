@@ -1,0 +1,43 @@
+<p class="sub-header">卡牌商城>礼包管理>查看礼包</p>
+
+<% if @package.battle_packages.blank? %>
+  <div class="lead text-right well">
+    <p><%= link_to '修改礼包', edit_package_path(@package), class: 'btn btn-primary', role: 'button' %></p>
+  </div>
+<% end %>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">礼包ID：<span class="red"><%= @package.id %></span></li>
+    <li class="list-group-item">售卖渠道：<%= sale_channels_txt(@package.sale_channels) %></li>
+    <li class="list-group-item">礼包分类：<%= @package.package_type.name %></li>
+    <li class="list-group-item">礼包名称：<span class="red"><%= @package.name %></span></li>
+    <li class="list-group-item">礼包价值：<span class="red"><%= @package.price.to_f %></span></li>
+    <li class="list-group-item">礼包简介：<%= @package.summary %></li>
+
+  </ul>
+
+  <div class="panel-heading"><strong>礼包内容</strong></div>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>奖品类型</th>
+        <th>奖品</th>
+        <th>数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @package.package_items.each do |package_item| %>
+        <tr class="fields content_tr">
+          <td><%= package_item_type_str(package_item.prize_type.to_i) %></td>
+          <td><%= package_item_range_str(package_item) %></td>
+          <td><%= package_item.prize_type == '4' ? '-' : package_item.win_count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

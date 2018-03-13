@@ -1,0 +1,30 @@
+<% data[:units].each do |unit| %>
+    <li class="list-group-item">
+      <div class="media">
+        <div class="media-left">
+          <img class="media-object" src="<%= SYSTEMCONFIG[:pic_host]+unit.auction_product.major_pic.to_s+'.m220.jpg' %>" width="200px"/>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">
+            <a target="_blank" href="/auction/products/<%= unit.auction_product.id %>">
+              <%= unit.auction_product.name %>
+            </a>
+          </h4>
+          商品ID：<span class="red"><%= unit.auction_product_id %></span></br>
+          商品颜色：<span class="red"><%= unit.auction_product.color_name %></span></br>
+          unitID: <span class="red"><%= unit.id %></span></br>
+          状态: <span class="red"><%= Auction::Unit::STATUS[unit.status.to_s] %></span></br>
+          购买数量：<span class="red"><%= unit.amount %></span></br>
+          成交价格：<span class="red"><%= unit.price %></span></br>
+          原始销售价：<span class="red"><%= unit.discount %></span></br>
+          折扣：<span class="red"><%= unit.percent %></span></br>
+          购买尺寸：<span class="red"><%= unit.auction_sku.name %></span></br>
+          sku编码：<span class="red"><%= unit.auction_sku.code %></span></br>
+          代金券: <span class="red"><%= unit.voucher&.event&.name %></span></br>
+          代金券使用限制: <span class="red"><%= unit.voucher&.event&.limitation %></span></br>
+          代金券抵扣金额: <span class="red"><%= unit.voucher&.event&.amount %></span></br>
+          代金券描述: <span><%= unit.voucher&.event&.description %></span></br>
+        </div>
+      </div>
+    </li>
+<% end %>

@@ -1,0 +1,51 @@
+<div class="row"><p class="sub-header">文案管理>赛场文案>赛场文案</p></div>
+<%= render partial: 'icons' %>
+<%= render partial: 'search' %>
+<div class="form-group row mb_20 text-center">
+ <!-- style="text-align: right;" -->
+  <%= link_to '新增', new_msg_chat_path, class: 'btn btn-primary btn-lg', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>适用赛场</th>
+        <th>文案详情</th>
+        <th>排序</th>
+        <th>是否启用</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @msg_chats && @msg_chats.each_with_index do |msg_chat, index| %>
+      <tr id="tr_<%= msg_chat.id %>">
+        <td><%= msg_chat.id %></td>
+        <td><%= MsgChat::GAME_TYPE[msg_chat.game_type.to_i] %></td>
+        <td><%= msg_chat.content %></td>
+        <td><%= msg_chat.sort %></td>
+        <td><%= msg_chat.status ? '启用' : '禁用' %></td>
+        <td>
+          <%#= link_to '查看', msg_chat_path(msg_chat), class: 'btn btn-sm btn-info' %>
+          <%= link_to '编辑', edit_msg_chat_path(msg_chat), class: 'btn btn-sm btn-primary' %>
+          <% if msg_chat.status %>
+            <%= link_to '停用', "javascript:void(0)", onclick: "msg_chat_type_able(#{msg_chat.id}, '#{msg_chat.id}', 0)", role: 'button', class: 'btn btn-sm btn-warning' %>
+          <% else %>
+            <%= link_to '启用', "javascript:void(0)", onclick: "msg_chat_type_able(#{msg_chat.id}, '#{msg_chat.id}', 1)", role: 'button', class: 'btn btn-sm btn-success' %>
+          <% end %>
+          <% if !msg_chat.status %>
+            <%= link_to '删除', msg_chat_path(msg_chat), method: :delete, data: {confirm: '确定删除吗？'}, role: 'button', class: 'btn btn-sm btn-danger' %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @msg_chats %>
+
+<%#= render partial: 'able_modal' %>
+
+

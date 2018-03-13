@@ -1,0 +1,68 @@
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>基本信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">活动名称:<span><%= @auction_promotion_activity.name %></span></li>
+    <li class="list-group-item">招商时间:<%= @auction_promotion_activity.declar_begin.strftime('%Y-%m-%d %H:%M:%S') %>~<%= @auction_promotion_activity.declar_end.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <li class="list-group-item">活动时间:<%= @auction_promotion_activity.promotion_begin.strftime('%Y-%m-%d %H:%M:%S') %>~<%= @auction_promotion_activity.promotion_end.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <li class="list-group-item">促销标签:<%= @auction_promotion_activity.label %></li>
+    <li class="list-group-item">活动描述:<%= @auction_promotion_activity.description %></li>
+    <li class="list-group-item">活动规则/要求:<%= @auction_promotion_activity.requirement %></li>
+  </ul>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>活动对象</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">针对对象: 供应商</li>
+    <li class="list-group-item">供应商最新结算价最低降价幅度:<%= (@auction_promotion_activity.discount * 100).to_i.to_s + "%"  %></li>
+    <li class="list-group-item">可参加供应商范围:<%= Auction::PromotionActivity::APPOINTSUPPLIER[@auction_promotion_activity.appoint_supplier]%></li>
+    <li class="list-group-item">
+      <% @auction_promotion_activity.supplier.active.each do |s|%>
+        <%= s.provider.name%>,
+      <% end %>
+    </li>
+  </ul>
+</div>
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>商品售卖规则</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">优惠方式:<%= Auction::PromotionActivity::DISCOUNTTYPE[@auction_promotion_activity.discount_type] %></li>
+    <input type="hidden" value="<%= @auction_promotion_activity.discount_type%>" id="discount_type">
+    <li class="list-group-item">优惠规则:
+      <div id="multiple">连拍<%= @auction_promotion_activity.multiple_sales_count %>件,<%= @auction_promotion_activity.multiple_sales_discount %>折</div>
+      <div id="price">满<%= @auction_promotion_activity.price_more.to_i %>元,减<%= @auction_promotion_activity.price_off.to_i %></div>
+      <div id="pre_price">每满<%= @auction_promotion_activity.pre_price_more.to_i %>元,减<%= @auction_promotion_activity.pre_price_off.to_i %>,最大优惠值<%= @auction_promotion_activity.pre_discount_total&.to_i %></div>
+    </li>
+    <li class="list-group-item">统一毛利率:<%= (@auction_promotion_activity.rate_of_margin * 100).to_i.to_s + "%" %></li>
+  </ul>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>活动商品要求</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">活动商品要求:<%= Auction::PromotionActivity::APPOINTCATEGORY[@auction_promotion_activity.appoint_category]%></li>
+    <li class="list-group-item">
+      <% @auction_promotion_activity.category.active.each do |c|%>
+        <%= c.category.name%>,
+      <% end %>
+    </li>
+  </ul>
+</div>
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    var discount_type = $("#discount_type").val()
+    if(discount_type == "1"){
+      $('#multiple').show()
+      $('#price').hide()
+      $('#pre_price').hide()
+    }else if (discount_type == "2") {
+      $('#multiple').hide()
+      $('#price').hide()
+      $('#pre_price').show()
+    }else if (discount_type == "3") {
+      $('#multiple').hide()
+      $('#price').show()
+      $('#pre_price').hide()
+    }
+  })
+</script>

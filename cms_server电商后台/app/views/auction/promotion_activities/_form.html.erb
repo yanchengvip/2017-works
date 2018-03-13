@@ -1,0 +1,96 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @auction_promotion_activity, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+
+        <%= f.input :name, label: '活动名称:' ,required: 'true'%>
+        <%= f.input :declar_begin,:as => :string,  input_html: { format: :long,id:'activitydeclardatetimepicker1'}, label: '招商开始时间:',required: true%>
+        <%= f.input :declar_end,:as => :string,  input_html: { format: :long,id:'activitydeclardatetimepicker2'}, label: '招商结束时间:',required: true%>
+        <%= f.input :promotion_begin,:as => :string,  input_html: { format: :long,id:'activitydatetimepicker1'}, label: '活动开始时间:',required: true%>
+        <%= f.input :promotion_end,:as => :string,  input_html: { format: :long,id:'activitydatetimepicker2'}, label: '活动结束时间:',required: true%>
+        <%= f.input :label, label: '促销标签:' ,required: 'true'%>
+        <%= f.input :description, label: '活动描述:' ,required: 'true'%>
+        <%= f.input :requirement, label: '活动规则/要求:' ,required: 'true'%>
+        <div class="form-group string required">
+          <label class="col-sm-3 control-label string required">供应商最新结算价最低降价幅度:</label>
+            <div class="col-sm-9">
+              <input placeholder="供应商最新结算价最低降价幅度" class="form-control" required="required" type="number" step="0.01" min="0.01" max="99999999" name="auction_promotion_activity[discount]" id="auction_promotion_activity_discount" value="<%=@auction_promotion_activity.discount %>">
+            </div>
+        </div>
+        <%= f.input :appoint_supplier, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @auction_promotion_activity_supplier ,  checked: @auction_promotion_activity.appoint_supplier, label: '可参加供应商范围:' ,required: 'true',id: "select2",multiple:"multiple" %>
+        <div class="form-group string required" id="supplier">
+          <label class="col-sm-3 control-label string required">供应商:</label>
+            <div class="col-sm-9">
+              <%= f.select :supplier_id, options_for_select(Manage::Provider.active.map{|ac| [ac.name, ac.id]},@auction_promotion_activity.supplier.map{|c| c.supplier_id}), {}, class: 'form-control is_select2', id: "sel_menu2", multiple: "multiple" %>
+            </div>
+        </div>
+        <%= f.input :discount_type, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @auction_promotion_activity_discount_type ,  checked: @auction_promotion_activity.discount_type, label: '优惠方式:' ,required: 'true' %>
+        <div class="form-group string required" id="multiple">
+              <%= f.input :multiple_sales_count, label: '连拍件数:', input_html:{ type:"number", step:"0", min:"0", max:"99999999"}%>
+              <%= f.input :multiple_sales_discount, label: '折扣:', input_html:{ type:"number", step:"0.01", min:"0.00", max:"99999999"}%>
+        </div>
+
+        <div class="form-group string required" id="price">
+              <%= f.input :price_more,label: '满', input_html:{ type:"number", step:"0.01", min:"0.00", max:"99999999"}%>
+              <%= f.input :price_off,label: '减', input_html:{ type:"number", step:"0.01", min:"0.00", max:"99999999"}%>
+        </div>
+
+        <div class="form-group string required" id="pre_price">
+             <%= f.input :pre_price_more,label: '每满:', input_html:{ type:"number", step:"0.01", min:"0.00", max:"99999999"}%>
+             <%= f.input :pre_price_off,label: '减:', input_html:{ type:"number", step:"0.01", min:"0.00", max:"99999999"}%>
+             <%= f.input :pre_discount_total,label: '最大优惠:', placeholder: '若无限制,此处为空'%>
+        </div>
+        <div class="form-group string required">
+          <label class="col-sm-3 control-label string required">统一毛利率:</label>
+            <div class="col-sm-9">
+              <input placeholder="统一毛利率" class="form-control" required="required" type="number" step="0.01" min="0.01" max="99999999" name="auction_promotion_activity[rate_of_margin]" id="auction_promotion_activity_rate_of_margin" value="<%=@auction_promotion_activity.rate_of_margin %>">
+            </div>
+        </div>
+        <%= f.input :appoint_category, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @auction_promotion_activity_category ,  checked: @auction_promotion_activity.appoint_category, label: '活动商品分类要求:' ,required: 'true' %>
+        <div class="form-group string required" id="category">
+          <label class="col-sm-3 control-label string required">商品分类:</label>
+            <div class="col-sm-9">
+              <%= f.select :category_id, options_for_select(Auction::Category.active.map{|ac| [ac.name, ac.id]}, @auction_promotion_activity.category.map{|c| c.category_id}), {}, class: 'form-control', id: "category2", multiple: "multiple" %>
+            </div>
+        </div>
+
+        <%= f.button :submit, '提交审核', class: 'btn-info sf-submit', id: 'auction_promotion_activity_submit' %>
+        <%= link_to '取消', auction_promotion_activities_path, class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    var discount_type = $("input[name='auction_promotion_activity[discount_type]']:checked").val()
+    if(discount_type == "1"){
+      $('#multiple').show()
+      $('#price').hide()
+      $('#pre_price').hide()
+    }else if (discount_type == "2") {
+      $('#multiple').hide()
+      $('#price').hide()
+      $('#pre_price').show()
+    }else if (discount_type == "3") {
+      $('#multiple').hide()
+      $('#price').show()
+      $('#pre_price').hide()
+    }
+    var supplier_type = $("input[name='auction_promotion_activity[appoint_supplier]']:checked").val()
+    if(supplier_type == "1"){
+      $('#supplier').hide()
+    }else if (supplier_type == "2") {
+      $('#supplier').show()
+    }
+    var category_type = $("input[name='auction_promotion_activity[appoint_category]']:checked").val()
+    if(category_type == "1"){
+      $('#category').hide()
+    }else if (category_type == "2") {
+      $('#category').show()
+    }
+  })
+</script>

@@ -1,0 +1,99 @@
+<div class="lead text-right well">
+  <p><%= link_to '修改卡牌', edit_card_path(@card), class: 'btn btn-primary', role: 'button' %></p>
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>卡牌基础资料</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item">卡牌名称：<%= @card.name %></li>
+    <li class="list-group-item">卡牌编码：<%= @card.code %></li>
+    <li class="list-group-item">卡牌价格：<%= @card.price.to_f %></li>
+    <li class="list-group-item">卡牌排序：<%= @card.order_num %></li>
+    <li class="list-group-item">消耗能量：<%= @card.energy %></li>
+    <li class="list-group-item">使用次数：<%= (@card.use_times == -1) ? '无限次' : @card.use_times %></li>
+    <li class="list-group-item">消耗粮草：<%= @card.forage %></li>
+    <li class="list-group-item">稀有度：<%= @card.rarity %></li>
+    <li class="list-group-item">卡牌简介：<%= @card.summary %></li>
+    <li class="list-group-item">卡牌说明：<%= @card.instruction %></li>
+
+    <li class="list-group-item">卡牌缩略图：
+      <div class="row">
+      <% if @card.thumbnail %>
+        <%= image_tag FASTDFSCONFIG[:fastdfs][:tracker_url] + (@card.thumbnail || ''), width: 100, height: 100 %>
+      <% end %>
+      </div>
+    </li>
+    <li class="list-group-item">卡牌展示图片：
+      <div class="row">
+        <% @card.images.active.each do |img| %>
+            <!-- <img src="<%#= img.url %>" alt="<%#= @card.name%>"> -->
+            <%= image_tag FASTDFSCONFIG[:fastdfs][:tracker_url] + (img.url || ''), width: 100, height: 100, alt: @card.name  %>
+        <% end %>
+      </div>
+    </li>
+
+    <li class="list-group-item">卡牌视频介绍：
+      <div class="row">
+        <video src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + (@card.video_url || '') %>" controls='controls'></video>
+      </div>
+    </li>
+
+    <li class="list-group-item">卡牌攻略：<%= @card.details %></li>
+  </ul>
+
+  <div class="panel-heading mt_50"><strong>卡牌属性</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">卡牌分类：<%= Card::CARDTYPE[@card.card_type] %></li>
+    <li class="list-group-item">卡牌冷却CD：<%= @card.cooldown %>&nbsp;秒</li>
+    <li class="list-group-item">消耗对方能量：<%= (@card.attack_energy * 100).to_i %>%</li>
+    <li class="list-group-item">无视防御：<%= @card.ignore_defense ? '是' : '否' %></li>
+    <li class="list-group-item">目标范围：<%= aim_range_str(@card.aim_range) %></li>
+    <% if @card.max_key %>
+      <li class="list-group-item">是</li>
+    <% end %>
+    <li class="list-group-item">扣减对象：<%= attach_aim_str(@card.attach_aim) %></li>
+    <% if card_attrs(@card).include?('effect_times') %>
+      <li class="list-group-item">生效条件：
+        <% if @card.code == '100006' %>
+          所有卡牌
+        <% elsif @card.code.in?(['100007', '100008', '100012']) %>
+          <%= effect_condition_str(@card) %>
+        <% end %>
+      </li>
+      <li class="list-group-item">生效次数：<%= @card.effect_times %></li>
+    <% end %>
+
+    <li class="list-group-item">无法使用卡牌：<%= @card.is_disable ? '是' : '否' %></li>
+    <% if card_attrs(@card).include?('disable_time') %>
+      <li class="list-group-item">生效次数：<%= @card.disable_time %></li>
+    <% end %>
+
+    <li class="list-group-item">出牌混乱：<%= @card.is_confusion ? '是' : '否' %></li>
+    <% if card_attrs(@card).include?('confusion_time') %>
+      <li class="list-group-item">生效次数：<%= @card.confusion_time %></li>
+    <% end %>
+
+    <li class="list-group-item">是否置换号码：<%= @card.is_exchange ? '是' : '否' %></li>
+    <li class="list-group-item">转移类型：<%= transfer_type_str(@card.transfer_type) %></li>
+    <% if card_attrs(@card).include?('transfer_percent') || @card.code == '100006' %>
+      <li class="list-group-item">转移类型：<%= (@card.transfer_percent * 100).to_i %>%</li>
+    <% end %>
+
+    <li class="list-group-item">是否效果翻倍：<%= @card.is_double ? '是' : '否' %></li>
+
+    <!-- 状态值 -->
+    <li class="list-group-item">攻击满值：<%= @card.attack_full %></li>
+    <li class="list-group-item">当前攻击值：<%= @card.attack_curr %></li>
+    <li class="list-group-item">控制满值：<%= @card.control_full %></li>
+    <li class="list-group-item">当前控制值：<%= @card.control_curr %></li>
+    <li class="list-group-item">防御满值：<%= @card.defense_full %></li>
+    <li class="list-group-item">当前防御值：<%= @card.defense_curr %></li>
+    <li class="list-group-item">消耗满值：<%= @card.consume_full %></li>
+    <li class="list-group-item">当前消耗值：<%= @card.consume_curr %></li>
+    <li class="list-group-item">冷却满值：<%= @card.cool_full %></li>
+  </ul>
+
+</div>
+

@@ -1,0 +1,62 @@
+<% if params[:item_type_val] == '1' %>
+  <tr class="fields content_tr">
+    <td>计谋<input type="hidden" name="activity_items[][gift_type]" value="1"></td>
+    <td>
+      <p class="gift_type_select">
+        <select name="activity_items[][gift_range]" class="activity_select2 card_chose">
+          <% Card.active.each do |card| %>
+            <option value="<%= card.id %>"><%= card.name %></option>
+          <% end %>
+        </select>
+      </p>
+    </td>
+
+    <td>
+      <div class="input-group">
+        <input type="number" name="activity_items[][gift_count]" min="0" max="99999" class="form-control" required="required" placeholder="整数">
+        <span class="input-group-addon">份</span>
+      </div>
+    </td>
+
+    <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+  </tr>
+<% elsif params[:item_type_val] == '2' %>
+  <tr class="fields content_tr" >
+    <td>入场券<input type="hidden" name="activity_items[][gift_type]" value="2"></td>
+    <td width="30">
+      入场券<input type="hidden" name="activity_items[][gift_range]" value="入场券">
+    </td>
+
+    <td>
+      <div class="input-group">
+        <input type="number" name="activity_items[][gift_count]" min="0" max="99999" class="form-control" required="required" placeholder="整数">
+        <span class="input-group-addon">份</span>
+      </div>
+    </td>
+
+    <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+  </tr>
+<% elsif params[:item_type_val] == '3' %>
+  <tr class="fields content_tr" >
+    <td>能量<input type="hidden" name="activity_items[][gift_type]" value="3"></td>
+    <td width="30">
+      能量<input type="hidden" name="activity_items[][gift_range]" value="能量">
+    </td>
+
+    <td>
+      <div class="input-group">
+        <input type="number" name="activity_items[][gift_count]" min="0" max="99999" class="form-control" required placeholder="整数">
+        <span class="input-group-addon">点</span>
+      </div>
+    </td>
+
+    <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+  </tr>
+<% end %>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function () {
+    $(".activity_select2").select2()
+  })
+</script>

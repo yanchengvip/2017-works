@@ -1,0 +1,76 @@
+<div class="mt_10 bg_tr" style="line-height: 35px;font-size: 18px;">自定义属性：</div>
+<div class="form-group row mt_20">
+  <!-- <label for="supplier_product_percent" class="col-sm-2 control-label isrequire">SKU</label> -->
+  <div class="col-sm-8">
+    <span class="hide" id="random_atr_id">200000</span>
+    <table class="table table-striped table-hover" id="custom_attributes_table">
+      <!-- <thead>
+        <tr class="info">
+          <th>属性名称</th>
+          <th>属性值</th>
+          <th></th>
+        </tr>
+      </thead> -->
+      <tbody id="custom_attributes_body">
+        <% @custom_values = @values.select{|v| v.attribute_id == 0} %>
+        <% @custom_values && @custom_values.each do |custom_value| %>
+          <tr id="tr_<%= custom_value.id %>" class='custom_value_content'>
+            <input type="hidden" name="custom_values[][id]" value="<%= custom_value.id %>">
+            <td>
+              <input type="text" name="custom_values[][attribute_name]" value="<%= custom_value.attribute_name %>" placeholder="属性名称" class="form-control" width="100px" required readonly="<%= current_user.class.to_s == 'Manage::Editor' %>">
+            </td>
+            <td>
+              <input type="text" name="custom_values[][content]" value="<%= custom_value.content %>" class="form-control" width="200px" placeholder="属性值"  id="content_<%= custom_value.id %>" readonly="<%= current_user.class.to_s == 'Manage::Editor' %>" required>
+              <!-- <p class="bg-danger p_last_num left_str_num"></p> -->
+            </td>
+            <td>
+              <% if current_user.class.to_s == 'Supplier::Provider' %>
+                <%= link_to '删除', 'javascript:void(0)', class: "del_custom_value_origin", id: "custom_value_#{custom_value.id}" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if current_user.class.to_s == 'Supplier::Provider' %>
+      <%= link_to '新增自定义属性', 'javascript:void(0)', id: 'add_custom_value_item', class: 'btn btn-success' %>
+    <% end %>
+
+  </div>
+</div>
+
+<%= render '/supplier/products/custom_value_del_modal'%>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_custom_value_item').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/supplier/products/custom_value_form',
+        data: { random_id: 'cv' + Number($('#random_atr_id').text())},
+        success: function(result){
+          $('#custom_attributes_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('新增自定义属性失败')
+        }
+      })
+      $('#random_atr_id').text(Number($('#random_atr_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_custom_value_origin').on('click', function(){
+      $('#delCustomValueModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delCustomValueModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_custom_value_id').val(this_id.split('_')[2])
+      })
+    })
+  })
+
+</script>

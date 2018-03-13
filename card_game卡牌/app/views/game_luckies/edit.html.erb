@@ -1,0 +1,6 @@
+<p class="sub-header">营销管理>幸运儿>修改幸运儿</p>
+
+<%= form_for @game_lucky, url: game_lucky_path, html: {method: :post, class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= f.hidden_field :id, value: @game_lucky.id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="row placeholders well">
+  <%= form_for battle_products_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>重宝编号：</span>
+      <%= text_field_tag "q[sku_cont]", params[:q][:sku_cont], class: 'form-control mr_20', placeholder: '重宝编号' %>
+      <span>重宝名称：</span>
+      <%= text_field_tag 'q[name_cont]', params[:q][:name_cont], class: 'form-control mr_20', placeholder: '重宝名称' %>
+      <span>重宝分类：</span>
+      <%= select_tag 'q[product_tag_id_eq]', options_for_select([['请选择', nil]] + ProductTag.active.map{|pt| [pt.name, pt.id]}, params[:q][:product_tag_id_eq]), class: 'form-control game_select2 select-width-20' %>
+      <%= f.submit '搜索', class: 'btn btn-primary ml_50' %>
+    </div>
+  <% end %>
+</div>

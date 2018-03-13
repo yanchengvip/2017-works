@@ -1,0 +1,51 @@
+<p class="sub-header">系统管理>个人管理>修改密码</p>
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '返回', admin_path(@admin), class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<%= form_for @admin, url: update_pwd_admin_path, html: {class: 'form-horizontal mt_50', method: :post} do |f| %>
+  <div class="form-group">
+    <label for="nickname" class="col-sm-2 control-label">用户登录名：</label>
+    <div class="col-sm-8">
+      <span class='form-control'><%= @admin.nickname %></span>
+    </div>
+  </div>
+
+  <% if current_user.id == @admin.id %>
+    <div class="form-group">
+      <label for="password" class="col-sm-2 control-label">新密码：</label>
+      <div class="col-sm-8">
+        <%= f.password_field :password,  class: 'form-control', id: 'password', required: 'required' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password_confirmation" class="col-sm-2 control-label">确认新密码：</label>
+      <div class="col-sm-8">
+        <%= f.password_field :password_confirmation, class: 'form-control', id: 'password_confirmation', required: 'required' %>
+        <p data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="密码不一致" id="pwd_tip"></p>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group mt_20">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= link_to '取消', admin_path(@admin), class: 'btn btn-default mr_20 btn-lg' %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'change_pwd_submit' %>
+    </div>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $('#change_pwd_submit').on('click', function(){
+      if($('#password').val() != $('#password_confirmation').val()){
+        $('#pwd_tip').popover('show')
+        return false
+      }
+    })
+
+  })
+</script>

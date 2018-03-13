@@ -1,0 +1,66 @@
+<!-- 上下架modal -->
+<div class="modal fade" id="gameDescChangeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">修改规则说明</h4>
+      </div>
+      <form action="/game_types/change_desc" method="post">
+        <div class="modal-body">
+          <div class="form-group row">
+            <label for="change_game_type_name" class="col-sm-2 col-form-label">规则名称</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" id="change_game_type_name" class="form-control" readonly="readonly">
+            </div>
+          </div>
+
+          <input type="hidden" name='id' id="change_game_type_id">
+
+          <div class="form-group row mt_20">
+            <label for="game_type_game_desc" class="col-sm-2 control-label">赛场规则说明</label>
+            <div class="col-sm-10">
+              <textarea name="game_desc" id="game_type_game_desc" cols="30" rows="10" class="form-control" placeholder='赛场规则说明' required rows="15"></textarea>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="do_shelf">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%#= render partial: '/packages/error_modal' %>
+
+<script type="text/javascript">
+  // $(function(){
+  //   $('#do_shelf').on('click', function(){
+  //     var shelf_id = $('#shelf_energy_product_id').val()
+  //     console.log(shelf_id)
+  //     $.ajax({
+  //       type: "post",
+  //       url: '/energy_products/'+shelf_id+'/shelf',
+  //       data: { shelf_status: $('#shelf_energy_product_status').val()},
+  //       success: function(result){
+  //         if(result.status == 200){
+  //           $('#gameDescChangeModal').modal('hide')
+  //           window.location.reload();
+  //         }else{
+  //           $('#gameDescChangeModal').modal('hide')
+  //           elert(result.msg)
+  //         }
+  //       },
+  //       error: function(XMLHttpResponse){
+  //         $('#gameDescChangeModal').modal('hide')
+  //         elert('操作失败')
+  //       }
+  //     })
+  //   })
+  // })
+
+</script>

@@ -1,0 +1,37 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>代码</th>
+      <th>名称</th>
+      <th>限制次数</th>
+      <th>功能</th>
+      <th>券种</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @auction_coupons.each do |auction_coupon| %>
+      <tr>
+        <td><%= auction_coupon.code%></td>
+        <td><%= auction_coupon.name%></td>
+        <td><%= auction_coupon.limitation%></td>
+        <td><%= Auction::Coupon::FUNCTION[auction_coupon.function]%></td>
+        <td><%= auction_coupon.event&.name%></td>
+        <td><%= auction_coupon.started_at&.strftime('%Y-%m-%d %H:%M')%></td>
+        <td><%= auction_coupon.ended_at&.strftime('%Y-%m-%d %H:%M')%></td>
+        <td>
+          <%= link_to '编辑', edit_auction_coupon_path(auction_coupon),class: "btn btn-warning btn-sm" %>
+          <%= link_to '发布', published_auction_coupon_path(auction_coupon),class: "btn btn-success btn-sm" %>
+          <%= link_to '删除', auction_coupon, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' },class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @auction_coupons%>

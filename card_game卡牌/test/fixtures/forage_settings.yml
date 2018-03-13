@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  base_forage: 1
+  turn_second: 1
+  turn_forage_incr: 1
+  last_turn_second: 1
+  last_turn_forage_incr: 1
+  max_forage: 1
+
+two:
+  base_forage: 1
+  turn_second: 1
+  turn_forage_incr: 1
+  last_turn_second: 1
+  last_turn_forage_incr: 1
+  max_forage: 1

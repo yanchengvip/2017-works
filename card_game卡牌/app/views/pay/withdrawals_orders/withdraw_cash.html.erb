@@ -1,0 +1,26 @@
+<p class="sub-header">回收管理>提现记录</p>
+<%= render partial: 'cash' %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>提现时间</th>
+      <th>本月累计提现金额</th>
+      <th>提现笔数</th>
+      <!-- <th>操作</th> -->
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @pay_withdrawals_orders.each do |order| %>
+        <tr>
+          <td><%= @start_date %></td>
+          <td><%= order.amount %></td>
+          <td><%= order.count %></td>
+          <!-- <td>
+          </td> -->
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

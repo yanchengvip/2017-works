@@ -1,0 +1,131 @@
+<div class="form-group row mt_20">
+  <label for="glutton_level_level" class="col-sm-2 control-label">饕餮等级</label>
+  <div class="col-sm-8">
+    <%= f.text_field :level, placeholder: '等级不可重复，根据等级排序，从低到高', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="input" class="col-sm-2 control-label">饕餮形象</label>
+  <div class="col-sm-8">
+    <%#= render 'images/upload_single_image' %>
+  </div>
+</div> -->
+<div class="form-group row mt_20">
+  <label for="input" class="col-sm-2 control-label">饕餮形象</label>
+  <div class="col-sm-8">
+    <%= render partial: 'upload_glutton_image' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="input" class="col-sm-2 control-label">未解锁形象</label>
+  <div class="col-sm-8">
+    <%= render partial: 'unlock_thumbnail' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_level_level_up_experience" class="col-sm-2 control-label">升级经验</label>
+  <div class="col-sm-8">
+    <%= f.text_field :level_up_experience, placeholder: '当前等级到下一等级经验', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_level_day_energy" class="col-sm-2 control-label">每日赠送能量</label>
+  <div class="col-sm-8">
+    <%= f.text_field :day_energy, placeholder: '无则填写0', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_level_day_pellet" class="col-sm-2 control-label">每日赠送妖丹</label>
+  <div class="col-sm-8">
+    <%= f.text_field :day_pellet, placeholder: '无则填写0', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_level_day_buy_pellet_up_limit" class="col-sm-2 control-label">每日购买妖丹上限</label>
+  <div class="col-sm-8">
+    <%= f.text_field :day_buy_pellet_up_limit, placeholder: '填写0为无法购买', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_level_game_signup_off" class="col-sm-2 control-label">竞赛报名折扣</label>
+  <div class="col-sm-8">
+    <%= f.text_field :game_signup_off, placeholder: '小数点后2位，1为100%，0.99为价格99%', class: 'form-control', required: "required", type: 'number', min: 0, step: 0.01 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_level_choose_plot_num" class="col-sm-2 control-label">可选计谋数量</label>
+  <div class="col-sm-8">
+    <%= f.text_field :choose_plot_num, placeholder: '填写可选计谋增加数量', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="glutton_skill_use_last_round" class="col-sm-2 control-label">技能等级</label>
+  <div class="col-sm-8">
+    <%= f.select :glutton_skill_level, options_for_select([['无', nil]] + GluttonSkill.active.map{|gs| [gs.name, gs.skill_level]}, @glutton_level.glutton_skill_level), {}, class: 'form-control game_select2' %>
+  </div>
+</div>
+
+<legend class="mt_50"><p>每周礼包</p></legend>
+<div class="form-group row mt_20">
+  <label for="glutton_level_week_gifts_energy" class="col-sm-2 control-label"></label>
+  <div class="col-sm-8">
+    <span class="mr_10">能量</span><%= f.text_field :week_gifts_energy, placeholder: '无则填写0', class: 'custom_input_md', required: "required", type: 'number', min: 0 %><span class="ml_10">功勋</span>
+    <%= f.text_field :week_gifts_feats, placeholder: '无则填写0', class: 'custom_input_md', required: "required", type: 'number', min: 0 %><span class="ml_10">妖丹</span>
+    <%= f.text_field :week_gifts_pellet, placeholder: '无则填写0', class: 'custom_input_md', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label"></label>
+  <div class="col-sm-8">
+    <!-- <div class="row ml_5 mb_20">道具:</div> -->
+    <%= render partial: 'week_prop_own' %>
+  </div>
+</div>
+
+<legend class="mt_50"><p>升级奖励</p></legend>
+<div class="form-group row mt_20">
+  <label for="glutton_level_level_up_energy" class="col-sm-2 control-label"></label>
+  <div class="col-sm-8">
+    <span class="mr_10">能量</span><%= f.text_field :level_up_energy, placeholder: '无则填写0', class: 'custom_input_md', required: "required", type: 'number', min: 0 %><span class="ml_10">功勋</span>
+    <%= f.text_field :level_up_feats, placeholder: '无则填写0', class: 'custom_input_md', required: "required", type: 'number', min: 0 %><span class="ml_10">妖丹</span>
+    <%= f.text_field :level_up_pellet, placeholder: '无则填写0', class: 'custom_input_md', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label"></label>
+  <div class="col-sm-8">
+    <!-- <div class="row ml_5 mb_20">道具:</div> -->
+    <%= render partial: 'up_prop_own' %>
+  </div>
+</div>
+
+
+
+<div class="form-group row mt_50">
+  <label for="glutton_level_comment" class="col-sm-2 control-label">说明文案</label>
+  <div class="col-sm-8">
+    <%= f.text_area :comment, placeholder: '说明文案', class: 'tinymce', rows: 6, id: 'comment' %>
+  </div>
+</div>
+<%= render partial: 'tinymce', locals: {text_id: 'comment'} %>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', glutton_levels_path, class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'glutton_level_submit' %>
+  </div>
+</div>
+

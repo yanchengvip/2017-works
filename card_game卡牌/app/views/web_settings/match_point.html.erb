@@ -1,0 +1,38 @@
+<p class="sub-header">系统管理>其它管理>赛点管理</p>
+
+<%= form_for @web_setting, html: {class: 'form-horizontal mt_50'} do |f| %>
+  <div class="form-group">
+    <label for="point_show_round" class="col-sm-2 control-label">*倒数第几轮显示赛点：</label>
+    <div class="col-sm-8">
+      <%= f.text_field :point_show_round, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "form-control", id: 'point_show_round' %>
+      <%= hidden_field_tag :from, 'match_point' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="point_show_num" class="col-sm-2 control-label">*显示个数：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <%= f.text_field :point_show_num, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "form-control", id: 'point_show_num' %>
+        <span class="input-group-addon">个</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="point_quit_time" class="col-sm-2 control-label">*竞赛剩余时间小于：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <%= f.text_field :point_quit_time, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "form-control", id: 'point_quit_time' %>
+        <span class="input-group-addon">秒，退出赛点</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-4 col-sm-4">
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', data: {:disable_with => "提交中..."} %>
+    </div>
+  </div>
+
+<% end %>

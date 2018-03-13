@@ -1,0 +1,56 @@
+/* paginate css */
+.pagination {
+  float: left;
+  margin: 10px 0;
+  background-color: azure;
+}
+
+.pagination span a,
+.pagination span.gap,
+.pagination span.current {
+  float: left;
+  padding: 4px 12px;
+  line-height: 16px;
+  text-decoration: none;
+  border: 1px solid #DDD;
+  border-left-width: 0;
+}
+
+.border1 {
+  border: 1px solid #CCC;
+}
+
+.pagination span.current {
+  color: red;
+}
+
+.pagination li.currentpage {
+  color: red;
+  float: left;
+  padding: 4px 12px;
+  line-height: 20px;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+}
+
+.pagination li.gap {
+  float: left;
+  padding: 4px 12px;
+  line-height: 20px;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-left-width: 0;
+}
+
+nav.pagination > span:first-child,
+.pagination > span.first a {
+  border-left-width: 1px !important;
+}
+
+.pagination span > a:hover,
+.pagination span a:focus {
+  background-color: #f5f5f5;
+  color: #FF6633;
+}

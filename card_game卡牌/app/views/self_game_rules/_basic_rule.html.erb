@@ -1,0 +1,43 @@
+<div class="form-group row">
+  <label for="self_game_rule_name" class="col-sm-2 col-form-label">规则名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, id: 'self_game_rule_name', placeholder: '规则名称， < 30字', class: 'form-control', required: "required", onkeyup: "validate_length_of_words(this.id,30)" %>
+    <%#= f.text_field :nickname, class: 'form-control', id: 'nickname', required: 'required' %>
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="self_game_rule_sort" class="col-sm-2 col-form-label">排序</label>
+  <div class="col-sm-8">
+    <%= f.text_field :sort, id: 'self_game_rule_sort', placeholder: '排序', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <legend><h3>基本规则</h3></legend>
+</div>
+
+<div class="form-group row">
+  <label for="self_game_rule_round_num" class="col-sm-2 control-label">竞赛轮数</label>
+  <div class="col-sm-8">
+    <%= f.text_field :round_num, id: 'self_game_rule_round_num', placeholder: '竞赛轮数，整数', class: 'form-control', required: "required", type: 'number', onkeyup: "get_round_time(this.id, #{@self_game_rule.id.to_i}, 'self_game_rules')" %>
+  </div>
+</div>
+
+<div class="round_time">
+  <% if params[:action] == 'edit' %>
+    <%= render partial: 'round_time_own' %>
+  <% end %>
+</div>
+
+<!-- <div class="form-group row">
+  <label for="self_game_rule_round_time" class="col-sm-2 control-label">每轮时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%#= f.text_field :round_time, id: 'self_game_rule_round_time', placeholder: '每轮时间，整数', class: 'form-control', required: "required", type: 'number' %>
+      <span class="input-group-addon">分钟</span>
+    </div>
+  </div>
+</div> -->
+

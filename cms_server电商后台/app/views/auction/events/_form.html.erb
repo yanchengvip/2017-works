@@ -1,0 +1,41 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @auction_event, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+
+        <%= f.input :name, label: '券种名:' ,required: 'true'%>
+        <%= f.input :description, label: '描述:' ,required: 'true'%>
+        <div class="form-group string required auction_event_limitation">
+          <label class="col-sm-3 control-label string required" for="auction_event_limitation">单件商品价格满:</label>
+            <div class="col-sm-9">
+              <%= f.text_field :limitation, placeholder: '请输入', required: "required" %>元,
+              减<%= f.text_field :amount, label: '价格:' ,required: 'true'%>元
+            </div>
+        </div>
+        <%= f.input :is_sell, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @auction_event_is_sell ,  checked: @auction_event.is_sell, label: '购买送微积分优惠券:' ,required: 'true'%>
+        <div class="form-group string required auction_event_micro_amount">
+          <label class="col-sm-3 control-label string required" for="auction_event_micro_amount">赠送微积分:</label>
+            <div class="col-sm-9">
+              <%= f.text_field :micro_amount, placeholder: '请输入', required: "required" %>
+              赠送的微积分价值<%= f.text_field :price, label: '价格:' ,required: 'true'%>元
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="input" class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9">
+            <%= render partial: 'images/upload_single_image', locals: {prev_id: 'pic', item_name: "auction_event[pic]", item_id: "auction_event_pic", upload_btn_id: 'upload_pic', preview_id: 'preview_pic', image_path: @auction_event.pic, model_name: @auction_event.class.to_s} %>
+          </div>
+        </div>
+        <%= f.input :started_at,:as => :string,  input_html: { format: :long,id:'datetimepicker1'}, label: '开始时间:',required: true%>
+        <%= f.input :ended_at,:as => :string,  input_html: { format: :long,id:'datetimepicker2'}, label: '结束时间:',required: true%>
+        <%= f.input :clients, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @auction_event_clients ,  checked: @auction_event.clients, label: '客户端:' ,required: 'true' %>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit' %>
+        <%= link_to '取消', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>基本信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">活动名称:<span><%= @supplier_promotion_activity.promotion_activity.name %></span></li>
+    <li class="list-group-item">招商时间:<%= @supplier_promotion_activity&.promotion_activity&.declar_begin&.strftime('%Y-%m-%d %H:%M:%S') %>~<%= @supplier_promotion_activity.promotion_activity.declar_end.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <li class="list-group-item">活动时间:<%= @supplier_promotion_activity&.promotion_activity&.promotion_begin&.strftime('%Y-%m-%d %H:%M:%S') %>~<%= @supplier_promotion_activity&.promotion_activity&.promotion_end&.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <li class="list-group-item">促销标签:<%= @supplier_promotion_activity.promotion_activity.label %></li>
+    <li class="list-group-item">活动描述:<%= @supplier_promotion_activity.promotion_activity.description %></li>
+    <li class="list-group-item">活动规则/要求:<%= @supplier_promotion_activity.promotion_activity.requirement %></li>
+  </ul>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>活动对象</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">针对对象: 供应商</li>
+    <li class="list-group-item">供应商最新结算价最低降价幅度:<%= (@supplier_promotion_activity.promotion_activity.discount * 100).to_i.to_s + "%" %></li>
+    <li class="list-group-item">可参加供应商范围:<%= Auction::PromotionActivity::APPOINTSUPPLIER[@supplier_promotion_activity.promotion_activity.appoint_supplier]%></li>
+    <li class="list-group-item">
+      <% @supplier_promotion_activity.promotion_activity.supplier.active.each_with_index do |s, index|%>
+        <%= s.provider.name%>
+      <% end %>
+
+    </li>
+  </ul>
+</div>
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>商品售卖规则</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">优惠方式:<%= Auction::PromotionActivity::DISCOUNTTYPE[@supplier_promotion_activity.promotion_activity.discount_type] %></li>
+    <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.discount_type%>" id="discount_type">
+    <li class="list-group-item">优惠规则:
+      <div id="multiple">连拍<%= @supplier_promotion_activity.promotion_activity.multiple_sales_count %>件,<%= @supplier_promotion_activity.promotion_activity.multiple_sales_discount %>折</div>
+      <div id="price">满<%= @supplier_promotion_activity.promotion_activity.price_more %>元,减<%= @supplier_promotion_activity.promotion_activity.price_off %></div>
+      <div id="pre_price">每满<%= @supplier_promotion_activity.promotion_activity.pre_price_more %>件,减<%= @supplier_promotion_activity.promotion_activity.pre_price_off %>,最大优惠值<%= @supplier_promotion_activity.promotion_activity.pre_discount_total %></div>
+    </li>
+  </ul>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>活动商品要求</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">活动商品要求:<%= Auction::PromotionActivity::APPOINTCATEGORY[@supplier_promotion_activity.promotion_activity.appoint_category]%></li>
+    <li class="list-group-item">
+      <% @supplier_promotion_activity.promotion_activity.category.active.each do |c|%>
+        <%= c.category.name%>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<div class="panel panel-info">
+     <%= form_for auction_promotion_activities_path, html: {class: 'form-horizontal', method: 'get', id: 'check_form'} do |f| %>
+      <div class="form-group">
+        <!-- <label for="input3" class=" col-sm-4 control-label">审核备注:</label> -->
+        <div class="col-sm-8">
+          <!-- <%= text_field_tag "content",params[:content], class: 'form-control', require: "require"%> -->
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity_id%>" name="promotion_activity_id">
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.rate_of_margin%>" name="promotion_activity_rate_of_margin">
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.discount_type%>" name="promotion_activity_discount_type">
+
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.multiple_sales_discount%>" name="promotion_activity_multiple_sales_discount">
+
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.price_more%>" name="promotion_activity_price_more">
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.price_off%>" name="promotion_activity_price_off">
+
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.pre_price_more%>" name="promotion_activity_pre_price_more">
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.pre_price_off%>" name="promotion_activity_pre_price_off">
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.pre_discount_total%>" name="promotion_activity_pre_discount_total">
+
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.declar_end%>" id="promotion_activity_declar_end">
+          <input type="hidden" value="<%= @current_user.id%>" id="current_user_id">
+          <input type="hidden" value="<%= @supplier_promotion_activity.promotion_activity.supplier.active.map{|item| item.supplier_id}%>" id="provider_id">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8 text-center">
+
+          <% if @supplier_promotion_activity.promotion_activity.status == 4 || @supplier_promotion_activity.promotion_activity.declar_end < Time.now || @supplier_promotion_activity.promotion_activity.declar_begin > Time.now%>
+            <div class='btn btn-primary' id = "submit" style = "display:none;">申报商品</div>
+          <% else %>
+            <div class='btn btn-primary' id = "submit">申报商品</div>
+          <% end %>
+          <div class='btn btn-success' id = "unpass">返回</div>
+        </div>
+      </div>
+    <% end %>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#unpass").click(function () {
+      $("#check_form")[0].action = '/supplier/promotion_activity_suppliers'
+      $("#check_form").submit()
+      $("#check_form")[0].action = '/supplier/promotion_activity_suppliers'
+    })
+    $("#submit").click(function () {
+      var current_user_id = $("#current_user_id").val()
+      var provider_id = $("#provider_id").val()
+      if($.inArray(current_user_id, provider_id) == -1){
+        elert("您不在参加此次活动的供应商范围之内")
+        return false
+      }
+      $("#check_form")[0].action = '/supplier/promotion_activity_suppliers/report_product'
+      $("#check_form").submit()
+    })
+  })
+  $(document).on('turbolinks:load', function () {
+    var discount_type = $("#discount_type").val()
+    if(discount_type == "1"){
+      $('#multiple').show()
+      $('#price').hide()
+      $('#pre_price').hide()
+    }else if (discount_type == "2") {
+      $('#multiple').hide()
+      $('#price').hide()
+      $('#pre_price').show()
+    }else if (discount_type == "3") {
+      $('#multiple').hide()
+      $('#price').show()
+      $('#pre_price').hide()
+    }
+  })
+</script>

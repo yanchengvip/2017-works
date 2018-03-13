@@ -1,0 +1,2 @@
+module Auction::ContactsHelper
+end

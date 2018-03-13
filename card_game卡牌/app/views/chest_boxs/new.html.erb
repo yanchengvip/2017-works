@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">宝箱管理>宝箱设置>新增宝箱</p></div>
+
+<%= form_for @chest_box, url: chest_boxs_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

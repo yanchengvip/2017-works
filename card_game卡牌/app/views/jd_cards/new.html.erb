@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">宝箱管理>充值管理>京东卡</p></div>
+
+<%= form_for @jd_card, url: jd_cards_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal123', multipart: true} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

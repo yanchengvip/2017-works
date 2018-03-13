@@ -1,0 +1,100 @@
+<div class="row"><p class="sub-header">系统管理>饕餮管理>饕餮设置</p></div>
+
+<div id="glutton_setting_div" class="row col-sm-11">
+  <form action="/glutton_settings/save_gluttons" method="post">
+    <div class="form-group row"><legend><h3>饕餮</h3></legend></div>
+
+    <div class="panel panel-info">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="mr_20">*饕餮出现：</span>
+          每轮正式开始<input type="number" name="appear_time" id="appear_time" min="1" max="999" value="<%= @glutton_setting.appear_time %>" required placeholder='整数' class='custom_input'>秒后，饕餮出现在战场中
+        </li>
+        <li class="list-group-item">
+          <span class="mr_50">*攻击：</span>
+          饕餮出现后，每隔<input type="number" name="attack_time" id="attack_time" min="1" max="999" value="<%= @glutton_setting.attack_time %>" required placeholder='整数' class='custom_input'>秒，攻击所有用户1次，获取每个用户
+          <input type="number" name="attack_user_key" id="attack_user_key" min="1" max="100" value="<%= (@glutton_setting.attack_user_key * 100).to_i %>" required placeholder='整数' class='custom_input'>% 密钥，不足1个按照1个处理，当用户密钥为0时，不获得
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div class="form-group row">
+      <label for="round_bloods" class="col-sm-2 control-label">*血量：</label>
+      <div class="col-sm-9">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr class="info">
+              <th>第一轮血量</th>
+              <th>第二轮血量</th>
+              <th>第三轮血量</th>
+              <th>第四轮血量</th>
+              <th>第五轮血量</th>
+              <th>第六轮血量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <%# if @glutton_setting.round_blood.blank? %>
+                <%# 6.times do |i| %>
+                  <td>
+                    <input type="number" name="round_bloods[]" min="1" max="999999" required placeholder='整数' >点
+                  </td>
+                <%# end %>
+              <%# else %>
+                <%# @glutton_setting.round_blood.split(',').each do |num| %>
+                  <td>
+                    <input type="number" name="round_bloods[]" min="1" max="999999" value="<%#= num.to_i %>" required placeholder='整数'>点
+                  </td>
+                <%# end %>
+              <%# end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> -->
+
+    <%= render partial: 'prize' %>
+    <%= render partial: 'enabling' %>
+    <%= render partial: 'broadcast' %>
+
+    <div class="form-group row mt_20"><legend><h3>进入下一回合</h3></legend></div>
+
+    <div class="panel panel-info">
+      <div class="panel-body">
+        <p><span class="mr_50">失败条件：</span>
+          当饕餮拥有100%密钥，且持续<input type="number" name="restart_time" id="restart_time" min="1" max="999999" value="<%= @glutton_setting.restart_time %>" required placeholder='整数' class='custom_input'>秒，无论当前为第几回合，直接判定为饕餮获胜，奖品重新开启新战役
+        </p>
+      </div>
+    </div>
+
+
+    <div class="form-group mt_50">
+      <div class="col-sm-offset-5 col-sm-4">
+        <button type="submit" class="btn btn-primary btn-lg" id="glutton_setting_submit">保存</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<%#= render partial: 'item' %>
+<script type="text/javascript">
+  $(function(){
+    // 添加
+    // $('#add_glutton_setting').on('click', function(){
+    //   $.ajax({
+    //     type: 'get',
+    //     url: '/glutton_settings/content_form',
+    //     data: { },
+    //     success: function(result){
+    //       $('#glutton_setting_body').append(result)
+    //     },
+    //     error: function(XMLHttpResponse){
+    //       alert('添加失败')
+    //     }
+    //   })
+    // })
+
+
+  })
+</script>

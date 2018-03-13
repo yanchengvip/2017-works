@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prize_type: 1
+  prize_count: 1
+
+two:
+  prize_type: 1
+  prize_count: 1

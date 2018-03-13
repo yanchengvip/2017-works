@@ -1,0 +1,73 @@
+<!-- 选择中奖范围modal -->
+<div class="modal fade" id="selectItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">选择卡牌</h4>
+      </div>
+      <div class="modal-body">
+        <% Card.active.each do |card| %>
+          <span><%= check_box_tag 'range[]', card.id, false, class: 'range_box', data_str: card.name, data_price: card.price.to_f %></span>
+          <span class="mr_30"><%= card.name %></span>
+        <% end %>
+
+        <input type="hidden" id="selected_val">
+        <input type="hidden" id="selected_str">
+        <input type="hidden" id="clicked_package_items_range">
+        <input type="hidden" id="clicked_package_items_range_vals">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="chose_item">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('.range_box').on('click', function(){
+      console.log($(this).is(':checked'))
+    })
+
+    // 确定
+    $('#chose_item').on('click', function(){
+      // $('.clicked_range').val()
+
+      var selected_val = ''
+      var selected_str = ''
+      var selected_price = 0
+      $('.range_box').each(function(index, item){
+        if($(item).is(':checked')){
+          if(selected_val == ''){
+            selected_val = $(item).val()
+          }else{
+            selected_val = selected_val + ',' + $(item).val()
+          }
+
+          if(selected_str == ''){
+            selected_str = $(item).attr('data_str')
+          }else{
+            selected_str = selected_str + ',' + $(item).attr('data_str')
+          }
+          selected_price += parseFloat($(item).attr('data_price'))
+        }
+      })
+
+      var clicked_package_items_range = $('#clicked_package_items_range').val()
+      $('#'+clicked_package_items_range).val(selected_str)
+      var clicked_package_items_range_vals = $('#clicked_package_items_range_vals').val()
+      $('#'+clicked_package_items_range_vals).val(selected_val)
+
+      var sl_price = $('#'+clicked_package_items_range).parent().next().first('td')
+      $(sl_price.children('span')[0]).text(selected_price)
+      $(sl_price.children('input')[0]).val(selected_price)
+
+      $('#selectItemModal').modal('hide')
+    })
+  })
+</script>

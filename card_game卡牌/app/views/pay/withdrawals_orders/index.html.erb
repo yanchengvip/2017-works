@@ -1,0 +1,48 @@
+<p class="sub-header">回收管理>每月提现记录</p>
+<%= render partial: 'search' %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>提现时间</th>
+      <th>订单号</th>
+      <th>支付宝账单号</th>
+      <th>用户手机</th>
+      <th>用户昵称</th>
+      <th>提现金额</th>
+      <th>实际金额</th>
+      <th>手续费</th>
+      <th>提现状态</th>
+      <!--<th>操作</th>-->
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @pay_withdrawals_orders.each do |order| %>
+        <tr>
+          <td><%= order.created_at&.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= order.identifier %></td>
+          <td><%= order.alipay_order_id %></td>
+          <td><%= order.user&.mobile %></td>
+          <td><%= order.user&.nick_name %></td>
+          <td><%= order.amount %></td>
+          <td><%= order.real_amount %></td>
+          <td><%= order.service_charge %></td>
+          <td><%= Pay::WithdrawalsOrder::STATUS[order.status] %></td>
+          <!--<td>-->
+            <!--<% if order.status == 'transfer' %>-->
+                <!--<a href="javascript:void(0)" class="btn btn-danger btn-sm " role="button" onclick="confirm_transfer('<%= order.id%>',<%=order.amount %>)">确认充值</a>-->
+                <!--<a href="javascript:void(0)" class="btn btn-warning btn-sm " role="button" onclick="cancel_transfer('<%= order.id%>',<%=order.amount %>)">作废订单</a>-->
+            <!--<% end %>-->
+            <!--<% if order.status == 'cancel' %>-->
+                <!--<a href="javascript:void(0)" class="btn btn-danger btn-sm " role="button" onclick="confirm_transfer('<%= order.id%>',<%=order.amount %>)">确认充值</a>-->
+            <!--<% end %>-->
+          <!--</td>-->
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @pay_withdrawals_orders %>
+<%= render partial: 'transfer_modal'%>
+<%= render partial: 'cancel_modal'%>

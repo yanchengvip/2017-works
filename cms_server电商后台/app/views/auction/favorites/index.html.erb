@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Favorites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_favorites.each do |auction_favorite| %>
+      <tr>
+        <td><%= link_to 'Show', auction_favorite %></td>
+        <td><%= link_to 'Edit', edit_auction_favorite_path(auction_favorite) %></td>
+        <td><%= link_to 'Destroy', auction_favorite, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Favorite', new_auction_favorite_path %>

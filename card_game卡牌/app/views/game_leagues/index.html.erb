@@ -1,0 +1,50 @@
+<div class="row"><p class="sub-header">赛场>联赛>联赛列表</p></div>
+
+<%#= render partial: 'search' %>
+
+<div class="row mt_20 mb_20">
+  <%= link_to '新增联赛', new_game_league_path, class: 'btn btn-primary', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>名称</th>
+        <th>状态</th>
+        <th>开启时间</th>
+        <th>结束时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @game_leagues && @game_leagues.each_with_index do |game_league, index| %>
+      <tr id="tr_<%= game_league.id %>">
+        <td><%= game_league.id %></td>
+        <td><%= game_league.league_name %></td>
+        <td>
+          <%#= GameLeague::STATUS[game_league.status] %>
+          <%= league_status game_league %>
+        </td>
+        <td><%= game_league.league_begin&.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= game_league.league_end&.strftime("%Y-%m-%d %H:%M") %></td>
+        <td>
+          <%= link_to '查看', game_league_path(game_league), class: 'btn btn-sm btn-info' %>
+          <% if game_league.league_begin.blank? || Time.now < game_league.league_begin %>
+            <%= link_to '编辑', edit_game_league_path(game_league), class: 'btn btn-sm btn-primary' %>
+          <% elsif Time.now >= game_league.league_begin && Time.now <= game_league.league_end %>
+            <%= link_to '停止', 'javascript:void(0)', onclick: "game_league_shelf(#{game_league.id}, 0)", class: 'btn btn-warning btn-sm', role: 'button' %>
+          <% end %>
+          <%= link_to '复制', 'javascript:void(0)', onclick: "copy_game_league(#{game_league.id})", class: 'btn btn-default btn-sm', role: 'button', id: "copy_#{game_league.id}" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @game_leagues %>
+
+<%= render partial: 'shelf_modal' %>
+<%= render partial: 'copy_modal' %>

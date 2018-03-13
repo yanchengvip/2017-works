@@ -1,0 +1,4 @@
+<%= form_for @supplier_product, url: editor_update_auction_product_path, :method=>"put",  html: {class: 'bg pd_20'} do |f| %>
+  <%= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

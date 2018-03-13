@@ -1,0 +1,54 @@
+<p class="sub-header">系统管理>其它管理>赛场信息提示</p>
+
+<%= form_for @web_setting, html: {class: 'form-horizontal mt_50'} do |f| %>
+
+  <div class="panel panel-info">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><strong>类别1</strong></div>
+    <ul class="list-group">
+      <li class="list-group-item ">
+        距离本轮结束还有：
+        <%= f.text_field :round_over_tip_time, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "custom_input_md", id: 'round_over_tip_time' %>秒 时提示
+      </li>
+      <li class="list-group-item"><p>提示信息：</p>
+        <%= f.text_field :round_over_tip_text, placeholder: '距离本轮结束还有XX秒时提示的信息', required: "required", class: "custom_input_lg", id: 'round_over_tip_text' %>
+      </li>
+      <%= hidden_field_tag :from, 'game_tip' %>
+    </ul>
+
+    <div class="panel-heading"><strong>类别2</strong></div>
+    <ul class="list-group">
+      <li class="list-group-item ">
+        <p>密钥百分比超过基值提示的信息：</p>
+        <%= f.text_field :keys_gt_text, placeholder: '密钥百分比超过基值提示的信息', required: "required", class: "custom_input_lg", id: 'keys_gt_text' %>
+      </li>
+    </ul>
+
+    <div class="panel-heading"><strong>类别3</strong></div>
+    <ul class="list-group">
+      <li class="list-group-item ">
+        <p>密钥百分比低于基值提示的信息：</p>
+        <%= f.text_field :keys_lt_text, placeholder: '密钥百分比低于基值提示的信息', required: "required", class: "custom_input_lg", id: 'keys_lt_text' %>
+      </li>
+    </ul>
+
+    <div class="panel-heading"><strong>类别4</strong></div>
+    <ul class="list-group">
+      <li class="list-group-item ">
+        每隔<%= f.text_field :winner_tip_time, placeholder: '>0的整数', type: 'number', min: 1, max: 99999, required: "required", class: "custom_input_md", id: 'winner_tip_time' %>秒，提示赛场第一名
+      </li>
+      <li class="list-group-item">
+        <p>提示信息：</p>
+        <%= f.text_field :winner_tip_text, placeholder: '每隔XX秒，提示赛场第一名的信息', required: "required", class: "custom_input_lg", id: 'winner_tip_text' %>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= f.submit '保存', class: 'btn btn-primary', data: {:disable_with => "提交中..."} %>
+    </div>
+  </div>
+
+<% end %>

@@ -1,0 +1,3 @@
+<%= form_for @supplier_product, url: supplier_products_path, html: {:method=>"post", class: 'bg pd_20'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

@@ -1,0 +1,28 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>券种</th>
+      <th>用户</th>
+      <th>获得时间</th>
+      <th>创建时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @auction_vouchers.each do |auction_voucher| %>
+      <tr>
+        <td><%= auction_voucher.event&.name %></td>
+        <td><%= auction_voucher.user&.phone ||  auction_voucher.user&.email%></td>
+        <td><%= auction_voucher.obtained_at&.strftime('%Y-%m-%d %H:%M') %></td>
+        <td><%= auction_voucher.created_at&.strftime('%Y-%m-%d %H:%M') %></td>
+        <!-- <td>
+          <%= link_to '编辑', edit_auction_voucher_path(auction_voucher), class: "btn btn-warning btn-sm"%>
+          <%= link_to '删除', auction_voucher, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' }, class: "btn btn-danger btn-sm"%>
+        </td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @auction_vouchers%>

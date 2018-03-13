@@ -1,0 +1,34 @@
+# config/app.yml for rails-settings-cached
+defaults: &defaults
+
+  api_host: "http://127.0.0.1/"
+  warning_value: 0.15
+  change_discount_warning: 0.1
+  audit_msg: "尊敬的用户：您的订单将在1-3工作日发出（个别订单发出可能会出现延迟，具体信息可详询客服）。商品签收后7天内，原包装完好、原装吊牌及优众吊牌未损坏的前提下，支持退换货的服务。如有疑问或退换货需求请您致电4008-875-699详询 。访问手机版随时购物：t.ihaveu.com/2befw"
+  drp_service:
+    host: "http://127.0.0.1:8888"
+    rsa_private_key:
+  sms:
+    type: 'yunpian' #mw=梦网,yunpian=云片
+    yunpian:
+      apikey: '1'
+      single_url: 'https://sms.yunpian.com/v2/sms/single_send.json'  #单发短信接口
+      batch_url: 'https://sms.yunpian.com/v2/sms/batch_send.json' #群发短信接口
+      sign: '【优众网】'
+    mw:
+      submit_url: "http://127.0.0.1/MWGate/wmgw.asmx"
+      userid: "1"
+      password: "2"
+    mwad:
+      submit_url: "http://127.0.0.1:7902/MWGate/wmgw.asmx?wsdl"
+      userid: "1"
+      password: "2"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

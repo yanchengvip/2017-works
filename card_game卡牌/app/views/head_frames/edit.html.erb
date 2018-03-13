@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">系统管理>其他管理>修改头像框</p></div>
+
+<%= form_for @head_frame, url: head_frame_path, html: {method: :post, class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%#= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

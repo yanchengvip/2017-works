@@ -1,0 +1,17 @@
+<%= form_with(model: auction_trades_updating, local: true) do |form| %>
+  <% if auction_trades_updating.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(auction_trades_updating.errors.count, "error") %> prohibited this auction_trades_updating from being saved:</h2>
+
+      <ul>
+      <% auction_trades_updating.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+<% case trade.payment_service
+   when nil %>
+  <%= link_to "?", "#payment_service_#{trade.id}", :rel => "facebox" %>
+<% when /^alipay/ %>
+    <a href="#" rel="facebox" class="payment_icon payment-alipay"  data-toggle="tooltip" data-placement="top" title="<%= Auction::Trade::PAYMENT_SERVICES[trade.payment_service] %>">
+    </a>
+
+<% when /^bill99/ %>
+    <a href="#" rel="facebox" class="payment_icon payment-bill99" data-toggle="tooltip" data-placement="top" title="<%= Auction::Trade::PAYMENT_SERVICES[trade.payment_service] %>">
+    </a>
+
+<% when /^yeepay/ %>
+    <a href="#" rel="facebox" class="payment_icon payment-yeepay" data-toggle="tooltip" data-placement="top" title="<%= Auction::Trade::PAYMENT_SERVICES[trade.payment_service] %>">
+    </a>
+<% when /^tenpay/ %>
+  <% if @current_user.can_show_trade? %>
+    <a href="#" rel="facebox" class="payment_icon payment-tenpay" data-toggle="tooltip" data-placement="top" title="<%= Auction::Trade::PAYMENT_SERVICES[trade.payment_service] %>">
+    </a>
+  <% end %>
+<% when 'wechat_uxuan' %>
+    <a href="#" rel="facebox" class="payment_icon payment-wechat" data-toggle="tooltip" data-placement="top" title="<%= Auction::Trade::PAYMENT_SERVICES[trade.payment_service] %>">
+    </a>
+<% when 'wechat_app' %>\
+    <a href="#" rel="facebox" class="payment_icon payment-wechat" data-toggle="tooltip" data-placement="top" title="<%= Auction::Trade::PAYMENT_SERVICES[trade.payment_service] %>">
+    </a>
+<% when 'shop' %>
+  <span class="payment_icon payment-shop"><div class="tips_text"><span>店铺</span><i class="icon"></i></div></span>
+<% else %>
+    <span class="payment_icon payment-<%=trade.payment_service%>" data-toggle="tooltip" data-placement="top" title="<%= Auction::Trade::PAYMENT_SERVICES[trade.payment_service] %>"></span>
+<% end %>

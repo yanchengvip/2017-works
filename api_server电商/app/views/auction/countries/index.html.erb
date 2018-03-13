@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Countries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_countries.each do |auction_country| %>
+      <tr>
+        <td><%= link_to 'Show', auction_country %></td>
+        <td><%= link_to 'Edit', edit_auction_country_path(auction_country) %></td>
+        <td><%= link_to 'Destroy', auction_country, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Country', new_auction_country_path %>

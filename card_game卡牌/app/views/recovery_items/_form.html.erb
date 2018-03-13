@@ -1,0 +1,42 @@
+<%= form_for(recovery_item) do |f| %>
+  <% if recovery_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recovery_item.errors.count, "error") %> prohibited this recovery_item from being saved:</h2>
+
+      <ul>
+      <% recovery_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :chest_prize_id %>
+    <%= f.number_field :chest_prize_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :recovery_id %>
+    <%= f.number_field :recovery_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :delete_flag %>
+    <%= f.number_field :delete_flag %>
+  </div>
+
+  <div class="field">
+    <%= f.label :count %>
+    <%= f.number_field :count %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

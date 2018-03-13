@@ -1,0 +1,34 @@
+<table class="table">
+  <!-- table-striped table-hover -->
+  <tr class="bg_tr">
+    <th></th>
+    <th>
+      <span class="mr_100"><input type="radio" name="jackpot_product_level3[type]" value="1" class="level3_radio">能量</span>
+      <span class="mr_100"><input type="radio" name="jackpot_product_level3[type]" value="2" class="level3_radio">功勋</span>
+      <span class="mr_100"><input type="radio" name="jackpot_product_level3[type]" value="3" class="level3_radio">道具</span>
+      <span><input type="radio" name="jackpot_product_level3[type]" value="4" class="level3_radio">商品</span>
+    </th>
+  </tr>
+</table>
+<table class="table" id="jackpot_product_level3_table"></table>
+<!-- treasure_boxs -->
+
+<script type="text/javascript">
+  $(function(){
+    $('.level3_radio').on('click', function(){
+      var radio_val = $(this).val()
+      var treasure_box_id = $('#treasure_box_id').val()
+      $.ajax({
+        type: 'get',
+        url: "/treasure_boxs/"+treasure_box_id+"/level3_form",
+        data: {type: radio_val},
+        success: function(result){
+          $('#jackpot_product_level3_table').html(result)
+        },
+        error: function(XMLHttpResponse){
+          elert('网络错误')
+        }
+      })
+    })
+  })
+</script>

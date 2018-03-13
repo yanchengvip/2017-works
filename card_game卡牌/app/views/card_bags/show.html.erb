@@ -1,0 +1,42 @@
+<p class="sub-header">赛场管理>卡包管理>查看卡包</p>
+
+<% if !@card_bag.delete_flag %>
+  <div class="lead text-right">
+    <p><%= link_to '修改卡包', edit_card_bag_path(@card_bag), class: 'btn btn-primary', role: 'button' %></p>
+  </div>
+<% end %>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">卡包名称：<span class="red"><%= @card_bag.name %></span></li>
+  </ul>
+
+  <div class="panel-heading "><strong>卡包配置信息</strong></div>
+  <% if @card_bag_items.present? %>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>卡牌ID</th>
+          <th>卡牌类型</th>
+          <th>卡牌名称</th>
+          <th>配置数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @card_bag_items.each do |card_bag_item| %>
+          <tr class="fields content_tr">
+            <td><%= card_bag_item.id %></td>
+            <td><%= Card::CARDTYPE[card_bag_item.card.card_type] %></td>
+            <td><%= card_bag_item.card.name %></td>
+            <td><%= card_bag_item.card_num %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>没有配置卡牌！</p>
+  <% end %>
+
+</div>

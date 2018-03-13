@@ -1,0 +1,44 @@
+<p class="sub-header">系统管理>签到管理>奖品列表</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">签到奖品列表 <a href="/sign_gift_settings/new" class="btn btn-info btn-sm " role="button">添加签到奖品</a>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>连续登陆天数</th>
+          <th>获得奖品数量</th>
+          <th>奖品类型</th>
+          <th>是否突出显示</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @sign_gifts.each do |sg| %>
+            <tr>
+              <td><%= sg.id %></td>
+              <td><%= sg.running_days %></td>
+              <td><%= sg.amount %></td>
+              <td><%= SignGiftSetting::GIFTTYPE[sg.gift_type] %></td>
+              <td><%= sg.is_main ? '是' : '否' %></td>
+              <td><%= sg.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+              <td>
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm "
+                   role="button" onclick="obj_delete_modal(<%= sg.id%>,'删除登陆奖励')"> 删除</a>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+    <%= paginate @sign_gifts %>
+  </div>
+</div>
+
+
+<%= render 'shared/obj_delete_modal', locals: {title: '刪除', url: '/sign_gift_settings/destroy_gift'} %>

@@ -1,0 +1,39 @@
+<% @glutton_setting.glutton_energy_prizes.each do |glutton_energy_prize| %>
+  <tr class="fields_origin_statc content_tr" id="prize_item_tr_<%= glutton_energy_prize.id %>">
+    <td>
+      <div class="input-group">
+        <input type="number" name="glutton_energy_prizes[][blood_percent]" min="0" max="100" step='0.1' class="form-control" required placeholder="最多1位小数" value="<%= glutton_energy_prize.blood_percent * 100 %>">
+        <span class="input-group-addon">%</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="input-group">
+        <input type="number" name="glutton_energy_prizes[][energy_percent]" min="0" max="100" step='0.1' class="form-control" required placeholder="最多1位小数" value="<%= glutton_energy_prize.energy_percent * 100 %>">
+        <span class="input-group-addon">%</span>
+      </div>
+    </td>
+
+    <td>
+      <%= link_to '删除', 'javascript:void(0)', class: "del_glutton_energy_prize_origin", id: "glutton_energy_prize_#{glutton_energy_prize.id}" %>
+    </td>
+    <input type="hidden" name="glutton_energy_prizes[][id]" value="<%= glutton_energy_prize.id %>">
+  </tr>
+<% end %>
+
+<%= render 'prize_item_del_modal'%>
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    $('.del_glutton_energy_prize_origin').on('click', function(){
+      $('#delGluttonItemModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delGluttonItemModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_item_id').val(this_id.split('_')[3])
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+</script>
+

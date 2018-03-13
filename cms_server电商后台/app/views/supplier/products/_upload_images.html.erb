@@ -1,0 +1,146 @@
+<!--图片相对路径-->
+<input type="hidden"   name="image_urls" id="image_urls", value="<%= @img_paths %>"  class="form-control">
+
+<!--上传图片-->
+<div class="panel panel-info" >
+  <div class="panel-heading" >大图(只限5张;)</div>
+  <div class="panel-body">
+        <div id="preview_images" class="list-group-item preview_images text-left">
+          <% if @img_paths.present? %>
+              <% @img_paths.split(',').each_with_index   do |path,index| %>
+                  <img src="<%= path%>" id="<%= index%>"
+                       onclick="showDeleteImgModal('<%= index %>','<%= path %>','<%= path %>')">
+              <% end %>
+          <% end %>
+        </div>
+  </div>
+  <div class="panel-footer">
+    <input type="file" id="upload_images"  name="file" accept=".png, .jpg, .jpeg" multiple>
+  </div>
+</div>
+
+
+<!-- 删除图片modal -->
+<div class="modal fade" id="deletePicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">删除图片</h4>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-8 col-md-4">
+
+          <img id="delete_img_pre">
+
+        </div>
+      </div>
+
+      <input type="hidden" id="delete_img_id">
+      <input type="hidden" id="delete_img_path">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" onclick="confirmDelProtImg()" id="delete_img_submit" class="btn btn-primary">确定</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+
+    //上传多个图片方法
+    $('#upload_images').fileupload({
+        dataType: 'json',
+        url: '/images/upload',
+        accept: 'application/json',
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        sequentialUploads: true,
+        //maxFileSize: 5000000, //5mb
+        add: function (e, data) {
+            var acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+            if(data.originalFiles[0]['type'].length <= 0){
+                alertTX('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+            if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+                alertTX('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+
+            // if (data.originalFiles[0]['size'] > 1000000) {
+            //     alert('图片最大为1000k')
+            // } else {
+                data.submit();
+            // }
+
+        },
+        complete: function (result, textStatus, jqXHR) {
+            var pro_image_urls = $('#image_urls').val();
+            var data = JSON.parse(result.responseText)
+            if (pro_image_urls.split(',').length > 4) {
+                alert('展示图最多5张')
+                return
+            }
+            var img = $("<img class='show_upload_img' style='float: left'>")
+                .attr('src', data.img_url)
+                .attr('id', data.id)
+                .attr('name', "product_images["+data.id+"][image_id]")
+                .on('click', function () {
+                    showDeleteImgModal(data.id, data.img_url, data.img_path)
+                });
+            ;
+            $('#preview_images').append(img).append('<textarea name="product_images["'+data.id+'"][description]" class="form-control" rows="3" cols="10" width="80px" required placeholder="描述" style="float: left">')
+            if (pro_image_urls == "") {
+                $('#image_urls').val(data.img_path)
+            } else {
+                img_url = pro_image_urls + "," + data.img_path
+                $('#image_urls').val(img_url)
+            }
+
+        }
+
+
+    });
+
+    $('#upload_images').bind('fileuploadsubmit', function (e, data) {
+        data.formData = { model_name: "<%= model_name.presence || 'no_model'  %>" };
+    });
+
+
+
+});
+
+//展示删除图片modal
+function showDeleteImgModal(id, img_url, img_path) {
+  //flag，1=修改缩略图，2=修改展示图，3=添加展示图，flag=1，3时，id为prodcut的id,flag=2时为image的id
+  $("#deletePicModal").modal('show')
+  $("#deletePicModal").on('shown.bs.modal', function () {
+    $('#delete_img_pre').attr('src', '')
+    $('#delete_img_pre').attr('src', img_url)
+    $('#delete_img_id').val(id)
+    $('#delete_img_path').val(img_path)
+  })
+};
+//确定删除图片方法
+function confirmDelProtImg() {
+  id = $('#delete_img_id').val();
+  img_path = $('#delete_img_path').val();
+  $('#' + id).remove();
+  pius = $('#image_urls').val();
+  img_arr = pius.split(',')
+  img_arr.splice(img_arr.indexOf(img_path), 1);
+  $('#image_urls').val(img_arr.join(','));
+  $("#deletePicModal").modal('hide')
+
+}
+
+</script>

@@ -1,0 +1,71 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>图片</th>
+      <th>商品名称</th>
+      <th>SPU_ID</th>
+      <th>供应商名称</th>
+      <th>库存</th>
+      <th>旧优众价</th>
+      <th>旧结算价</th>
+      <th>新结算价</th>
+      <th>优众价</th>
+      <th>优众降价幅度</th>
+      <th>活动价</th>
+      <th>毛利率</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_promotion_activity_apply_products.each_with_index do |auction_promotion_activity_apply_product, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= image_tag (auction_promotion_activity_apply_product.product.major_pic + '.thumb145.jpg') || '', width: 60, height: 60, class: 'list' if auction_promotion_activity_apply_product.product&.major_pic %></td>
+        <td><%= auction_promotion_activity_apply_product.product.name %></td>
+        <td><%= auction_promotion_activity_apply_product.product.id %></td>
+        <td><%= auction_promotion_activity_apply_product.provider.name %></td>
+        <td><%= auction_promotion_activity_apply_product.product.skus&.sum(:amount) %></td>
+        <td><%= auction_promotion_activity_apply_product.product.discount %></td>
+        <td><%= auction_promotion_activity_apply_product.product.provider_price %></td>
+        <td><%= auction_promotion_activity_apply_product.provider_price %></td>
+        <td>
+          <%= auction_promotion_activity_apply_product.product.promotion_provider_price * (get_bonus_rate(auction_promotion_activity_apply_product.promotion_activity.rate_of_margin) + 0.01) if auction_promotion_activity_apply_product.product.promotion_provider_price%>
+        </td>
+        <td>
+          <%= (auction_promotion_activity_apply_product.promotion_activity.discount * 100).to_i.to_s + "%"%>
+        </td>
+        <td>
+          <%= auction_promotion_activity_apply_product.product.promotion_provider_price%>
+        </td>
+        <td>
+          <%= auction_promotion_activity_apply_product.promotion_activity.rate_of_margin%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @auction_promotion_activity_apply_products %>
+<% if !@auction_apply_logs.blank?%>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>审核时间</th>
+        <th>审核结果</th>
+        <th>审核人</th>
+        <th>审核备注</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @auction_apply_logs.each do |auction_apply_log| %>
+        <tr>
+          <td><%= auction_apply_log.check_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          <td><%= auction_apply_log.check_result %></td>
+          <td><%= auction_apply_log.editor.name %></td>
+          <td><%= auction_apply_log.content %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

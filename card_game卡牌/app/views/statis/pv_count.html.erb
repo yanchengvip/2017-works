@@ -1,0 +1,51 @@
+<p class="sub-header">统计>数据统计>h5推广宝箱PV统计</p>
+<div class="row placeholders well">
+  <%= form_for pv_count_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>起始时间：</span>
+      <input type="text" name="start_time" id="start_time" class="form-control mr_20 es_time_begin" placeholder="起始时间" value="<%= params[:start_time]%>">
+      <span>结束时间：</span>
+      <input type="text" name="end_time" id="end_time" class="form-control mr_20 es_time_end" placeholder="结束时间" value="<%= params[:end_time]%>">
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>渠道ID</th>
+        <th>宝箱首页</th>
+        <th>填写手机号页</th>
+        <th>下载页</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @data.each do |source| %>
+        <tr>
+          <%source = source.with_indifferent_access%>
+          <td><%= source[:key]%></td>
+          <td><%= (s = source[:url][:buckets].select{|x| x[:key] == "http://www.zbqibing.com/box/wmbox"}.first) ? s[:doc_count] : 0  %></td>
+          <td><%= (s = source[:url][:buckets].select{|x| x[:key] == "http://www.zbqibing.com/box/jdbox"}.first) ? s[:doc_count] : 0%></td>
+          <td><%= (s = source[:url][:buckets].select{|x| x[:key] == "http://www.zbqibing.com/box/getPrize"}.first) ? s[:doc_count] : 0%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/pv_count.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/pv_count'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/pv_count'
+      $("#search_form").submit()
+    })
+  })
+</script>

@@ -1,0 +1,26 @@
+# config/app.yml for rails-settings-cached
+defaults: &defaults
+  wisdom:
+    host: 'http://test.wisfx.com/'
+    merchno: 'WMB9X1AXA18K6LC'
+    secret: 'WQ@mc0S5!mXtL4uqwcS06LC'
+    api_host: "http://127.0.0.1:7710/"
+
+  host: 'http://127.0.0.1/'
+  redis:
+    url: "redis://127.0.0.1:6379/0"
+    sidekiq: "redis://127.0.0.1:6379/1"
+  jpush:
+    apns_production: false
+
+    app_key: 21 #
+    master_secret: e19ae15ac3dbbabc4e4c9f3d
+  token_expire_time: 604800 # 7 * 24 * 3600
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

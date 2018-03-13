@@ -1,0 +1,18 @@
+<p class="sub-header">赛场管理>赛场类型>查看赛场</p>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>赛场信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">赛场ID：<span class="red"><%= @game.id %></span></li>
+    <li class="list-group-item">赛场名称：<span class="red"><%= @game.name %></span></li>
+    <li class="list-group-item">所属赛场类型：<%= @game.game_type&.name %></li>
+    <li class="list-group-item">开赛人数：<%= @game.game_type&.game_rule&.open_user_num %></li>
+    <li class="list-group-item">赛场轮数：<%= @game.game_type&.game_rule&.round_num %></li>
+    <li class="list-group-item">发布时间：<%= @game.published_time&.strftime("%Y.%m.%d %H:%M") %></li>
+    <li class="list-group-item">入场消耗量：<%= @game.entrance_ticket_num %></li>
+    <li class="list-group-item">重宝分类：<%= @game.game_type&.product_tag&.name %></li>
+    <li class="list-group-item">重宝：</li>
+    <li class="list-group-item"><%= render partial: 'game_types/product/chosed_products' %></li>
+    <li class="list-group-item">状态：<%= game_status(@game) %></li>
+  </ul>
+</div>

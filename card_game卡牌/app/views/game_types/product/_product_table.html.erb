@@ -1,0 +1,61 @@
+<table class="table table-striped table-hover" id="product_table">
+  <thead>
+    <tr>
+      <th>重宝编号</th>
+      <th width="60%">重宝名称</th>
+      <th>剩余库存</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="product_body">
+    <% @products && @products.each do |product| %>
+      <tr class="fields item_content_tr" id="product_tr_<%= product&.id %>">
+        <td id="sku_<%= product.id %>"><%= product.sku %></td>
+        <td id="name_<%= product.id %>"><%= product.name %></td>
+        <td><%= product.inventory_count %></td>
+        <td>
+          <%= check_box_tag 'prducts_chosed[]', product.id, false, class: 'product_chose_box', id: "check_box_#{product&.id}" %>
+          <%#= check_box_tag 'range[]', card.id, false, class: 'range_box', data_str: card.name, data_price: card.price.to_f %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    // 类型
+    $('.gift_type').on('click', function(){
+      $('#item_type_val').val($(this).val())
+      console.log($('#item_type_val').val())
+    })
+
+    $('.radio_label').on('click', function(){
+      // console.log($(this).prev('input').val())
+      $('#item_type_val').val($(this).prev('input').val())
+      console.log($('#item_type_val').val())
+    })
+
+    $('#chose_item_type').on('click', function(){
+      // 类型
+      var item_type_val = $('#item_type_val').val()
+      // console.log(item_id)
+      $.ajax({
+        type: 'get',
+        url: '/extreme_chests/item_form',
+        data: {item_type_val: item_type_val},
+        success: function(result){
+          $('#extreme_chest_items_body').append(result)
+          $('#choseExtremeItemTypeModal').modal('hide')
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+
+    })
+  })
+</script>

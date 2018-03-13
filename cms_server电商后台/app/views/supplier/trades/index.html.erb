@@ -1,0 +1,82 @@
+<%= render partial: 'search' %>
+<ul class="nav nav-tabs" id="otherInfoTab" style="margin-left: 28px">
+    <li><a href="/supplier/trades">全部订单</a></li>
+    <li><a href="/supplier/trades?q[status_eq]=ship">待发货</a></li>
+    <li><a href="/supplier/trades?q[status_in]=receive&q[s]=updated_at desc">已发货</a></li>
+    <li><a href="/supplier/trades?q[status_eq]=complete">已完成</a></li>
+    <li><a href="/supplier/trades?q[status_eq]=cancel">已取消</a></li>
+    <li><a href="/supplier/trades?q[status_eq]=returning">退款中</a></li>
+    <li><a href="/supplier/trades?q[status_not_in][]=receive&q[status_not_in][]=complete&q[status_not_in][]=ship&q[status_not_in][]=cancel">其他</a></li>
+</ul>
+<% @trades.each do |trade| %>
+  <%=render partial: 'trade', locals: {trade: trade}%>
+<%end%>
+<%=render "ship"%>
+<script type="text/javascript">
+  $(".return").click(function (argument) {
+    e = $(this)
+    id = e.data("id")
+    $.ajax({
+      type: 'post',
+      url: "/supplier/trades/"+id+"/return",
+      // data: $("#ship_form").serialize(),
+      success: function (response) {
+        if (response['status'] == 200) {
+          id = $("#submit_ship_form").data("id")
+          $("#trade_"+id).find(".status").hide()
+          e.hide()
+          swal('退货入库成功')
+        }
+      },
+      error: function (response) {
+          swal('网络异常')
+      }
+
+    })
+  })
+  $(".reject").click(function (argument) {
+    e = $(this)
+    id = e.data("id")
+    $.ajax({
+      type: 'post',
+      url: "/supplier/trades/"+id+"/reject",
+      // data: $("#ship_form").serialize(),
+      success: function (response) {
+        if (response['status'] == 200) {
+          // id = $("#submit_ship_form").data("id")
+          // $("#trade_"+id).find(".status").hide()
+          e.hide()
+          swal('拒签操作成功')
+        }else{
+          swal(response["msg"])
+        }
+      },
+      error: function (response) {
+          swal('网络异常')
+      }
+
+    })
+  })
+  $(function () {
+    text = window.location.search
+    if(text == ""){
+      $('#otherInfoTab li:first').addClass('active');
+    }else if (text == "?q[status_eq]=ship") {
+      $('#otherInfoTab li:eq(1)').addClass('active');
+    }else if (text == "?q[status_in]=receive&q[s]=updated_at%20desc") {
+      $('#otherInfoTab li:eq(2)').addClass('active');
+    }else if (text == "?q[status_eq]=complete") {
+      $('#otherInfoTab li:eq(3)').addClass('active');
+    }else if (text == "?q[status_eq]=cancel") {
+      $('#otherInfoTab li:eq(4)').addClass('active');
+    }else if (text == "?q[status_eq]=returning") {
+      $('#otherInfoTab li:eq(5)').addClass('active');
+    }else if (text == "?q[status_not_in][]=receive&q[status_not_in][]=complete&q[status_not_in][]=ship&q[status_not_in][]=cancel") {
+      $('#otherInfoTab li:last').addClass('active');
+    }else {
+      $('#otherInfoTab li:first').addClass('active');
+    }
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+<%= paginate @trades %>

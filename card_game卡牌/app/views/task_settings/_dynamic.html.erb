@@ -1,0 +1,70 @@
+<% if @task_type && @task_type != 6 %>
+  <div class="form-group row">
+    <label for="need_count" class="col-sm-2 control-label">*完成条件：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="need_count" min="1" value="<%= @task_setting&.need_count %>" max="99999" class="form-control" placeholder="正整数，完成的次数或赠送的微集分个数" id='need_count'>
+        <span class="input-group-addon">次 / 个</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="reward_times" class="col-sm-2 control-label">*奖励次数限制：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="reward_times" min="-1" value="<%= @task_setting&.reward_times %>" max="99999" class="form-control" placeholder="正整数" id='reward_times'>
+        <span class="input-group-addon">次</span>
+      </div>
+      <p class="red">（-1：不限次数，0：每日一次，1：1次, 2：2次，以此类推）</p>
+    </div>
+  </div>
+<% elsif !@task_type.blank? && @task_type == 6 %>
+  <div class="form-group row">
+    <label for="energy_num" class="col-sm-2 control-label">*能量数量：</label>
+    <div class="col-sm-8">
+      <input type="number" name="energy_num" min="1" value="<%= @task_setting&.energy_num %>" max="99999" class="form-control" placeholder="正整数，能量数量" id='energy_num'>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="receive_user_num" class="col-sm-2 control-label">*可领取人数：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="receive_user_num" min="1" value="<%= @task_setting&.receive_user_num %>" max="99999" class="form-control" placeholder="正整数，可领取人数" id='receive_user_num'>
+        <span class="input-group-addon">人</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="expire_time" class="col-sm-2 control-label">*失效时间：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="expire_time" min="1" value="<%= @task_setting&.expire_time %>" max="99999" class="form-control" placeholder="正整数，失效时间" id='expire_time'>
+        <span class="input-group-addon">小时</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="from_win_num" class="col-sm-2 control-label">*竞赛胜利获得：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="from_win_num" min="1" value="<%= @task_setting&.from_win_num %>" max="99999" class="form-control" placeholder="正整数，竞赛胜利获得X次" id='from_win_num'>
+        <span class="input-group-addon">次</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="from_fail_num" class="col-sm-2 control-label">*竞赛失败获得：</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <input type="number" name="from_fail_num" min="1" value="<%= @task_setting&.from_fail_num %>" max="99999" class="form-control" placeholder="正整数，竞赛失败获得X次" id='from_fail_num'>
+        <span class="input-group-addon">次</span>
+      </div>
+    </div>
+  </div>
+
+<% end %>

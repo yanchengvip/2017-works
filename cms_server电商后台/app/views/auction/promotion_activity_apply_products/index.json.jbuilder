@@ -1,0 +1,1 @@
+json.array! @auction_promotion_activity_apply_products, partial: 'auction_promotion_activity_apply_products/auction_promotion_activity_apply_product', as: :auction_promotion_activity_apply_product

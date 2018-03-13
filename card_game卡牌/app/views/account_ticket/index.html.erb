@@ -1,0 +1,53 @@
+<div class="row placeholders">
+  <form action="/account_ticket" method="get" class="navbar-form navbar-left" id="search_form">
+    用户ID：<input type="text" name="q[user_id_eq]" class="form-control" placeholder="用户ID">
+    手机号：<input type="text" name="q[user_mobile_cont]" class="form-control" placeholder="手机号">
+
+    <button type="submit" class="btn btn-success">搜索</button>
+    <div class='btn btn-info' id = "download_ticket_csv">下载</div>
+
+  </form>
+
+</div>
+
+<p class="sub-header">系统管理>宝箱管理>账户宝箱符余额</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">签到奖品列表</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>用户ID</th>
+          <th>手机号</th>
+          <th>开启机会次数余额</th>
+          <th>宝箱符余额</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <% @account_tickets.each do |ticket| %>
+            <tr>
+              <td><%= ticket.user&.id %></td>
+              <td><%= ticket.user&.mobile %></td>
+              <td><%= ticket.free_treasure_amount %></td>
+              <td><%= ticket.treasure_total_amount %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+    <%= paginate @account_tickets %>
+  </div>
+</div>
+
+<script>
+  $('#download_ticket_csv').click(function(){
+      $("#search_form")[0].action = '/account_ticket.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/account_ticket'
+  })
+
+</script>

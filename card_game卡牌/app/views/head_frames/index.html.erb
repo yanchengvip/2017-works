@@ -1,0 +1,36 @@
+<div class="row"><p class="sub-header">系统管理>其他管理>头像框管理</p></div>
+
+<div class="row mt_20 mb_20" style="text-align: center;">
+  <%= link_to '新增', new_head_frame_path, class: 'btn btn-primary btn-lg', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>缩略图</th>
+        <th>使用时间限制</th>
+        <th>解锁条件</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @head_frames && @head_frames.each_with_index do |head_frame, index| %>
+      <tr id="tr_<%= head_frame.id %>">
+        <td><%= head_frame.id %></td>
+        <td><%= show_thumb head_frame %></td>
+        <td><%= head_frame.use_limit == 0 ? '永久' : head_frame.use_limit.to_s + 'H' %></td>
+        <td><%= unlock_cont(head_frame) %></td>
+        <td>
+          <%#= link_to '查看', head_frame_path(head_frame), class: 'btn btn-sm btn-info' %>
+          <%= link_to '编辑', edit_head_frame_path(head_frame), class: 'btn btn-sm btn-primary' %>
+          <%#= link_to '删除', head_frame_path(head_frame), method: :delete, data: {confirm: '确定删除吗？'}, role: 'button', class: 'btn btn-sm btn-inverse' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @head_frames %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gift_type: 1
+  gift_range: MyString
+  gift_count: 1
+  delete_flag: false
+
+two:
+  gift_type: 1
+  gift_range: MyString
+  gift_count: 1
+  delete_flag: false

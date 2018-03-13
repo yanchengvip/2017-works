@@ -1,0 +1,64 @@
+<div class="row">
+  <p class="sub-header">卡牌商城>礼包管理>礼包列表</p>
+</div>
+
+<%= render partial: 'search' %>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <!-- <th>序号</th> -->
+        <th>礼包名称</th>
+        <th>销售渠道</th>
+        <th>礼包分类</th>
+        <th>价值(微集分)</th>
+        <!-- <th>上架下架时间</th> -->
+        <!-- <th>上架状态</th> -->
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @packages && @packages.each_with_index do |package, index| %>
+      <tr id="tr_<%= package.id %>">
+        <!-- <td><%#= index + 1 %></td> -->
+        <td><%= package.name %></td>
+        <td><%= sale_channels_txt(package.sale_channels) %></td>
+        <td><%= package.package_type.name %></td>
+        <td><%= package.price %></td>
+        <!-- <td>
+          <p><span>上架：</span><%#= package.onshelf_time&.strftime("%Y-%m-%d %H:%m") %></p>
+          <p><span>下架：</span><%#= package.offshelf_time&.strftime("%Y-%m-%d %H:%m") %></p>
+        </td> -->
+        <!-- <td><%#= shelf_status(package) %></td> -->
+        <td>
+          <%= link_to '查看', package_path(package), role: 'button', class: 'btn btn-info btn-sm'  %>
+          <% if package.battle_packages.blank? %>
+            <%= link_to '编辑', edit_package_path(package), role: 'button', class: 'btn btn-primary btn-sm' %>
+          <% end %>
+
+          <%# if package.status == 0 && package.can_onshelf? %>
+            <%#= link_to '立即上架', 'javascript:void(0)', onclick: "package_shelf(#{package.id}, '#{package.name}', 1)", class: 'btn btn-warning btn-sm', role: 'button' %>
+          <%# elsif package.status == 1 %>
+            <%#= link_to '下架', 'javascript:void(0)', onclick: "package_shelf(#{package.id}, '#{package.name}', -1)", class: 'btn btn-warning btn-sm', role: 'button' %>
+          <%# end %>
+
+          <%# if package.prize_type == 3 && package.status == 0 %>
+            <%#= link_to '配置中奖方案', prize_scheme_package_path(package), role: 'button', class: 'btn btn-success btn-sm' %>
+          <%# end %>
+
+          <% if package.battle_packages.blank? %>
+            <%= link_to '删除', "javascript:void(0)", onclick: "package_delete(#{package.id}, '#{package.name}')", role: 'button', class: 'btn btn-danger btn-sm' %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'package_modal'%>
+<%= render 'shelf_modal'%>
+
+<%= paginate @packages %>
+

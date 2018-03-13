@@ -1,0 +1,33 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>手机</th>
+      <th>内容</th>
+      <th>创建时间</th>
+      <th>发送时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @auction_sms.each do |auction_sm| %>
+      <tr>
+        <td><%= auction_sm.phone%></td>
+        <td><%= truncate auction_sm.content%></td>
+        <td><%= auction_sm.created_at&.strftime('%Y-%m-%d %H:%M')%></td>
+        <td><%= auction_sm.send_at&.strftime('%Y-%m-%d %H:%M')%></td>
+        <td>
+          <% if !auction_sm.send_at%>
+            <%= link_to '发送', send_sms_auction_sm_path(auction_sm), class: "btn btn-success btn-sm" %>
+          <% end %>
+          <%= link_to '详情', auction_sm, class: "btn btn-info btn-sm" %>
+          <%= link_to '编辑', edit_auction_sm_path(auction_sm), class: "btn btn-warning btn-sm" %>
+          <%= link_to '删除', auction_sm, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @auction_sms%>

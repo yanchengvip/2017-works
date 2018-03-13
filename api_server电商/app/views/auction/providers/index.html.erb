@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Auction Providers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @auction_providers.each do |auction_provider| %>
+      <tr>
+        <td><%= link_to 'Show', auction_provider %></td>
+        <td><%= link_to 'Edit', edit_auction_provider_path(auction_provider) %></td>
+        <td><%= link_to 'Destroy', auction_provider, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Auction Provider', new_auction_provider_path %>

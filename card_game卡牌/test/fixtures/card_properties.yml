@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ignore_defense: false
+  attack_effect: false
+  attack_effec_ratio: 9.99
+  key_exchange: false
+  key_exchange_count: 1
+
+two:
+  ignore_defense: false
+  attack_effect: false
+  attack_effec_ratio: 9.99
+  key_exchange: false
+  key_exchange_count: 1

@@ -1,0 +1,19 @@
+<div class="row"><p class="sub-header">系统管理>其它管理>上传头像</p></div>
+
+<form action="/headimgs" method="post" class="form-horizontal">
+
+  <div class="form-group row mt_50">
+    <label for="preview_headimg" class="col-sm-1 control-label">上传头像：</label>
+    <div class="col-sm-8">
+      <%= render partial: 'upload_headimg' %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= link_to '取消', '/headimgs', class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+      <button type="submit" class="btn btn-primary btn-lg" id="headimgs_submit">保存</button>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,196 @@
+<div class="form-group row mt_20">
+  <label for="game_type_name" class="col-sm-2 control-label">赛场类型名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '赛场类型名称', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_contest_type" class="col-sm-2 control-label">比赛类型</label>
+  <div class="col-sm-8">
+    <%= f.select :contest_type, options_for_select(GameType::CONTEST_TYPE.to_a.map(&:reverse), @game_type.contest_type), {}, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_glory_num" class="col-sm-2 control-label">赛场功勋价值</label>
+  <div class="col-sm-8">
+    <%= f.text_field :glory_num, placeholder: '赛场功勋价值，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_energy_num" class="col-sm-2 control-label">报名所需能量</label>
+  <div class="col-sm-8">
+    <%= f.text_field :energy_num, placeholder: '报名所需能量，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_game_prop_id" class="col-sm-2 control-label">报名可选参赛券</label>
+  <div class="col-sm-8">
+    <%= f.select :game_prop_id, options_for_select([["请选择", nil]] + GameProp.active.where(prop_type: 1).map{|gp| [gp.name, gp.id]}, @game_type.game_prop_id), {}, class: 'form-control game_select2' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_reward_energy" class="col-sm-2 control-label">奖励能量</label>
+  <div class="col-sm-8">
+    <%= f.text_field :reward_energy, placeholder: '奖励能量，整数', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_energy_num" class="col-sm-2 control-label">是否机器人赛场</label>
+  <div class="col-sm-8">
+    <%= f.check_box :is_ai %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="game_type_robot_wait_time" class="col-sm-2 control-label">机器人进场等待时间</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :robot_wait_time, placeholder: '机器人进场等待时间，整数', class: 'form-control', required: "required", type: 'number' %>
+      <span class="input-group-addon">秒</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="game_type_robot_count" class="col-sm-2 control-label">机器人数量</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :robot_count, placeholder: '机器人数量，整数', class: 'form-control', required: "required", type: 'number' %>
+      <span class="input-group-addon">个</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_game_product_tag_id" class="col-sm-2 control-label">开赛时间设置</label>
+  <div class="col-sm-8">
+    <p class="mb_20">
+      <%= f.radio_button :begin_time_limit, 0, id: 'nolimit_radio' %><span>无限制</span>
+    </p>
+    <%= f.radio_button :begin_time_limit, 1, id: 'limit_radio' %><span class="mr_30">限制</span>
+    <%= f.text_field :begin_time, class: 'custom_input_md game_time_begin' %>—
+    <%= f.text_field :end_time, class: 'custom_input_md game_time_end' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_game_product_tag_id" class="col-sm-2 control-label">商品类型</label>
+  <div class="col-sm-8">
+    <%= f.select :game_product_tag_id, options_for_select([["请选择", nil]] + GameProductTag.active.where(status: 1).map{|pt| [pt.name, pt.id]}, @game_type.game_product_tag_id), {}, class: 'form-control game_select2', required: "required" %>
+    <%#= render partial: 'change_product_tag_modal' %>
+    <!-- select{|p| @product_tag_ids.include?(p.id)}. -->
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <% if params[:action] == 'edit' %>
+    <input type="hidden" id="init_product_tag_id" value="<%= @game_type.game_product_tag_id != 0 ? @game_type.game_product_tag_id : 0 %>">
+    <input type="hidden" id="product_tag_name" value="<%= @game_type.product_tag&.name %>">
+    <input type="hidden" id="game_type_id" value="<%= @game_type.id %>">
+  <% end %>
+
+  <label for="game_type_game_product_tag_id" class="col-sm-2 control-label">商品</label>
+  <div class="col-sm-8">
+    <%= f.radio_button :product_config_type, 1, id: 'randon_radio' %><span class="mr_30">随机选择商品</span>
+    <%= f.text_field :product_count, class: 'custom_input_md', type: 'number' %>个
+    <p class="mt_20">
+      <%= f.hidden_field :product_ids %>
+      <%= f.radio_button :product_config_type, 2, id: 'config_radio' %><span>配置商品</span>
+      <span class="hide">（<span id="chosed_count">0</span>）</span>
+      <%= link_to '配置商品', 'javascript:void(0)', id: 'config_product', class: 'btn btn-success ml_20' %>
+    </p>
+
+    <%= render partial: 'game_types/product/product_modal' %>
+    <div id="chosed_product_div">
+      <% if @game_type&.product_config_type == 2 %>
+        <%= render partial: 'game_types/product/chosed_products' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_energy_num" class="col-sm-2 control-label">本赛场类型排序</label>
+  <div class="col-sm-8">
+    <%= f.text_field :order_num, placeholder: '本赛场类型排序，整数', class: 'form-control', required: "required", type: 'number', min: 1, max: 99999 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_game_rule_id" class="col-sm-2 control-label">赛场规则</label>
+  <div class="col-sm-8">
+    <%= f.select :game_rule_id, options_for_select([["请选择", nil]] + GameRule.active.map{|gr| [gr.name, gr.id]}, @game_type.game_rule_id), {}, class: 'form-control game_select2', required: "required", id: 'game_type_game_rule_id' %>
+
+    <div id="chosed_game_rule_div">
+      <% if @game_type&.game_rule_id > 0 %>
+        <%= render partial: 'game_types/game_rule/chosed_game_rule' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="for_game_type_id" value="<%= params[:action] == 'edit' ? @game_type.id : 0 %>">
+<!-- <div class="form-group row mt_20">
+  <label for="game_type_card_bag_id" class="col-sm-2 control-label">选择卡包</label>
+  <div class="col-sm-8">
+    <%#= f.select :card_bag_id, options_for_select([["请选择", nil]] + CardBag.active.map{|cb| [cb.name, cb.id]}, @game_type.card_bag_id), {}, class: 'form-control game_select2 card_bag_select_game_type', required: "required", id: 'game_type_card_bag_id' %>
+
+    <div id="chosed_card_bag_div" class="mt_20">
+      <%# if @game_type&.card_bag_id > 0 %>
+        <%#= render partial: 'game_types/card_bag/chosed_card_bag' %>
+      <%# end %>
+    </div>
+  </div>
+</div> -->
+
+<div id="for_choose_card_bag_div" class="mb_20">
+  <% if params[:action] == 'edit' %>
+    <%= render partial: 'game_types/round_card_own' %>
+  <% end %>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label">赛场规则说明:</label>
+  <div class="col-sm-8">
+    <%= f.text_area :game_desc, placeholder: '赛场规则说明', class: 'tinymce', rows: 6, id: 'game_desc' %>
+    <!-- <textarea class="tinymce" name="desc" id="battle_product_desc" placeholder="商品描述"></textarea> -->
+  </div>
+</div>
+<%= render partial: 'tinymce', locals: {text_id: 'game_desc'} %>
+
+<div class="form-group row">
+  <label for="input" class="col-sm-2 control-label">缩略图：</label>
+  <div class="col-sm-8">
+    <%= render 'images/upload_single_image'%>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="game_type_product_worth" class="col-sm-2 control-label">对应商品价值</label>
+  <div class="col-sm-8">
+    <%= f.text_field :product_worth, placeholder: '对应商品价值', class: 'form-control', required: "required", type: 'number', min: 0, step: 0.01 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label class="col-sm-2">启用状态</label>
+  <div class="col-sm-8">
+    <div class="radio">
+      <% if params[:action] == 'new' %>
+        <label class="mr_30"><%= f.radio_button :status, 0, checked: true  %>不启用</label>
+        <label class="mr_30"><%= f.radio_button :status, 1, checked: false  %>启用</label>
+        <label class="mr_30"><%= f.radio_button :status, -1, checked: false  %>停用</label>
+      <% elsif params[:action] == 'edit' %>
+        <label class="mr_30"><%= f.radio_button :status, 0, checked: @game_type.status == 0  %>不启用</label>
+        <label class="mr_30"><%= f.radio_button :status, 1, checked: @game_type.status == 1  %>启用</label>
+        <label class="mr_30"><%= f.radio_button :status, -1, checked: @game_type.status == -1  %>停用</label>
+      <% end %>
+    </div>
+  </div>
+</div>

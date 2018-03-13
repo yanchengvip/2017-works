@@ -1,0 +1,62 @@
+<div class="modal fade" id="batchSearchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">选择批量查询类型</h4>
+      </div>
+      <form action="/auction/cashiers/batch_search" method="get">
+        <div class="modal-body">
+          <h4>
+            <div class="radio">
+              <label class="mr_30">
+                <input class="form-check-input item_type" type="radio" value="delivery_identifier" name='item_type_name'>
+                <span class="radio_label">快递单号</span>
+              </label>
+              <label class="mr_30">
+                <input class="form-check-input item_type" type="radio" value="supplier_trade_no" name='item_type_name'>
+                <span class="radio_label">商家订单编号</span>
+              </label>
+              <label class="mr_30">
+                <input class="form-check-input item_type" type="radio" value="auction_trade_no" name='item_type_name'>
+                <span class="radio_label">用户订单编号</span>
+              </label>
+            </div>
+          </h4>
+          <input type="hidden" id="item_type_val">
+          <textarea rows="10" cols="78" name="pids" placeholder="多个查询请用英文逗号隔开"></textarea>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="submit" class="btn btn-primary">确定</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('.item_type').on('click', function(){
+      $('#item_type_val').val($(this).val())
+    })
+    // $('#submit_search_form').on('click', function(){
+    //   var item_type_val = $('#item_type_val').val()
+    //   $.ajax({
+    //     type: 'get',
+    //     url: '/auction/cashiers/batch_search',
+    //     data: {item_type_val: item_type_val, pids: $('#search').val()},
+    //     success: function(response){
+    //       $("#batchSearchModal").modal("hide")
+    //     },
+    //     error: function(XMLHttpResponse){
+    //       alert('网络异常')
+    //     }
+    //   })
+    //
+    // })
+  })
+</script>

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Mammon User Cards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mammon_user_cards.each do |mammon_user_card| %>
+      <tr>
+        <td><%= mammon_user_card.user_id %></td>
+        <td><%= link_to 'Show', mammon_user_card %></td>
+        <td><%= link_to 'Edit', edit_mammon_user_card_path(mammon_user_card) %></td>
+        <td><%= link_to 'Destroy', mammon_user_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mammon User Card', new_mammon_user_card_path %>

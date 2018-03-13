@@ -1,0 +1,58 @@
+<!-- 退款modal -->
+<div class="modal fade" id="TradeRefundModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title title_name" id="exampleModalLabel">退款</h4>
+      </div>
+      <form action="/auction/trade_refunds/transfer" method="post">
+        <div class="modal-body">
+          <input type="hidden" class="form-control" name='id' id="refund_id">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">退款金额</label>
+            <div class="col-sm-9">
+              <input type="text" disabled="true" class="form-control" id="return_amount">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">退款方式</label>
+            <div class="col-sm-9">
+              <input type="text" disabled="true" class="form-control" id="payment_service">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">实际退款金额</label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control" name='return_amount' min="0" placeholder="实际退款金额">
+            </div>
+          </div>
+          <textarea type="textarea" rows="5" class="form-control" placeholder="备注" name='remark'></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">确认</button>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    function trade_refund_modal(refund_id,return_amount, payment_service) {
+        $('#TradeRefundModal').modal('show');
+        $('#TradeRefundModal').on('shown.bs.modal', function () {
+            $('#refund_id').val(refund_id)
+            $('#return_amount').val(return_amount)
+            $('#payment_service').val(payment_service)
+        }).on('hidden.bs.modal', function (e) {
+            $('#refund_id').val('')
+            $('#return_amount').val('')
+            $('#payment_service').val('')
+        })
+    }
+</script>

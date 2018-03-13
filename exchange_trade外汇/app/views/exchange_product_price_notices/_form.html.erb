@@ -1,0 +1,72 @@
+<%= form_with(model: exchange_product_price_notice, local: true) do |form| %>
+  <% if exchange_product_price_notice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exchange_product_price_notice.errors.count, "error") %> prohibited this exchange_product_price_notice from being saved:</h2>
+
+      <ul>
+      <% exchange_product_price_notice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: :exchange_product_price_notice_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :exchange_product_id %>
+    <%= form.number_field :exchange_product_id, id: :exchange_product_price_notice_exchange_product_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_price %>
+    <%= form.text_field :current_price, id: :exchange_product_price_notice_current_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :up_price %>
+    <%= form.text_field :up_price, id: :exchange_product_price_notice_up_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :down_price %>
+    <%= form.text_field :down_price, id: :exchange_product_price_notice_down_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :up_price_end_time %>
+    <%= form.datetime_select :up_price_end_time, id: :exchange_product_price_notice_up_price_end_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :down_price_end_time %>
+    <%= form.datetime_select :down_price_end_time, id: :exchange_product_price_notice_down_price_end_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.check_box :active, id: :exchange_product_price_notice_active %>
+  </div>
+
+  <div class="field">
+    <%= form.label :up_notice %>
+    <%= form.check_box :up_notice, id: :exchange_product_price_notice_up_notice %>
+  </div>
+
+  <div class="field">
+    <%= form.label :down_notice %>
+    <%= form.check_box :down_notice, id: :exchange_product_price_notice_down_notice %>
+  </div>
+
+  <div class="field">
+    <%= form.label :notice_type %>
+    <%= form.number_field :notice_type, id: :exchange_product_price_notice_notice_type %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

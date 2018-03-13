@@ -1,0 +1,30 @@
+<p class="sub-header">系统管理>资源管理>红包列表</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>状态</th>
+      <th>红包规则</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @promotion_red_packages.each do |promotion_red_package| %>
+        <tr>
+          <td><%= promotion_red_package.id%></td>
+          <td><%= promotion_red_package.status%></td>
+          <td><%= promotion_red_package.red_package_rule_id%></td>
+          <td><%= promotion_red_package.begin_time%></td>
+          <td><%= promotion_red_package.end_time%></td>
+          <td>
+          </td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+<%= paginate @promotion_red_packages %>

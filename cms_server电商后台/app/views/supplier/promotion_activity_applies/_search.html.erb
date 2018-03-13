@@ -1,0 +1,55 @@
+<div class="widefat">
+  <div class="content mt40">
+    <div class="right w970">
+      <div class="clearfix">
+        <div>
+          <%= form_for supplier_promotion_activity_applies_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>活动名称:</span>
+              <%= text_field_tag "q[promotion_activity_name_cont]", params[:q][:promotion_activity_name_cont], class: 'form-control mr_30', placeholder: '活动名称' %>
+            </div>
+            <!-- <div class="form-group row" style="margin-bottom: 5px">
+              <span>原厂款号:</span>
+              <%= text_field_tag "q[promotion_activity_name_eq]", params[:q][:promotion_activity_name_eq], class: 'form-control mr_30', placeholder: '活动名称' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>SPU_ID:</span>
+              <%= text_field_tag "q[promotion_activity_name_eq]", params[:q][:promotion_activity_name_eq], class: 'form-control mr_30', placeholder: '活动名称' %>
+            </div> -->
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>申报状态:</span>
+              <%= select_tag "q[status_eq]", options_for_select([["申报状态", nil]] + Auction::PromotionActivityApply::STATUS.to_a.map(&:reverse), params[:q][:status_eq]), class: 'form-control mr_100' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>招商开始时间:</span>
+              <%= text_field_tag "q[promotion_activity_declar_begin_gteq]", params[:q][:promotion_activity_declar_begin_gteq], class: 'form-control search_date mr_30' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>招商结束时间:</span>
+              <%= text_field_tag "q[promotion_activity_declar_end_lteq]", params[:q][:promotion_activity_declar_end_lteq], class: 'form-control search_end_date mr_30' %>
+            </div>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <%= f.submit '搜索', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+      $('.search_date').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: 'zh-cn'
+      }).on('dp.change', function (ev) {
+          $('.search_date').val(moment(ev.date).format('YYYY-MM-DD'))
+      });
+      $('.search_end_date').datetimepicker({
+          format: 'YYYY-MM-DD',
+          locale: 'zh-cn'
+      }).on('dp.change', function (ev) {
+          $('.search_end_date').val(moment(ev.date).format('YYYY-MM-DD'))
+      });
+  })
+</script>

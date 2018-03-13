@@ -1,0 +1,6 @@
+<p class="sub-header mb_20">营销管理>幸运儿>添加幸运儿</p>
+
+<%= form_for @game_lucky, url: game_luckies_path, html: {class: 'bg pd_20 form-horizontal'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>
+

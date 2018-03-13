@@ -1,0 +1,36 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr class="info">
+      <th>饕餮血量临界点（血量的百分比）</th>
+      <th>临界点能量奖励数量（=饕餮血量的百分比）</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="glutton_energy_prizes_body">
+    <% if @glutton_setting.glutton_energy_prizes.present? %>
+      <%= render partial: 'prize_own' %>
+    <% end %>
+  </tbody>
+
+  <%= link_to '添加', 'javascript:void(0)', id: 'add_energy_prize_item', class: 'btn btn-success mt_20' %>
+</table>
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_energy_prize_item').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/glutton_settings/prize_item',
+        data: { },
+        success: function(result){
+          $('#glutton_energy_prizes_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+    })
+  })
+</script>

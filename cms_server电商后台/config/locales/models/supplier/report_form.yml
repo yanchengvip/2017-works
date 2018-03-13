@@ -1,0 +1,17 @@
+zh-CN:
+  activerecord:
+    models:
+      supplier/report_form: 结算单
+    attributes:
+      supplier/report_form:
+        id: 编号
+        provider_id: 供应商
+        date: 账单期
+        trade_amount: 订单金额
+        express_amount: 物流费用
+        other_fee: 其他费用
+        remark: 其他费用说明
+        total_amount: 总金额
+        status: 状态
+        user_id: 编辑ID
+        created_at: 创建日期

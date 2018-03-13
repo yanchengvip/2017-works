@@ -1,0 +1,119 @@
+<div class="form-group row mt_20">
+  <label for="auction_brand_name" class="col-sm-2 control-label">英文名</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '英文名', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_chinese" class="col-sm-2 control-label">中文名</label>
+  <div class="col-sm-8">
+    <%= f.text_field :chinese, placeholder: '中文名', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_brand_abbreviation" class="col-sm-2 control-label">缩写</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :abbreviation, placeholder: '缩写', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <%= f.hidden_field :editor_id, value: current_user&.id %>
+  <label for="auction_brand_initial" class="col-sm-2 control-label">首字母</label>
+  <div class="col-sm-8">
+    <%= f.select :initial, options_for_select([['无', nil]] + Auction::Brand::INITIAL.to_a.map{|i| [i, i]},@auction_brand.initial), {}, class: 'form-control is_select2', required: "required" %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_brand_genre" class="col-sm-2 control-label">类型</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :genre, placeholder: '类型', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_pic" class="col-sm-2 control-label">图片</label>
+  <div class="col-sm-8">
+    <%= render partial: 'images/upload_single_image', locals: {prev_id: 'pic', item_name: "auction_brand[pic]", item_id: "auction_brand_pic", upload_btn_id: 'upload_pic', preview_id: 'preview_pic', image_path: @auction_brand.pic, model_name: @auction_brand.class.to_s} %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_brand_link" class="col-sm-2 control-label">链接</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :link, placeholder: '链接', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_brand_shop_link" class="col-sm-2 control-label">旗舰店链接</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :shop_link, placeholder: '旗舰店链接', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_title" class="col-sm-2 control-label">标题</label>
+  <div class="col-sm-8">
+    <%= f.text_field :title, placeholder: '标题', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_description" class="col-sm-2 control-label">描述</label>
+  <div class="col-sm-8">
+    <%= f.text_area :description, rows: 6, placeholder: '描述', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_brand_summary" class="col-sm-2 control-label">概要</label>
+  <div class="col-sm-8">
+    <%#= f.text_area :summary, rows: 6, placeholder: '概要', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="auction_brand_material" class="col-sm-2 control-label">材质</label>
+  <div class="col-sm-8">
+    <%#= render partial: 'images/upload_single_image', locals: {prev_id: 'material', item_name: "auction_brand[material]", item_id: "auction_brand_material", upload_btn_id: 'upload_material', preview_id: 'preview_material', image_path: @auction_brand.material, model_name: @auction_brand.class.to_s} %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_country_id" class="col-sm-2 control-label">国家</label>
+  <div class="col-sm-8">
+    <%= f.select :country_id, options_for_select(Auction::Country.active.published.map{|ac| [ac.name, ac.id]}, @auction_brand.country_id), {}, class: 'form-control is_select2', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_year" class="col-sm-2 control-label">年份</label>
+  <div class="col-sm-8">
+    <%= f.text_field :year, placeholder: '年份', class: 'form-control is_year', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_keywords" class="col-sm-2 control-label">关键字</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :keywords, placeholder: '关键字, 用英文逗号分隔', class: 'form-control', required: "required" %>
+      <span class="input-group-addon">（用英文逗号分隔）</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="auction_brand_recommend" class="col-sm-2 control-label">推荐</label>
+  <div class="col-sm-8">
+    <%= f.select :recommend, options_for_select(Auction::Brand::RECOMMEND.invert.to_a, @auction_brand.recommend), {}, class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+
+
+

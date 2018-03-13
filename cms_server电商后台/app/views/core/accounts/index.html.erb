@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Core Accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @core_accounts.each do |core_account| %>
+      <tr>
+        <td><%= link_to 'Show', core_account %></td>
+        <td><%= link_to 'Edit', edit_core_account_path(core_account) %></td>
+        <td><%= link_to 'Destroy', core_account, method: :delete, data: { confirm: '
+Are you sure?
+
+你确定吗？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Core Account', new_core_account_path %>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  admin_id: 1
+  total_cost: 9.99
+  time_begin: 
+  time_end: 2018-01-23 16:45:34
+  is_rule: false
+  chest_prize_id: 1
+  total_count: 1
+  actual_cost: 9.99
+  delete_flag: 1
+  recovery_id: 1
+
+two:
+  admin_id: 1
+  total_cost: 9.99
+  time_begin: 
+  time_end: 2018-01-23 16:45:34
+  is_rule: false
+  chest_prize_id: 1
+  total_count: 1
+  actual_cost: 9.99
+  delete_flag: 1
+  recovery_id: 1

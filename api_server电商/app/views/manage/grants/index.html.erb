@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Manage Grants</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manage_grants.each do |manage_grant| %>
+      <tr>
+        <td><%= link_to 'Show', manage_grant %></td>
+        <td><%= link_to 'Edit', edit_manage_grant_path(manage_grant) %></td>
+        <td><%= link_to 'Destroy', manage_grant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manage Grant', new_manage_grant_path %>

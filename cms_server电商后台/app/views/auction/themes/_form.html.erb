@@ -1,0 +1,11 @@
+
+  <%= render partial: 'info', locals: {f: f} %>
+
+  <div class="clearfix"></div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= link_to '取消', auction_themes_path, class: 'btn btn-default btn-lg mr_20', role: 'button' %>
+      <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'auction_theme_submit' %>
+    </div>
+  </div>

@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @wechat_account.user_id %>
+</p>
+
+<p>
+  <strong>Openid:</strong>
+  <%= @wechat_account.openid %>
+</p>
+
+<p>
+  <strong>Nickname:</strong>
+  <%= @wechat_account.nickname %>
+</p>
+
+<p>
+  <strong>Sex:</strong>
+  <%= @wechat_account.sex %>
+</p>
+
+<p>
+  <strong>Province:</strong>
+  <%= @wechat_account.province %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @wechat_account.city %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @wechat_account.country %>
+</p>
+
+<p>
+  <strong>Headimgurl:</strong>
+  <%= @wechat_account.headimgurl %>
+</p>
+
+<p>
+  <strong>Request ip:</strong>
+  <%= @wechat_account.request_ip %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @wechat_account.active %>
+</p>
+
+<p>
+  <strong>Unionid:</strong>
+  <%= @wechat_account.unionid %>
+</p>
+
+<%= link_to 'Edit', edit_wechat_account_path(@wechat_account) %> |
+<%= link_to 'Back', wechat_accounts_path %>

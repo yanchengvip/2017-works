@@ -1,0 +1,48 @@
+<%- model_class = Trade -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:auction_trade_id) %>:</strong></dt>
+  <dd><%= @trade.auction_trade_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:provider_id) %>:</strong></dt>
+  <dd><%= @trade.provider_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @trade.status %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
+  <dd><%= @trade.price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:payment_price) %>:</strong></dt>
+  <dd><%= @trade.payment_price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:tax_price) %>:</strong></dt>
+  <dd><%= @trade.tax_price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
+  <dd><%= @trade.active %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:delivery_service) %>:</strong></dt>
+  <dd><%= @trade.delivery_service %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:delivery_identifier) %>:</strong></dt>
+  <dd><%= @trade.delivery_identifier %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ship_at) %>:</strong></dt>
+  <dd><%= @trade.ship_at %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:remark) %>:</strong></dt>
+  <dd><%= @trade.remark %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:delivery_phone) %>:</strong></dt>
+  <dd><%= @trade.delivery_phone %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:balance_price) %>:</strong></dt>
+  <dd><%= @trade.balance_price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:finish_at) %>:</strong></dt>
+  <dd><%= @trade.finish_at %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              supplier_trades_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_supplier_trade_path(@trade), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              supplier_trade_path(@trade),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '
+Are you sure?
+
+你确定吗？')) },
+              :class => 'btn btn-danger' %>

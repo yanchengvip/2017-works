@@ -1,0 +1,27 @@
+# ## Schema Information
+#
+# Table name: `exchange_products` # 外汇品种
+#
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id()`**        | `integer`          | `not null, primary key`
+# **`symbol(外汇品种标志)`**    | `string(255)`      |
+# **`active(软删除标志)`**   | `boolean`          |
+# **`published(是否发布)`**     | `boolean`          |
+# **`created_at()`**  | `datetime`         | `not null`
+# **`updated_at()`**  | `datetime`         | `not null`
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  symbol: MyString
+  active: false
+  published: false
+
+two:
+  symbol: MyString
+  active: false
+  published: false

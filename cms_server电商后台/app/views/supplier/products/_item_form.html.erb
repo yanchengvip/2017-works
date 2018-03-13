@@ -1,0 +1,12 @@
+<tr class="fields content_tr">
+  <td>
+    <%= render partial: 'images/upload_image', locals: { prev_id: "prev_#{params[:random_id]}", item_name: "auction_product_images[][large]", item_id: "auction_product_image_#{params[:random_id]}", upload_btn_id: "upload_#{params[:random_id]}", preview_id: "preview_#{params[:random_id]}", image_path: '', model_name: 'auction_product_images' } %>
+  </td>
+
+  <td>
+    <input type="text" name="auction_product_images[][description]" class="form-control" width="100px" required placeholder="描述，排序" id="description_<%= params[:random_id] %>">
+  </td>
+
+  <td><%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %></td>
+</tr>
+

@@ -1,0 +1,74 @@
+<div class="row placeholders">
+  <form action="/account_ticket_details/open_ticket_list" id="search_form" method="get" class="navbar-form navbar-left">
+    用户ID：<input type="text" name="q[user_id_eq]" class="form-control" placeholder="用户ID" value="<%=params[:q][:user_id_eq]%>">
+    手机号：<input type="text" name="q[user_mobile_cont]" class="form-control" placeholder="手机号" value="<%=params[:q][:user_mobile_cont]%>">
+
+    时间：
+      <input type="text" name="q[create_time_lteq]" class="form-control datetime_picker_battle1" placeholder="起始时间"  value="<%=params[:q][:create_time_lteq]%>"> ~
+      <input type="text" name="q[create_time_gteq]" class="form-control datetime_picker_battle2" placeholder="结束时间" value="<%=params[:q][:create_time_gteq]%>">
+
+    <br>
+      交易状态：<select name="q[wealth_type_eq]"  class="select2-picker form-control select-width-18" >
+      <option value= ''>全部</option>
+      <option value=1>减少</option>
+      <option value=2>增加</option>
+    </select>
+
+    交易类型：<select name="q[trad_type_eq]"  class="select2-picker form-control select-width-18" >
+    <option value= ''>全部</option>
+    <%= AccountTicketDetail::TRADTYPE.to_a.each do |trade_type|  %>
+        <option value= <%= trade_type[1]%> ><%= trade_type[0]%>    </option>
+    <%end%>
+  </select>
+
+    <button type="submit" class="btn btn-success">搜索</button>
+    <div class='btn btn-info' id = "download_csv">下载</div>
+  </form>
+
+</div>
+
+<p class="sub-header">系统管理>宝箱管理>开启机会明细</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">开启机会明细</div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>用户ID</th>
+          <th>手机号</th>
+          <th>交易时间</th>
+          <th>交易数量</th>
+          <th>交易状态</th>
+          <th>交易类型</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <% @ticket_details.each do |ticket| %>
+            <tr>
+              <td><%= ticket.user&.id %></td>
+              <td><%= ticket.user&.mobile %></td>
+              <td><%= ticket.create_time.strftime('%Y-%d-%m %H:%M') %></td>
+              <td><%= ticket.fund %></td>
+              <td><%= AccountTicketDetail::WEALTHTYPE[ticket.wealth_type] %></td>
+              <td><%=  AccountTicketDetail::TRADTYPE.invert[ticket.trad_type] %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+    <%= paginate @ticket_details %>
+  </div>
+</div>
+
+<script>
+    $('#download_csv').click(function(){
+        $("#search_form")[0].action = '/account_ticket_details/open_ticket_list.csv'
+        $("#search_form").submit()
+        $("#search_form")[0].action = '/account_ticket_details/open_ticket_list'
+    })
+
+</script>

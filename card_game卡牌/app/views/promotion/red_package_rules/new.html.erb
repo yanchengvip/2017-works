@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">红包管理>红包>新增红包规则</p></div>
+
+<%= form_for @red_package_rule, url: promotion_red_package_rules_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

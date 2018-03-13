@@ -1,0 +1,51 @@
+<div class="modal fade" id="shipChestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">发货</h4>
+        <!-- <input type="hidden" id="ship_chest_record_id"> -->
+        <input type="hidden" name='id' id="ship_chest_record_id">
+      </div>
+      <!-- <form action="/chest_records/ship" method="post"> -->
+        <div class="modal-body" id="ship_div">
+
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="do_ship">确认发货</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_ship').on('click', function(){
+      var record_id = $('#ship_chest_record_id').val()
+      $.ajax({
+        type: "post",
+        url: '/chest_records/'+record_id+'/ship',
+        data: { },
+        success: function(result){
+          if(result.status == 200){
+            $('#shipChestModal').modal('hide')
+            // window.location.reload();
+            $('#ship_'+record_id).hide()
+          }else{
+            $('#shipChestModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#shipChestModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

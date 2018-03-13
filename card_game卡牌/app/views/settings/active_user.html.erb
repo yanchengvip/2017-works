@@ -1,0 +1,78 @@
+<div class="row"><p class="sub-header">系统管理>宝箱管理>活跃用户定义</p></div>
+
+<%= form_tag save_active_user_settings_path, html: {:method=>"post", class: 'bg pd_20 form-horizontal'} do |f| %>
+  <div class="form-group row mt_20">
+    <label for="setting_active_type" class="col-sm-2 control-label">按日/周(active_type)</label>
+    <div class="col-sm-8">
+      <%= select_tag :active_type, options_for_select([['无', nil]] + Setting::ACTIVE_USER_TYPE.to_a.map(&:reverse), @active_type&.value), class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="setting_active_value" class="col-sm-2 control-label">天/周 数值(active_value)</label>
+    <div class="col-sm-8">
+      <%= text_field_tag :active_value, @active_value&.value, placeholder: '值', class: 'form-control', required: "required" %>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row mt_20">
+    <label for="setting_new_memo" class="col-sm-2 control-label">说明</label>
+    <div class="col-sm-8">
+      <%#= text_area_tag :new_memo, @new_user_play_count.memo, placeholder: '说明', class: 'form-control', required: "required", rows: 3 %>
+    </div>
+  </div> -->
+
+  <hr>
+  <div class="form-group row mt_20">
+    <label for="setting_new_var" class="col-sm-2 control-label">新用户为活跃用户</label>
+    <div class="col-sm-8">
+      <%= text_field_tag :new_var, @new_user_play_count&.var, placeholder: '新用户为活跃用户', class: 'form-control', required: "required", readonly: !@new_user_play_count.blank? %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="setting_new_value" class="col-sm-2 control-label">参赛数量</label>
+    <div class="col-sm-8">
+      <%= text_field_tag :new_value, @new_user_play_count&.value, placeholder: '值', class: 'form-control', required: "required" %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="setting_new_memo" class="col-sm-2 control-label">说明</label>
+    <div class="col-sm-8">
+      <%= text_area_tag :new_memo, @new_user_play_count&.memo, placeholder: '说明', class: 'form-control', required: "required", rows: 3 %>
+    </div>
+  </div>
+  <hr>
+  <div class="form-group row mt_20">
+    <label for="setting_old_var" class="col-sm-2 control-label">老用户为活跃用户</label>
+    <div class="col-sm-8">
+      <%= text_field_tag :old_var, @old_user_play_count&.var, placeholder: '老用户为活跃用户', class: 'form-control', required: "required", readonly: !@old_user_play_count.blank? %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="setting_old_value" class="col-sm-2 control-label">参赛数量</label>
+    <div class="col-sm-8">
+      <%= text_field_tag :old_value, @old_user_play_count&.value, placeholder: '值', class: 'form-control', required: "required" %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="setting_old_memo" class="col-sm-2 control-label">说明</label>
+    <div class="col-sm-8">
+      <%= text_area_tag :old__memo, @old_user_play_count&.memo, placeholder: '说明', class: 'form-control', required: "required", rows: 3 %>
+    </div>
+  </div>
+
+
+  <div class="clearfix"></div>
+
+  <div class="form-group row mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= link_to '取消', settings_path, class: 'btn btn-default mr_20', role: 'button' %>
+      <%= submit_tag '保存', class: 'btn btn-primary', id: 'setting_submit' %>
+    </div>
+  </div>
+
+<% end %>

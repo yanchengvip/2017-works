@@ -1,0 +1,131 @@
+<p class="sub-header">战场管理>战役列表>战役详情</p>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>战役详情</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">战役ID：<%= @battle.id%></li>
+    <li class="list-group-item">战役等级：<%= Battle::BATTLERANK[@battle.battle_rank] %></li>
+    <li class="list-group-item">战役名称：<%= @battle.name %></li>
+    <li class="list-group-item">轮数：<%= @battle.battle_rules_copies.first.present? ? @battle.battle_rules_copies.first.bout_number : '' %></li>
+    <li class="list-group-item">开启人数：<%= @battle.battle_rules_copies.first.present? ? @battle.battle_rules_copies.first.open_person_number : '' %></li>
+    <li class="list-group-item">战役发布时间：<%= datetime_format @battle.published_at %></li>
+    <!--<li class="list-group-item">战役开局时间段：<%#= time_format @battle.begin_time%> ~ <%#= time_format @battle.end_time%></li>-->
+    <li class="list-group-item">战役描述：<%= @battle.desc %></li>
+    <li class="list-group-item">开奖号码：<%= @battle.battle_winning_record&.luck_num %></li>
+    <li class="list-group-item">中奖用户：<%= @battle.battle_winning_record&.user_name %></li>
+    <li class="list-group-item">中奖用户ID：<%= @battle.battle_winning_record&.user_id %></li>
+    <li class="list-group-item">战役展示图：
+      <div class="row">
+        <% @battle.images.each do |img| %>
+            <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + img.url %>" alt="<%= @battle.name %>">
+        <% end %>
+      </div>
+
+    </li>
+  </ul>
+
+</div>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>战役商品</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">商品ID：<%= @bpc.battle_product_id %></li>
+    <li class="list-group-item">商品快照ID：<%= @bpc.id %></li>
+    <li class="list-group-item">商品类别：<%= @bpc.product_tag.present? ? @bpc.product_tag.name : '无' %></li>
+    <li class="list-group-item">商品名称：<%= @bpc.name %></li>
+    <li class="list-group-item">市场价格：<%= @bpc.market_price %></li>
+    <li class="list-group-item">成本价格：<%= @bpc.cost_price %></li>
+    <li class="list-group-item">邮费：<%= @bpc.postage %></li>
+    <li class="list-group-item">商品缩略图：<br>
+      <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + @bpc.thumbnail %>" alt="<%= @battle.name %>"></li>
+    <li class="list-group-item">商品展示图：
+      <div class="row">
+        <% @bpc.images.each do |img| %>
+            <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + img.url %>" alt="<%= @bpc.name %>">
+        <% end %>
+      </div>
+
+    </li>
+    <li class="list-group-item">商品简介：<%= @bpc.desc %></li>
+    <li class="list-group-item">商品详情地址：<%= @bpc.detail_url %></li>
+
+  </ul>
+
+</div>
+
+<% if @battle_rule.present? %>
+    <%= render template: 'battle_rules/show' %>
+<% end %>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>战役兑换礼包</strong></div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>礼包名称</th>
+        <th>礼包单价(微集分)</th>
+        <th>数量(个)</th>
+        <th>礼包总价值(微集分)</th>
+
+      </tr>
+      </thead>
+      <tbody id="battle_package_table">
+      <% @battle_packages.each do |bp| %>
+          <% if bp.bp_type == 1 %>
+              <%price = bp.package.present? ? bp.package.price : 0 %>
+              <tr>
+                <td><%= bp.name %></td>
+                <td><%=price %></td>
+                <td><%= bp.package_num %></td>
+                <td><%= price * bp.package_num %></td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>战役结束后战役失败用户赠送规则</strong></div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>用户累计消耗卡牌价值条件(微集分)</th>
+        <th>礼包名称</th>
+        <th>礼包单价(微集分)</th>
+        <th>数量(个)</th>
+        <th>礼包总价值(微集分)</th>
+
+      </tr>
+      </thead>
+      <tbody id="battle_package_table">
+      <% @battle_packages.each do |bp| %>
+          <% if bp.bp_type == 2 %>
+              <%price = bp.package.present? ? bp.package.price : 0 %>
+              <tr>
+                <td><%= bp.micro_score %>微集分</td>
+                <td><%= bp.name %></td>
+                <td><%=price %></td>
+                <td><%= bp.package_num %></td>
+                <td><%= price * bp.package_num %></td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>

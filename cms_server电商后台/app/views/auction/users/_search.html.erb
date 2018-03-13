@@ -1,0 +1,14 @@
+<div class="row placeholders well">
+  <%= form_for auction_users_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'auction_users_search_form'} do |f| %>
+    <div class="form-group row">
+      <span>ID：</span>
+      <%= text_field_tag "q[id_eq]", params[:q][:id_eq], class: 'form-control mr_20', placeholder: 'ID' %>
+      <span>昵称：</span>
+      <%= text_field_tag 'q[name_cont]', params[:q][:name_cont], class: 'form-control mr_20', placeholder: '昵称' %>
+      <span>VIP等级：</span>
+      <%= select_tag 'q[level_id_eq]', options_for_select([["所有等级", nil]] + Auction::Level.active.map{|al| [al.name, al.id]}, params[:q][:level_id_eq]), class: 'form-control mr_20' %>
+
+      <%= f.submit '搜索', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

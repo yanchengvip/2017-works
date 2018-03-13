@@ -1,0 +1,62 @@
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>订单详情</strong></div>
+  <li class="list-group-item">
+    商家订单号：<span class="red"><%= @unit.supplier_trade&.id %></span>
+  </li>
+  <li class="list-group-item">
+    订单状态: <span class="red"><%= Auction::Trade::STATUS[@unit.supplier_trade&.status.to_s] %></span>
+  </li>
+
+  <li class="list-group-item">
+    订单备注: <span class="red"><%= @unit.supplier_trade&.remark %></span>
+  </li>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>供应商详情</strong></div>
+  <li class="list-group-item">
+    供应商ID：<span class="red"><%= @unit.provider&.id %></span>
+  </li>
+  <li class="list-group-item">
+    供应商名称：<span class="red"><%= @unit.provider&.name %></span>
+  </li>
+  <li class="list-group-item">
+    描述: <span class="red"><%= @unit.provider&.description %></span>
+  </li>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>退货详情</strong></div>
+  <li class="list-group-item">
+    退款电话：<span class="red"><%= @unit.return_phone %></span>
+  </li>
+  <li class="list-group-item">
+    退款省份：<span class="red"><%= @unit.return_province %></span>
+  </li>
+  <li class="list-group-item">
+    退款城市: <span class="red"><%= @unit.return_city %></span>
+  </li>
+  <li class="list-group-item">
+    退款支行：<span class="red"><%= @unit.return_branch %></span>
+  </li>
+  <li class="list-group-item">
+    退款银行：<span class="red"><%= @unit.return_bank %></span>
+  </li>
+  <li class="list-group-item">
+    退款帐号: <span class="red"><%= @unit.return_account %></span>
+  </li>
+  <li class="list-group-item">
+    开户人: <span class="red"><%= @unit.return_name %></span>
+  </li>
+  <li class="list-group-item">
+    退货原因：<span class="red"><%= @unit.return_reason %></span>
+  </li>
+  <li class="list-group-item">
+    退货备注：<span ><%= @unit.remark %></span>
+  </li>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>商品信息</strong></div>
+  <%= render 'auction/trades/product',data:{units: [@unit]}%>
+</div>

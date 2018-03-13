@@ -1,0 +1,30 @@
+
+alipay_test: &development_alipay_dev
+
+  alipay:
+    app_id: 123 #
+    private_key: 123
+    alipay_public_key: 123
+    host: "http://127.0.0.1/api/"
+    gateway_url: 'https://openapi.alipay.com/gateway.do'
+  alipay_global:
+    partner: '123'
+    private_key: '123'
+
+development:
+  #<<: *development_alipay_sanbox
+  <<: *development_alipay_dev
+
+
+
+production:
+  #<<: *development_alipay_sanbox
+  <<: *development_alipay_dev
+
+test:
+  #<<: *development_alipay_sanbox
+  <<: *development_alipay_dev
+
+
+
+

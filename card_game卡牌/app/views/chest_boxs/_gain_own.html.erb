@@ -1,0 +1,45 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>奖金数</th>
+      <th>比例</th>
+      <th>实际数量</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="cash_gain_body">
+
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  $(function(){
+    $('#add_chest_prize').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/chest_boxs/get_gain_form',
+        data: { random_id: 'cgb' + Number($('#random_id').text()), prize_type: 10},
+        success: function(result){
+          $('#cash_gain_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+      $('#random_id').text(Number($('#random_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_box_prize_origin').on('click', function(){
+      $('#delBoxPrizeModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delBoxPrizeModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_box_prize_id').val(this_id.split('_')[3])
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+
+</script>

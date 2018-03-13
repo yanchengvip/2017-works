@@ -1,0 +1,22 @@
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>用户信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">用户名称：<span class="red"><%= @auction_trade.account&.phone %></span></li>
+    <li class="list-group-item">用户手机号：<%= @auction_trade.account&.phone %></li>
+  </ul>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>收货信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">收货人电话：<%= @auction_trade.delivery_phone  %></li>
+    <li class="list-group-item">收货地址名称：<%= @auction_trade.contact&.name  %></li>
+    <li class="list-group-item">
+      <span>省：<%= @auction_trade.contact&.province  %></span>
+      <span>市：<%= @auction_trade.contact&.city  %></span>
+      <span>区：<%= @auction_trade.contact&.town  %></span>
+      <span>详细地址：<%= @auction_trade.contact&.address %></span>
+      <span>编号：<%= @auction_trade.contact&.postcode %></span>
+    </li>
+  </ul>
+</div>

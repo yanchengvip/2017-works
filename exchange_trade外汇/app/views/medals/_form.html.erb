@@ -1,0 +1,52 @@
+<%= form_with(model: medal, local: true) do |form| %>
+  <% if medal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(medal.errors.count, "error") %> prohibited this medal from being saved:</h2>
+
+      <ul>
+      <% medal.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :medal_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :condition %>
+    <%= form.text_field :condition, id: :medal_condition %>
+  </div>
+
+  <div class="field">
+    <%= form.label :medal_type %>
+    <%= form.number_field :medal_type, id: :medal_medal_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.text_field :image, id: :medal_image %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :medal_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :enable %>
+    <%= form.number_field :enable, id: :medal_enable %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.check_box :active, id: :medal_active %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,65 @@
+<div class="form-group row mt_20">
+  <label for="mammon_period_num" class="col-sm-2 control-label">名字</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '名字', class: 'form-control', required: "required",readonly: "true"  %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_num" class="col-sm-2 control-label">编号</label>
+  <div class="col-sm-8">
+    <%= f.text_field :num, placeholder: '编号', class: 'form-control', required: "required",readonly: "true"  %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="mammon_period_num" class="col-sm-2 control-label">类型</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :card_type, placeholder: '类型', class: 'form-control', required: "required",readonly: "true"  %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="mammon_attack_count" class="col-sm-2 control-label">攻击人数</label>
+  <div class="col-sm-8">
+    <%= f.text_field :attack_count, placeholder: '攻击人数', class: 'form-control', required: "required", type: 'number', min: 1 %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_num" class="col-sm-2 control-label">抽取概率</label>
+  <div class="col-sm-8">
+    <%= f.text_field :percent, placeholder: '抽取概率', class: 'form-control', required: "required"  %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_num" class="col-sm-2 control-label">获取百分比</label>
+  <div class="col-sm-8">
+    <%= f.text_field :effect_percent, placeholder: '获取百分比', class: 'form-control', required: "required"  %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_period_num" class="col-sm-2 control-label">生效次数</label>
+  <div class="col-sm-8">
+    <%= f.text_field :effect_times, placeholder: '生效次数', class: 'form-control', required: "required",readonly: "true"  %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="mammon_box_percent" class="col-sm-2 control-label">宝箱配置比例</label>
+  <div class="col-sm-8">
+    <!-- <div class="input-group"> -->
+      <%= f.text_field :box_percent, placeholder: '宝箱配置比例', class: 'form-control', required: "required", type: 'number', min: 0, step: 0.01, max: 1 %>
+      <!-- <span class="input-group-addon">%</span>
+    </div> -->
+  </div>
+</div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', mammon_cards_path, class: 'btn btn-default btn-lg mr_20', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg' %>
+  </div>
+</div>

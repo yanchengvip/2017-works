@@ -1,0 +1,48 @@
+<p class="sub-header">赛场管理>商品>商品详情</p>
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>商品详情</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">商品名称：<%= @battle_product.name %></li>
+    <li class="list-group-item">商品编号：<%= @battle_product.sku %></li>
+    <li class="list-group-item">价格：<%= @battle_product.market_price.to_f %></li>
+    <li class="list-group-item">邮费：<%= @battle_product.postage.to_f %></li>
+    <li class="list-group-item">库存：<%= @battle_product.inventory_count %></li>
+    <% if @battle_product.is_game_product %>
+      <li class="list-group-item">赛场商品：
+        <% @battle_product.game_product_tag&.name %>
+      </li>
+    <% end %>
+    <% if @battle_product.is_self_game_product %>
+      <li class="list-group-item">自建赛场商品：<%= @battle_product.product_tag&.name %></li>
+    <% end %>
+    <% if @battle_product.is_mall_product %>
+      <li class="list-group-item">兑奖阁商品：<%= mall_product_tag_name @battle_product.mall_product_tag_ids %></li>
+    <% end %>
+
+    <% if @battle_product.score_exchange %>
+      <li class="list-group-item">兑奖阁兑换所需微积分：<% @battle_product.score %></li>
+    <% end %>
+    <% if @battle_product.glory_exchange %>
+      <li class="list-group-item">兑奖阁兑换所需功勋：<% @battle_product.glory %></li>
+    <% end %>
+
+    <li class="list-group-item">商品缩略图：
+      <div class="row">
+        <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + @battle_product.thumbnail %>" >
+      </div>
+    </li>
+    <li class="list-group-item">商品展示图片：
+      <div class="row">
+        <% @battle_product.images.each do |img| %>
+            <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + img.url %>" alt="<%= @battle_product.name%>">
+        <% end %>
+      </div>
+
+    </li>
+    <li class="list-group-item">
+      <span>商品描述：</span>
+      <div class="mt_20 well"> <%= @battle_product.desc&.html_safe %></div></li>
+  </ul>
+
+</div>

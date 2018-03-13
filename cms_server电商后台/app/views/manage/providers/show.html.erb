@@ -1,0 +1,33 @@
+<p class="sub-header">能量商城>能量商城>查看能量商品</p>
+
+<% if @game_type.status == 0 %>
+  <div class="lead text-right well">
+    <p><%= link_to '修改能量商品', edit_game_type_path(@game_type), class: 'btn btn-primary', role: 'button' %></p>
+  </div>
+<% end %>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">赛场功勋价值：<span class="red"><%= @game_type.glory_num %></span></li>
+    <li class="list-group-item">报名所需能量：<span class="red"><%= @game_type.energy_num %></span></li>
+    <li class="list-group-item">重宝类型：<%= @game_type.product_tag.name %></li>
+    <% if @game_type.product_config_type == 1 %>
+      <li class="list-group-item">重宝：<%= "随机#{@game_type.product_count}个" %></li>
+    <% elsif @game_type.product_config_type == 2 %>
+      <li class="list-group-item bg_tr">重宝：</li>
+      <li class="list-group-item"><%= render partial: 'game_types/product/chosed_products' %></li>
+    <% end %>
+    <li class="list-group-item">赛场类型排序：<%= @game_type.order_num %></li>
+    <li class="list-group-item bg_tr">赛场规则：</li>
+    <li class="list-group-item"><%= render partial: 'game_types/game_rule/chosed_game_rule' %></li>
+    <li class="list-group-item bg_tr">卡包：</li>
+    <li class="list-group-item"><%= render partial: 'game_types/card_bag/chosed_card_bag' %></li>
+    <li class="list-group-item">赛场规则说明：<%= @game_type.game_desc %></li>
+    <li class="list-group-item">启用状态：<%= @game_type.status == 1 ? '启用' : '停用' %></li>
+
+  </ul>
+
+</div>

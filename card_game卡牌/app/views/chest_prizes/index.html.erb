@@ -1,0 +1,47 @@
+<div class="row"><p class="sub-header">宝箱管理>宝箱设置>宝箱奖品</p></div>
+
+<%= render partial: 'search' %>
+
+<div class="row mt_20 mb_20">
+  <%= link_to '新增奖品', new_chest_prize_path, class: 'btn btn-primary', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>图片</th>
+        <th>名称</th>
+        <th>奖品类型</th>
+        <th>充值金额/数量</th>
+        <th>奖品价值</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @chest_prizes && @chest_prizes.each_with_index do |chest_prize, index| %>
+      <tr id="tr_<%= chest_prize.id %>">
+        <td><%= chest_prize.id %></td>
+        <td><%= show_thumb chest_prize %></td>
+        <td><%= chest_prize.name %></td>
+        <td><%= ChestPrize::PRIZE_TYPE[chest_prize.prize_type] %></td>
+        <td><%= chest_prize.num %></td>
+        <td><%= chest_prize.price %></td>
+        <td>
+          <%#= link_to '查看', chest_prize_path(chest_prize), class: 'btn btn-sm btn-info' %>
+          <a href="/chest_prizes/<%= chest_prize.id %>" class='btn btn-sm btn-info'>查看</a>
+          <%= link_to '编辑', edit_chest_prize_path(chest_prize), class: 'btn btn-sm btn-primary' %>
+          <%#= link_to '删除', chest_prizes_path(chest_prize), method: :delete, data: {confirm: '确定删除吗？'}, class: 'btn btn-sm btn-danger' %>
+          <%# if game_type.status == 0 %>
+            <%= link_to '删除', "javascript:void(0)", onclick: "chest_prize_delete(#{chest_prize.id}, '#{chest_prize.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          <%# end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @chest_prizes %>
+<%= render partial: 'del_modal' %>

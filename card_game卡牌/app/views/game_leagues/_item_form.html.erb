@@ -1,0 +1,18 @@
+<tr class="fields content_tr">
+  <td>
+    <input type="number" name="rule_items[][amount]" min="0" placeholder="金额" required>
+  </td>
+  <td class="hide"></td>
+  <td class="worth_td">
+    <input type="number" name="rule_items[][count]" min="0" placeholder="数量" required>
+  </td>
+  <td>
+    <%= link_to '删除', 'javascript:void(0)', class: 'del_item_new' %>
+  </td>
+</tr>
+
+<script type="text/javascript">
+  $(function(){
+    $(".game_select2").select2()
+  })
+</script>

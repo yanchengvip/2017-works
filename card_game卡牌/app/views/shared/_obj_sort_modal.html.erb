@@ -1,0 +1,25 @@
+<!-- 调整排序modal -->
+<div class="modal fade" id="ObjSortModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title title_name" id="exampleModalLabel" ><%= locals[:title]%></h4>
+      </div>
+      <form action="<%= locals[:url]%>" method="post">
+        <div class="modal-body">
+          <h3><span id="sort_obj_name"></span></h3>
+
+          <input type="hidden"  class="form-control" name='id' id="sort_obj_id">
+          <input type="number" placeholder="数值越大，排序越靠前" class="form-control" name='sort' id="obj_sort">
+          <p class="bg-danger">数值越大，排序越靠前</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

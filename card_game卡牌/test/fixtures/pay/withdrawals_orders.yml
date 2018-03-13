@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 
+  amount: 
+  user_id: MyString
+  status: MyString
+  admin_id: 1
+  identifier: MyString
+  content: MyText
+  remark: MyString
+  order_id: MyString
+  pay_date: 2018-01-23 17:30:58
+
+two:
+  amount: 
+  amount: 
+  user_id: MyString
+  status: MyString
+  admin_id: 1
+  identifier: MyString
+  content: MyText
+  remark: MyString
+  order_id: MyString
+  pay_date: 2018-01-23 17:30:58

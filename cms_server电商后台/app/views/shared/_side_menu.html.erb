@@ -1,0 +1,27 @@
+<div class="sidebar">
+  <nav class="sidebar-nav">
+    <ul class="nav">
+      <% @side_menus && @side_menus.each do |sm| %>
+          <% if sm[:children].present? %>
+              <li class="nav-item nav-dropdown open">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="glyphicon glyphicon-list-alt"></i><%= sm[:parent] %>
+                </a>
+                <ul class="nav-dropdown-items">
+                  <% sm[:children].each do |item| %>
+                      <li class="nav-item nav-item-children">
+                        <a class="nav-link" href="<%= item[:url] %>"><i class="glyphicon glyphicon-file"></i><%= item[:name] %>
+                        </a>
+                      </li>
+                  <% end %>
+                </ul>
+              </li>
+          <% else %>
+              <li class="nav-item">
+                <a class="nav-link" href="/"><i class="glyphicon glyphicon-list-alt"></i><%= sm[:parent] %> </a>
+              </li>
+          <% end %>
+      <% end %>
+
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,24 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @auction_carousel, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+
+        <%= f.input :version_type, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @auction_carousel_version_type ,  checked: @auction_carousel.version_type, label: '客户端:' ,required: 'true' %>
+        <%= f.input :measurement, label: '尺寸:' ,required: 'true'%>
+        <div class="form-group row">
+          <label for="input" class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9">
+            <%= render partial: 'images/upload_single_image', locals: {prev_id: 'pic', item_name: "auction_carousel[pic]", item_id: "auction_carousel_pic", upload_btn_id: 'upload_pic', preview_id: 'preview_pic', image_path: @auction_carousel.pic, model_name: @auction_carousel.class.to_s} %>
+          </div>
+        </div>
+        <%= f.input :rank, label: '排序:' ,required: 'true'%>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit' %>
+        <%= link_to '取消', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>

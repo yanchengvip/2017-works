@@ -1,0 +1,5 @@
+<% @products.map{|rpr| [rpr.name, rpr.id]}.each do |val| %>
+  <option value="<%= val[1] %>"><%= val[0] %></option>
+<% end %>
+
+<%#= f.select :game_product_tag_id, options_for_select(@products.map{|rpr| [rpr.name, rpr.id]}, @game_league.game_product_tag_id), {}, class: 'form-control game_select2', required: "required" %>

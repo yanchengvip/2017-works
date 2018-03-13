@@ -1,0 +1,5 @@
+<div class="row"><p class="sub-header">商品管理>商品管理>新建赛场商品类别</p></div>
+
+<%= form_for @game_product_tag, url: game_product_tags_path, html: {:method=>"post", class: 'bg pd_20'} do |f| %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

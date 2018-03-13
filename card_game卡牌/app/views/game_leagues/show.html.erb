@@ -1,0 +1,51 @@
+<p class="sub-header">赛场>联赛>查看联赛</p>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>联赛信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">ID：<span><%= @game_league.id %></span></li>
+    <li class="list-group-item ">名称：<span><%= @game_league.league_name %></span></li>
+    <li class="list-group-item ">红包规则：<span><%= @game_league.red_package_rule&.name %></span></li>
+    <li class="list-group-item "><span class="red"></span>冠军奖励：
+      <p>商品ID: <%= @game_league.battle_product_id %></p>
+      <p>商品名称: <%= @game_league.battle_product&.name %></p>
+    </li>
+    <li class="list-group-item ">奖品展示文案：<%= @game_league.battle_product_doc %></li>
+    <li class="list-group-item ">联赛说明：<span><%= @game_league.league_des %></span></li>
+  </ul>
+  <div class="panel-heading"><strong>资格赛</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">资格赛截止时间：<%= @game_league.preliminaries_end&.strftime("%Y-%m-%d %H:%M") %></li>
+    <li class="list-group-item ">首页文案：<%= @game_league.preliminaries_doc %></li>
+    <li class="list-group-item ">机器人形象设定：
+      <%= render partial: 'robot_img' %>
+    </li>
+    <li class="list-group-item ">机器人难度设定：
+      <%= render partial: 'robot_difficulty' %>
+    </li>
+    <li class="list-group-item ">机器人语言：
+      <p class="mt_10">第一句: <%= @robot_language[0] %></p>
+      <p>第二句: <%= @robot_language[1] %></p>
+      <p>第三句: <%= @robot_language[2] %></p>
+    </li>
+    <li class="list-group-item ">机器场奖励：
+      <%= render partial: 'robot_prize' %>
+    </li>
+    <li class="list-group-item ">赛场规则：<%= GameType.find_by(id: @game_league.pre_game_type_id)&.name %></li>
+  </ul>
+  <div class="panel-heading"><strong>淘汰赛</strong></div>
+  <li class="list-group-item ">淘汰赛开启时间：<%= @game_league.knockout_begin&.strftime("%Y-%m-%d %H:%M") %></li>
+  <li class="list-group-item ">首页文案：<%= @game_league.knockout_doc %></li>
+  <li class="list-group-item ">淘汰赛每场人数：<%= @game_league.knockout_num %>人</li>
+  <li class="list-group-item ">淘汰赛每场间隔时间：<%= @game_league.knockout_interval %>秒</li>
+  <li class="list-group-item ">赛场规则：<%= GameType.find_by(id: @game_league.kno_game_type_id)&.name %></li>
+  <li class="list-group-item ">决赛赛场规则：<%= GameType.find_by(id: @game_league.finals_game_type_id)&.name %></li>
+
+  <div class="panel-heading"><strong>联赛时间</strong></div>
+  <li class="list-group-item ">联赛开始时间：<%= @game_league.league_begin&.strftime("%Y-%m-%d %H:%M") %></li>
+  <li class="list-group-item ">联赛关闭时间：<%= @game_league.league_end&.strftime("%Y-%m-%d %H:%M") %></li>
+
+
+</div>

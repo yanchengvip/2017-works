@@ -1,0 +1,336 @@
+<% if current_user.class.to_s == 'Manage::Editor' %>
+  <%= f.hidden_field :user_id, value: current_user&.id %>
+<% end %>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_identifier" class="col-sm-2 control-label isrequire">原厂货号</label>
+  <div class="col-sm-8">
+    <%= f.text_field :identifier, placeholder: '编号-原厂货号', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<% if current_user.class.to_s == 'Manage::Editor' %>
+  <div class="form-group row mt_20">
+    <label for="supplier_product_is_micro" class="col-sm-2 control-label">积分特惠商品</label>
+    <div class="col-sm-8">
+      <%= f.check_box :is_micro %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_is_hot" class="col-sm-2 control-label">热门商品</label>
+    <div class="col-sm-8">
+      <%= f.check_box :is_hot %>
+    </div>
+  </div>
+
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_name" class="col-sm-2 control-label">赠送微积分数量</label>
+    <div class="col-sm-8">
+      <%= f.text_field :micro_amount, placeholder: '赠送微积分数量', class: 'form-control', required: "required" %>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_name" class="col-sm-2 control-label isrequire">名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :name, placeholder: '名称', class: 'form-control', required: "required", onkeyup: "validate_length_of_words(this.id,30)" %>
+    <p class="bg-danger p_last_num left_str_num"></p>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_price" class="col-sm-2 control-label isrequire">市场价/吊牌价</label>
+  <div class="col-sm-8">
+    <%= f.text_field :price, placeholder: '参考价', class: 'form-control', required: "required", type: 'number', step: 0.01, min: 0.01, max: 99999999, readonly: (current_user.class.to_s == 'Manage::Editor') %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_discount" class="col-sm-2 control-label isrequire">优众价</label>
+  <div class="col-sm-8">
+    <%= f.text_field :discount, placeholder: '优众价', class: 'form-control', required: "required", type: 'number', step: 0.01, min: 0.01, max: 99999999, readonly: (current_user.class.to_s == 'Manage::Editor') %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_provider_price" class="col-sm-2 control-label isrequire">销售底价/供货价</label>
+  <div class="col-sm-8">
+    <%= f.text_field :provider_price, placeholder: '销售底价/供货价', class: 'form-control', required: "required", type: 'number', step: 0.01, min: 0.01, max: 99999999, readonly: (current_user.class.to_s == 'Manage::Editor' && (params[:action] == 'edit' || params[:action] == 'editor_edit')) %>
+  </div>
+</div>
+
+<!-- <div class="form-group row mt_20">
+  <label for="supplier_product_percent" class="col-sm-2 control-label">折扣</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :percent, placeholder: '折扣', class: 'form-control', required: "required", type: 'number', min: 0, max: 10 %>
+  </div>
+</div> -->
+
+<%= render partial: '/supplier/products/sku_item' %>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_brand_id" class="col-sm-2 control-label isrequire">品牌</label>
+  <div class="col-sm-8">
+    <%= f.select :brand_id, options_for_select(Auction::Brand.active.map{|ab| [ab.name, ab.id]}, @supplier_product.brand_id), {}, class: 'form-control is_select2', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_description" class="col-sm-2 control-label isrequire">描述</label>
+  <div class="col-sm-8">
+    <%= f.text_area :description, rows: 6, placeholder: '描述', class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_spec_pic" class="col-sm-2 control-label isrequire">尺寸说明图片</label>
+  <div class="col-sm-8">
+    <%= render partial: 'images/upload_single_image', locals: {prev_id: 'spec_pic', item_name: "supplier_product[spec_pic]", item_id: "supplier_product_spec_pic", upload_btn_id: 'upload_spec_pic', preview_id: 'preview_spec_pic', image_path: @supplier_product.spec_pic, model_name: @supplier_product.class.to_s} %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_color_pic" class="col-sm-2 control-label">颜色图片</label>
+  <div class="col-sm-8">
+    <%= render partial: 'images/upload_single_image', locals: {prev_id: 'color_pic', item_name: "supplier_product[color_pic]", item_id: "supplier_product_color_pic", upload_btn_id: 'upload_color_pic', preview_id: 'preview_color_pic', image_path: @supplier_product.color_pic, model_name: @supplier_product.class.to_s} %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_color_name" class="col-sm-2 control-label">颜色名称</label>
+  <div class="col-sm-8">
+    <%= f.text_field :color_name, placeholder: '颜色名称', class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_color_name" class="col-sm-2 control-label">颜色</label>
+  <div class="col-sm-8">
+    <%= f.select :color, Auction::Product::COLORS.keys, { :include_blank => true }, class: 'form-control is_select2',required: "required" %>
+  </div>
+</div>
+
+<% if current_user.class.to_s == 'Manage::Editor' %>
+  <div class="form-group row mt_20">
+    <label for="supplier_product_keywords" class="col-sm-2 control-label">关键字</label>
+    <div class="col-sm-8">
+      <%= f.text_field :keywords, placeholder: '关键字', class: 'form-control' %>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_relate_product_ids" class="col-sm-2 control-label">相关产品ID列表</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :relate_product_ids, placeholder: '相关产品ID列表', class: 'form-control' %>
+      <span class="input-group-addon">（用英文逗号分隔）</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_category1_id" class="col-sm-2 control-label isrequire">一级分类</label>
+  <div class="col-sm-8">
+    <%= f.select :category1_id, options_for_select([['请选择', nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]} ,@supplier_product&.category1_id), {}, class: "form-control is_select2 #{select_class(params[:action])}" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_category2_id" class="col-sm-2 control-label">二级分类</label>
+  <div class="col-sm-8">
+    <% if params[:action] == 'edit' || params[:action] == 'editor_edit' %>
+      <%= f.select :category2_id, options_for_select([['无', nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]} ,@supplier_product.category2_id), {}, class: "form-control is_select2 #{select_class(params[:action])}" %>
+    <% elsif params[:action] == 'new' %>
+      <%= f.select :category2_id, options_for_select([['无', nil]], @supplier_product.category2_id), {}, class: 'form-control is_select2 category_select' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_category3_id" class="col-sm-2 control-label">三级分类</label>
+  <div class="col-sm-8">
+    <% if params[:action] == 'edit' || params[:action] == 'editor_edit' %>
+      <%= f.select :category3_id, options_for_select([['无', nil]] + Auction::Category.active.map{|ac| [ac.name, ac.id]} ,@supplier_product.category3_id), {}, class: "form-control is_select2 #{select_class(params[:action])}" %>
+    <% elsif params[:action] == 'new' %>
+      <%= f.select :category3_id, options_for_select([['无', nil]], @supplier_product.category3_id), {}, class: 'form-control is_select2 category_select' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <!-- <input type="hidden" name="supplier_product_id" value="<%#= @supplier_product.id %>"> -->
+  <label for="" class="col-sm-2 control-label isrequire">属性</label>
+  <div class="col-sm-8" id="product_attribute_div">
+    <% if !@attributes.blank? %>
+      <%= render partial: 'supplier/products/attribute_own' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="" class="col-sm-2 control-label"></label>
+  <div class="col-sm-8">
+    <%= render partial: 'supplier/products/custom_attribute' %>
+  </div>
+</div>
+<!-- <div class="form-group row mt_20">
+  <label for="supplier_product_published_at" class="col-sm-2 control-label">发布时间</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :published_at, placeholder: '发布时间', class: 'form-control is_date', required: "required" %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="supplier_product_color" class="col-sm-2 control-label">颜色</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :color, placeholder: '颜色', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<!-- <div class="form-group row mt_20">
+  <label for="supplier_product_recommend" class="col-sm-2 control-label">推荐</label>
+  <div class="col-sm-8">
+    <%#= f.text_field :recommend, placeholder: '推荐', class: 'form-control', required: "required" %>
+  </div>
+</div> -->
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_target" class="col-sm-2 control-label">对象</label>
+  <div class="col-sm-8">
+    <%= f.select :target, options_for_select(Auction::Product::TARGET.invert.to_a, @supplier_product.target), {}, class: 'form-control is_select2' %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_match_product_ids" class="col-sm-2 control-label">搭配产品ID列表</label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <%= f.text_field :match_product_ids, placeholder: '搭配产品ID列表', class: 'form-control' %>
+      <span class="input-group-addon">（用英文逗号分隔）</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="supplier_product_major_pic" class="col-sm-2 control-label isrequire">主图片</label>
+  <div class="col-sm-8">
+    <%= render partial: 'images/upload_single_image', locals: {prev_id: 'major_pic', item_name: "supplier_product[major_pic]", item_id: "supplier_product_major_pic", upload_btn_id: 'upload_major_pic', preview_id: 'preview_major_pic', image_path: @supplier_product.major_pic, model_name: @supplier_product.class.to_s} %>
+  </div>
+</div>
+
+<% if current_user.class.to_s == 'Manage::Editor' %>
+  <div class="form-group row mt_20">
+    <label for="supplier_product_remark" class="col-sm-2 control-label">备注</label>
+    <div class="col-sm-8">
+      <%= f.text_field :remark, placeholder: '备注', class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_label" class="col-sm-2 control-label">标注</label>
+    <div class="col-sm-8">
+      <%= f.text_field :label, placeholder: '标注', class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_prefix" class="col-sm-2 control-label">前缀</label>
+    <div class="col-sm-8">
+      <%= f.text_field :prefix, placeholder: '前缀', class: 'form-control' %>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row mt_20">
+    <label for="supplier_product_origins" class="col-sm-2 control-label">产地列表</label>
+    <div class="col-sm-8">
+      <div class="input-group">
+        <%#= f.text_field :origins, placeholder: '产地列表', class: 'form-control', required: "required" %>
+        <span class="input-group-addon">（用英文逗号分隔）</span>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div class="form-group row mt_20">
+    <label for="supplier_product_background" class="col-sm-2 control-label">背景图片</label>
+    <div class="col-sm-8">
+      <%#= render partial: 'images/upload_single_image', locals: {prev_id: 'background', item_name: "supplier_product[background]", item_id: "supplier_product_background", upload_btn_id: 'upload_background', preview_id: 'preview_background', image_path: @supplier_product.background, model_name: @supplier_product.class.to_s} %>
+    </div>
+  </div> -->
+
+  <!-- <div class="form-group row mt_20">
+    <label for="supplier_product_model_pic" class="col-sm-2 control-label">模特图片</label>
+    <div class="col-sm-8">
+      <%#= render partial: 'images/upload_single_image', locals: {prev_id: 'model_pic', item_name: "supplier_product[model_pic]", item_id: "supplier_product_model_pic", upload_btn_id: 'upload_model_pic', preview_id: 'preview_model_pic', image_path: @supplier_product.model_pic, model_name: @supplier_product.class.to_s} %>
+    </div>
+  </div> -->
+
+  <!-- <div class="form-group row mt_20">
+    <label for="supplier_product_thickness" class="col-sm-2 control-label">厚度</label>
+    <div class="col-sm-8">
+      <%#= f.text_field :thickness, placeholder: '厚度', class: 'form-control', required: "required" %>
+    </div>
+  </div> -->
+
+  <!-- <div class="form-group row mt_20">
+    <label for="supplier_product_elasticity" class="col-sm-2 control-label">弹力</label>
+    <div class="col-sm-8">
+      <%#= f.text_field :elasticity, placeholder: '弹力', class: 'form-control', required: "required" %>
+    </div>
+  </div> -->
+
+  <!-- <div class="form-group row mt_20">
+    <label for="supplier_product_pliability" class="col-sm-2 control-label">柔软</label>
+    <div class="col-sm-8">
+      <%#= f.text_field :pliability, placeholder: '柔软', class: 'form-control', required: "required" %>
+    </div>
+  </div> -->
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_remark2" class="col-sm-2 control-label">备注2</label>
+    <div class="col-sm-8">
+      <%= f.text_field :remark2, placeholder: '备注2', class: 'form-control' %>
+    </div>
+  </div>
+
+  <!-- <div class="form-group row mt_20">
+    <label for="supplier_product_texture" class="col-sm-2 control-label">材质</label>
+    <div class="col-sm-8">
+      <%#= f.text_field :texture, placeholder: '材质', class: 'form-control', required: "required" %>
+    </div>
+  </div> -->
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_foreign_payment" class="col-sm-2 control-label">是否跨境商品</label>
+    <div class="col-sm-8">
+      <%= f.check_box :foreign_payment %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_keywords2" class="col-sm-2 control-label">关键字2</label>
+    <div class="col-sm-8">
+      <%= f.text_field :keywords2, placeholder: '关键字2', class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row mt_20">
+    <label for="supplier_product_use_voucher" class="col-sm-2 control-label">是否禁止用券</label>
+    <div class="col-sm-8">
+      <%= f.check_box :use_voucher %>
+    </div>
+  </div>
+<% end %>
+<%#= render partial: 'pic_item' %>
+
+<!-- <div class="form-group row mt_20">
+  <label for="supplier_product_use_voucher" class="col-sm-2 control-label">详情图片</label>
+  <div class="col-sm-8">
+    <%#= render partial: 'upload_images', locals: {model_name: @supplier_product.class.to_s} %>
+  </div>
+</div> -->
+
+<%= render partial: '/supplier/products/image_item' %>

@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wechat Accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Openid</th>
+      <th>Nickname</th>
+      <th>Sex</th>
+      <th>Province</th>
+      <th>City</th>
+      <th>Country</th>
+      <th>Headimgurl</th>
+      <th>Request ip</th>
+      <th>Active</th>
+      <th>Unionid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wechat_accounts.each do |wechat_account| %>
+      <tr>
+        <td><%= wechat_account.user_id %></td>
+        <td><%= wechat_account.openid %></td>
+        <td><%= wechat_account.nickname %></td>
+        <td><%= wechat_account.sex %></td>
+        <td><%= wechat_account.province %></td>
+        <td><%= wechat_account.city %></td>
+        <td><%= wechat_account.country %></td>
+        <td><%= wechat_account.headimgurl %></td>
+        <td><%= wechat_account.request_ip %></td>
+        <td><%= wechat_account.active %></td>
+        <td><%= wechat_account.unionid %></td>
+        <td><%= link_to 'Show', wechat_account %></td>
+        <td><%= link_to 'Edit', edit_wechat_account_path(wechat_account) %></td>
+        <td><%= link_to 'Destroy', wechat_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wechat Account', new_wechat_account_path %>

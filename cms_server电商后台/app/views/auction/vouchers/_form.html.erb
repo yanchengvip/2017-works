@@ -1,0 +1,17 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @auction_voucher, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+        <%= f.input :event_id,label: '券种id:',required: 'true'%>
+        <%= f.input :remark,label: '备注:' %>
+        <%= f.input :user_id, as: :text, label: '用户id(用,隔开):',required: 'true'%>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit' %>
+        <%= link_to '取消', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>

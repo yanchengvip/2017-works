@@ -1,0 +1,120 @@
+<p class="sub-header">统计>数据统计>财神数据统计</p>
+<div class="row placeholders well">
+  <%= form_for mammon_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>起始时间：</span>
+      <input type="text" name="start_time" id="start_time" class="form-control mr_20 es_time_begin" placeholder="起始时间" value="<%= params[:start_time]%>">
+      <!-- <span>结束时间：</span>
+      <input type="text" name="end_time" id="end_time" class="form-control mr_20 es_time_end" placeholder="结束时间" value="<%= params[:end_time]%>"> -->
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <!-- <div class='btn btn-success' id = "download">下载</div> -->
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>当天登录人数</th>
+        <th>成功邀请用户数</th>
+        <th>被邀请注册用户数</th>
+        <th>邀请号码发放量</th>
+        <th>号码拥有用户数</th>
+        <th>宝箱号码发放量</th>
+        <th>红包雨领取人数</th>
+        <th>参与道具回收用户数</th>
+        <th>销毁张数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @res.each do | data| %>
+        <tr>
+          <td><%= data[:login_count] %></td>
+          <td><%= data[:invite_user_count] %></td>
+          <td><%= data[:cover_invite_user_count] %></td>
+          <td><%= data[:invite_codes_count] || 0%></td>
+          <td><%= data[:have_code_user_count] || 0%></td>
+          <td><%= data[:box_code_count] || 0%></td>
+          <td><%= data[:red_package_user_count] || 0%></td>
+          <td><%= data[:recovery_user_count] || 0%></td>
+          <td><%= data[:recovery_count] || 0%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>现金用户数</th>
+        <th>提现用户数</th>
+        <th>应发金额</th>
+        <th>实发金额</th>
+        <th>剩余应发金额</th>
+        <th>低于五元人数</th>
+        <th>低于五元金额</th>
+        <th>高于五元人数</th>
+        <th>高于五元金额</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @res.each do | data| %>
+        <tr>
+          <td><%= data[:cash_user_count] %></td>
+          <td><%= data[:withdrawals_user_count] %></td>
+          <td><%= data[:amount_payable] %></td>
+          <td><%= data[:real_pay_amount] %></td>
+          <td><%= data[:left_amount_payable] %></td>
+          <td><%= data[:less_than_5_count] %></td>
+          <td><%= data[:less_than_5_amount] %></td>
+          <td><%= data[:more_than_5_count] %></td>
+          <td><%= data[:more_than_5_amount] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>用户通过回收获取金额</th>
+        <th>用户通过邀请获取金额</th>
+        <th>用户通过红包雨获取金额</th>
+        <th>用户通过财神中奖获取金额</th>
+        <th>用户通过APP开屏宝箱获取金额</th>
+        <th>首次邀请</th>
+        <th>重复邀请</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @res.each do | data| %>
+        <tr>
+          <td><%= data[:cash_from].select{|cf| cf.trad_type == 3}&.inject(0){|sum, x| sum += x.fund}.to_f %></td>
+          <td><%= data[:cash_from].select{|cf| cf.trad_type == 7}&.inject(0){|sum, x| sum += x.fund}.to_f %></td>
+          <td><%= data[:cash_from].select{|cf| cf.trad_type == 2}&.inject(0){|sum, x| sum += x.fund}.to_f %></td>
+          <td><%= data[:cash_from].select{|cf| cf.trad_type == 6}&.inject(0){|sum, x| sum += x.fund}.to_f %></td>
+          <td><%= data[:cash_from].select{|cf| cf.trad_type == 4}&.inject(0){|sum, x| sum += x.fund}.to_f %></td>
+          <td><%= data[:invite_times]&.select{|r| r.num == 1}&.size %></td>
+          <td><%= data[:invite_times]&.select{|r| r.num >= 2}&.size %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/mammon.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/mammon'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/mammon'
+      $("#search_form").submit()
+    })
+  })
+</script>

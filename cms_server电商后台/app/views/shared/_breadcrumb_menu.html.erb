@@ -1,0 +1,31 @@
+<ol class="breadcrumb">
+  <% if @bread_menu.present? %>
+      <% if @bread_menu[:m1] %>
+          <li class="breadcrumb-item first"><%= @bread_menu[:m1] %></li>
+      <% end %>
+      <% if @bread_menu[:m2] %>
+          <li class="breadcrumb-item"><a href="<%= @bread_menu[:m2_url] %>"><%= @bread_menu[:m2] %></a></li>
+      <% end %>
+      <% if @bread_menu[:m3] %>
+          <li class="breadcrumb-item active"><%= @bread_menu[:m3] %></li>
+      <% end %>
+  <% else %>
+      <li class="breadcrumb-item"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></li>
+  <% end %>
+  <!-- Breadcrumb Menu-->
+  <li class="breadcrumb-menu d-md-down-none">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <a class="btn btn-secondary" href="#"><i class="icon-speech"></i></a>
+      <% if  @bread_menu && @bread_menu[:s] %>
+          <a class="btn btn-secondary" data-toggle="collapse" href="#<%= @bread_menu[:s] %>" aria-expanded="false" aria-controls="collapseExample"><i class="icon-settings"></i> &nbsp;查询</a>
+      <% end %>
+      <% if  @bread_menu && @bread_menu[:add] %>
+          <a class="btn btn-secondary" href="<%= @bread_menu[:add] %>"><i class="icon-settings"></i> &nbsp;添加</a>
+      <% end %>
+      <a class="btn btn-secondary" href="javascript:void(0)" onclick="goBack()"><i class="icon-graph"></i> &nbsp;返回</a>
+    </div>
+
+  </li>
+</ol>
+
+<%= render 'shared/search_forms' %>

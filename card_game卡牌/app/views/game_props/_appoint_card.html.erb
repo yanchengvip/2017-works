@@ -1,0 +1,27 @@
+<div>
+  <label for="">计谋数量</label>
+  <input type="number" name="game_prop[card_num]" class="custom_input_md" required placeholder="锦囊内计谋总数量">
+</div>
+<table class="table table-striped table-hover mt_10">
+  <thead>
+    <tr>
+      <th>计谋ID</th>
+      <th>计谋类型</th>
+      <th>计谋名称</th>
+      <th>计谋数量<!-- （<%#= card_bag_items&.sum(:card_num) %>） --></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Card.active.select('id, name, card_type').each do |card| %>
+      <tr class="fields content_tr">
+        <td><%= card.id %></td>
+        <td><%= Card::CARDTYPE[card.card_type] %></td>
+        <td><%= card.name %></td>
+        <td>
+          <input type="number" required min="0" value="0" name="game_prop_coup[][card_num]">张
+          <input type="hidden" name="game_prop_coup[][card_id]" value="<%= card.id %>">
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

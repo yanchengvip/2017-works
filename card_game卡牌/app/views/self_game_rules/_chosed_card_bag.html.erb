@@ -1,0 +1,20 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>计谋ID</th>
+      <th>计谋类型</th>
+      <th>计谋名称</th>
+      <th>保底数量（<%= @card_bag_items.sum(:card_num) %>）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @card_bag_items.each do |card_bag_item| %>
+      <tr class="fields content_tr">
+        <td><%= card_bag_item.card_id %></td>
+        <td><%= Card::CARDTYPE[card_bag_item.card.card_type] %></td>
+        <td><%= card_bag_item.card.name %></td>
+        <td><%= card_bag_item.card_num %>张</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

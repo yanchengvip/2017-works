@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @exchange_product_price_notice.user_id %>
+</p>
+
+<p>
+  <strong>Exchange product:</strong>
+  <%= @exchange_product_price_notice.exchange_product_id %>
+</p>
+
+<p>
+  <strong>Current price:</strong>
+  <%= @exchange_product_price_notice.current_price %>
+</p>
+
+<p>
+  <strong>Up price:</strong>
+  <%= @exchange_product_price_notice.up_price %>
+</p>
+
+<p>
+  <strong>Down price:</strong>
+  <%= @exchange_product_price_notice.down_price %>
+</p>
+
+<p>
+  <strong>Up price end time:</strong>
+  <%= @exchange_product_price_notice.up_price_end_time %>
+</p>
+
+<p>
+  <strong>Down price end time:</strong>
+  <%= @exchange_product_price_notice.down_price_end_time %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @exchange_product_price_notice.active %>
+</p>
+
+<p>
+  <strong>Up notice:</strong>
+  <%= @exchange_product_price_notice.up_notice %>
+</p>
+
+<p>
+  <strong>Down notice:</strong>
+  <%= @exchange_product_price_notice.down_notice %>
+</p>
+
+<p>
+  <strong>Notice type:</strong>
+  <%= @exchange_product_price_notice.notice_type %>
+</p>
+
+<%= link_to 'Edit', edit_exchange_product_price_notice_path(@exchange_product_price_notice) %> |
+<%= link_to 'Back', exchange_product_price_notices_path %>

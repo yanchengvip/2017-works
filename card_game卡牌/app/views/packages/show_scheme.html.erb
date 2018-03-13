@@ -1,0 +1,45 @@
+<p class="sub-header">卡牌商城>礼包管理>查看礼包</p>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item">礼包分类：<%= @package.package_type.name %></li>
+    <li class="list-group-item">售卖渠道：<%= sale_channels_txt(@package.sale_channels) %></li>
+    <li class="list-group-item">礼包名称：<%= @package.name %></li>
+    <li class="list-group-item">上架时间：<%= @package.onshelf_time&.strftime("%Y-%m-%d %H:%m:%S") %></li>
+    <li class="list-group-item">下架时间：<%= @package.offshelf_time&.strftime("%Y-%m-%d %H:%m:%S") %></li>
+    <li class="list-group-item">礼包价格：<%= @package.price.to_f %></li>
+    <li class="list-group-item">卡牌简介：<%= @package.summary %></li>
+
+    <li class="list-group-item">卡牌缩略图：
+      <div class="row">
+        <% if @package.thumbnail %>
+          <%= image_tag FASTDFSCONFIG[:fastdfs][:tracker_url] + @package.thumbnail, width: 100, height: 100 %>
+        <% end %>
+      </div>
+    </li>
+    <li class="list-group-item">卡牌展示图片：
+      <div class="row">
+        <% if @package.images %>
+          <% @package.images.each do |img| %>
+              <!-- <img src="<%#= img.url %>" alt="<%#= @package.name%>"> -->
+              <%= image_tag FASTDFSCONFIG[:fastdfs][:tracker_url] + img.url, width: 100, height: 100, alt: @package.name  %>
+          <% end %>
+        <% end %>
+      </div>
+    </li>
+
+    <li class="list-group-item">详细介绍：<%= @package.details %></li>
+  </ul>
+
+  <div class="panel-heading"><strong>礼包内容（中奖方案）</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">中奖类型：<%= prize_type_str(@package.prize_type) %></li>
+  </ul>
+
+  <% if @package.prize_type == 3 %>
+    <%= render partial: 'item_scheme' %>
+  <% end %>
+</div>

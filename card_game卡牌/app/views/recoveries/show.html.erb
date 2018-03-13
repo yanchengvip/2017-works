@@ -1,0 +1,49 @@
+<p class="sub-header">宝箱>回收管理</p>
+<div class="panel panel-primary">
+  <div class="panel-heading"><strong>回收详情</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">回收道具名称:<%= @recovery.chest_prize&.name %></li>
+    <li class="list-group-item">当前回收状态:<%= Recovery::STATUS[@recovery.status] %></li>
+    <li class="list-group-item">回收时间设置:<%= @recovery.time_begin.strftime('%Y-%m-%d %H:%M')%>~<%= @recovery.time_end.strftime('%Y-%m-%d %H:%M')%></li>
+    <li class="list-group-item">每日回收对应金额:<%= @recovery.total_cost%></li>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>当日回收时间</th>
+        <th>兑现金额</th>
+        <th>回收当前道具数量</th>
+        <th>回收人数</th>
+        <th>实际兑换金额</th>
+        <th>当前回收状态</th>
+        <th colspan="3">操作</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @recoveries.each do |recovery| %>
+        <tr>
+          <td><%= recovery.day %></td>
+          <td><%= recovery.time_begin.strftime('%Y-%m-%d %H:%M') %>~<%= recovery.time_end.strftime('%Y-%m-%d %H:%M') %></td>
+          <td><%= recovery.total_cost %></td>
+          <td><%= recovery.total_count %></td>
+          <td><%= recovery.recovery_items.select("DISTINCT user_id").count %></td>
+          <td><%= recovery.actual_cost %></td>
+          <td><%= Recovery::STATUS[recovery.status] %></td>
+          <td>
+            <a href="/recovery_items/display?recovery_id=<%= recovery.id %>" class = 'btn btn-sm btn-primary'>显示</a>
+            <%= link_to '编辑', edit_recovery_path(recovery), class: 'btn btn-sm btn-info' %>
+            <% if recovery.status == 1%>
+              <%= link_to '开启', open_recovery_path(recovery), class: 'btn btn-sm btn-info' %>
+            <% else %>
+              <%= link_to '关闭', shut_down_recovery_path(recovery), class: 'btn btn-sm btn-info' %>
+            <% end %>
+            <!-- <%= link_to '删除', recovery, method: :delete, data: { confirm: 'Are you sure?' } %> -->
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

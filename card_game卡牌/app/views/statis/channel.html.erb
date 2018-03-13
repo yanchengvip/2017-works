@@ -1,0 +1,58 @@
+<p class="sub-header">统计>数据统计>渠道数据</p>
+<div class="row placeholders well">
+  <%= form_for channel_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>起始时间：</span>
+      <%= text_field_tag 'q[create_time_gteq]', params[:q][:create_time_gteq], class: 'form-control mr_20 search_time_begin', placeholder: '起始时间' %>
+      <span>结束时间：</span>
+      <%= text_field_tag 'q[create_time_lteq]', params[:q][:create_time_lteq], class: 'form-control mr_20 search_time_end', placeholder: '结束时间' %>
+      <!-- <%= f.submit '查询', class: 'btn btn-primary' %> -->
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>渠道名称</th>
+        <th>点击次数</th>
+        <th>下载次数</th>
+        <th>安卓注册用户数</th>
+        <th>IOS注册用户数</th>
+        <!-- <th></th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @channels && @channels.each do |k, v| %>
+        <tr id="tr_<%= k %>">
+          <td><%= k || '字段内容为空' %></td>
+          <td>无</td>
+          <td>无</td>
+          <td><%= v.select{|i| i.client == 'android'}&.size %></td>
+          <td><%= v.select{|i| i.client == 'ios'}&.size %></td>
+          <!-- <td>
+            <%#= link_to '下载', "javascript:void(0)", onclick: "channel_delete(#{channel.id}, '#{channel.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+          </td> -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%#= paginate @channels %>
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/channel.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/channel'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/channel'
+      $("#search_form").submit()
+    })
+  })
+</script>

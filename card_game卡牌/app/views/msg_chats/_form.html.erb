@@ -1,0 +1,46 @@
+<%= render partial: 'icons' %>
+<div class="form-group row mt_20">
+  <label for="msg_chat_game_type" class="col-sm-2 control-label isrequire">适用赛场</label>
+  <div class="col-sm-8">
+    <%= f.select :game_type, options_for_select([['所有', nil]] + MsgChat::GAME_TYPE.to_a.map(&:reverse), @msg_chat.game_type), {}, class: 'form-control', required: "required" %>
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="msg_chat_content" class="col-sm-2 control-label">文案详情</label>
+  <div class="col-sm-8">
+    <!-- <div class="row"> -->
+      <%= f.text_field :content, placeholder: '文案详情', class: 'form-control', required: "required" %>
+    <!-- </div> -->
+    <!-- <div class="row red"> -->
+      <span class="red">*表情使用对应的符号代替，如：我会让你哭的很有节奏！[DX]</span>
+    <!-- </div> -->
+  </div>
+</div>
+
+<div class="form-group row mt_20">
+  <label for="msg_chat_sort" class="col-sm-2 control-label">排序</label>
+  <div class="col-sm-8">
+    <%= f.text_field :sort, placeholder: '排序', class: 'form-control', required: "required", type: 'number', min: 0 %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-sm-2 control-label">是否启用</label>
+  <div class="col-sm-8">
+    <div class="radio">
+      <label class="mr_30"><%= f.radio_button :status, true %>是</label>
+      <label><%= f.radio_button :status, false %>否</label>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group row mt_50">
+  <div class="col-sm-offset-4 col-sm-4">
+    <%= link_to '取消', msg_chats_path, class: 'btn btn-default mr_20 btn-lg', role: 'button' %>
+    <%= f.submit '保存', class: 'btn btn-primary btn-lg', id: 'msg_chat_submit' %>
+  </div>
+</div>
+

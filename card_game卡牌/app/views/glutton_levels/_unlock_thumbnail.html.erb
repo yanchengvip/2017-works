@@ -1,0 +1,76 @@
+<input  type="hidden"  name="unlock_thumbnail" id="unlock_img_url" value="<%= @unlock_thumbnail_path %>" class="form-control">
+
+
+<div class="panel panel-info">
+  <div class="panel-heading">未解锁形象</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-8 col-md-4">
+        <img id="preview_unlock_thumbnail" src="<%= @unlock_thumbnail %>">
+
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer"><input type="file" id="upload_unlock_img" name="file" accept=".png, .jpg, .jpeg" data_for='glutton' ></div>
+</div>
+
+
+
+<script type="text/javascript">
+  $(document).on('turbolinks:load', function () {
+    //上传一个头像方法
+    $('#upload_unlock_img').fileupload({
+        dataType: 'json',
+        url: '/images/upload',
+        sequentialUploads: true,
+        //maxFileSize: 5000000, //5mb
+        add: function (e, data) {
+            var acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+            if(data.originalFiles[0]['type'].length <= 0){
+                alertTX('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+            if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+                alertTX('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+            if (($(this).attr('data_for') == 'glutton') && (data.originalFiles[0]['size'] > 200000)) {
+                // alert($(this).attr('data_for'))
+                alertTX('只能上传不超过200K的图片')
+                return false
+            }
+            if (data.originalFiles[0]['size'] > 5000000) {
+                alertTX('只能上传不超过5000K的图片')
+                return false
+            }
+            data.submit();
+
+        },
+        complete: function (result, textStatus, jqXHR) {
+            var data = JSON.parse(result.responseText)
+            $("#unlock_img_url").val(data.img_path)
+            $("#preview_unlock_thumbnail").attr('src', data.img_url)
+        }
+
+    });
+
+
+});
+
+
+//form验证图片是否存在
+function validateImageForm() {
+//头像验证
+    if ($('#unlock_img_url').length > 0) {
+        unlock_thumbnail = $('#unlock_img_url').val()
+        if (unlock_thumbnail == "" || unlock_thumbnail == 'undefined') {
+            alertTX('头像不能为空')
+            return false
+        }
+    }
+
+}
+
+
+
+</script>

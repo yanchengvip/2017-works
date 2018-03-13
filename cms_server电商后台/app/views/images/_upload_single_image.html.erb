@@ -1,0 +1,100 @@
+<input type="hidden" id="<%= prev_id %>">
+<input  type="hidden"  name="<%= item_name %>" id="<%= item_id %>" value="<%= image_path %>" class="form-control" placeholder="缩略图">
+<input  type="hidden" id="auction_pic_image" value="<%= item_id %>" class="form-control" >
+
+
+<div class="panel panel-info">
+  <div class="panel-heading">缩略图(仅一张;)</div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-8 col-md-4">
+        <img id="<%= preview_id %>" src="<%= image_path.to_s + '.m110.jpg' %>" width="100" height='100'>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer"><input type="file" id="<%= upload_btn_id %>" name="file" accept=".png, .jpg, .jpeg" ></div>
+</div>
+
+
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    text = $("#auction_pic_image").val()
+    if(text == "auction_pic_ad_pic"){
+      $(".panel-heading").html("缩略图(仅一张;)轮播图片建议像素790*450")
+    }else {
+      $(".panel-heading").html("缩略图(仅一张;)")
+    }
+    //上传一个缩略图方法
+    $('#' + "<%= upload_btn_id %>").fileupload({
+        dataType: 'json',
+        <% if current_user.class.to_s == 'Manage::Editor' %>
+          url: '/images/upload',
+        <% elsif current_user.class.to_s == 'Supplier::Provider' %>
+          url: '/supplier/images/upload',
+        <% end %>
+        sequentialUploads: true,
+        //maxFileSize: 5000000, //5mb
+        add: function (e, data) {
+            var acceptFileTypes = /(\.|\/)(gif|jpe?g|png)$/i;
+            if(data.originalFiles[0]['type'].length <= 0){
+                elert('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+            if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+                elert('图片格式不正确！只能上传jpg,png等图片')
+                return false
+            }
+            // if (($(this).attr('data_for') == 'copy') && (data.originalFiles[0]['size'] > 30000)) {
+            //     elert('文案只能上传不超过30K的图片')
+            //     return false
+            // }
+            // else if (data.originalFiles[0]['size'] > 1000000) {
+            //     elert('只能上传不超过1000K的图片')
+            //     return false
+            // }
+            data.submit();
+
+        },
+        complete: function (result, textStatus, jqXHR) {
+            var data = JSON.parse(result.responseText)
+            console.log(data.img_path)
+            $("#" + "<%= prev_id %>").next().val(data.img_path)
+            $("#" + "<%= preview_id %>").attr('src', data.img_url + '.m110.jpg')
+        }
+
+    });
+
+    $('#' + "<%= upload_btn_id %>").bind('fileuploadsubmit', function (e, data) {
+        data.formData = { model_name: "<%= model_name.presence || 'no_model'  %>" };
+    });
+
+  });
+
+
+  //form验证图片是否存在
+  function validateImageForm() {
+  //缩略图验证
+      if ($('#' + "<%= prev_id %>").next().length > 0) {
+          thumbnail = $('#' + "<%= prev_id %>").next().val()
+          if (thumbnail == "" || thumbnail == 'undefined') {
+              elert('缩略图不能为空')
+              return false
+          }
+      }
+  //展示图片验证
+      if ($('#image_urls').length > 0) {
+          image_urls = $('#image_urls').val()
+          if (image_urls == "" || image_urls == 'undefined') {
+              elert('展示图不能为空');
+              return false
+          }
+      }
+
+
+  }
+
+
+</script>

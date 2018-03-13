@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Account Masters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Master</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @account_masters.each do |account_master| %>
+      <tr>
+        <td><%= account_master.account_id %></td>
+        <td><%= account_master.master_id %></td>
+        <td><%= link_to 'Show', account_master %></td>
+        <td><%= link_to 'Edit', edit_account_master_path(account_master) %></td>
+        <td><%= link_to 'Destroy', account_master, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Account Master', new_account_master_path %>

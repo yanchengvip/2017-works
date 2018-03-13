@@ -1,0 +1,57 @@
+<!-- 上下架modal -->
+<div class="modal fade" id="confirmRechargePhoneOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">订单<span id="confirm_title"></span></h4>
+      </div>
+      <!-- <form action="/packages/confirm" method="post"> -->
+        <div class="modal-body">
+          <h3>确定<span id="confirm_status"></span>该号码<!-- <span id="confirm_game_type_name"></span> -->吗？</h3>
+
+          <input type="hidden" id="confirm_mall_order_id">
+          <input type="hidden" id="confirm_mall_order_status">
+          <input type="hidden" id="confirm_from">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="do_confirm">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_confirm').on('click', function(){
+      var confirm_id = $('#confirm_mall_order_id').val()
+      console.log(confirm_id)
+      $.ajax({
+        type: "post",
+        url: '/recharges/confirm',
+        data: { confirm_status: $('#confirm_mall_order_status').val(), confirm_from: $('#confirm_from').val(), confirm_id: confirm_id},
+        success: function(result){
+          if(result.status == 200){
+            $('#confirmRechargePhoneOrderModal').modal('hide')
+            setTimeout(function(){
+              window.location.reload()
+            },1500);
+          }else{
+            $('#confirmRechargePhoneOrderModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#confirmRechargePhoneOrderModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

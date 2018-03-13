@@ -1,0 +1,16 @@
+test: &default
+
+  # Credentials for REST APIs
+  client_id: 123
+  client_secret: 123
+
+  # Mode can be 'live' or 'sandbox'
+  mode: sandbox
+
+
+
+development:
+  <<: *default
+
+production:
+  <<: *default

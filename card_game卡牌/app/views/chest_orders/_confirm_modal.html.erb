@@ -1,0 +1,55 @@
+<!-- 上下架modal -->
+<div class="modal fade" id="confirmChestOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">宝箱<span id="confirm_title"></span></h4>
+      </div>
+      <!-- <form action="/packages/confirm" method="post"> -->
+        <div class="modal-body">
+          <h3>确定<span id="confirm_status"></span>该号码<!-- <span id="confirm_game_type_name"></span> -->吗？</h3>
+
+          <input type="hidden" id="confirm_chest_order_id">
+          <input type="hidden" id="confirm_chest_order_status">
+          <input type="hidden" id="confirm_from">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="do_confirm">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_confirm').on('click', function(){
+      var confirm_id = $('#confirm_chest_order_id').val()
+      console.log(confirm_id)
+      $.ajax({
+        type: "post",
+        url: '/chest_orders/'+confirm_id+'/confirm',
+        data: { confirm_status: $('#confirm_chest_order_status').val(), confirm_from: $('#confirm_from').val()},
+        success: function(result){
+          if(result.status == 200){
+            $('#confirmChestOrderModal').modal('hide')
+            window.location.reload();
+          }else{
+            $('#confirmChestOrderModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#confirmChestOrderModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

@@ -1,0 +1,39 @@
+<p class="sub-header">奇珍商城>商品管理>商品详情><%= @mall_product.name %></p>
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>商品详情</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">商品ID：<%= @mall_product.id %></li>
+    <li class="list-group-item">商品名称：<%= @mall_product.name %></li>
+    <li class="list-group-item">SKU：<%= @mall_product.sku %></li>
+    <li class="list-group-item">商品类别：<%= mall_product_tag_name(@mall_product.mall_product_tag_ids) %></li>
+    <li class="list-group-item">市场价格：<%= @mall_product.market_price.to_f %></li>
+    <li class="list-group-item">商品库存：<%= @mall_product.inventory_count %></li>
+    <li class="list-group-item">兑换方式：
+      <% if @mall_product.glory_exchange %>
+          功勋：<%= @mall_product.glory%>
+      <% end %>
+      <% if @mall_product.score_exchange %>
+          微集分：<%= @mall_product.score%>
+      <% end %>
+    </li>
+    <li class="list-group-item">邮费：<%= @mall_product.postage.to_f %></li>
+    <li class="list-group-item">商品描述：<%= raw(@mall_product.desc) %></li>
+    <li class="list-group-item">上架状态：<%= product_channel @mall_product %></li>
+    <li class="list-group-item">商品缩略图：
+
+      <div class="row">
+        <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + @mall_product.thumbnail %>">
+      </div>
+    </li>
+    <li class="list-group-item">商品展示图片：
+      <div class="row">
+        <% @mall_product.images.each do |img| %>
+            <img src="<%= FASTDFSCONFIG[:fastdfs][:tracker_url] + img.url %>" alt="<%= @mall_product.name %>">
+        <% end %>
+      </div>
+
+    </li>
+  </ul>
+
+</div>

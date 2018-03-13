@@ -1,0 +1,2 @@
+module Auction::PicAdsHelper
+end

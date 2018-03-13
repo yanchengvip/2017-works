@@ -1,0 +1,87 @@
+<%= javascript_include_tag 'auction/bootstrap-table.min' %>
+<%= stylesheet_link_tag 'auction/bootstrap-table.min' %>
+<%= javascript_include_tag 'auction/trade_bootstrap_table_tooltip' %>
+
+<table class="table table-hover" id="table" data-toggle="table"
+       data-detail-view="true"
+       data-detail-formatter="supplierTradeDetail">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>用户订单ID</th>
+    <th>状态</th>
+    <th>用户订单号</th>
+    <th>商家订单号</th>
+    <th>总价格</th>
+    <!--<th>余额价格</th>-->
+    <th>支付价格</th>
+    <!--<th>支付优惠</th>-->
+    <!--<th>收货地址</th>-->
+    <!--<th>发票地址</th>-->
+    <th>付款</th>
+    <th>收货信息</th>
+    <th>快递</th>
+    <th>快递单号</th>
+    <!--<th>发票快递</th>-->
+    <th>创建时间</th>
+    <th>备注</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @trades.each_with_index  do |trade,index| %>
+      <tr>
+        <td><%= trade.id %></td>
+        <td><a href="/auction/trades/<%= trade.auction_trade.id %>"><%= trade.auction_trade.id %></a></td>
+        <td><%= Auction::Trade::STATUS[trade.status] %></td>
+        <td><%= trade.auction_trade&.identifier %></td>
+        <td><%= trade.identifier ||= '无' %></td>
+        <td><%= trade.price.to_f %></td>
+        <!--<td><%#= trade.balance_price.to_f%></td> &lt;!&ndash;余额价格&ndash;&gt;-->
+        <td><%= trade.payment_price.to_f %></td>
+        <!--<td><%#= trade.checkout_discount.to_f%></td> &lt;!&ndash;支付优惠&ndash;&gt;-->
+        <!--<td><%#= trade.contact&.name %></td>-->
+        <!--<td><%#= trade.invoice_contact&.name%></td>&lt;!&ndash; 发票地址 &ndash;&gt;-->
+
+        <td><%= Auction::Trade::PAYMENTSERVICE[trade.auction_trade&.payment_service.to_s] %></td>
+        <td>
+          <a href="#" data-toggle="popover" data-trigger="hover" data-placement="<%= trade_popover_placement index%>"  data-html="true" title="收货信息"
+             data-content="<div>
+             <h4>用户信息</h4> 用户ID: <%= trade.account.id%>
+             <h4>收货信息</h4>收货人:<%= trade.contact&.name%>;
+             收货电话: <%= trade.contact&.phone%>
+             <h4>物流信息</h4>
+             物流方式:<%= Auction::Trade::DELIVERYSERVICE[trade.delivery_service.to_s] %>;
+             物流单号:<%= trade.delivery_identifier ||= '无' %>
+             </div>"  >
+            <%= trade.contact&.name%>
+          </a>
+        </td>
+        <td><%= Auction::Trade::DELIVERYSERVICE[trade.delivery_service.to_s] %></td><!-- 快递 -->
+        <td><%= trade.delivery_identifier ||= '无' %></td>
+
+        <!--<td><%#= Auction::Trade::DELIVERYSERVICE[trade.invoice_delivery_service]%></td>发票地址-->
+        <td><%= trade.created_at.present? ? trade.created_at.strftime('%Y-%m-%d') : ''%></td>
+        <td>
+
+          <a href="#" data-toggle="popover" data-trigger="hover" data-placement="<%= trade_popover_placement index%>"  data-html="true" title="收货信息"
+             data-content="<%= trade.remark.present? ? trade.remark : '无'%>"  >
+              详情
+          </a>
+
+        </td>
+        <td>
+          <a href="/auction/supplier_trades/<%= trade.id%>" class="btn btn-sm btn-info">详情</a>
+          <!--<a href="/auction/trades/supplier_trade_edit/?id=<%#= trade.id%>" class="btn btn-sm btn-warning">编辑</a>-->
+        </td>
+      </tr>
+  <% end %>
+
+  </tbody>
+
+</table>
+
+<div id="test" style="background: #000000">
+  <%= paginate @trades %>
+</div>
+

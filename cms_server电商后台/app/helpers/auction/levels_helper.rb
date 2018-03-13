@@ -1,0 +1,2 @@
+module Auction::LevelsHelper
+end

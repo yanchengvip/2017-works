@@ -1,0 +1,29 @@
+<p class="sub-header">营销管理><%= msg_type_str(params[:msg_type]) %>>新增</p>
+
+<form action="/msg_records" method="post">
+
+  <% if params[:msg_type] == '1' %>
+    <%= render partial: 'msg_records/new_form/push_form' %>
+  <% elsif params[:msg_type] == '2' %>
+    <%= render partial: 'msg_records/new_form/notice_form' %>
+  <% elsif params[:msg_type] == '3' %>
+    <%= render partial: 'msg_records/new_form/activity_form' %>
+  <% end %>
+
+  <div class="form-group mt_50">
+    <div class="col-sm-offset-2 col-sm-4">
+      <% if params[:msg_type] == '1' %>
+        <%= link_to '取消', "/msg_records", class: 'btn btn-default mr_20', role: 'button' %>
+      <% elsif params[:msg_type] == '2' %>
+        <%= link_to '取消', "/msg_records/notices", class: 'btn btn-default mr_20', role: 'button' %>
+      <% elsif params[:msg_type] == '3' %>
+        <%= link_to '取消', "/msg_records/activities", class: 'btn btn-default mr_20', role: 'button' %>
+      <% end %>
+      <button type="submit" class="btn btn-primary">保存并发布</button>
+    </div>
+  </div>
+
+</form>
+
+
+

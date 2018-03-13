@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @account_tactic.account_id %>
+</p>
+
+<p>
+  <strong>Tactic:</strong>
+  <%= @account_tactic.tactic_id %>
+</p>
+
+<p>
+  <strong>Follow money:</strong>
+  <%= @account_tactic.follow_money %>
+</p>
+
+<p>
+  <strong>Dealer type:</strong>
+  <%= @account_tactic.dealer_type %>
+</p>
+
+<p>
+  <strong>Dealer:</strong>
+  <%= @account_tactic.dealer_id %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @account_tactic.active %>
+</p>
+
+<%= link_to 'Edit', edit_account_tactic_path(@account_tactic) %> |
+<%= link_to 'Back', account_tactics_path %>

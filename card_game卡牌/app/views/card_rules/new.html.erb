@@ -1,0 +1,46 @@
+<p class="sub-header">战场管理>卡牌规则><%= @sub_title%></p>
+<div class="panel panel-info">
+  <div class="panel-heading">卡牌使用规则</div>
+  <div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <% 6.times do |bn| %>
+          <!--<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">1</a></li>-->
+          <% if bn==0 %>
+              <li role="presentation" class="active">
+                <a href="#r<%= bn+1 %>" aria-controls="profile" role="tab" data-toggle="tab">第<%= bn+1 %>轮</a>
+              </li>
+          <% else %>
+              <li role="presentation">
+                <a href="#r<%= bn+1 %>" aria-controls="profile" role="tab" data-toggle="tab">第<%= bn+1 %>轮</a></li>
+          <% end %>
+
+      <% end %>
+    </ul>
+
+    <!-- Tab panes -->
+    <form action="/card_rules" method="post">
+      <div class="tab-content">
+        <%@flag = MyUtils.generate_uuid%>
+        <% 6.times do |bn| %>
+            <% if bn==0 %>
+                <div role="tabpanel" class="tab-pane active" id="r<%= bn+1 %>">
+                  <%= render 'card_rules/new_card_table', locals: {bout_number: bn+1,flag: @flag} %>
+                </div>
+            <% else %>
+                <div role="tabpanel" class="tab-pane" id="r<%= bn+1 %>">
+                  <%= render 'card_rules/new_card_table', locals: {bout_number: bn+1,flag: @flag} %>
+                </div>
+            <% end %>
+        <% end %>
+        <div class="form-group row">
+          <label for="input" class="col-sm-4 col-form-label"></label>
+          <div class=" col-sm-8">
+            <button type="submit" class="btn-lg btn-primary">保存</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<%# url ||= cards_path %>
+<div class="row placeholders well">
+  <%= form_for cards_path, html: {method: :get, class: "navbar-form navbar-left", id: 'search_form'}  do |f| %>
+    <div class="form-group row">
+      <span>卡牌名称：</span>
+      <%= text_field_tag "q[name_cont]", params[:q][:name_cont], class: "form-control mr_50", placeholder: "卡牌名称" %>
+
+      <span>卡牌分类：</span>
+      <%= select_tag "q[card_type_eq]", options_for_select([["所有分类", nil]] + Card::CARDTYPE.to_a.map(&:reverse), params[:q][:card_type_eq]), class: 'form-control mr_50' %>
+    </div>
+    <%= f.submit '搜索', class: "btn btn-primary mr_10" %>
+    <!-- <button type="reset" class="btn btn-default" id="reset_form">重置</button> -->
+  <% end %>
+</div>

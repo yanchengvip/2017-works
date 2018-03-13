@@ -1,0 +1,30 @@
+<p class="sub-header">系统管理>资源管理>用户红包明细</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>状态</th>
+      <th>用户ID</th>
+      <th>红包ID</th>
+      <th>金额</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @promotion_red_package_items.each do |promotion_red_package_item| %>
+        <tr>
+          <td><%= promotion_red_package_item.id%></td>
+          <td><%= promotion_red_package_item.status%></td>
+          <td><%= promotion_red_package_item.user_id%></td>
+          <td><%= promotion_red_package_item.red_package_id%></td>
+          <td><%= promotion_red_package_item.amount%></td>
+          <td>
+          </td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+<%= paginate @promotion_red_package_items %>

@@ -1,0 +1,50 @@
+<div class="row"><p class="sub-header">营销管理>邮件管理>邮件分类</p></div>
+
+<%#= render partial: 'search' %>
+
+<div class="row mt_20 mb_20">
+  <%= link_to '新增分类', new_mail_type_path, class: 'btn btn-primary', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>分类名称</th>
+        <th>是否有奖励</th>
+        <!-- <th>是否有奖励</th> -->
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @mail_types && @mail_types.each_with_index do |mail_type, index| %>
+      <tr id="tr_<%= mail_type.id %>">
+        <td><%= mail_type.id %></td>
+        <td><%= mail_type.name %></td>
+        <td><%= mail_type.category.to_i == 2 ? '是' : '否' %></td>
+        <!-- <td><%#= mail_type.status ? '启用' : '禁用' %></td> -->
+        <td>
+          <%#= link_to '查看', mail_type_path(mail_type), class: 'btn btn-sm btn-info' %>
+          <%= link_to '编辑', edit_mail_type_path(mail_type), class: 'btn btn-sm btn-primary' %>
+          <%# if mail_type.status %>
+            <%#= link_to '停用', "javascript:void(0)", onclick: "mail_type_able(#{mail_type.id}, '#{mail_type.name}', 0)", role: 'button', class: 'btn btn-sm btn-danger' %>
+          <%# else %>
+            <%#= link_to '启用', "javascript:void(0)", onclick: "mail_type_able(#{mail_type.id}, '#{mail_type.name}', 1)", role: 'button', class: 'btn btn-sm btn-success' %>
+          <%# end %>
+          <%# if game_type.status == 0 %>
+            <%#= link_to '删除', "javascript:void(0)", onclick: "game_type_delete(#{game_type.id}, '#{game_type.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+            <%= link_to '删除', mail_type_path(mail_type), method: :delete, data: {confirm: '确定要删除吗'}, role: 'button', class: 'btn btn-sm btn-danger' %>
+          <%# end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @mail_types %>
+
+<%#= render partial: 'able_modal' %>
+
+

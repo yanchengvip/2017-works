@@ -1,0 +1,17 @@
+<%= form_with(model: pay_cmb_sign, local: true) do |form| %>
+  <% if pay_cmb_sign.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(pay_cmb_sign.errors.count, "error") %> prohibited this pay_cmb_sign from being saved:</h2>
+
+      <ul>
+      <% pay_cmb_sign.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

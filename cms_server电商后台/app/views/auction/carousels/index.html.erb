@@ -1,0 +1,29 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>版本</th>
+      <th>尺寸</th>
+      <th>图片</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @auction_carousels.each do |auction_carousel| %>
+    <tr>
+      <td><%= Auction::Carousel::VERSIONTYPE[auction_carousel.version_type]%></td>
+      <td><%= auction_carousel.measurement%></td>
+      <td><%= image_tag (auction_carousel.pic) || '', width: 60, height: 60, class: 'list' if auction_carousel.pic %></td>
+      <td>
+        <% if current_user.can?("auction/carousels#edit")%>
+          <a href="/auction/carousels/<%= auction_carousel.id%>/edit" class="btn btn-warning btn-sm">编辑</a>
+        <% end %>
+        <% if current_user.can?("auction/carousels#destroy")%>
+          <%= link_to '删除', auction_carousel, method: :delete, data: { confirm: 'Are you sure?你确定吗？' },class: "btn btn-danger btn-sm" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @auction_carousels%>

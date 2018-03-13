@@ -1,0 +1,53 @@
+
+<div class="row placeholders">
+  <form action="/mall_products/onshelf" method="get" class="navbar-form navbar-left">
+    商品名称：<input type="text" name="name" class="form-control" placeholder="商品名称">
+    <button type="submit" class="btn btn-success">搜索</button>
+  </form>
+</div>
+
+<p class="sub-header">奇珍商城>商品管理>在售商品</p>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>上架时间</th>
+      <th>商品名称</th>
+      <th>市场价格</th>
+      <th>通兑方式</th>
+      <th>功勋</th>
+      <th>微集分价格</th>
+      <th>剩余库存</th>
+      <th>当前排序</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%@mall_products.each_with_index do |mp,index|%>
+        <tr>
+          <td><%= mp.id%></td>
+          <td><%= datetime_format mp.on_shelf_time%></td>
+          <td><%= mp.name%></td>
+          <td><%= mp.market_price%></td>
+          <td><%= MallProduct::EXCHANGETYPE[mp.exchange_type]%></td>
+          <td><%= mp.micro_ticket%></td>
+          <td><%= mp.micro_score%></td>
+          <td><%= mp.inventory_count%></td>
+          <td><%= mp.sort%></td>
+          <td>
+            <a href="javascript:void(0)" onclick="obj_sort_modal(<%=mp.id%>,'<%=mp.name%>','商品排序')" class="btn btn-info btn-sm">调整排序</a>
+            <a href="javascript:void(0)" onclick="obj_shelf_modal(<%=mp.id%>,'<%=mp.name%>',0,'')"  class="btn btn-warning btn-sm">下架商品</a>
+          </td>
+        </tr>
+    <%end%>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate  @mall_products%>
+
+<%= render 'shared/obj_delete_modal',locals:{title: '商品删除',url: '/mall_products/destroy'}%>
+<%= render 'shared/obj_onshelf_modal',locals:{title: '商品下架',url: '/mall_products/update_status'}%>
+<%= render 'shared/obj_sort_modal',locals:{title: '商品排序',url: '/mall_products/sort'}%>

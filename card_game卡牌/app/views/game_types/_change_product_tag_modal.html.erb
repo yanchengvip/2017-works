@@ -1,0 +1,55 @@
+<!-- modal -->
+<div class="modal fade" id="changeProductTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">赛场类型<span id="shelf_title"></span></h4>
+      </div>
+      <!-- <form action="/packages/shelf" method="post"> -->
+        <div class="modal-body">
+          <h3>确定要修改重宝类型吗，点击确定将会把之前配置的该赛场类型的重宝清空，需要重新配置？</h3>
+
+          <input type="hidden" id="modal_init_product_tag_id">
+          <input type="hidden" id="modal_new_product_tag_id">
+          <input type="hidden" id="init_game_type_id">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="do_change">确定</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('#do_change').on('click', function(){
+      var new_product_tag_id = $('#modal_new_product_tag_id').val()
+      console.log(new_product_tag_id)
+      $.ajax({
+        type: "post",
+        url: '/game_types/'+shelf_id+'/shelf',
+        data: { shelf_status: $('#shelf_game_type_status').val()},
+        success: function(result){
+          if(result.status == 200){
+            $('#changeProductTagModal').modal('hide')
+            window.location.reload();
+          }else{
+            $('#changeProductTagModal').modal('hide')
+            elert(result.msg)
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#changeProductTagModal').modal('hide')
+          elert('操作失败')
+        }
+      })
+    })
+  })
+
+</script>

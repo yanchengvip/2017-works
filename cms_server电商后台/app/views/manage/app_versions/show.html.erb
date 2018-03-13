@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App type:</strong>
+  <%= @manage_app_version.app_type %>
+</p>
+
+<p>
+  <strong>App version:</strong>
+  <%= @manage_app_version.app_version %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manage_app_version.name %>
+</p>
+
+<p>
+  <strong>Mode:</strong>
+  <%= @manage_app_version.mode %>
+</p>
+
+<p>
+  <strong>Version code:</strong>
+  <%= @manage_app_version.version_code %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @manage_app_version.url %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @manage_app_version.active %>
+</p>
+
+<%= link_to 'Edit', edit_manage_app_version_path(@manage_app_version) %> |
+<%= link_to 'Back', manage_app_versions_path %>

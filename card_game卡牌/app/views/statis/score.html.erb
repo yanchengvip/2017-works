@@ -1,0 +1,85 @@
+<p class="sub-header">统计>数据统计>微集分明细</p>
+<div class="row placeholders well">
+  <%= form_for score_statis_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>起始时间：</span>
+      <%= text_field_tag 'q[create_time_gteq]', params[:q][:create_time_gteq], class: 'form-control mr_20 search_time_begin', placeholder: '起始时间' %>
+      <span>结束时间：</span>
+      <%= text_field_tag 'q[create_time_lteq]', params[:q][:create_time_lteq], class: 'form-control mr_20 search_time_end', placeholder: '结束时间' %>
+      <span>用户手机号：</span>
+      <%= text_field_tag 'mobile', params[:mobile], class: 'form-control mr_20', placeholder: '用户手机号：' %>
+      <span>交易状态:</span>
+      <select class="select2-picker form-control select-width-10" name="q[change_type_eq]" >
+        <option value=''>全部</option>
+        <option value='1' <%= is_selected(1, params[:q][:change_type_eq].to_i) %>>增加</option>
+        <option value='2' <%= is_selected(2, params[:q][:change_type_eq].to_i) %>>减少</option>
+      </select>
+      <span>交易类型:</span>
+      <select class="select2-picker form-control select-width-10" name="q[type_eq]" >
+        <option value=''>全部</option>
+        <option value='1' <%= is_selected(1, params[:q][:type_eq].to_i) %>>兑换能量</option>
+        <option value='2' <%= is_selected(2, params[:q][:type_eq].to_i) %>>购买优惠卷</option>
+        <option value='3' <%= is_selected(3, params[:q][:type_eq].to_i) %>>购买商品</option>
+        <option value='4' <%= is_selected(4, params[:q][:type_eq].to_i) %>>退货</option>
+        <option value='5' <%= is_selected(5, params[:q][:type_eq].to_i) %>>过期清除</option>
+        <option value='6' <%= is_selected(6, params[:q][:type_eq].to_i) %>>补差价</option>
+        <option value='7' <%= is_selected(7, params[:q][:type_eq].to_i) %>>兑换商品</option>
+      </select>
+      <!-- <%= f.submit '查询', class: 'btn btn-primary' %> -->
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+    </div>
+  <% end %>
+</div>
+
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <!-- <th></th> -->
+        <th>用户ID</th>
+        <th>手机号</th>
+        <th>交易时间</th>
+        <th>交易数量</th>
+        <th>交易状态</th>
+        <th>交易类型</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @account_logs && @account_logs.each_with_index do |account_log, index| %>
+        <%if true || account_log.user_third_party&.card_user%>
+          <tr id="tr_<%= account_log.id %>">
+            <!-- <td><%#= account_log.id %></td> -->
+            <td>
+              <%= account_log.user_third_party&.card_user&.id %>
+            </td>
+            <td><%= account_log.user_third_party&.third_account %></td>
+            <td><%= account_log.create_time&.strftime("%Y-%m-%d %H:%M") %></td>
+            <td><%= account_log.change_amount %></td>
+            <td><%= change_type_txt(account_log.change_type) %></td>
+            <td><%= al_type_txt(account_log.type) %></td>
+            <!-- <td>
+              <%#= link_to '下载', "javascript:void(0)", onclick: "account_log_delete(#{account_log.id}, '#{account_log.name}')", role: 'button', class: 'btn btn-sm btn-danger' %>
+            </td> -->
+          </tr>
+        <%end%>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @account_logs %>
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/statis/score.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/statis/score'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/statis/score'
+      $("#search_form").submit()
+    })
+  })
+</script>

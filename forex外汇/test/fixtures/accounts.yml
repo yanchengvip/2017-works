@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  name: MyString
+  email: MyString
+  phone: MyString
+  typee: 1
+  dealer_id: 1
+  dealer_type: 1
+  idnumber_type: 1
+  idnumber: MyString
+  address: MyString
+  zipcode: MyString
+  city: MyString
+  province: MyString
+  country: MyString
+  mt4_account: MyString
+  mt4_group: MyString
+  leverage: 1
+  balance: 9.99
+  equity: 9.99
+
+two:
+  user_id: 1
+  name: MyString
+  email: MyString
+  phone: MyString
+  typee: 1
+  dealer_id: 1
+  dealer_type: 1
+  idnumber_type: 1
+  idnumber: MyString
+  address: MyString
+  zipcode: MyString
+  city: MyString
+  province: MyString
+  country: MyString
+  mt4_account: MyString
+  mt4_group: MyString
+  leverage: 1
+  balance: 9.99
+  equity: 9.99

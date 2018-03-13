@@ -1,0 +1,57 @@
+<p class="sub-header">系统管理>宝箱管理>兑换码详情</p>
+<div class="panel panel-default">
+  <div class="panel-heading">兑换码详情>>
+    总数:<%= @all_num%>;
+    已用:<%= @use_num%>;
+    剩余:<%= @not_use_num%>
+    <a href="/box_prize_codes/down_csv.csv?box_prize_id=<%= @box_prize.id%>" class="btn btn-info btn-sm " role="button">下载</a>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>兑奖码</th>
+          <th>赠送类型</th>
+          <th>赠送付费宝箱符</th>
+          <th>赠送免费宝箱符</th>
+          <% if @box_prize.prize_type == 1 %>
+              <th>生成数量</th>
+              <th>已用数量</th>
+          <% end %>
+          <% if @box_prize.prize_type == 2 %>
+              <th>可用次数</th>
+              <th>剩余次数</th>
+          <% end %>
+        </tr>
+        </thead>
+        <tbody>
+        <% @box_prize_codes.each do |bpc| %>
+            <tr>
+              <td><%= bpc.id %></td>
+              <td><%= bpc.code %></td>
+              <td><%= BoxPrizeRecord::TREASURETYPE[@box_prize.treasure_type] %></td>
+              <td><%= @box_prize.treasure_amount %>个</td>
+              <td><%= @box_prize.free_treasure_amount %>个</td>
+              <% if @box_prize.prize_type == 1 %>
+                  <td><%= bpc.num %></td>
+                  <td><%= bpc.use_num %></td>
+              <% end %>
+              <% if @box_prize.prize_type == 2 %>
+                  <td><%= bpc.num - bpc.use_num %></td>
+                  <td><%= bpc.use_num %></td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+    <%= paginate @box_prize_codes %>
+  </div>
+</div>
+
+
+
+

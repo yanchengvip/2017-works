@@ -1,0 +1,12 @@
+<div class="row placeholders well">
+  <%= form_for mail_types_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+      <span>分类名称：</span>
+      <%= text_field_tag "q[name_cont]", params[:q][:name_cont], class: 'form-control mr_20', placeholder: '分类名称' %>
+      <!-- <span>是否有奖励：</span>
+      <%#= select_tag "q[category_eq]", options_for_select([['所有类型', nil]] + MailType::CATEGORY.to_a.map(&:reverse), params[:q][:category_eq]), class: 'form-control mr_50'  %> -->
+
+      <%= f.submit '查询', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

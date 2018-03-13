@@ -1,0 +1,17 @@
+<%= form_with(model: core_account, local: true) do |form| %>
+  <% if core_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(core_account.errors.count, "error") %> prohibited this core_account from being saved:</h2>
+
+      <ul>
+      <% core_account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

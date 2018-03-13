@@ -1,0 +1,43 @@
+<!--富文本上传图片-->
+<input name="file" id="tinymce_image" type="file" style="display:none">
+
+<script type="text/javascript">
+  tinyMCE.init({
+    selector: "<%= '#' + text_id %>" ,
+    content_style: "body {background-color: #394034 !important;}",
+    language: 'zh_CN',
+    height : 300,
+    toolbar: 'undo redo | styleselect | bold italic alignleft aligncenter alignright alignjustify forecolor backcolor | link image',
+    plugins: "image imagetools textcolor",
+    menubar: '',
+    images_upload_url: '/images/upload',
+    automatic_uploads: true,
+    file_browser_callback_types: 'image',
+    file_browser_callback: function(field_name, url, type, win){
+      if(type=='image') {
+        $("#tinymce_image").click()
+        $('#tinymce_image').fileupload({
+            dataType: 'json',
+            url: '/images/upload',
+            accept: 'application/json',
+            sequentialUploads: true,
+            //maxFileSize: 5000000, //5mb
+            add: function(e,data){
+                if(data.originalFiles[0]['size'] > 5000000){
+                    alert('图片最大为30k')
+                }else{
+                    data.submit();
+                }
+
+            },
+            complete: function(result, textStatus, jqXHR){
+                var data = JSON.parse(result.responseText)
+                win.document.getElementById(field_name).value = data.img_url;
+            }
+
+        });
+      }
+
+    }
+  });
+</script>

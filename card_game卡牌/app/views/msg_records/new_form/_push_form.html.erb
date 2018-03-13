@@ -1,0 +1,18 @@
+
+  <input type="hidden" name="msg_type" value="<%= @msg_record.msg_type %>">
+  <div class="form-group row">
+    <label for="msg_title" class="col-sm-1 col-form-label">*标题</label>
+    <div class="col-sm-6">
+      <input type="text" name="title" value="<%= @msg_record.title %>" class="form-control" placeholder="最多30汉字" id='msg_title' required="required" onkeyup="validate_length_of_words(this.id,30)">
+      <p class="bg-danger p_last_num left_str_num"></p>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="msg_content" class="col-sm-1 col-form-label">消息内容</label>
+    <div class="col-sm-6">
+      <textarea class="form-control" name="content" rows="5" id="msg_content" required="required" placeholder="消息内容"><%= @msg_record.content %></textarea>
+      <p class="bg-danger p_last_num" id="apd_last_num"></p>
+    </div>
+  </div>
+

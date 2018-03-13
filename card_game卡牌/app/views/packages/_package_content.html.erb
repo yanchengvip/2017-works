@@ -1,0 +1,43 @@
+<div class="form-group mt_50 row">
+  <legend><h3>礼包内容</h3></legend>
+</div>
+
+<input type="hidden" id="package_items_temp_id" value="100000">
+
+<div class="form-group row">
+  <div class="col-sm-10">
+    <table class="table table-striped table-hover" id="items_table_random">
+      <thead>
+        <tr class="info">
+          <th>奖品类型</th>
+          <th width="30%">奖品<!-- 范围（<span class="range_text">多选</span>） --></th>
+          <th>数量</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="package_content">
+        <% if @package.package_items %>
+          <%= render partial: 'content_own' %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to '添加', 'javascript:void(0)', id: 'add_content', class: 'btn btn-success' %>
+  </div>
+</div>
+
+
+<%= render partial: 'item_type_modal' %>
+
+<!-- 多选的中奖范围 -->
+<%#= render partial: 'range_modal' %>
+
+<script type="text/javascript">
+  $(function(){
+    // 添加
+    $('#add_content').on('click', function(){
+      $('#chosePackageItemTypeModal').modal('show')
+    })
+  })
+
+</script>

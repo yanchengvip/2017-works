@@ -1,0 +1,67 @@
+<% @choose_supplier_products && @choose_supplier_products.each_with_index do |supplier_product, index| %>
+  <tr>
+    <td><%= supplier_product.name %></td>
+    <td><input type="text" name="supplier_product[id]" disabled="true" value="<%= supplier_product.id %>"></td>
+    <td><input placeholder="新结算价" class="form-control" required="required" type="text" id="provider_price" onchange="chage(this.value,<%= index%>,<%= current_user.partner_type%>,<%= current_user.invoice_type%>);"></td>
+    <td><%= index + 1%></td>
+    <td><%= image_tag (supplier_product.major_pic) || '', width: 60, height: 60, class: 'list' if supplier_product.major_pic %></td>
+    <td><%= pcategory(supplier_product) %></td>
+    <td><%= supplier_product.price %></td>
+    <td><%= supplier_product.skus&.sum(:amount) %></td>
+    <td id="discount_<%= index%>"><%= supplier_product.discount %></td>
+    <td><%= supplier_product.provider_price %></td>
+    <td id="out_<%= index%>"></td>
+    <td id="down_<%= index%>"></td>
+    <td id="ac_price_<%= index%>"></td>
+  </tr>
+<% end %>
+
+<script type="text/javascript">
+  function chage(price,index,partner_type,invoice_type){
+    rate_of_margin = $("#rate_of_margin").val()  //毛利率
+    discount_type = $("#discount_type").val()  //折扣方式
+    multiple_sales_discount = $("#multiple_sales_discount").val() //折扣方式为1的折扣
+    price_off = $("#price_off").val()
+    price_more = $("#price_more").val()
+    pre_price_off = $("#pre_price_off").val()
+    pre_price_more = $("#pre_price_more").val()
+    pre_discount_total = $("#pre_discount_total").val()
+    activity_bonus = ""
+    if (partner_type == 1) {
+      activity_bonus = rate_of_margin / (1 - rate_of_margin)   //活动加成率
+    }else {
+      activity_bonus = (rate_of_margin + 0.17 + rate_of_margin * invoice_type - invoice_type) / ( 1- rate_of_margin) / (1 + invoice_type)  //活动加成率
+    }
+    if (discount_type == 1) {
+      activity_price = price * (1 + activity_bonus) //活动价
+      outstanding = activity_price / multiple_sales_discount               //优众价
+      $("#out_"+ index).html(Math.ceil(outstanding))
+      $("#ac_price_"+ index).html(Math.ceil(activity_price))
+      $("#down_"+ index).html($("#discount_"+ index).html() - Math.ceil(outstanding))
+    }else if (discount_type == 2) {
+      activity_price = price * (1 + activity_bonus) //活动价
+      outstanding = ""
+      if (pre_discount_total == "") {
+        outstanding = activity_price * pre_price_more / (pre_price_more - pre_price_off)
+      } else {
+        outstanding1 = activity_price * pre_price_more / (pre_price_more - pre_price_off)
+        outstanding2 = activity_price + pre_discount_total
+        outstanding = outstanding1 < outstanding2 ? outstanding1 : outstanding2
+      }
+      $("#out_"+ index).html(Math.ceil(outstanding))
+      $("#ac_price_"+ index).html(Math.ceil(activity_price))
+      $("#down_"+ index).html($("#discount_"+ index).html() - Math.ceil(outstanding))
+    }else if (discount_type == 3) {
+      activity_price = price * (1 + activity_bonus) //活动价
+      outstanding = ""
+      if (activity_price < price_more) {
+        outstanding = activity_price + activity_price * price_off /  price_more //优众价
+      } else {
+        outstanding = activity_price + price_off
+      }
+      $("#out_"+ index).html(Math.ceil(outstanding))
+      $("#ac_price_"+ index).html(Math.ceil(activity_price))
+      $("#down_"+ index).html($("#discount_"+ index).html() - Math.ceil(outstanding))
+    }
+  }
+</script>

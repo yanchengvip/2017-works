@@ -1,0 +1,23 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @auction_coupon, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+
+        <%= f.input :name, label: '名称:' ,required: 'true'%>
+        <%= f.input :description, label: '描述:' ,required: 'true'%>
+        <%= f.input :code, label: '代码:' ,required: 'true'%>
+        <%= f.input :limitation, label: '限制:' ,required: 'true'%>
+        <%= f.input :event_id, collection: Auction::Event.all.map { |k| [k.name, k.id] }, prompt: "请选择", wrapper: :horizontal_form, label: '券种名:' %>
+        <%= f.input :started_at,:as => :string,  input_html: { format: :long,id:'datetimepicker1'}, label: '开始时间:'%>
+        <%= f.input :ended_at,:as => :string,  input_html: { format: :long,id:'datetimepicker2'}, label: '结束时间:'%>
+        <%= f.input :function, as: :radio_buttons, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: @auction_coupon_functions ,  checked: @auction_coupon.function, label: '功能:' ,required: 'true' %>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit' %>
+        <%= link_to '取消', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>

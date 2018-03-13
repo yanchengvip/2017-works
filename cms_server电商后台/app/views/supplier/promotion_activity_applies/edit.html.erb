@@ -1,0 +1,183 @@
+<div class="row placeholders well">
+  <%= form_for batch_search_supplier_promotion_activity_suppliers_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row" style="margin-bottom: 5px">
+      <textarea rows="10" cols="78" name="pids" placeholder="SPU-ID,多个查询请用英文逗号隔开"></textarea>
+      <input type="hidden" name="promotion_activity_id" value="<%= @promotion_activity_id%>">
+      <input type="hidden" name="promotion_activity_rate_of_margin" value="<%= @promotion_activity_rate_of_margin%>">
+      <input type="hidden" name="promotion_activity_discount_type" value="<%= @promotion_activity_discount_type%>">
+      <input type="hidden" value="<%= @promotion_activity_multiple_sales_discount%>" name="promotion_activity_multiple_sales_discount">
+      <input type="hidden" value="<%= @promotion_activity_price_more%>" name="promotion_activity_price_more">
+      <input type="hidden" value="<%= @promotion_activity_price_off%>" name="promotion_activity_price_off">
+      <input type="hidden" value="<%= @promotion_activity_pre_price_more%>" name="promotion_activity_pre_price_more">
+      <input type="hidden" value="<%= @promotion_activity_pre_price_off%>" name="promotion_activity_pre_price_off">
+      <input type="hidden" value="<%= @promotion_activity_pre_discount_total%>" name="promotion_activity_pre_discount_total">
+    </div>
+    <div class="modal-footer">
+      <div class='btn btn-primary' id = "submit">查询</div>
+    </div>
+  <% end %>
+</div>
+<p>
+  <%= link_to '批量选择', 'javascript:void(0)', onclick: "chooseproduct()", class: 'btn btn-sm btn-success'%>
+</p>
+<table class="table table-striped table-hover" id="table1">
+  <thead>
+    <% if !@supplier_products.blank?%>
+      <tr>
+        <th>全选:<input type="checkbox"  id= "choose_all"  onclick= "choose_all_product()"><br>
+          反选:<input type="checkbox"  id= "choose_unall" onclick= "choose_unall_product()">
+        </th>
+        <th>图片</th>
+        <th>SPU-ID</th>
+        <th width="15%">名称</th>
+        <th>分类</th>
+        <th>品牌</th>
+        <th>旧优众价</th>
+        <th>库存</th>
+      </tr>
+    <% end %>
+  </thead>
+  <tbody>
+    <% @supplier_products && @supplier_products.each_with_index do |supplier_product, index| %>
+    <tr id="tr_<%= supplier_product.id %>">
+      <td>
+        <% if supplier_product.promotion_activity_id.blank?%>
+          <%= check_box_tag 'prducts_shelf[]', supplier_product.id, false, class: 'pshelf', id: supplier_product.id %>
+        <%end %>
+      </td>
+      <td><%= image_tag (supplier_product.major_pic) || '', width: 60, height: 60, class: 'list' if supplier_product.major_pic %></td>
+      <td><%= supplier_product.id %></td>
+      <td>
+        <% if !supplier_product.promotion_activity_id.blank?%>
+          <span style="color:red">活动商品</span>
+        <% end %>
+        <%= supplier_product.name %>
+      </td>
+      <td><%= pcategory(supplier_product) %></td>
+      <td><%= supplier_product.brand&.name %></td>
+      <td><%= supplier_product.discount %></td>
+      <td><%= supplier_product.skus&.sum(:amount) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="row placeholders well">
+    <input type="hidden" id="promotion_activity_id" value="<%= @promotion_activity_id%>">
+    <input type="hidden" id="rate_of_margin" value="<%= @promotion_activity_rate_of_margin%>">
+    <input type="hidden" id="discount_type" value="<%= @promotion_activity_discount_type%>">
+
+    <input type="hidden" id="multiple_sales_discount" value="<%= @promotion_activity_multiple_sales_discount%>">
+
+    <input type="hidden" id="price_more" value="<%= @promotion_activity_price_more%>">
+    <input type="hidden" id="price_off" value="<%= @promotion_activity_price_off%>">
+
+    <input type="hidden" id="pre_price_more" value="<%= @promotion_activity_pre_price_more%>">
+    <input type="hidden" id="pre_price_off" value="<%= @promotion_activity_pre_price_off%>">
+    <input type="hidden" id="pre_discount_total" value="<%= @promotion_activity_pre_discount_total%>">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>商品名称</th>
+          <th>SPU-ID</th>
+          <th>新的结算价</th>
+          <th>编号</th>
+          <th>图片</th>
+          <th>分类</th>
+          <th>市场价</th>
+          <th>库存</th>
+          <th>旧优众价</th>
+          <th>旧结算价</th>
+          <th>优众价</th>
+          <th>优众降价幅度</th>
+          <th>活动价</th>
+        </tr>
+      </thead>
+      <tbody id="htmlproduct">
+
+      </tbody>
+    </table>
+    <div class="modal-footer">
+      <div class='btn btn-primary' id = "apply_product_submit">申报</div>
+      <div class='btn btn-primary'>取消</div>
+    </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/supplier/promotion_activity_suppliers/batch_search'
+      $("#search_form").submit()
+    })
+    $("#apply_product_submit").click(function () {
+      var promotion_activity_id = $("#promotion_activity_id").val()
+      var trList = $("#htmlproduct").children("tr")
+      var product = []
+      var id = ''
+      var provider_price = ''
+      var provider_price1 = ''
+      for (var i=0;i<trList.length;i++) {
+        var tdArr = trList.eq(i).find("td");
+        id += (tdArr.eq(1).find("input").val() +',')
+        provider_price += (tdArr.eq(2).find("input").val() +',')
+        provider_price1 += (tdArr.eq(2).find("input").val())
+      }
+      if (!!id && !!provider_price1) {
+        $.ajax({
+          type: 'post',
+          url: '/supplier/promotion_activity_suppliers/apply_product',
+          data: {promotion_activity_id: promotion_activity_id, product: {id: id, provider_price: provider_price}},
+          success: function(result){
+            if(result.status == 200){
+              window.location.reload()
+            }
+          },
+          error: function(XMLHttpResponse){
+            alert('操作失败')
+          }
+        })
+      }else {
+        alert("选择商品并且结算价不能为空")
+      }
+    })
+    $('#table1 #select').on('click', function () {
+        var $trElements = $(this).parents('tr')
+        $trElements.find('td:last-child').remove()
+        $trElements.appendTo('#table2 tbody')
+    })
+  })
+
+  //全选
+  function choose_all_product(){
+    $("#choose_unall").prop("checked",false)
+    $("[name='prducts_shelf[]']").prop("checked",true)
+  }
+
+  //反选
+  function choose_unall_product(){
+    $("#choose_all").prop("checked",false)
+    $("[name='prducts_shelf[]']").prop("checked",false)
+  }
+
+  function chooseproduct(){
+    var ids = ''
+    $('.pshelf').each(function(index, el) {
+      if($(el).is(':checked')){
+        ids += (',' + $(this).attr('id'))
+      }
+    });
+    if(!!ids){
+      $.ajax({
+        type: 'get',
+        url: '/supplier/promotion_activity_suppliers/choose_product',
+        data: {pids: ids},
+        success: function(result){
+          $('#htmlproduct').html(result)
+        },
+        error: function(XMLHttpResponse){
+          elert('操作失败')
+        }
+      })
+    }else{
+      // alert(2)
+    }
+  }
+</script>

@@ -1,0 +1,27 @@
+<%= form_with(model: account_master, local: true) do |form| %>
+  <% if account_master.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(account_master.errors.count, "error") %> prohibited this account_master from being saved:</h2>
+
+      <ul>
+      <% account_master.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :account_id %>
+    <%= form.number_field :account_id, id: :account_master_account_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :master_id %>
+    <%= form.number_field :master_id, id: :account_master_master_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

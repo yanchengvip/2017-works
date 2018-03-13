@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Booking Trades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Trade type</th>
+      <th>Mt4 account</th>
+      <th>Symbol</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @booking_trades.each do |booking_trade| %>
+      <tr>
+        <td><%= booking_trade.account_id %></td>
+        <td><%= booking_trade.trade_type %></td>
+        <td><%= booking_trade.mt4_account %></td>
+        <td><%= booking_trade.symbol %></td>
+        <td><%= link_to 'Show', booking_trade %></td>
+        <td><%= link_to 'Edit', edit_booking_trade_path(booking_trade) %></td>
+        <td><%= link_to 'Destroy', booking_trade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Booking Trade', new_booking_trade_path %>

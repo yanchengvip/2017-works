@@ -1,0 +1,48 @@
+<div class="modal fade" id="delCustomValueModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalLabel">自定义属性删除</h4>
+      </div>
+        <div class="modal-body">
+          <h3>确定删除该自定义属性吗？</h3>
+
+          <input type="hidden" id="del_custom_value_id">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id="delete_custom_value">确定</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#delete_custom_value').on('click', function(){
+      var item_id = $('#del_custom_value_id').val()
+      $.ajax({
+        type: "post",
+        url: '/supplier/products/destroy_custom_value',
+        data: { value_id: item_id },
+        success: function(result){
+          if(result.status == 200){
+            $("#tr_" + item_id).remove()
+            $('#delCustomValueModal').modal('hide')
+          }else{
+            $('#delCustomValueModal').modal('hide')
+            elert('删除失败')
+          }
+        },
+        error: function(XMLHttpResponse){
+          $('#delCustomValueModal').modal('hide')
+          elert('删除失败')
+        }
+      })
+
+    })
+  })
+</script>

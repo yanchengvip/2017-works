@@ -1,0 +1,30 @@
+<div class="row placeholders well">
+  <%= form_for user_login_first_users_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+    <div class="form-group row">
+    <span>设备类型</span>
+      <%= select_tag "q[app_type_eq]", options_for_select([['所有类型', nil]] + UserLoginFirst::APP_TYPE.to_a.map(&:reverse), params[:q][:app_type_eq]), class: 'form-control mr_50'  %>
+      <span>时间开始：</span>
+      <%= text_field_tag 'q[created_at_gteq]', params[:q][:created_at_gteq], class: 'form-control mr_20', placeholder: '时间 >= ' %>
+
+      <span>时间结束：</span>
+      <%= text_field_tag 'q[created_at_lteq]', params[:q][:created_at_lteq], class: 'form-control mr_20', placeholder: '时间 <= ' %>
+
+      <%= f.submit '查询', class: 'btn btn-sm btn-primary', id: "ulf_search", data: {disable_with: false} %>
+      <%= link_to '下载', 'javascript:void(0)', class: 'btn btn-sm btn-success', id: "ulf_download" %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $("#ulf_download").click(function () {
+      $("#search_form")[0].action = '/users/user_login_first.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/users/user_login_first'
+    })
+    $("#ulf_search").click(function () {
+      $("#search_form")[0].action = '/users/user_login_first'
+      $("#search_form").submit()
+    })
+  })
+</script>

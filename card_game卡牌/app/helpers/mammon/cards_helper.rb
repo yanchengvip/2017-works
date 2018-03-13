@@ -1,0 +1,2 @@
+module Mammon::CardsHelper
+end

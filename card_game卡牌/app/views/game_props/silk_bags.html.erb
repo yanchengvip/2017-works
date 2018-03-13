@@ -1,0 +1,36 @@
+<div class="row"><p class="sub-header">系统管理>道具设置>锦囊</p></div>
+
+<div class="row mt_20 mb_20" style="text-align: center;">
+  <%= link_to '新增', new_game_prop_path(prop_type: 2), class: 'btn btn-primary btn-lg', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <!-- <th>缩略图</th> -->
+        <th>名称</th>
+        <th>说明</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @game_props && @game_props.each_with_index do |game_prop, index| %>
+      <tr id="tr_<%= game_prop.id %>">
+        <td><%= game_prop.id %></td>
+        <!-- <td><%#= show_thumb game_prop %></td> -->
+        <td><%= game_prop.name %></td>
+        <td><%= game_prop.remark %></td>
+        <td>
+          <%#= link_to '查看', game_prop_path(game_prop), class: 'btn btn-sm btn-info' %>
+          <%= link_to '编辑', edit_game_prop_path(game_prop), class: 'btn btn-inverse' %>
+          <%#= link_to '删除', game_prop_path(game_prop), method: :delete, data: {confirm: '确定删除吗？'}, role: 'button', class: 'btn btn-sm btn-inverse' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @game_props %>

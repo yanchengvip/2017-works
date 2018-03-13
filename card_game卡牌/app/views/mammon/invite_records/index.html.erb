@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Mammon Invite Records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mammon_invite_records.each do |mammon_invite_record| %>
+      <tr>
+        <td><%= mammon_invite_record.user_id %></td>
+        <td><%= link_to 'Show', mammon_invite_record %></td>
+        <td><%= link_to 'Edit', edit_mammon_invite_record_path(mammon_invite_record) %></td>
+        <td><%= link_to 'Destroy', mammon_invite_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mammon Invite Record', new_mammon_invite_record_path %>

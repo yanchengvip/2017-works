@@ -1,0 +1,72 @@
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>导入数据</strong></div>
+  <div class="panel-body">
+    <%= form_for Supplier::Product.new,url: {action: 'create_import_products'} do |f|%>
+        <div class="form-group">
+          <label for="exampleInputFile">文件上传</label>
+          <%= f.file_field :excel_file %>
+          <p class="help-block">上传excel文件，xlsx格式</p>
+        </div>
+
+        <%= f.submit '确定上传' ,class: "btn btn-default"%>
+    <%end%>
+  </div>
+
+  <h3>excel样式如下:</h3>
+
+
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>原厂货号</th>
+      <th>名称</th>
+      <th>市场价/吊牌价</th>
+      <th>优众价</th>
+      <th>销售底价/供货价</th>
+      <th>品牌</th>
+      <th>描述</th>
+      <th>颜色名称</th>
+      <th>相关产品ID列表</th>
+      <th>一级分类ID</th>
+      <th>二级分类ID</th>
+      <th>三级分类ID</th>
+      <th>对象</th>
+      <th>搭配产品ID列表（用英文逗号分隔）</th>
+      <th>SKU名称（用英文逗号分隔）</th>
+      <th>库存（用英文逗号分隔）</th>
+      <th>SKU编号（用英文逗号分隔）</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>如果新建商品不需要填</td>
+      <td>123456</td>
+      <td>衣服</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>波司登</td>
+      <td>暖烘烘</td>
+      <td>红</td>
+      <td>1,2,3</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>小孩</td>
+      <td>1,2,3</td>
+      <td>L,XL,XXL</td>
+      <td>1,2,3</td>
+      <td>1,2,3</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  /*警告框*/
+  .alert-notice{
+    margin-top: 15px;
+  }
+</style>

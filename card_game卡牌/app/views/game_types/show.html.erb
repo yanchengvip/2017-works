@@ -1,0 +1,38 @@
+<p class="sub-header">赛场管理>赛场规则>查看赛场规则</p>
+
+<% if @game_type.status == 0 %>
+  <div class="lead text-right well">
+    <p><%= link_to '修改赛场规则', edit_game_type_path(@game_type), class: 'btn btn-primary', role: 'button' %></p>
+  </div>
+<% end %>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">赛场功勋价值：<span class="red"><%= @game_type.glory_num %></span></li>
+    <li class="list-group-item">报名所需能量：<span class="red"><%= @game_type.energy_num %></span></li>
+    <li class="list-group-item">商品类型：<%= @game_type.game_product_tag&.name %></li>
+    <% if @game_type.product_config_type == 1 %>
+      <li class="list-group-item">商品：<%= "随机#{@game_type.product_count}个" %></li>
+    <% elsif @game_type.product_config_type == 2 %>
+      <li class="list-group-item bg_tr">商品：</li>
+      <li class="list-group-item"><%= render partial: 'game_types/product/chosed_products' %></li>
+    <% end %>
+    <li class="list-group-item">赛场类型排序：<%= @game_type.order_num %></li>
+    <li class="list-group-item bg_tr">赛场规则：</li>
+    <li class="list-group-item"><%= render partial: 'game_types/game_rule/chosed_game_rule' %></li>
+    <li class="list-group-item">赛场规则说明：<%= @game_type.game_desc %></li>
+    <li class="list-group-item">缩略图：
+      <% if @game_type.thumbnail %>
+        <%= image_tag FASTDFSCONFIG[:fastdfs][:tracker_url] + @game_type.thumbnail, width: 100, height: 100 %>
+      <% end %>
+    </li>
+    <li class="list-group-item">启用状态：<%= @game_type.status == 1 ? '启用' : '停用' %></li>
+  </ul>
+  <li class="list-group-item bg_tr">计谋：</li>
+  <li class="list-group-item"><%#= render partial: 'game_types/card_bag/chosed_card_bag' %></li>
+  <%= render partial: 'game_types/round_card_own' %>
+
+</div>

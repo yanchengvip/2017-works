@@ -1,0 +1,2 @@
+module Core::ReportsHelper
+end

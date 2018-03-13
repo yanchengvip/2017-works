@@ -1,0 +1,43 @@
+<div class="fields content_tr">
+  <table class="table">
+    <!-- table-striped table-hover -->
+    <tr class="bg_tr">
+      <th>奖品：</th>
+      <th id="th_<%= @random_id %>">
+        <span class="mr_100"><input type="radio" name="jackpot_product_level2[<%= @random_id %>][type]" value="1" class="level2_radio">能量</span>
+        <span class="mr_100"><input type="radio" name="jackpot_product_level2[<%= @random_id %>][type]" value="2" class="level2_radio">功勋</span>
+        <span class="mr_100"><input type="radio" name="jackpot_product_level2[<%= @random_id %>][type]" value="3" class="level2_radio">道具</span>
+        <span><input type="radio" name="jackpot_product_level2[<%= @random_id %>][type]" value="4" class="level2_radio">商品</span>
+      </th>
+    </tr>
+  </table>
+  <table class="table" id="jackpot_product_level2_table"></table>
+  <p class="text-right"><%= link_to '删除', 'javascript:void(0)', class: 'btn btn-sm btn-danger del_level_new' %></p>
+<!-- treasure_boxs -->
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    $('.level2_radio').on('click', function(){
+      ele = $(this)
+      var radio_val = $(this).val()
+      var treasure_box_id = $('#treasure_box_id').val()
+      var random_id = $(this).parents('th').attr('id').split('_')[1]
+      $.ajax({
+        type: 'get',
+        url: "/treasure_boxs/"+treasure_box_id+"/level2_form",
+        data: {type: radio_val, random_id: random_id},
+        success: function(result){
+          // $('#jackpot_product_level2_table').append(result)
+          ele.parents('table').next('table').html(result)
+        },
+        error: function(XMLHttpResponse){
+          elert('网络错误')
+        }
+      })
+    })
+
+
+  })
+</script>

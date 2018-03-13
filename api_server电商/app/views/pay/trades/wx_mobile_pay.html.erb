@@ -1,0 +1,76 @@
+<button onclick="chooseImage()">图片上传</button>
+<button onclick="chooseWxPay()">支付</button>
+<script>
+    //        alert(location.href.split('#')[0])
+
+    wx.config({
+        debug: true,
+        appId: "<%= @jsapi_ticket[:appid] %>",
+        timestamp: "<%= @jsapi_ticket[:timestamp] %>",
+        nonceStr: "<%= @jsapi_ticket[:noncestr] %>",
+        signature: "<%= @jsapi_ticket[:signature] %>",
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+    function chooseImage() {
+        wx.chooseImage({
+            count: 1, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+            }
+        });
+    }
+    function chooseWxPay() {
+        wx.chooseWXPay({
+            appId: "<%= @wx_pay_r[:appid]%>",
+            timeStamp: "<%= @wx_pay_r[:timeStamp]%>",
+            nonceStr: "<%= @wx_pay_r[:nonceStr]%>",
+            package: "<%= @wx_pay_r[:package]%>",
+            signType: "<%= @wx_pay_r[:signType]%>",
+            paySign: "<%= @wx_pay_r[:paySign]%>",
+            success: function(){
+
+            }
+        });
+    }
+    wx.ready(function () {
+    });
+    wx.error(function (res) {
+        alert(res);
+    });
+</script>

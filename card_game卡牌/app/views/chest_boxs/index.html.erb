@@ -1,0 +1,66 @@
+<div class="row"><p class="sub-header">宝箱管理>宝箱设置>宝箱列表</p></div>
+
+<%#= render partial: 'search' %>
+
+<div class="row mt_20 mb_20">
+  <%= link_to '新增宝箱', new_chest_box_path, class: 'btn btn-primary', role: 'button' %>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <!-- <th>名称</th> -->
+        <th>开始时间</th>
+        <th>结束时间</th>
+        <th>宝箱类别</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @chest_boxs && @chest_boxs.each_with_index do |chest_box, index| %>
+      <tr id="tr_<%= chest_box.id %>">
+        <td><%= chest_box.id %></td>
+        <!-- <td><%#= show_thumb chest_box %></td> -->
+        <td><%= chest_box.begin_time.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= chest_box.end_time.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= ChestBox::CHEST_TYPE[chest_box.chest_type] %></td>
+        <td><%= ChestBox::STATUS[chest_box.status] %></td>
+        <td>
+          <%= link_to '查看', chest_box_path(chest_box), class: 'btn btn-sm btn-info' %>
+          <% if chest_box.status == 0 %>
+            <%= link_to '编辑', edit_chest_box_path(chest_box), class: 'btn btn-sm btn-primary' %>
+            <%= link_to '开启', 'javascript:void(0)', onclick: "chest_box_shelf(#{chest_box.id}, 1)", class: 'btn btn-success btn-sm', role: 'button' %>
+          <% elsif chest_box.status == 1 %>
+            <%= link_to '停止', 'javascript:void(0)', onclick: "chest_box_shelf(#{chest_box.id}, 2)", class: 'btn btn-warning btn-sm', role: 'button' %>
+          <% end %>
+          <%= link_to '复制', 'javascript:void(0)', onclick: "copy_chest_box(#{chest_box.id})", class: 'btn btn-default btn-sm', role: 'button', id: "copy_#{chest_box.id}" %>
+          <% if chest_box.status == 0 || chest_box.chest_records.blank? %>
+            <%= link_to '删除', chest_box_path(chest_box), method: :delete, data: {confirm: '确定删除吗？'}, class: 'btn btn-sm btn-danger' %>
+          <% end %>
+          <% if chest_box.chest_type == 5 && !chest_box.chest_box_prizes.blank? && chest_box.status != 2 %>
+            <%= link_to '增加奖品', new_prize_chest_box_path(chest_box), class: 'btn btn-sm btn-info' %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(function(){
+    <% if @chest_boxs.select{|x| x.status == 3}.size > 0 %>
+      setTimeout(function(){
+        window.location.reload()
+      },60000);
+    <% end %>
+  })
+</script>
+
+<%= paginate @chest_boxs %>
+
+<%= render partial: 'shelf_modal' %>
+<%= render partial: 'copy_modal' %>

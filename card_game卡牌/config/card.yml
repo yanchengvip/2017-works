@@ -1,0 +1,36 @@
+# 顺手牵羊->夺钥符
+100001:
+  cols: ['ignore_defense', 'transfer_percent']
+# 趁火打劫->摧能符
+100002:
+  cols: ['ignore_defense']
+# 连环计->万夺符
+100003:
+  cols: ['ignore_defense', 'transfer_percent']
+# 釜底抽薪->决斗符
+100004:
+  cols: ['ignore_defense', 'transfer_percent']
+# 暗度陈仓->破防符
+100005:
+  cols: ['ignore_defense', 'transfer_percent']
+# 李代桃僵->转伤术
+100006:
+  cols: ['effect_times']
+# 苦肉计->还施术
+100007:
+  cols: ['effect_times', 'transfer_percent']
+# 以逸待劳->消耗术
+100008:
+  cols: ['effect_times']
+# 关门捉贼->禁锢法令
+100009:
+  cols: ['disable_time']
+# 浑水摸鱼->失控法令
+100010:
+  cols: ['confusion_time']
+# 偷梁换柱->偷天换日
+100011:
+  cols: ['ignore_defense']
+# 美人计->增效法令
+100012:
+  cols: ['effect_times']

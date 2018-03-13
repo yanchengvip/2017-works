@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  package_type: 1
+  price: 9.99
+  summary: MyText
+  status: 1
+  onshelf_time: 2017-06-08 13:16:49
+  offshelf_time: 2017-06-08 13:16:49
+  icon_url: MyString
+  details: MyText
+  total_count: 1
+  total_limit: 1
+  day_limit: 1
+
+two:
+  name: MyString
+  package_type: 1
+  price: 9.99
+  summary: MyText
+  status: 1
+  onshelf_time: 2017-06-08 13:16:49
+  offshelf_time: 2017-06-08 13:16:49
+  icon_url: MyString
+  details: MyText
+  total_count: 1
+  total_limit: 1
+  day_limit: 1

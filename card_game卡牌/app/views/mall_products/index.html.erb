@@ -1,0 +1,48 @@
+<p class="sub-header">奇珍商城>商品管理>商品列表</p>
+
+<%= render partial: 'search' %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>商品ID</th>
+      <th>商品名称</th>
+      <th>商品分类</th>
+      <th>剩余库存</th>
+      <th>价格</th>
+      <th>微集分</th>
+      <th>功勋</th>
+      <th>排序</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @mall_products.each_with_index do |mp, index| %>
+        <tr id="tr_<%= mp.id %>">
+          <td><%= mp.id %></td>
+          <td><%= mp.name %></td>
+          <td><%= mall_product_tag_name(mp.mall_product_tag_ids) %></td>
+          <td><%= mp.inventory_count %></td>
+          <td><%= mp.market_price.to_f %></td>
+          <td><%= mp.score %></td>
+          <td><%= mp.glory %></td>
+          <td id="sort_<%= mp.id %>"><%= mp.sort %></td>
+          <td>
+            <%= link_to '查看', mall_product_path(mp), class: 'btn btn-info btn-sm' %>
+            <%= link_to '调整排序', 'javascript:void(0)', class: 'mall_product_sort btn btn-primary btn-sm', data_id: mp.id %>
+            <%= link_to '下架', 'javascript:void(0)', class: 'mall_product_shelf btn btn-danger btn-sm', data_id: mp.id %>
+
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @mall_products %>
+<%= render partial: 'mall_product_shelf_modal' %>
+<%= render partial: 'resort_modal' %>
+
+<%#= render 'shared/obj_delete_modal', locals: {title: '商品删除', url: '/mall_products/destroy'} %>
+
+<%#= render 'shared/obj_onshelf_modal', locals: {title: '商品上架', url: '/mall_products/update_status'} %>

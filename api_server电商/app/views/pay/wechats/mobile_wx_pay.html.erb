@@ -1,0 +1,65 @@
+<script>
+//    alert(location.href.split('#')[0])
+    wx.config({
+        debug: false,
+        appId: "<%= @jsapi_ticket[:appid] %>",
+        timestamp: "<%= @jsapi_ticket[:timestamp] %>",
+        nonceStr: "<%= @jsapi_ticket[:noncestr] %>",
+        signature: "<%= @jsapi_ticket[:signature] %>",
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+    wx.ready(function () {
+        wx.chooseWXPay({
+//            appId: "<%#= @wx_pay_r[:appId]%>",
+            timestamp: "<%= @wx_pay_r[:timeStamp]%>",
+            nonceStr: "<%= @wx_pay_r[:nonceStr]%>",
+            package: "<%= @wx_pay_r[:package]%>",
+            signType: "<%= @wx_pay_r[:signType]%>",
+            paySign: "<%= @wx_pay_r[:paySign]%>",
+            success: function(){
+                history.back(-1)
+                //window.location.replace("<%#= @return_url%>")
+            },
+            fail: function(res){
+                alert(JSON.stringify(res))
+            }
+        });
+    });
+    wx.error(function (res) {
+        // alert("微信网络错误");
+    });
+</script>

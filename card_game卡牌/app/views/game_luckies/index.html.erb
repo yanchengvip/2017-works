@@ -1,0 +1,38 @@
+<div class="row"><p class="sub-header">营销管理>幸运儿>幸运儿列表</p></div>
+
+<%#= render partial: 'search' %>
+
+<div class="row mt_20 mb_20 text-center">
+  <p><%= link_to '添加幸运儿', new_game_lucky_path, class: 'btn btn-primary btn-lg', role: 'button' %></p>
+</div>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>中奖商品图片</th>
+        <th>中奖商品价格</th>
+        <th>用户头像</th>
+        <th>用户昵称</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @game_luckies && @game_luckies.each_with_index do |game_lucky, index| %>
+      <tr>
+        <td><%= game_lucky.id %></td>
+        <td><%= image_tag  FASTDFSCONFIG[:fastdfs][:tracker_url] + (game_lucky.thumbnail || ''), width: 60, height: 60 if game_lucky.thumbnail %></td>
+        <td><%= game_lucky.price %></td>
+        <td><%= image_tag  FASTDFSCONFIG[:fastdfs][:tracker_url] + (game_lucky.headimg || ''), width: 60, height: 60 if game_lucky.headimg %></td>
+        <td><%= game_lucky.nickname %></td>
+        <td>
+          <%= link_to '编辑', edit_game_lucky_path(game_lucky), role: 'button', class: 'btn btn-primary' %>
+          <%= link_to '删除', 'javascript:void(0)', role: 'button', class: 'btn btn-danger game_luck_delete', id: "lucky_#{game_lucky.id}" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @game_luckies %>

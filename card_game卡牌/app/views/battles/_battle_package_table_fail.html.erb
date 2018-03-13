@@ -1,0 +1,27 @@
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <input type="button" class="btn-info" value="添加鼓励礼包" onclick="battle_package_fail_modal()">
+    失败者只能获得下面其中一个鼓励礼包
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>用户累计消耗卡牌价值条件</th>
+        <th>赠送的礼包</th>
+        <th>礼包单价(微集分)</th>
+        <th>赠送数量(个)</th>
+        <th>赠送总价值(微集分)</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody id="battle_package_table_fail">
+      <%= render 'battle_package_table_tr_update',locals:{bp_type: 2} %>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>

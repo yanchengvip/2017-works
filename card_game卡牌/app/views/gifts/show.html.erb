@@ -1,0 +1,35 @@
+<p class="sub-header">卡牌商城>卡牌促销>至尊宝箱列表</p>
+
+<div class="lead text-right well">
+  <p><%= link_to '修改', edit_gift_path(@gift), class: 'btn btn-primary', role: 'button' %></p>
+</div>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item">前台启用：<%= status_str(@gift.status) %></li>
+    <li class="list-group-item">名称：<%= @gift.name %></li>
+  </ul>
+
+  <div class="panel-heading"><strong>赠品内容</strong></div>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>赠品类型</th>
+        <th width="30%">赠品</th>
+        <th>赠品数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @gift.gift_items.each do |gift_item| %>
+        <tr class="fields content_tr">
+          <td><%= gift_item.gift_type == 1 ? '计谋' : '入场券' %></td>
+          <td><%= gift_item.gift_type == 0 ? '入场券' : gift_item_gift_range_str(gift_item) %></td>
+          <td><%= gift_item.count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

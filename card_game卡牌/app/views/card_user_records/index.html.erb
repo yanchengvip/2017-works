@@ -1,0 +1,43 @@
+<div class="row placeholders">
+  <form action="/users" method="get" class="navbar-form navbar-left">
+    创建时间：
+    <input type="text" name="create_time_begin"  class="form-control datetime_picker_battle1" placeholder="开始时间"> ~
+    <input type="text" name="create_time_end"  class="form-control datetime_picker_battle2" placeholder="结束时间">
+    <button type="submit" class="btn btn-success">搜索</button>
+    <button type="button" class="btn btn-success"><a href="javascript:void(0);" onclick="dowload_csv(5)" style="color:#fff">导出csv</a></button>
+  </form>
+
+</div>
+
+<p class="sub-header">报表>用户管理>用户卡牌使用列表</p>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>战役id</th>
+      <th>战役名称</th>
+      <th>使用数量</th>
+      <th>使用轮次</th>
+      <th>当前价格</th>
+      <th>消费方式</th>
+      <th>创建时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @card_user_records.each do |card_user_record|%>
+        <tr>
+          <td><%= card_user_record.battle_id %></td>
+          <td><%= card_user_record.battle&.name %></td>
+          <td><%= card_user_record.use_num %></td>
+          <td><%= card_user_record.use_round%></td>
+          <td><%= card_user_record.current_price %></td>
+          <td><%= card_user_record.consume_type %></td>
+          <td><%= card_user_record.create_time.strftime('%Y-%m-%d %H:%M:%S')%></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%=paginate @card_user_records%>

@@ -1,0 +1,21 @@
+<div class="widefat">
+  <div class="content mt40">
+    <div class="right w970">
+      <div class="clearfix">
+        <div>
+          <%= form_for supplier_units_path, html: {method: :get, class: 'navbar-form navbar-left', id: 'search_form'} do |f| %>
+            <div class="form-group row" style="margin-bottom: 5px">
+              <span>订单编号:</span>
+              <%= text_field_tag "q[identifier_eq]", params[:q][:identifier_eq], class: 'form-control mr_20', placeholder: '订单编号' %>
+            </div>
+
+
+            <div class="form-group row" style="margin-bottom: 5px">
+              <%= f.submit '搜索', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

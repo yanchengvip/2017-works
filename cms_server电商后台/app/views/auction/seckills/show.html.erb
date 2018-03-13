@@ -1,0 +1,20 @@
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '修改', edit_auction_seckill_path(@auction_seckill), class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item">ID：<%= @auction_seckill.id %></li>
+    <li class="list-group-item">商品ID：<%= @auction_seckill.product&.id %></li>
+    <li class="list-group-item ">商品名称：<span class="red"><%= @auction_seckill.product&.name %></span></li>
+    <li class="list-group-item">秒杀价格：<%= @auction_seckill.discount %></li>
+    <li class="list-group-item">秒杀日期：<%= @auction_seckill.date %></li>
+    <li class="list-group-item">场次：<%= Auction::Seckill::PLAY[@auction_seckill.play] %></li>
+
+  </ul>
+
+</div>

@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">商品管理>商品管理>修改兑奖阁商品类别</p></div>
+
+<%= form_for @mall_product_tag, url: mall_product_tag_path, method: "put",  html: {class: 'bg pd_20'} do |f| %>
+  <%= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

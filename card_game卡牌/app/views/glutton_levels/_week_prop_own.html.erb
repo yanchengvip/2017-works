@@ -1,0 +1,56 @@
+<div id="prop_div">
+  <span class="hide" id="random_id">100000</span>
+  <table class="table table-striped table-hover" id="prop_table">
+    <tbody id="week_level_gifts_body">
+      <% @week_level_gifts && @week_level_gifts.each do |level_gift| %>
+        <tr id="tr_<%= level_gift.id %>">
+          <input type="hidden" name="week_level_gifts[][id]" value="<%= level_gift.id %>">
+          <td>
+            <%= select_tag "week_level_gifts[][gifts_id]", options_for_select([["无", nil]] + LevelGift.prop_for_chose, level_gift.gifts_id), class: 'custom_input_md mr_50', required: 'required' %>
+          </td>
+          <td>
+            <input type="number" name="week_level_gifts[][gifts_num]" value="<%= level_gift.gifts_num %>" min="0" max="9999999" placeholder="道具数量" class="custom_input_big" required>
+          </td>
+          <td>
+            <%= link_to '删除', 'javascript:void(0)', class: "del_weeklevel_gift_origin", id: "week_level_gift_#{level_gift.id}" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to '添加道具', 'javascript:void(0)', id: 'add_week_level_gift', class: 'btn btn-success mt_10 ' %>
+</div>
+<%= render 'del_week_prop_modal'%>
+
+<script type="text/javascript">
+  // $(document).on('turbolinks:load', function () {
+  $(function(){
+    $('#add_week_level_gift').on('click', function(){
+      $.ajax({
+        type: 'get',
+        url: '/glutton_levels/week_prop_form',
+        data: { random_id: 'wlf' + Number($('#random_id').text())},
+        success: function(result){
+          $('#week_level_gifts_body').append(result)
+        },
+        error: function(XMLHttpResponse){
+          alert('添加失败')
+        }
+      })
+      $('#random_id').text(Number($('#random_id').text()) + 1)
+    })
+  })
+
+  $(document).on('turbolinks:load', function () {
+    $('.del_weeklevel_gift_origin').on('click', function(){
+      $('#delWeekPropModal').modal('show')
+      var this_id = $(this).attr('id')
+      $('#delWeekPropModal').on('shown.bs.modal',function(){
+        console.log(this_id)
+        $('#del_week_item_id').val(this_id.split('_')[3])
+        // $('#belong_extreme_chest_id').val(this_id.split('_')[0])
+      })
+    })
+  })
+
+</script>

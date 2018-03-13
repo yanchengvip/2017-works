@@ -1,0 +1,6 @@
+<div class="row"><p class="sub-header">红包管理>红包>编辑红包规则</p></div>
+
+<%= form_for @red_package_rule, url: promotion_red_package_rule_path, html: {class: 'bg pd_20 form-horizontal123'} do |f| %>
+  <%#= f.hidden_field :id %>
+  <%= render partial: 'form', locals: { f: f} %>
+<% end %>

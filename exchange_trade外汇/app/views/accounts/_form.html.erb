@@ -1,0 +1,77 @@
+<%= form_with(model: account, local: true) do |form| %>
+  <% if account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% account.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: :account_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dealer_id %>
+    <%= form.number_field :dealer_id, id: :account_dealer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dealer_type %>
+    <%= form.number_field :dealer_type, id: :account_dealer_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status, id: :account_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :agent_account %>
+    <%= form.text_field :agent_account, id: :account_agent_account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mt4_account %>
+    <%= form.text_field :mt4_account, id: :account_mt4_account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mt4_group %>
+    <%= form.text_field :mt4_group, id: :account_mt4_group %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :account_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :account_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, id: :account_phone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :certificate %>
+    <%= form.text_field :certificate, id: :account_certificate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :certificate_num %>
+    <%= form.text_field :certificate_num, id: :account_certificate_num %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

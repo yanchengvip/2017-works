@@ -1,0 +1,2 @@
+ FASTDFSCONFIG = YAML.load_file("config/fastdfs.yml")[Rails.env].with_indifferent_access.freeze
+ $tracker = Fastdfs::Client::Tracker.new(FASTDFSCONFIG[:fastdfs][:tracker_server], FASTDFSCONFIG[:fastdfs][:port])

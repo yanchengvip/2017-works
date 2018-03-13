@@ -1,0 +1,42 @@
+<div class="row placeholders">
+  <form class="navbar-form navbar-left">
+      中奖时间：
+      <input type="text" name="create_time_begin" class="form-control datetime_picker_battle1" placeholder="开始时间"> ~
+      <input type="text" name="create_time_end" class="form-control datetime_picker_battle2" placeholder="结束时间">
+      <button type="submit" class="btn btn-success">搜索</button>
+      <button type="button" class="btn btn-success"><a href="javascript:void(0);" id="dowload" onclick="dowload_csv(2)" style="color:#fff">导出csv</a></button>
+  </form>
+</div>
+
+<p class="sub-header">战场管理>战场管理>订单管理</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>夺宝期号</th>
+      <th>中奖时间</th>
+      <th>中奖商品</th>
+      <th>用户手机</th>
+      <th>用户昵称</th>
+      <th>认领状态</th>
+      <th>订单状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @battle_orders.each do |order| %>
+        <tr>
+          <td><%= order.battle_code %></td>
+          <td><%= datetime_format order.create_time %></td>
+          <td><%= order.good_name %></td>
+          <td><%= order.user&.mobile? ? order.user&.mobile : '无' %></td>
+          <td><%= order.user&.present? ? order.user&.nick_name : '无' %></td>
+          <td><%= BattleWinningRecord::CLAIMSTATUS[order.claim_status] %></td>
+          <td><%= BattleWinningRecord::SHIPPINGSTATUS[order.shipping_status] %></td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @battle_orders %>

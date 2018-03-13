@@ -1,0 +1,33 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>供应商</th>
+    <th>SPU-ID</th>
+    <th>SKU</th>
+    <th>主图</th>
+    <th>商品名称</th>
+    <th>颜色图片</th>
+    <th>颜色名称</th>
+    <th>商品价格</th>
+    <th>数量</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @units.each do |unit| %>
+      <tr>
+        <td><%= unit.provider&.name %></td>
+        <td><%= unit.product&.id %></td>
+        <td><%= unit.auction_sku&.id %></td>
+        <td><img class="media-object" src="<%= SYSTEMCONFIG[:pic_host]+unit.product&.major_pic.to_s+'.m110.jpg'%>" width="110px"/></td>
+        <td><%=  unit.product&.name%></td>
+        <td><img class="media-object" src="<%= SYSTEMCONFIG[:pic_host]+unit.product&.color_pic.to_s+'.m110.jpg' %>" width="110px"/></td>
+        <td><%=  unit.product&.color_name%></td>
+        <td><%= unit.price %></td>
+        <td><%= unit.amount %></td>
+
+      </tr>
+
+
+      </tbody>
+  <% end %>
+  </table>

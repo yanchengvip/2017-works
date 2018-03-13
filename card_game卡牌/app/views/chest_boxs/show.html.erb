@@ -1,0 +1,89 @@
+<p class="sub-header">宝箱管理>宝箱设置>查看宝箱</p>
+
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+
+  <div class="panel-heading"><strong>基本信息</strong></div>
+  <ul class="list-group">
+    <li class="list-group-item ">ID：<span><%= @chest_box.id %></span></li>
+    <li class="list-group-item ">宝箱类型：<span><%= ChestBox::CHEST_TYPE[@chest_box.chest_type] %></span></li>
+    <li class="list-group-item ">开启方式：<span><%= ChestBox::OPEN_TYPE[@chest_box.open_type] %></span></li>
+    <li class="list-group-item ">开启花费：<span><%= @chest_box.treasure_amount %></span></li>
+    <li class="list-group-item ">生效时间：<span><%= @chest_box.begin_time&.strftime("%Y-%m-%d %H:%M") %>&nbsp;&nbsp;～&nbsp;&nbsp;<%= @chest_box.end_time&.strftime("%Y-%m-%d %H:%M") %></span></li>
+    <!-- <li class="list-group-item ">开启所需宝符：<span><%#= @chest_box.treasure_amount %></span></li> -->
+    <li class="list-group-item ">每用户最多开启次数：<span><%= @chest_box.times_max %></span></li>
+    <li class="list-group-item ">宝箱手数：<span><%= @chest_box.hands %></span></li>
+    <li class="list-group-item ">最小商品个数：<span><%= @chest_box.prize_min %></span></li>
+    <li class="list-group-item ">最大商品个数：<span><%= @chest_box.prize_max %></span></li>
+    <li class="list-group-item ">全局通知：剩余<%= @chest_box.notice_num %>个商品时，如大奖还未开出，发出全局通告（集分竞宝、优众APP）</li>
+    <li class="list-group-item">
+      状态：<span><%= ChestBox::STATUS[@chest_box.status] %></span>
+    </li>
+    <%if @chest_box.chest_type == 6 && @chest_box.status == 1%>
+      <li class="list-group-item">
+        随机JD卡剩余数量：<span><%=$redis.llen(@chest_box.jd_card_redis_key(1)).to_i %></span>
+      </li>
+      <li class="list-group-item">
+        固定JD卡剩余数量：<span><%=$redis.llen(@chest_box.jd_card_redis_key(0)).to_i %></span>
+      </li>
+    <%end%>
+    <li class="list-group-item">开启设定：<br><br>
+      <% @outputs.each_with_index do |out, index| %>
+        <p>
+          第&nbsp;<strong><%= index+1 %></strong>&nbsp;阶段：
+          产出<%= out[0] %>%奖品，&nbsp;&nbsp;
+          产出<%= out[1] %>%价值
+        </p>
+      <% end %>
+    </li>
+    <li class="list-group-item">大奖开启：<br><br>
+      <%= @chest_box.cant_percent %>%前不可出现大奖<br>
+      <%= @chest_box.hours_to_next %>小时后，奖品仍未抽空，自动替换下一宝箱
+    </li>
+    <li class="list-group-item ">实物奖品数量限制：<%= @chest_box.prize_limit[1] rescue 0 %></li>
+    <li class="list-group-item ">入场券奖品数量限制：<%= @chest_box.prize_limit[2] rescue 0 %></li>
+    <li class="list-group-item ">兑奖券奖品数量限制：<%= @chest_box.prize_limit[3] rescue 0 %></li>
+    <li class="list-group-item ">宝箱券奖品数量限制：<%= @chest_box.prize_limit[5] rescue 0 %></li>
+    <li class="list-group-item ">优众现金券限制：<%= @chest_box.prize_limit[6] rescue 0 %></li>
+    <li class="list-group-item ">
+      话费卡个数限制：<%= @chest_box.prize_limit[7] rescue 0 %>
+      <!-- <span class="red">青铜宝箱是话费卡个数限制，收费宝箱是话费卡总金额限制</span> -->
+    </li>
+
+    <li class="list-group-item">全局通知文案：<br><br>
+      <%= @chest_box.notice_copy %>
+    </li>
+  </ul>
+  <% if @chest_box.chest_type&.in?([1,2,3,4,5]) %>
+    <div class="panel-heading"><strong>随机奖品信息</strong></div>
+    <%= render partial: 'prize_own' %>
+    <div class="panel-heading"><strong>指定奖品信息</strong></div>
+    <%= render partial: 'appoint_own' %>
+    <div class="panel-heading"><strong>特定奖品信息</strong></div>
+    <%= render partial: 'given_own' %>
+    <div class="panel-heading"><strong>3次必中</strong></div>
+    <%= render partial: 'three_own' %>
+  <% end %>
+  <% if @chest_box.chest_type == 5 %>
+    <div class="panel-heading"><strong>APP注册实物</strong></div>
+    <%= render partial: 'app_product_own' %>
+    <div class="panel-heading"><strong>APP注册虚拟</strong></div>
+    <%= render partial: 'app_virtual_own' %>
+  <% end %>
+  <% if @chest_box.chest_type == 6 %>
+    <div class="panel-heading"><strong>h5推广随机</strong></div>
+    <%= render partial: 'h5_random_own' %>
+    <div class="panel-heading"><strong>h5推广固定</strong></div>
+    <%= render partial: 'h5_fix_own' %>
+  <% end %>
+  <% if @chest_box.chest_type == 7 %>
+    <div class="panel-heading"><strong>固定现金</strong></div>
+    <%= render partial: 'cash_fix_own' %>
+  <% end %>
+  <% if @chest_box.chest_type == 8 %>
+    <div class="panel-heading"><strong>随机现金</strong></div>
+    <%= render partial: 'cash_random_own' %>
+  <% end %>
+
+</div>

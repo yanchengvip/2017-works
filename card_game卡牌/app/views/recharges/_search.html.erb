@@ -1,0 +1,23 @@
+<div class="row placeholders">
+  <%= form_for mall_orders_path, html: {method: :get, class: '', id: 'search_form'} do |f| %>
+    <div class ="navbar-form navbar-left">
+      <div class="form-group ">
+        <span>下单时间：</span>
+        <%= text_field_tag 'q[created_at_gteq]', params[:q][:created_at_gteq], class: 'form-control search_time_begin', placeholder: '起始时间' %>-
+        <%= text_field_tag 'q[created_at_lteq]', params[:q][:created_at_lteq], class: 'form-control mr_10 search_time_end', placeholder: '结束时间' %>
+        <!-- <span>充值类型：</span> -->
+        <%#= select_tag "q[recharge_type_eq]", options_for_select([['所有分类', nil]] + ChestOrder::RECHARGE_TYPE.to_a.map(&:reverse), params[:q][:recharge_type_eq]), class: 'form-control mr_10'  %>
+        <span>订单渠道：</span>
+        <%= select_tag 'q[order_type_eq]', options_for_select([['所有分类', nil]] + MallOrder::ORDER_TYPE.to_a.map(&:reverse), params[:q][:order_type_eq]), class: 'form-control game_select2 select-width-20' %>
+        <span>用户手机：</span>
+        <%= text_field_tag 'q[user_mobile_cont]', params[:q][:user_mobile_cont], class: 'form-control mr_10', placeholder: '用户手机' %>
+        <!-- <span>充值号码：</span> -->
+        <%#= text_field_tag 'q[number_eq]', params[:q][:number_eq], class: 'form-control mr_20', placeholder: '充值号码' %> <br>
+        <div class="mt_10">
+          <span><%= f.submit '查询', class: 'btn btn-primary ', id: "submit" %></span>
+          <!-- <span class='btn btn-success' id = "download">下载</span> -->
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

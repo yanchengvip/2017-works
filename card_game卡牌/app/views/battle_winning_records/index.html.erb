@@ -1,0 +1,96 @@
+<div class="row placeholders">
+  <form class="navbar-form navbar-left" id="search_form">
+    <div class="search-input-one">
+      战役期号：<input type="text" name="battle_code" id="battle_code" class="form-control" placeholder="战役期号">
+      中奖商品：<input type="text" name="good_name" id="good_name" class="form-control" placeholder="商品名称">
+      中奖时间：
+      <input type="text" name="create_time_begin" class="form-control datetime_picker_battle1" placeholder="开始时间"> ~
+      <input type="text" name="create_time_end" class="form-control datetime_picker_battle2" placeholder="结束时间">
+
+    </div>
+    <div class="search-input-two">
+      中奖用户：<input type="text" name="mobile" id="mobile" class="form-control" placeholder="用户手机号">
+      认领状态：
+      <select class="select2-picker form-control select-width-18" name="claim_status" id="claim_status">
+        <option value=-1>全部</option>
+        <option value=1>待用户认领</option>
+        <option value=2>用户已认领</option>
+      </select>
+      订单状态：
+      <select class="select2-picker form-control select-width-14" name="shipping_status" id="shipping_status">
+        <option value=-1>全部</option>
+        <option value=0>待发货</option>
+        <option value=1>已发货</option>
+        <option value=2>已换功勋</option>
+        <option value=4>已换卡牌</option>
+        <option value=3>已作废</option>
+      </select>
+
+      <!-- &nbsp&nbsp&nbsp&nbsp -->
+      <div class='btn btn-primary' id = "submit">查询</div>
+      <div class='btn btn-success' id = "download">下载</div>
+      <!-- <button type="button" class="btn btn-success"><a href="javascript:void(0);" id="dowload" onclick="dowload_csv(2)" style="color:#fff">导出csv</a></button> -->
+    </div>
+  </form>
+
+</div>
+
+<p class="sub-header">战场管理>商品管理>订单管理</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>赛场ID</th>
+      <th>赛场名称</th>
+      <th>夺宝期号</th>
+      <th>中奖时间</th>
+      <th>中奖商品</th>
+      <th>用户手机</th>
+      <th>用户昵称</th>
+      <th>认领状态</th>
+      <th>订单状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @battle_orders.each do |order| %>
+        <tr>
+          <td><%= order.battle_id %></td>
+          <td><%= order.battle_name %></td>
+          <td><%= order.battle_code %></td>
+          <td><%= datetime_format order.create_time %></td>
+          <td><%= order.good_name %></td>
+          <td><%= order.user&.mobile? ? order.user&.mobile : '无' %></td>
+          <td><%= order.user&.present? ? order.user&.nick_name : '无' %></td>
+          <td><%= BattleWinningRecord::CLAIMSTATUS[order.claim_status] %></td>
+          <td><%= BattleWinningRecord::SHIPPINGSTATUS[order.shipping_status] %></td>
+          <td>
+            <% if @order_type == 1 %>
+                <a href="/battle_winning_records/fail_order_show?id=<%= order.id %>" class="btn btn-info btn-sm">查看</a>
+                <a href="/battle_winning_records/fail_order_edit?id=<%= order.id %>" class="btn btn-warning btn-sm ">管理订单</a>
+            <% else %>
+                <a href="/battle_winning_records/<%= order.id %>" class="btn btn-info btn-sm">查看</a>
+                <a href="/battle_winning_records/<%= order.id %>/edit" class="btn btn-warning btn-sm ">管理订单</a>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @battle_orders %>
+<script type="text/javascript">
+  $(function(){
+    $("#download").click(function () {
+      $("#search_form")[0].action = '/battle_winning_records.csv'
+      $("#search_form").submit()
+      $("#search_form")[0].action = '/battle_winning_records'
+    })
+    $("#submit").click(function () {
+      $("#search_form")[0].action = '/battle_winning_records'
+      $("#search_form").submit()
+    })
+  })
+</script>

@@ -1,0 +1,21 @@
+
+<!-- <div class="lead text-right well">
+  <p><%#= link_to '修改品牌', edit_auction_theme_path(@auction_theme), class: 'btn btn-primary', role: 'button' %></p>
+</div> -->
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>基础信息</strong></div>
+  <ul class="list-group">
+
+    <li class="list-group-item ">标题：<span class="red"><%= @auction_theme.title %></span></li>
+    <li class="list-group-item ">副标题：<span class="red"><%= @auction_theme.subtitle %></span></li>
+    <li class="list-group-item">图片：<%= image_tag (@auction_theme.pic) || '', width: 60, height: 60 if @auction_theme.pic %></li>
+    <li class="list-group-item">发布时间：<%= @auction_theme.publish_time&.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <li class="list-group-item">下线时间：<%= @auction_theme.down_time&.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <li class="list-group-item">类型：<%= Auction::Theme::THEME_TYPE[@auction_theme.theme_type] %></li>
+    <li class="list-group-item">发布状态：<%= @auction_theme.published ? '已发布' : '未发布' %></li>
+
+  </ul>
+
+</div>

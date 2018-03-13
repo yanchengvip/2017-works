@@ -1,0 +1,36 @@
+<div class="row"><p class="sub-header">宝箱管理>宝箱设置>宝箱列表</p></div>
+
+<%= render partial: 'search' %>
+<legend class="row mt_20 mb_20 text-center">
+  <p><%= link_to '导入京东卡', new_jd_card_path, class: 'btn btn-primary btn-lg', role: 'button' %></p>
+</legend>
+
+<div class="row">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>卡号</th>
+        <th>密码</th>
+        <th>金额（元）</th>
+        <th>抽奖记录id</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @jd_cards && @jd_cards.each_with_index do |jd_card, index| %>
+      <tr id="tr_<%= jd_card.id %>">
+        <td><%= jd_card.id %></td>
+        <td><%= jd_card.code %></td>
+        <td><%#= jd_card.password %>******</td>
+        <td><%= jd_card.price %></td>
+        <td><%= jd_card.chest_record_id %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @jd_cards %>
+
+<%#= render partial: 'shelf_modal' %>
+<%#= render partial: 'copy_modal' %>

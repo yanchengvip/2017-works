@@ -1,0 +1,38 @@
+<%- model_class = ReportForm -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:provider_id) %>:</strong></dt>
+  <dd><%= @report_form.provider_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
+  <dd><%= @report_form.date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:trade_amount) %>:</strong></dt>
+  <dd><%= @report_form.trade_amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:express_amount) %>:</strong></dt>
+  <dd><%= @report_form.express_amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:other_fee) %>:</strong></dt>
+  <dd><%= @report_form.other_fee %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:remark) %>:</strong></dt>
+  <dd><%= @report_form.remark %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total_amount) %>:</strong></dt>
+  <dd><%= @report_form.total_amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @report_form.status %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
+  <dd><%= @report_form.user_id %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              supplier_report_forms_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_supplier_report_form_path(@report_form), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              supplier_report_form_path(@report_form),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '
+Are you sure?
+
+你确定吗？')) },
+              :class => 'btn btn-danger' %>

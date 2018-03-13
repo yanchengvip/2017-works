@@ -1,0 +1,30 @@
+<div class="panel panel-default" >
+  <div class="panel-body panel-form-center">
+    <%= simple_form_for @manage_role, html: {class: 'form-horizontal'}, wrapper: :horizontal_form,
+                        wrapper_mappings: {
+                            check_boxes: :horizontal_radio_and_checkboxes,
+                            radio_buttons: :horizontal_radio_and_checkboxes,
+                            file: :horizontal_file_input,
+                            boolean: :horizontal_boolean
+                        } do |f| %>
+        <%= f.input :name, label: '名称:' ,required: 'true'%>
+        <div class="form-group row">
+          <label for="manage_role_choose_all" class="col-sm-3 control-label">全选:</label>
+          <div class="col-sm-9">
+            <%= f.check_box :choose_all, id: "choose_all", onclick: "choose_all_authority()"%>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="manage_role_choose_unall" class="col-sm-3 control-label">反选:</label>
+          <div class="col-sm-9">
+            <%= f.check_box :choose_unall, id: "choose_unall", onclick: "choose_unall_authority()"%>
+          </div>
+        </div>
+        <% @result.each do |k,v|%>
+          <%= f.input :authority_ids, class: 'choose_author', as: :check_boxes, :item_wrapper_class => 'radio-inline', include_hidden: false, collection: v, checked: @manage_role_authorities_ids, label: I18n.t("routes.controller.#{k}")+":" %>
+        <% end %>
+        <%= f.button :submit, '保存', class: 'btn-info sf-submit' %>
+        <%= link_to '取消', "", class: 'btn btn-default ml_20', role: 'button' %>
+    <% end %>
+  </div>
+</div>
